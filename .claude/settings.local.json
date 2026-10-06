@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p \"/h/Il mio Drive/claude-repo/CraftingGame/design/research\")",
-      "Bash(cp \"/c/Users/irond/.claude/plans/let-s-use-this-conversation-melodic-quail.md\" \"/h/Il mio Drive/claude-repo/CraftingGame/design/roadmap.md\")"
-    ]
-  }
-}
