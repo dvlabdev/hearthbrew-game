@@ -87,17 +87,19 @@ The **mortar** from the roadmap is renamed the **salve pot** in v1, to keep a si
 
 - **Garden AP:** 1 AP covers all of the day's garden work (plant, water, harvest).
 
-## 5. Expeditions (one framework, three skins)
-- **Grid:** a grid of bushes or tiles. **Picks are limited by the basket**, not by a timer (cozy).
-  - Each tile hides an ingredient or nothing.
-  - **Glints** hint at rare nodes.
-  - Each run gives 4–8 items. Duration: 60–90 seconds.
+## 5. Expeditions (v1: trail choice + event cards)
+See **`design/expedition.md`**.
+- Each area has 3 trails with a visible likely yield, plus Wren's hint when a trail matches tomorrow's featured request.
+- The basket fills automatically.
+- Then one event card: **Spot the herb** (two plants side by side, difference circled), **Encounter**, or **Discovery**.
+- About 15–25 s.
+- The search-and-pick grid (prototype C) and the herb walk (prototype C2) were dropped after failed playtests.
 
-| Area | Grid | Opens | Twist |
+| Area | Opens | Trails (examples) | Look-alike pairs for Spot the herb |
 |---|---|---|---|
-| Meadow | 5×5 | Day 3 | Basic. Herb clusters: neighbors of a find are likely to hold the same herb. |
-| Whisperwood | 6×6 | Day 7 | **Wandering nodes:** after each pick, one hidden node rustles and moves to an adjacent tile (with a visible tell). Roots need the trowel. |
-| Under the Hill | 6×6 | Day 12 (lantern + oil) | **Dark:** only the lantern radius around your last pick is visible. Crystals form veins of adjacent tiles. |
+| Meadow | Day 3 | Mill Path (chamomile, mint), Hedgerow (nettle, rosehip), Sunny Bank (sage, fireroot; sometimes lavender) | chamomile/mayweed, nettle/dead-nettle, mint/ground-ivy |
+| Whisperwood | Day 7 | Mossy Hollow (bilberry, glowcap), Old Pines (pine resin; roots with the trowel), Wisp Glade (rare glowcap, events) | 1 forest pair (M3) |
+| Under the Hill | Day 12–13 (lantern + oil) | Salt Seam, Crystal Gallery (quartz, rare), Brimstone Vent (salve and oil use only) | 1 mineral pair (M3) |
 
 ## 6. Riddle keywords (starter glossary)
 | Keyword / phrase | Trait (magnitude per the intensity word) |
@@ -143,7 +145,7 @@ The **mortar** from the roadmap is renamed the **salve pot** in v1, to keep a si
   - Every star rating, including 0★, plays an ending.
 
 ## 9. v2 maybe list (do not build in v1)
-Lemon balm, mugwort, vervain, yarrow · mortar (grinding) · candles and incense · distiller · moon altar and Arcane · charms · marsh and cliffs · beehive · greenhouse · seasons and moon phases · more regulars.
+**Rotating micro-games for the morning** (herb identification with a visual comparison, root digging, wisp catching; optional, one per morning; lessons in `expedition.md`) · Lemon balm, mugwort, vervain, yarrow · mortar (grinding) · candles and incense · distiller · moon altar and Arcane · charms · marsh and cliffs · beehive · greenhouse · seasons and moon phases · more regulars.
 
 ## 10. Day-by-day pacing (validated by `tools/economy_sim.py`, 2026-10-07)
 | Day | New | Typical purchase (average player) |

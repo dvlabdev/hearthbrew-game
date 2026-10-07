@@ -117,7 +117,16 @@ The heat rule creates the intended depth.
 - **Harmless look-alikes,** added one per walk: chamomile/mayweed, nettle/dead-nettle, mint/ground-ivy.
 - **Wrong picks** bring Wren's correction and a new field-guide entry. Rare finds: lavender and rosehip.
 - **Checked at 360px:** no overflow or console errors; 99px tiles; inspect → pick look-alike → correction → guide entry works.
-- **Status:** ⏳ waiting for your 3 walks. Pass needs: median walk 45–90 s, walk 3 rated 4 or higher, clues used, at most 1 unfair look-alike.
+- **Status:** ❌ **FAIL (user playtest, 2026-10-07).**
+  - Walk 1: 23 s, list 2/3, 3 wrong picks, rated 4.
+  - Walks 2 and 3: 1 s each, nothing inspected (skipped).
+  - In your words: "The 'wrong' pick was not clear why it was wrong"; "I didn't understand it, I must retry"; it would work "only if it's one of many minigames".
+- **Diagnosis:**
+  - The difference lived only in text, and the thumbnails were near-identical. The clue never became visible.
+  - A frustrating first walk made you skip the rest.
+  - A single repeated mini-game isn't wanted; variety is.
+- **Decision (yours, 2026-10-07):** **trail choice + event cards** for v1. Spec in `design/expedition.md`. Identification survives as an occasional "Spot the herb" event card, with the two plants side by side and the difference circled. A pool of rotating micro-games goes on the v2 list.
+- **Gate impact:** prototype C is **closed by a design decision**, not passed. There is no dexterity or skill risk left in v1's morning. It's measured in the M1 slice instead (morning 15–40 s; trails chosen by need).
 
 ## Check 4: full request space (2026-10-07)
 **Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).

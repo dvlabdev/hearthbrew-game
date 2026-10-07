@@ -41,7 +41,7 @@ A cozy, witchy apothecary game. You have 20 days to restore your late mentor's s
 ## 5. The day (4 phases)
 | Phase | Player time | Decisions | Notes |
 |---|---|---|---|
-| **1. Explore & Collect** | 2–5 min | Spend **3 action points**: expedition (1 AP, mini-game), garden actions (plant / water / harvest, 1 AP for all garden work in a day), market (free; costs coins) | Expeditions give variety and rare finds. The garden gives reliable supply that grows over days. |
+| **1. Explore & Collect** | 2–5 min | Spend **3 action points**: expedition (1 AP: choose a trail + one event card, see expedition.md), garden actions (plant / water / harvest, 1 AP for all garden work in a day), market (free; costs coins) | Expeditions give variety and rare finds. The garden gives reliable supply that grows over days. |
 | **2. Prepare & Sell** | 3–7 min | Read 3–6 riddles, choose what to brew and how (heat: simmer or boil), and decide which customer gets which brew | One customer is the **featured request**: double pay plus a reputation bonus |
 | **3. Improve** | 30–90 s | Buy upgrades, donate to the festival, review new Notebook entries | |
 | **4. Rest** | ~10 s | None | Recap, relationship changes, tomorrow's teaser, autosave |

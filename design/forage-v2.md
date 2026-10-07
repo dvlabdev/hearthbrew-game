@@ -1,3 +1,5 @@
+> **Superseded (2026-10-07)** by `design/expedition.md` after a failed playtest. Kept for its lessons.
+
 # Expedition v2: herb identification (prototype C2)
 
 **Why:** prototype C failed (6-second runs, random taps). Foraging needs a goal and readable information.

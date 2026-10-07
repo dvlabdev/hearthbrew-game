@@ -70,6 +70,8 @@ Session 3 (build + measure) ──► Session 4 (review + decide) ──► GATE
 
 ---
 
+> **Update (2026-10-07):** prototypes C and C2 both failed playtests. The morning is now **trail choice + event cards** (`design/expedition.md`), validated in the M1 slice instead of another prototype.
+
 ## Session 4: review and decide
 
 | # | Deliverable | Content |
