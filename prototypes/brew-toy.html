@@ -680,8 +680,14 @@ details.dev pre{white-space:pre-wrap;font-size:13px;margin:8px 0 0;font-family:u
   }
 
   // ---------------- boot (keeps progress across republishes in an open viewer) ----------------
+  // progress is remembered on this device so the 10 customers can be played in several sittings
+  const KEY = 'hearthbrew-toy-v1';
+  const origRender = render;
+  render = function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} origRender(); };
+  function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); return v && Array.isArray(v.results) ? v : null; } catch (e) { return null; } }
   function start(data) {
-    S = data && data.S ? data.S : fresh();
+    S = data && data.S ? data.S : (load() || fresh());
+    S.started = Date.now();
     render();
   }
   window.claude?.hot?.snapshot?.(() => ({ S }));
