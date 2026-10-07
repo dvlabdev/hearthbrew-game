@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "traits": [
+    { "id": "heat",    "name": "Heat",    "icon": "flame",   "shape": "triangle" },
+    { "id": "calm",    "name": "Calm",    "icon": "droplet", "shape": "circle" },
+    { "id": "vigor",   "name": "Vigor",   "icon": "leaf",    "shape": "square" },
+    { "id": "clarity", "name": "Clarity", "icon": "star",    "shape": "diamond" }
+  ],
+  "ingredients": {
+    "chamomile": { "name": "Chamomile",     "vec": [0, 3, 0, 0],   "tags": ["delicate", "flower"],     "sources": ["start", "garden"],  "grow": 2 },
+    "lavender":  { "name": "Lavender",      "vec": [0, 2, 0, 1],   "tags": ["delicate", "flower"],     "sources": ["garden"],           "grow": 3 },
+    "mint":      { "name": "Mint",          "vec": [-2, 1, 0, 2],  "tags": ["delicate", "leaf"],       "sources": ["start", "meadow", "garden"], "grow": 2 },
+    "sage":      { "name": "Sage",          "vec": [0, 1, 0, 3],   "tags": ["leaf"],                   "sources": ["start", "meadow"] },
+    "fireroot":  { "name": "Fireroot",      "vec": [3, 0, 1, 0],   "tags": ["tough", "root"],          "sources": ["start", "meadow", "garden"], "grow": 4 },
+    "nettle":    { "name": "Nettle",        "vec": [1, 0, 3, 0],   "tags": ["leaf"],                   "sources": ["meadow"] },
+    "rosehip":   { "name": "Rosehip",       "vec": [0, 0, 2, 1],   "tags": ["tough", "fruit"],         "sources": ["meadow", "garden"], "grow": 5 },
+    "honey":     { "name": "Honey",         "vec": [0, 1, 1, 0],   "tags": ["sweetener"],              "sources": ["market"], "price": 2 },
+    "valerian":  { "name": "Valerian",      "vec": [0, 4, -1, -1], "tags": ["tough", "root"],          "sources": ["forest", "garden"], "grow": 4, "needs": "trowel" },
+    "glowcap":   { "name": "Glowcap",       "vec": [0, -1, 0, 4],  "tags": ["tough", "fungus"],        "sources": ["forest"] },
+    "pine":      { "name": "Pine resin",    "vec": [2, 0, 0, 1],   "tags": ["resinous", "oily"],       "sources": ["forest"] },
+    "bilberry":  { "name": "Bilberry",      "vec": [0, 1, 2, 1],   "tags": ["delicate", "fruit"],      "sources": ["forest"] },
+    "angelica":  { "name": "Angelica root", "vec": [2, 0, 1, 1],   "tags": ["tough", "root"],          "sources": ["forest"], "needs": "trowel" },
+    "brimstone": { "name": "Brimstone",     "vec": [4, -1, 0, 0],  "tags": ["mineral"],                "sources": ["cave"] },
+    "salt":      { "name": "Salt",          "vec": [0, 0, 0, 0],   "tags": ["mineral", "mod-salt"],    "sources": ["cave", "market"], "price": 3 },
+    "quartz":    { "name": "Quartz dust",   "vec": [0, 0, 0, 0],   "tags": ["mineral", "mod-purify"],  "sources": ["cave"] },
+    "sunwort":   { "name": "Sunwort",       "vec": [1, 1, 1, 1],   "tags": ["delicate", "flower"],     "sources": ["garden"], "grow": 6, "harvest": 2, "annual": true }
+  },
+  "bases": {
+    "water":     { "name": "Spring water", "good": "potion", "mod": [0, 0, 0, 0], "price": 0 },
+    "tealeaves": { "name": "Tea leaves",   "good": "tea",    "mod": [0, 1, 0, 0], "price": 1 },
+    "oil":       { "name": "Oil",          "good": "salve",  "mod": [0, 0, 0, 0], "price": 3, "needsBinder": "beeswax" },
+    "beeswax":   { "name": "Beeswax",      "binder": true,   "price": 2 }
+  },
+  "goods": {
+    "potion": { "batch": 2, "price": 10 },
+    "tea":    { "batch": 3, "price": 7 },
+    "salve":  { "batch": 2, "price": 16 }
+  },
+  "rules": [
+    { "id": "R1", "tag": "real",        "text": "Delicate ingredient at Boil: -1 Calm and -1 Clarity (if present)" },
+    { "id": "R2", "tag": "real",        "text": "Tough ingredient at Simmer: -1 on its main trait" },
+    { "id": "R3", "tag": "exaggerated", "text": "Brew Heat >= 8 at Boil: Scorched, all other traits -1" },
+    { "id": "R4", "tag": "exaggerated", "text": "Honey + any Heat ingredient: +1 Calm" },
+    { "id": "R5", "tag": "exaggerated", "text": "Salt: +1 to the brew's highest trait, +2 shelf days" },
+    { "id": "R6", "tag": "real",        "text": "Oily ingredient + water base without beeswax: Separated, max 1 star" },
+    { "id": "R7", "tag": "magic",       "text": "Two highest traits equal and >= 4: Harmonized, +1 star (max 3); not for the Midsummer Draught" },
+    { "id": "R8", "tag": "magic",       "text": "Quartz dust: the lowest non-zero trait becomes 0" }
+  ],
+  "scoring": { "starBands": [0, 2, 4], "priceMult": [0.25, 0.6, 1.0, 1.5], "relationship": [0, 0, 1, 2], "recipeBonus": 1.2, "featuredMult": 2 },
+  "recipes": {
+    "sleepwell":   { "name": "Sleepwell Draught",   "vec": [0, 6, 0, 0], "hint": "Two cups of quiet." },
+    "woodsman":    { "name": "Woodsman's Warmer",   "vec": [4, 0, 4, 0], "hint": "Root for the fire, leaf for the arm." },
+    "clearwater":  { "name": "Scholar's Clearwater","vec": [0, 3, 0, 4], "hint": "A calm hand, a clear head." },
+    "springtonic": { "name": "Spring Tonic",        "vec": [0, 0, 5, 2], "hint": "What the hedge gives in March." },
+    "hearthside":  { "name": "Hearthside Tea",      "vec": [1, 4, 0, 0], "good": "tea",   "hint": "Warm the cup, not the tongue." },
+    "balm":        { "name": "Comfrey-less Balm",   "vec": [2, 0, 4, 0], "good": "salve", "hint": "For backs that carry the village." },
+    "midsummer":   { "name": "Midsummer Draught",   "vec": [5, 5, 5, 5], "slots": 5, "tol": 2, "requires": { "sunwort": [1, 2] }, "noHarmonize": true, "hint": "Everything at once, in balance. Sunwort knows how." }
+  },
+  "keywords": [
+    { "phrases": ["can't sleep", "restless", "tossing all night"],      "traits": { "calm": 1 } },
+    { "phrases": ["nerves", "jittery", "shaking hands"],                 "traits": { "calm": 1, "clarity": 0.5 } },
+    { "phrases": ["foggy head", "can't focus", "forgetful"],             "traits": { "clarity": 1 } },
+    { "phrases": ["chilled", "cold to the bone", "frosty morning"],      "traits": { "heat": 1 } },
+    { "phrases": ["aching", "sore", "stiff back"],                       "traits": { "vigor": 1, "heat": 0.5 }, "heatFromTier": 2 },
+    { "phrases": ["worn out", "weak", "spring fatigue"],                 "traits": { "vigor": 1 } },
+    { "phrases": ["sniffles", "stuffy"],                                 "traits": { "clarity": 1, "heat": 0.5 } },
+    { "phrases": ["upset stomach", "heavy meal"],                        "traits": { "calm": 1, "vigor": 0.5 } }
+  ],
+  "avoid": [
+    { "phrases": ["but nothing that keeps me awake"], "zero": ["clarity", "heat"] },
+    { "phrases": ["nothing too fiery"],               "zero": ["heat"] }
+  ],
+  "intensity": [
+    { "words": ["a little", "slightly"],                         "value": 3 },
+    { "words": [""],                                             "value": 4 },
+    { "words": ["terribly", "all week", "can't bear it"],        "value": 6 }
+  ],
+  "tiers": [
+    { "tier": 1, "days": [1, 4],   "traits": [1, 1], "tol": 2 },
+    { "tier": 2, "days": [5, 12],  "traits": [2, 2], "tol": 2 },
+    { "tier": 3, "days": [13, 20], "traits": [2, 3], "tol": 1, "avoid": true }
+  ]
+}

@@ -6,7 +6,7 @@ A cozy, witchy apothecary crafting game for the browser. You inherit Old Mother 
 The source of truth for scope and milestones is `design/roadmap.md`. Read it before starting any milestone.
 
 ## Current phase
-M0a: rules design. No production code until the M0c validation gate passes.
+M0c: design validation gate (see `design/validation.md`). Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`. No production code until the gate passes.
 
 ## Design rules
 - Every feature must serve at least one pillar:

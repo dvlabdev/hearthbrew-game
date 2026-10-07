@@ -1,0 +1,576 @@
+<title>Hearthbrew Art Tile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: a specimen sheet torn from Wren's notebook — one column of labelled plates, ending in a live 375px brew screen. */
+:root{
+  /* world */
+  --bg:#E9ECDF;        /* sage-tinted parchment */
+  --surface:#F6F6EE;
+  --sunk:#DDE2D2;
+  --ink:#2C1F31;       /* plum-black ink */
+  --muted:#5D5464;
+  --line:#2C1F3126;
+  --moss:#3E5C38;
+  --plum:#6A3A6D;
+  --amber:#B86A10;     /* candle */
+  --wisp:#1B7F7B;
+  --iron:#2A2830;
+  --iron-hi:#4A4752;
+  --petal:#FBF9F0;
+  --skin:#D9A47E;
+  --hair:#5E3A22;
+  --root:#C48A4C;
+  --root-dk:#8A5527;
+  --glow:#3FD3C2;
+  /* traits (Okabe-Ito based, darkened for light ground) */
+  --heat:#C4520A;
+  --calm:#0A6FAE;
+  --vigor:#007F5B;
+  --clarity:#A64C89;
+  --on-trait:#FFFFFF;
+  /* type */
+  --display:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --hand:"Kalam", "Comic Sans MS", cursive;
+  --step-0:1rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem; --step-4:3.2rem;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111915; --surface:#19241D; --sunk:#0C120F; --ink:#EEE7D7; --muted:#A8A597; --line:#EEE7D722;
+  --moss:#86A976; --plum:#C99BD2; --amber:#F0A63A; --wisp:#5FD3C7; --iron:#0A0C0B; --iron-hi:#3A3F3B;
+  --petal:#F4F0E2; --skin:#C8916B; --hair:#4A2D1A; --root:#B57E43; --root-dk:#7A4A20; --glow:#6FF5E3;
+  --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#111915; --surface:#19241D; --sunk:#0C120F; --ink:#EEE7D7; --muted:#A8A597; --line:#EEE7D722;
+  --moss:#86A976; --plum:#C99BD2; --amber:#F0A63A; --wisp:#5FD3C7; --iron:#0A0C0B; --iron-hi:#3A3F3B;
+  --petal:#F4F0E2; --skin:#C8916B; --hair:#4A2D1A; --root:#B57E43; --root-dk:#7A4A20; --glow:#6FF5E3;
+  --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 var(--step-0)/1.55 var(--body);padding-inline:16px;padding-block:24px 64px}
+.sheet{max-width:960px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.4rem,7vw,var(--step-4))}
+h2{font-size:var(--step-3)}
+h3{font-size:var(--step-1)}
+p{margin:0;max-width:62ch}
+.eyebrow{font:700 .8rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hand{font-family:var(--hand);color:var(--plum);font-size:1.15rem;line-height:1.35}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--wisp);outline-offset:2px;border-radius:6px}
+
+/* masthead */
+.mast{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:center}
+.mast .lede{display:grid;gap:14px}
+.mast .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 14px;cursor:pointer;font-size:.95rem}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:720px){.mast{grid-template-columns:1fr}}
+
+/* plates */
+.plate{display:grid;gap:20px;border-top:1.5px solid var(--ink);padding-top:18px}
+.plate header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.plate header .no{font-family:var(--display);font-style:italic;color:var(--muted)}
+
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.sw{display:grid;gap:6px}
+.sw i{display:block;height:64px;border-radius:10px;border:1px solid var(--line)}
+.sw b{font-weight:700}
+.sw span{color:var(--muted);font-size:.9rem}
+
+.traits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.traits{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.trait{display:grid;justify-items:start;gap:8px;padding:14px;background:var(--surface);border-radius:12px}
+.trait svg{width:52px;height:52px}
+.trait b{font-family:var(--display);font-size:var(--step-1);font-weight:400}
+.trait span{font-size:.9rem;color:var(--muted)}
+
+.type{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:720px){.type{grid-template-columns:1fr}}
+.type div{display:grid;gap:8px;align-content:start}
+.type .big{font-family:var(--display);font-size:var(--step-3);line-height:1.05}
+.type .bodyspec{font-size:var(--step-0)}
+.type .handspec{font-family:var(--hand);font-size:var(--step-1);color:var(--plum)}
+
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:640px){.gallery{grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:14px;padding:16px;display:grid;gap:8px;justify-items:center;text-align:center}
+.card svg{width:min(150px,100%);height:auto;aspect-ratio:1}
+.card .vec{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:720px){.duo{grid-template-columns:1fr}}
+.cauldron-wrap{display:grid;gap:12px;justify-items:center}
+.cauldron-wrap svg{width:min(320px,100%);height:auto}
+
+/* riddle card */
+.riddle{background:var(--surface);border-radius:16px;padding:18px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:start}
+.riddle svg{width:96px;height:96px}
+.riddle .who{font-family:var(--display);font-size:var(--step-1)}
+.riddle q{display:block;font-size:1.1rem;quotes:"“" "”"}
+.kw{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--calm)}
+.kw-int{text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--muted)}
+.wren{border-left:2px solid var(--plum);padding-left:12px}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 4px;border-radius:999px;background:var(--sunk);font-size:.9rem;font-variant-numeric:tabular-nums}
+.chip svg{width:18px;height:18px}
+
+/* phone mock */
+.phone-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,375px);gap:28px;align-items:start}
+@media (max-width:760px){.phone-stage{grid-template-columns:1fr;justify-items:center}}
+.phone{width:375px;max-width:100%;background:var(--surface);border:2px solid var(--ink);border-radius:28px;padding:14px;display:grid;gap:12px;font-size:16px}
+.ph-top{display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.ph-top .phase{font-family:var(--display);font-weight:400;font-size:1.2rem}
+.coins{font-variant-numeric:tabular-nums;color:var(--amber)}
+.ph-riddle{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;background:var(--bg);border-radius:14px;padding:10px;align-items:center}
+.ph-riddle svg{width:52px;height:52px}
+.ph-riddle q{quotes:"“" "”";font-size:16px;line-height:1.4}
+.ph-pot{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center}
+.ph-pot svg{width:120px;height:auto}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{aspect-ratio:1;border:2px dashed var(--muted);border-radius:12px;background:transparent;display:grid;place-items:center;cursor:pointer;padding:4px;min-height:56px}
+.slot.filled{border-style:solid;border-color:var(--ink);background:var(--bg)}
+.slot svg{width:80%;height:80%}
+.heat-toggle{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden}
+.heat-toggle button{background:transparent;border:0;padding:10px;cursor:pointer;min-height:44px}
+.heat-toggle button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.shelf{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.ing{flex:0 0 auto;width:72px;display:grid;justify-items:center;gap:2px;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:6px 4px;cursor:pointer;font-size:13px;line-height:1.2;min-height:44px}
+.ing svg{width:40px;height:40px}
+.ing small{color:var(--muted);font-size:12px}
+.meter{display:grid;gap:6px}
+.mrow{display:grid;grid-template-columns:22px 64px minmax(0,1fr) 28px;gap:8px;align-items:center}
+.mrow svg{width:22px;height:22px}
+.mrow .nm{font-size:15px}
+.bar{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;height:14px}
+.bar i{border-radius:3px;background:var(--sunk)}
+.bar i.on{background:var(--c)}
+.bar i.unk{background:repeating-linear-gradient(135deg,var(--c) 0 3px,transparent 3px 6px);opacity:.8}
+.mrow .val{font-variant-numeric:tabular-nums;text-align:right;font-weight:700}
+.brew-btn{background:var(--plum);color:var(--surface);border:0;border-radius:14px;padding:14px;font:700 1.05rem var(--body);cursor:pointer;min-height:48px}
+.brew-btn:disabled{opacity:.45;cursor:not-allowed}
+.result{min-height:3.2em;display:grid;gap:4px}
+.stars{font-size:1.4rem;letter-spacing:.1em;color:var(--amber)}
+.note{font-family:var(--hand);color:var(--plum);font-size:1rem}
+.legend{display:grid;gap:12px}
+.legend ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+
+/* cauldron animation */
+.flame{transform-origin:100px 186px;animation:flick 1.1s ease-in-out infinite alternate}
+.flame.f2{animation-duration:.8s;animation-delay:-.3s}
+.flame.f3{animation-duration:1.4s;animation-delay:-.6s}
+@keyframes flick{from{transform:scaleY(.86) scaleX(1.03)}to{transform:scaleY(1.08) scaleX(.96)}}
+.bub{animation:rise 2.4s ease-in infinite;opacity:0}
+.bub.b2{animation-delay:-.8s}.bub.b3{animation-delay:-1.6s}.bub.b4{animation-delay:-.4s}.bub.b5{animation-delay:-1.2s}
+@keyframes rise{0%{transform:translateY(4px);opacity:0}30%{opacity:.9}100%{transform:translateY(-10px);opacity:0}}
+.steam{animation:steam 4s ease-in-out infinite;opacity:.0}
+.steam.s2{animation-delay:-1.3s}.steam.s3{animation-delay:-2.6s}
+@keyframes steam{0%{transform:translateY(8px);opacity:0}40%{opacity:.55}100%{transform:translateY(-26px);opacity:0}}
+.pot .extra{display:none}
+.pot.boil .extra{display:inline}
+.pot.boil .bub{animation-duration:1.1s}
+.pot.boil .steam{animation-duration:2.2s}
+.pot.boil .flame{animation-duration:.5s}
+@media (prefers-reduced-motion: reduce){.flame,.bub,.steam{animation:none}.bub,.steam{opacity:.6}}
+.glowpulse{animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.35}to{opacity:.8}}
+@media (prefers-reduced-motion: reduce){.glowpulse{animation:none;opacity:.6}}
+
+.cvd-note{font-size:.9rem;color:var(--muted)}
+footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<!-- shared sprite: trait badges + ingredient icons + filters -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="cvd-prot"><feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0"/></filter>
+    <filter id="cvd-deut"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter>
+    <filter id="cvd-trit"><feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"/></filter>
+    <filter id="cvd-mono"><feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0  0.299 0.587 0.114 0 0  0.299 0.587 0.114 0 0  0 0 0 1 0"/></filter>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+
+    <!-- trait badges: shape + glyph -->
+    <symbol id="t-heat" viewBox="0 0 48 48"><path d="M24 4 L45 42 H3 Z" fill="var(--heat)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/><path d="M24 18c4 5 6 8 6 12a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3-1-3 0-5 0-8z" fill="var(--on-trait)"/></symbol>
+    <symbol id="t-calm" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--calm)" stroke="var(--ink)" stroke-width="2"/><path d="M24 12c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15z" fill="var(--on-trait)"/></symbol>
+    <symbol id="t-vigor" viewBox="0 0 48 48"><rect x="5" y="5" width="38" height="38" rx="5" fill="var(--vigor)" stroke="var(--ink)" stroke-width="2"/><path d="M14 34c0-12 8-20 22-20 0 14-8 22-20 22l-2-2zm2 0 12-12" fill="var(--on-trait)" stroke="var(--vigor)" stroke-width="1.5"/></symbol>
+    <symbol id="t-clarity" viewBox="0 0 48 48"><path d="M24 2 L46 24 L24 46 L2 24 Z" fill="var(--clarity)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/><path d="M24 13l2.8 7.7 8.2.3-6.4 5 2.3 7.9L24 29.3l-6.9 4.6 2.3-7.9-6.4-5 8.2-.3z" fill="var(--on-trait)"/></symbol>
+
+    <!-- ingredients -->
+    <symbol id="i-chamomile" viewBox="0 0 100 100">
+      <path d="M50 52 C48 68 44 80 40 94 M50 60 C58 66 64 70 70 72" fill="none" stroke="var(--moss)" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M70 72 c4-6 10-6 12-2 -4 4 -8 4 -12 2z" fill="var(--moss)"/>
+      <g transform="translate(50 36)" stroke="var(--ink)" stroke-width="1.6" fill="var(--petal)">
+        <ellipse rx="6" ry="17" cy="-17"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(40)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(80)"/>
+        <ellipse rx="6" ry="17" cy="-17" transform="rotate(120)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(160)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(200)"/>
+        <ellipse rx="6" ry="17" cy="-17" transform="rotate(240)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(280)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(320)"/>
+        <circle r="10" fill="var(--amber)"/>
+        <circle r="10" fill="none" stroke-dasharray="2 3" stroke="var(--root-dk)"/>
+      </g>
+    </symbol>
+    <symbol id="i-fireroot" viewBox="0 0 100 100">
+      <g stroke="var(--ink)" stroke-width="1.8" fill="var(--root)">
+        <ellipse cx="46" cy="58" rx="28" ry="17" transform="rotate(-18 46 58)"/>
+        <ellipse cx="26" cy="44" rx="11" ry="15" transform="rotate(-40 26 44)"/>
+        <ellipse cx="62" cy="36" rx="10" ry="16" transform="rotate(25 62 36)"/>
+        <ellipse cx="76" cy="62" rx="12" ry="9" transform="rotate(10 76 62)"/>
+      </g>
+      <path d="M30 62c8-2 16-2 26 0M38 52c6 0 12 1 18 3" stroke="var(--root-dk)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <ellipse cx="83" cy="63" rx="5" ry="6" fill="var(--heat)" stroke="var(--ink)" stroke-width="1.5"/>
+      <ellipse cx="83" cy="63" rx="2.5" ry="3" fill="var(--amber)"/>
+      <path d="M86 44l2-5 2 5-2 4z M18 74l1.5-4 1.5 4-1.5 3z" fill="var(--heat)"/>
+    </symbol>
+    <symbol id="i-glowcap" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="44" rx="40" ry="26" fill="var(--glow)" filter="url(#soft-glow)" opacity=".55"/>
+      <path d="M44 52 C42 68 40 80 36 92 H62 C58 80 56 68 56 52 Z" fill="var(--petal)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M14 54 C14 26 34 14 50 14 C66 14 86 26 86 54 C70 58 30 58 14 54 Z" fill="var(--wisp)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M22 50 C24 32 36 22 50 20" fill="none" stroke="var(--glow)" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+      <g fill="var(--glow)" stroke="var(--ink)" stroke-width="1"><circle cx="38" cy="34" r="4"/><circle cx="60" cy="28" r="3"/><circle cx="70" cy="44" r="3.5"/><circle cx="48" cy="46" r="2.5"/></g>
+      <g fill="var(--glow)"><circle cx="20" cy="22" r="1.6"/><circle cx="82" cy="20" r="1.3"/><circle cx="76" cy="78" r="1.5"/></g>
+    </symbol>
+    <symbol id="i-mint" viewBox="0 0 100 100">
+      <path d="M50 92 V40" stroke="var(--moss)" stroke-width="3.5" stroke-linecap="round"/>
+      <g stroke="var(--ink)" stroke-width="1.6" fill="var(--vigor)">
+        <path d="M50 60 C30 62 18 50 20 38 C34 36 46 46 50 60Z"/><path d="M50 60 C70 62 82 50 80 38 C66 36 54 46 50 60Z"/>
+        <path d="M50 38 C40 32 38 20 46 10 C56 16 58 28 50 38Z"/>
+      </g>
+      <path d="M26 42 L46 56 M74 42 L54 56" stroke="var(--petal)" stroke-width="1.4" opacity=".7"/>
+    </symbol>
+    <symbol id="i-sage" viewBox="0 0 100 100">
+      <path d="M50 92 C50 70 50 50 52 30" stroke="var(--moss)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <g stroke="var(--ink)" stroke-width="1.6" fill="#8FA58A">
+        <ellipse cx="34" cy="62" rx="9" ry="20" transform="rotate(-40 34 62)"/><ellipse cx="66" cy="54" rx="9" ry="20" transform="rotate(40 66 54)"/>
+        <ellipse cx="52" cy="22" rx="8" ry="16"/>
+      </g>
+    </symbol>
+    <symbol id="i-honey" viewBox="0 0 100 100">
+      <path d="M28 34 H72 V80 C72 88 66 92 50 92 C34 92 28 88 28 80Z" fill="var(--amber)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="24" y="22" width="52" height="14" rx="4" fill="var(--plum)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="36" y="50" width="28" height="20" rx="3" fill="var(--petal)" stroke="var(--ink)" stroke-width="1.4"/>
+      <path d="M44 60 l6-4 6 4 v6 l-6 3 -6-3z" fill="none" stroke="var(--amber)" stroke-width="1.6"/>
+      <path d="M30 36 c2 8 6 6 6 12" stroke="var(--amber)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Marla portrait -->
+    <symbol id="p-marla" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="78" fill="var(--sunk)"/>
+      <path d="M22 160 C24 122 50 108 80 108 C110 108 136 122 138 160Z" fill="var(--moss)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M56 160 C58 132 66 118 80 118 C94 118 102 132 104 160Z" fill="var(--petal)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M70 104 h20 v12 c-6 4 -14 4 -20 0z" fill="var(--skin)" stroke="var(--ink)" stroke-width="2"/>
+      <circle cx="80" cy="30" r="15" fill="var(--hair)" stroke="var(--ink)" stroke-width="2"/>
+      <ellipse cx="80" cy="72" rx="32" ry="36" fill="var(--skin)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M48 70 C46 44 62 36 80 36 C98 36 114 44 112 70 C104 56 92 50 80 50 C68 50 56 56 48 70Z" fill="var(--hair)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M50 52 C62 40 98 40 110 52" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M60 74 q7 5 14 0 M86 74 q7 5 14 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M61 81 q6 4 12 0 M87 81 q6 4 12 0" fill="none" stroke="var(--plum)" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+      <ellipse cx="80" cy="94" rx="5" ry="6" fill="var(--hair)" stroke="var(--ink)" stroke-width="1.6"/>
+      <circle cx="102" cy="88" r="5" fill="var(--petal)" opacity=".9"/><circle cx="108" cy="92" r="2.5" fill="var(--petal)" opacity=".8"/>
+      <text x="124" y="40" font-family="IM Fell English, Georgia, serif" font-size="18" fill="var(--muted)">z</text>
+      <text x="134" y="26" font-family="IM Fell English, Georgia, serif" font-size="13" fill="var(--muted)">z</text>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="sheet" id="sheet">
+
+  <section class="mast" aria-labelledby="t">
+    <div class="lede">
+      <span class="eyebrow">Art direction tile · M0c prototype A</span>
+      <h1 id="t">Hearthbrew</h1>
+      <p>Twilight-cozy and witchy, drawn entirely in code. This sheet checks whether flat vector art, two typefaces and a colour-blind-safe trait system can carry the game. Switch the light and the eyesight filters to test it.</p>
+      <p class="hand">“Keep the pot on a simmer, child, and the riddles will keep themselves.” — W.</p>
+      <div class="tools" role="group" aria-label="View options">
+        <div class="seg" role="group" aria-label="Light">
+          <button type="button" id="th-auto" aria-pressed="true">System</button>
+          <button type="button" id="th-light" aria-pressed="false">Daylight</button>
+          <button type="button" id="th-dark" aria-pressed="false">Candlelit</button>
+        </div>
+        <div class="seg" role="group" aria-label="Colour vision simulation">
+          <button type="button" data-cvd="none" aria-pressed="true">Typical</button>
+          <button type="button" data-cvd="prot" aria-pressed="false">Protan</button>
+          <button type="button" data-cvd="deut" aria-pressed="false">Deutan</button>
+          <button type="button" data-cvd="trit" aria-pressed="false">Tritan</button>
+          <button type="button" data-cvd="mono" aria-pressed="false">Mono</button>
+        </div>
+      </div>
+    </div>
+    <div class="cauldron-wrap" id="hero-pot"></div>
+  </section>
+
+  <section class="plate" aria-labelledby="p1">
+    <header><h2 id="p1">The four traits</h2><span class="no">Plate I</span></header>
+    <p>Every trait is told three ways: colour, shape and glyph. Turn on a colour-vision filter above; the shapes still separate them.</p>
+    <div class="traits">
+      <div class="trait"><svg><use href="#t-heat"/></svg><b>Heat</b><span>Triangle · flame. Warming, stirring the blood.</span></div>
+      <div class="trait"><svg><use href="#t-calm"/></svg><b>Calm</b><span>Circle · droplet. Soothing, sleep, quiet nerves.</span></div>
+      <div class="trait"><svg><use href="#t-vigor"/></svg><b>Vigor</b><span>Square · leaf. Strength, mending, a hearty back.</span></div>
+      <div class="trait"><svg><use href="#t-clarity"/></svg><b>Clarity</b><span>Diamond · star. Focus, clear breath, a quick wit.</span></div>
+    </div>
+  </section>
+
+  <section class="plate" aria-labelledby="p2">
+    <header><h2 id="p2">Palette of the hamlet</h2><span class="no">Plate II</span></header>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--bg)"></i><b>Parchment / Hollow</b><span>Ground</span></div>
+      <div class="sw"><i style="background:var(--ink)"></i><b>Plum ink</b><span>Line &amp; text</span></div>
+      <div class="sw"><i style="background:var(--moss)"></i><b>Whisperwood moss</b><span>Plants, cloth</span></div>
+      <div class="sw"><i style="background:var(--plum)"></i><b>Hedge-witch plum</b><span>Actions, Wren's hand</span></div>
+      <div class="sw"><i style="background:var(--amber)"></i><b>Candle amber</b><span>Coins, fire, stars</span></div>
+      <div class="sw"><i style="background:var(--wisp)"></i><b>Wisp teal</b><span>Magic, focus ring</span></div>
+    </div>
+  </section>
+
+  <section class="plate" aria-labelledby="p3">
+    <header><h2 id="p3">Three hands</h2><span class="no">Plate III</span></header>
+    <div class="type">
+      <div><span class="eyebrow">Display · IM Fell English</span><span class="big">Midsummer Eve</span><p>Old apothecary print for names, titles and the shop sign. Used sparingly.</p></div>
+      <div><span class="eyebrow">Body · Atkinson Hyperlegible</span><span class="bodyspec">“Chilled to the bone and my shoulders ache.” 16 px minimum, built for low-vision readers.</span><p>Every riddle, button and number.</p></div>
+      <div><span class="eyebrow">Notebook · Kalam</span><span class="handspec">Boiling chamomile? Shame on you. The sweetness flies off with the steam.</span><p>Wren's notes and your own discoveries.</p></div>
+    </div>
+  </section>
+
+  <section class="plate" aria-labelledby="p4">
+    <header><h2 id="p4">From the shelf</h2><span class="no">Plate IV</span></header>
+    <div class="gallery">
+      <div class="card"><svg><use href="#i-chamomile"/></svg><h3>Chamomile</h3><div class="vec"><span class="chip"><svg><use href="#t-calm"/></svg>3</span></div><p class="hand">Flower · delicate. Steep it, never boil it.</p></div>
+      <div class="card"><svg><use href="#i-fireroot"/></svg><h3>Fireroot</h3><div class="vec"><span class="chip"><svg><use href="#t-heat"/></svg>3</span><span class="chip"><svg><use href="#t-vigor"/></svg>1</span></div><p class="hand">Root · tough. Wants a proper boil.</p></div>
+      <div class="card"><svg><use href="#i-glowcap"/></svg><h3>Glowcap</h3><div class="vec"><span class="chip"><svg><use href="#t-clarity"/></svg>4</span><span class="chip"><svg><use href="#t-calm"/></svg>?</span></div><p class="hand">Fungus · tough. Glows in the Whisperwood. Something about it sets the nerves on edge…</p></div>
+    </div>
+  </section>
+
+  <section class="plate" aria-labelledby="p5">
+    <header><h2 id="p5">A customer at the counter</h2><span class="no">Plate V</span></header>
+    <div class="duo">
+      <article class="riddle" aria-label="Riddle card">
+        <svg role="img" aria-label="Marla the baker, yawning"><use href="#p-marla"/></svg>
+        <div style="display:grid;gap:8px;min-width:0">
+          <span class="who">Marla, the baker</span>
+          <q>The baby's had me up <span class="kw-int">all week</span>. I just need to <span class="kw">sleep</span>.</q>
+          <span class="chip" style="justify-self:start"><svg><use href="#t-calm"/></svg>“sleep” — decoded</span>
+          <p class="hand wren">Solid underline: a word you've decoded. Dotted: how strongly they mean it.</p>
+        </div>
+      </article>
+      <div class="legend">
+        <h3>What the card shows</h3>
+        <ul>
+          <li>No numbers. The target stays hidden (pillar 1).</li>
+          <li>Decoded keywords are underlined and carry their trait badge.</li>
+          <li>Intensity words get a dotted line once you've learned them.</li>
+          <li>Portraits share one construction: ink outline, flat fills, one accent colour.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="plate" aria-labelledby="p6">
+    <header><h2 id="p6">The brew screen at 375 px</h2><span class="no">Plate VI</span></header>
+    <div class="phone-stage">
+      <div class="legend">
+        <p>A working mock-up of the main screen at phone width. Tap shelf items to fill the slots, tap a slot to empty it, switch Simmer or Boil, then brew for Marla.</p>
+        <ul>
+          <li>The meter is an <b>honest preview</b>: hatched bars and “?” mark what the Notebook doesn't know yet. Try the glowcap.</li>
+          <li>Boiling a delicate flower costs Calm, and simmering a tough root costs its main trait. Wren notes each rule the first time it happens.</li>
+          <li>All tap targets are at least 44 px and text is 16 px or larger.</li>
+        </ul>
+      </div>
+      <div class="phone" id="phone">
+        <div class="ph-top"><span class="phase">Day 1 · Shop</span><span class="coins" aria-label="Coins">◉ 24</span></div>
+        <div class="ph-riddle"><svg aria-hidden="true"><use href="#p-marla"/></svg><q>Up <span class="kw-int">all week</span>. I just need to <span class="kw">sleep</span>.</q></div>
+        <div class="ph-pot"><div id="mini-pot"></div><div class="slots" id="slots"></div></div>
+        <div class="heat-toggle" role="group" aria-label="Heat">
+          <button type="button" id="h-sim" aria-pressed="true">Simmer</button>
+          <button type="button" id="h-boil" aria-pressed="false">Boil</button>
+        </div>
+        <div class="meter" id="meter" aria-live="polite"></div>
+        <div class="shelf" id="shelf" aria-label="Shelf"></div>
+        <button type="button" class="brew-btn" id="brew" disabled>Brew for Marla</button>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Hearthbrew · throwaway prototype for the M0c validation gate. All remedies are fictional. The colour-vision filters are approximations, good enough to check that the shapes do the work.</p>
+  </footer>
+</main>
+
+<script>
+(() => {
+  // ---------- theme + CVD ----------
+  const root = document.documentElement;
+  const thBtns = { auto: 'th-auto', light: 'th-light', dark: 'th-dark' };
+  for (const [mode, id] of Object.entries(thBtns)) {
+    document.getElementById(id).addEventListener('click', () => {
+      if (mode === 'auto') delete root.dataset.theme; else root.dataset.theme = mode;
+      for (const other of Object.values(thBtns)) document.getElementById(other).setAttribute('aria-pressed', String(other === id));
+    });
+  }
+  const sheet = document.getElementById('sheet');
+  document.querySelectorAll('[data-cvd]').forEach(b => b.addEventListener('click', () => {
+    const v = b.dataset.cvd;
+    sheet.style.filter = v === 'none' ? '' : `url(#cvd-${v})`;
+    document.querySelectorAll('[data-cvd]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  }));
+
+  // ---------- cauldron ----------
+  function potSVG(id, big) {
+    const extraBubbles = `<g class="extra"><circle class="bub b4" cx="76" cy="96" r="4" fill="var(--petal)"/><circle class="bub b5" cx="128" cy="98" r="3.5" fill="var(--petal)"/></g>`;
+    return `<svg viewBox="0 0 200 200" class="pot" id="${id}" role="img" aria-label="Cauldron">
+      <g opacity=".9">
+        <path class="steam" d="M78 70 c-8-10 8-16 0-28" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+        <path class="steam s2" d="M102 66 c-8-10 8-16 0-30" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+        <path class="steam s3" d="M124 70 c-8-10 8-16 0-28" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g>
+        <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root-dk)" stroke="var(--ink)" stroke-width="2" transform="rotate(-8 100 183)"/>
+        <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root)" stroke="var(--ink)" stroke-width="2" transform="rotate(8 100 183)"/>
+        <path class="flame" d="M100 186 C78 180 74 160 88 146 C88 158 94 160 96 156 C92 144 100 134 108 128 C106 142 124 150 120 168 C118 180 110 186 100 186Z" fill="var(--heat)"/>
+        <path class="flame f2" d="M100 186 C88 182 86 170 94 162 C96 170 100 170 102 166 C102 160 106 154 110 152 C110 162 118 168 114 178 C112 184 106 186 100 186Z" fill="var(--amber)"/>
+        <path class="flame f3 extra" d="M70 186 C62 180 64 170 72 164 C72 172 78 172 78 170 C80 178 78 186 70 186Z M130 186 C122 180 124 170 132 164 C132 172 138 172 138 170 C140 178 138 186 130 186Z" fill="var(--amber)"/>
+      </g>
+      <path d="M54 150 l-8 22 M146 150 l8 22" stroke="var(--iron)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M36 92 C34 142 62 166 100 166 C138 166 166 142 164 92 Z" fill="var(--iron)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M48 104 C50 132 64 148 82 154" fill="none" stroke="var(--iron-hi)" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="100" cy="92" rx="68" ry="15" fill="var(--iron-hi)" stroke="var(--ink)" stroke-width="2"/>
+      <ellipse class="liquid" cx="100" cy="93" rx="58" ry="10" fill="var(--wisp)"/>
+      <ellipse cx="86" cy="91" rx="20" ry="3" fill="var(--petal)" opacity=".35"/>
+      <circle class="bub" cx="88" cy="94" r="4" fill="var(--petal)"/>
+      <circle class="bub b2" cx="110" cy="96" r="3" fill="var(--petal)"/>
+      <circle class="bub b3" cx="100" cy="92" r="5" fill="var(--petal)"/>
+      ${extraBubbles}
+      <path d="M32 92 c-10 0-12 14-2 16 M168 92 c10 0 12 14 2 16" fill="none" stroke="var(--iron)" stroke-width="5" stroke-linecap="round"/>
+    </svg>`;
+  }
+  document.getElementById('hero-pot').innerHTML = potSVG('pot-hero', true) +
+    `<div class="seg" role="group" aria-label="Hero cauldron heat"><button type="button" id="hero-sim" aria-pressed="true">Simmer</button><button type="button" id="hero-boil" aria-pressed="false">Boil</button></div>`;
+  const heroPot = document.getElementById('pot-hero');
+  const setHero = boil => { heroPot.classList.toggle('boil', boil);
+    document.getElementById('hero-sim').setAttribute('aria-pressed', String(!boil));
+    document.getElementById('hero-boil').setAttribute('aria-pressed', String(boil)); };
+  document.getElementById('hero-sim').onclick = () => setHero(false);
+  document.getElementById('hero-boil').onclick = () => setHero(true);
+  document.getElementById('mini-pot').innerHTML = potSVG('pot-mini', false);
+  const miniPot = document.getElementById('pot-mini');
+
+  // ---------- brew mock (rules from design/brew-math.md) ----------
+  const TRAITS = [
+    { id: 'heat', name: 'Heat' }, { id: 'calm', name: 'Calm' },
+    { id: 'vigor', name: 'Vigor' }, { id: 'clarity', name: 'Clarity' }];
+  const ING = {
+    chamomile: { name: 'Chamomile', vec: [0,3,0,0], tags: ['delicate'], known: [1,1,1,1] },
+    fireroot:  { name: 'Fireroot',  vec: [3,0,1,0], tags: ['tough'],    known: [1,1,1,1] },
+    mint:      { name: 'Mint',      vec: [-2,1,0,2], tags: ['delicate'], known: [1,1,1,1] },
+    sage:      { name: 'Sage',      vec: [0,1,0,3], tags: [],           known: [1,1,1,1] },
+    honey:     { name: 'Honey',     vec: [0,1,1,0], tags: ['sweetener'],known: [1,1,1,1] },
+    glowcap:   { name: 'Glowcap',   vec: [0,-1,0,4], tags: ['tough'],   known: [1,0,1,1] }, // calm effect undiscovered
+  };
+  const TARGET = [0,6,0,0], TOL = 2;
+  const NOTES = {
+    R1: 'Boiled a flower? The gentle oils fly off with the steam. Less calm, less clarity. — W.',
+    R2: 'A root on a simmer gives up only half its heart. Boil the tough ones. — W.',
+    R4: 'Honey takes the bite out of a hot brew. Softer, calmer. — W.',
+    glow: 'Glowcap: clears the head but frays the nerves (Calm −1). Noted.',
+  };
+  const seen = new Set();
+  let slots = [null, null, null];
+  let boil = false;
+
+  const mainTrait = v => v.reduce((m, x, i) => x > v[m] ? i : m, 0);
+
+  function brew(names, isBoil, onlyKnown) {
+    const s = [0,0,0,0], unknown = [false,false,false,false], fired = new Set();
+    for (const n of names) {
+      const ing = ING[n]; const v = ing.vec.slice();
+      if (ing.tags.includes('delicate') && isBoil) {
+        if (v[1] > 0) { v[1]--; fired.add('R1'); }
+        if (v[3] > 0) { v[3]--; fired.add('R1'); }
+      }
+      if (ing.tags.includes('tough') && !isBoil) { v[mainTrait(v)]--; fired.add('R2'); }
+      v.forEach((x, i) => {
+        if (onlyKnown && !ing.known[i]) { unknown[i] = true; return; }
+        s[i] += x;
+      });
+    }
+    if (names.includes('honey') && names.some(n => ING[n].vec[0] > 0)) { s[1]++; fired.add('R4'); }
+    return { vec: s.map(x => Math.max(0, Math.min(10, x))), unknown, fired };
+  }
+
+  function stars(v) {
+    const d = v.reduce((a, x, i) => a + Math.abs(x - TARGET[i]), 0);
+    let st = d <= TOL ? 3 : d <= TOL + 2 ? 2 : d <= TOL + 4 ? 1 : 0;
+    const top = v.slice().sort((a, b) => b - a);
+    if (top[0] === top[1] && top[0] >= 4 && st < 3) st++;
+    return st;
+  }
+
+  const shelfEl = document.getElementById('shelf'), slotsEl = document.getElementById('slots');
+  const meterEl = document.getElementById('meter'), resultEl = document.getElementById('result');
+  const brewBtn = document.getElementById('brew');
+
+  for (const [id, ing] of Object.entries(ING)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ing'; b.id = 'ing-' + id;
+    b.innerHTML = `<svg aria-hidden="true"><use href="#i-${id}"/></svg>${ing.name}<small>${ing.tags.includes('delicate') ? 'delicate' : ing.tags.includes('tough') ? 'tough' : '&nbsp;'}</small>`;
+    b.addEventListener('click', () => {
+      const i = slots.indexOf(null);
+      if (i >= 0) { slots[i] = id; render(); }
+    });
+    shelfEl.appendChild(b);
+  }
+
+  function setHeat(isBoil) {
+    boil = isBoil;
+    document.getElementById('h-sim').setAttribute('aria-pressed', String(!boil));
+    document.getElementById('h-boil').setAttribute('aria-pressed', String(boil));
+    miniPot.classList.toggle('boil', boil);
+    render();
+  }
+  document.getElementById('h-sim').onclick = () => setHeat(false);
+  document.getElementById('h-boil').onclick = () => setHeat(true);
+
+  const TRAIT_COLOR = ['var(--heat)','var(--calm)','var(--vigor)','var(--clarity)'];
+
+  function render() {
+    slotsEl.innerHTML = '';
+    slots.forEach((n, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot' + (n ? ' filled' : '');
+      b.setAttribute('aria-label', n ? `Remove ${ING[n].name}` : 'Empty slot');
+      b.innerHTML = n ? `<svg aria-hidden="true"><use href="#i-${n}"/></svg>` : '';
+      b.addEventListener('click', () => { slots[i] = null; render(); });
+      slotsEl.appendChild(b);
+    });
+    const names = slots.filter(Boolean);
+    const p = brew(names, boil, true);
+    meterEl.innerHTML = TRAITS.map((t, i) => {
+      const val = p.vec[i], unk = p.unknown[i];
+      const cells = Array.from({ length: 10 }, (_, k) =>
+        `<i class="${k < val ? 'on' : (unk && k === val ? 'unk' : '')}"></i>`).join('');
+      return `<div class="mrow" style="--c:${TRAIT_COLOR[i]}"><svg aria-hidden="true"><use href="#t-${t.id}"/></svg><span class="nm">${t.name}</span><div class="bar">${cells}</div><span class="val">${val}${unk ? '?' : ''}</span></div>`;
+    }).join('');
+    const liquid = miniPot.querySelector('.liquid');
+    const m = mainTrait(p.vec);
+    liquid.setAttribute('fill', names.length ? TRAIT_COLOR[m] : 'var(--wisp)');
+    brewBtn.disabled = names.length === 0;
+  }
+
+  brewBtn.addEventListener('click', () => {
+    const names = slots.filter(Boolean);
+    const r = brew(names, boil, false);
+    const st = stars(r.vec);
+    const notes = [];
+    for (const id of ['R1','R2','R4']) if (r.fired.has(id) && !seen.has(id)) { seen.add(id); notes.push(NOTES[id]); }
+    if (names.includes('glowcap') && ING.glowcap.known[1] === 0) { ING.glowcap.known[1] = 1; notes.push(NOTES.glow); }
+    const verdict = ['Marla sniffs it, sighs, and pays out of kindness.', 'Marla nods politely. It might help a little.', 'Marla smiles. “That should do nicely.”', 'Marla closes her eyes just from the smell. “You’re a wonder.”'][st];
+    resultEl.innerHTML = `<span class="stars" aria-label="${st} of 3 stars">${'★'.repeat(st)}${'☆'.repeat(3 - st)}</span><span>${verdict}</span>` +
+      notes.map(n => `<span class="note">${n}</span>`).join('');
+    render();
+  });
+
+  // sample starting state: Wren's suggestion already in the pot
+  slots = ['chamomile', 'honey', null];
+  render();
+})();
+</script>

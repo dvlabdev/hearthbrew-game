@@ -1,6 +1,5 @@
 import solution_space, itertools
 from collections import Counter
-solution_space.I['angelica']=([2,0,1,1],'t')
 def run(tol,cap):
     sols=set();two=set();use=Counter()
     for combo in itertools.combinations_with_replacement(solution_space.v1,5):
