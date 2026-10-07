@@ -5,9 +5,11 @@ Vectors are written as `[Heat, Calm, Vigor, Clarity]`. The rules are in [brew-ma
 ## 1. Goods
 | Good | Base | Station | Batch | Base price | Unlock | Role |
 |---|---|---|---|---|---|---|
-| Potion | Spring water (free) | Cauldron (3→5 slots, Simmer/Boil) | 2 bottles | 10c | Day 1 | The core puzzle |
-| Tea | Tea leaves (1c) — adds Calm +1 | Kettle (2 slots, always steeped) | 3 cups | 7c | Day 4 | Cheap, quick, many cups. Good for simple Calm requests and frees up the cauldron. |
-| Salve | Oil (3c) + beeswax (2c) | Cauldron with the salve pot (mortar unlocks it) | 2 jars | 16c | Day 9 | High value. Salve requests are about the body ("aching back", "chapped hands"); Clarity is rarely wanted. |
+| Potion | Spring water (free) | Cauldron (3→5 slots, Simmer/Boil) | 2 bottles | 15c | Day 1 | The core puzzle |
+| Tea | Tea leaves (1c) — adds Calm +1 | Kettle (2 slots, always steeped) | 3 cups | 10c | Day 4 | Cheap, quick, many cups. Good for simple Calm requests and frees up the cauldron. |
+| Salve | Oil (3c) + beeswax (2c) | Cauldron with the salve pot (mortar unlocks it) | 2 jars | 24c | Day 9 | High value. Salve requests are about the body ("aching back", "chapped hands"); Clarity is rarely wanted. |
+
+**Requests follow your stations:** customers only ask for teas once you own the kettle, and for salves once you own the salve pot. Nobody leaves unserved because of something you haven't bought (pillar 4).
 
 **Batch rule:** one brew fills several containers. Serving two similar requests from one batch is a real choice: you trade precision for efficiency.
 
@@ -142,3 +144,23 @@ The **mortar** from the roadmap is renamed the **salve pot** in v1, to keep a si
 
 ## 9. v2 maybe list (do not build in v1)
 Lemon balm, mugwort, vervain, yarrow · mortar (grinding) · candles and incense · distiller · moon altar and Arcane · charms · marsh and cliffs · beehive · greenhouse · seasons and moon phases · more regulars.
+
+## 10. Day-by-day pacing (validated by `tools/economy_sim.py`, 2026-10-07)
+| Day | New | Typical purchase (average player) |
+|---|---|---|
+| 1 | Brewing and serving (scripted) | — |
+| 2 | Garden | 3rd plot |
+| 3 | Meadow expedition | 4th cauldron slot |
+| 4 | Kettle on sale; tea requests begin once owned | Kettle, shelf |
+| 5 | Drying rack, freshness, garden tonic | Drying rack, compost bin |
+| 6 | Marla's first story beat, lavender seed | Basket +2 |
+| 7 | Whisperwood opens | Trowel |
+| 8 | Bramble's rhyme requests, Wren's letter; the decor shop opens | 4th plot |
+| 9 | Salve pot on sale; salve requests once owned | Salve pot (days 9–10) |
+| 10 | 5th cauldron slot on sale | — |
+| 11 | Glowcap night-bloom in the Whisperwood | 5th slot (days 11–12) |
+| 12 | Sunwort seed, lantern | Lantern |
+| 13 | Under the Hill (cave) | 5th plot |
+| 14 | Festival announced, donations open | First donation |
+| 15–19 | Festival preparations, regulars' final beats, harvest the Sunwort | Donations, decor |
+| 20 | Midsummer Eve | — |

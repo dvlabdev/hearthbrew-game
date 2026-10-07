@@ -1,4 +1,22 @@
-# Economy: M0b.3 (paper model, provisional)
+# Economy: M0b.3, validated by simulation in M0c
+
+> **Validated 2026-10-07** with `python tools/economy_sim.py` (300 seeded runs per bot). The first run showed the paper numbers were about 2× too optimistic. Changes:
+> - Prices raised to **potion 15, tea 10, salve 24**.
+> - **Customers only ask for goods your stations can make.**
+> - Bots save up for story-critical items.
+> - **Decor shop opens day 8.**
+> - Story beats fill days 6, 8, 11 and 14.
+>
+> Results:
+>
+> | Bot | Coins earned over 20 days | 5th slot bought (median) | Has every finale item |
+> |---|---|---|---|
+> | Weak (1.5★) | 1,343 | day 13 | 100% |
+> | Average | 1,694 | day 12 | 100% |
+> | Strong | 2,191 | day 10 | 100% |
+>
+> All 4 checks in §5 pass. The strong player ends with spare coins (~360), which the endless mode absorbs.
+
 
 **Goals**
 - About one meaningful purchase every 1–2 days.
@@ -10,7 +28,7 @@
 | Source | Value |
 |---|---|
 | Sale | base price × star multiplier (0.25 / 0.6 / 1.0 / 1.5) × recipe bonus 1.2 × featured 2 |
-| Base prices | potion 10c (×2 bottles), tea 7c (×3 cups), salve 16c (×2 jars) |
+| Base prices | potion **15c** (×2 bottles), tea **10c** (×3 cups), salve **24c** (×2 jars) |
 | Regular beat gifts | seed, ingredient bundle, or a 20% discount on one upgrade |
 
 **Customers per day:**

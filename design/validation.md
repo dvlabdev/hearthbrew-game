@@ -84,5 +84,54 @@ The heat rule creates the intended depth.
 - **Blind-test status:** ✅ PASS (targets: tier 1 ≥70%, tier 2 ≥50%)
 - **Human playtest:** ⏳ waiting for the user's results and 4 answers
 
+## Check 4: full request space (2026-10-07)
+**Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).
+
+**Before:**
+- Tier 1: **7/21 requests had no 3★ answer**, because every starter ingredient carried a side trait. Chamomile appeared in 62% of answers, fireroot in only 3%.
+- Tier 3: median of **260** answers per request.
+- Brimstone was never useful in potions.
+
+**Decision: variant D**, the "starter ingredients are simple and honest" principle:
+- Sage becomes `[0,0,0,3]`.
+- Fireroot becomes `[3,0,0,0]`.
+- Rosehip becomes `[0,0,2,0]`.
+- Tier 3 tolerance becomes **0**.
+- **Brimstone** is not allowed in potions.
+- **Quartz** is rare.
+
+**After:**
+- **Tier 1:** 0 unsolvable, median 5 answers, no dominant or dead ingredient. This also fixes the Calm surplus.
+- **Tier 2, with a basket:** 35% of days in the 2–6 target range; 36% of days have no 3★ answer, but 83% of days can reach 2★.
+  - Mitigation: **the featured request is teased the night before**, so the player can gather for it.
+- **Tier 3, with a basket:** about 37–45% of days still have 7+ answers. That's acceptable for late-game mastery; re-check in M3 with real content.
+- **The 10 tuned riddles:** all still solvable (1–9 three-star answers).
+- **Midsummer Draught:** 11 three-star answers (9 without brimstone).
+
+⚠️ **Prototype B was not updated.** It keeps the old values so your playtest results stay comparable.
+
+## Check 6: 20-day economy (2026-10-07)
+**Tool:** `python tools/economy_sim.py`. See economy.md for the results table.
+
+**First run, all failing:**
+- Income was half the plan.
+- Salve customers were *lost* before the salve pot was bought, which breaks pillar 4.
+- Bots never saved up, so the 5th slot was never bought.
+- Days 6, 8, 11 and 14 were dead.
+
+**Fixes:**
+- Prices raised to 15/10/24.
+- Requests only appear for goods your stations can make.
+- Bots save up for story-critical items.
+- Story beats added on the gap days.
+- Decor shop opens on day 8.
+
+**Result:** ✅ **all 4 checks pass** for every bot.
+
+**Garden vs expedition:**
+- An expedition gives about 4.8 random units per action point, with rare finds.
+- The garden gives `plots × 1` chosen units per action point.
+- The crossover is at about 5 plots, so expeditions win early and the garden wins late. That's a real trade-off. ✅ (Input for the check 5 decision audit.)
+
 ## Checks 2 and 5–8 and the design-quality checklist
 Not started.
