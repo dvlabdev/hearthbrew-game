@@ -91,7 +91,7 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 |---|---|---|---|
 | 1 (days 1–4) | 1 | **1** | Clear keywords |
 | 2 (days 5–12) | 2 | **1** | — |
-| 3 (days 13+) | 2–3 | 1 | Includes "avoid" constraints ("but nothing that keeps me up" → Clarity 0, Heat 0) and synonyms |
+| 3 (days 13+) | 2–3 | **0** | Includes "avoid" constraints ("but nothing that keeps me up" → Clarity 0, Heat 0) and synonyms |
 
 **Example riddles**
 | Riddle | Hidden T | Valid solutions (3 slots) |
@@ -131,3 +131,9 @@ The tags `delicate` and `tough` are exclusive. Sage and nettle are neither (they
 5. R7 Harmonized does **not** apply to the Midsummer Draught (see content-bible §8).
 6. **Tolerance (2026-10-07):** tol 1 for all tiers. With tol 2, single ingredients often scored 3★ (prototype B, see validation.md).
 7. **Combining keywords:** traits from several keywords combine by **max**, not by sum. Wren's Notebook teaches this ("two troubles of the same kind don't add up").
+8. **Request-space check (2026-10-07, `tools/request_space.py`):**
+   - **Ingredient changes:** sage, fireroot and rosehip lost their side traits (variant D). Beginner requests with no 3★ answer went from 7/21 to 0/21.
+   - **Tier 3:** tolerance 0.
+   - **Brimstone:** not allowed in potions.
+   - **Quartz:** rare.
+   - **Puzzle depth comes from the basket:** limited inventory, not the whole ingredient list, is the real constraint. That's why the featured request is teased the night before (Rest phase), so the player can plan the morning's gathering.

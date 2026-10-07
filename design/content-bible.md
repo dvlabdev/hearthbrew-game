@@ -23,19 +23,19 @@ Vectors are written as `[Heat, Calm, Vigor, Clarity]`. The rules are in [brew-ma
 | Chamomile | [0,3,0,0] | delicate, flower | start, garden (2d) | Pure Calm | 🧪 |
 | Lavender | [0,2,0,1] | delicate, flower | garden (3d) | Calm with a little Clarity | 🧪 |
 | Mint | [−2,1,0,2] | delicate, leaf | start, meadow, garden (2d) | **Cancels Heat**; Clarity | 🧪 |
-| Sage | [0,1,0,3] | leaf | start, meadow | Pure-ish Clarity | 🧪 |
-| Fireroot | [3,0,1,0] | tough, root | start, meadow, garden (4d) | Main Heat source | 🧪 (ginger) |
+| Sage | [0,0,0,3] | leaf (sturdy) | start, meadow | Pure Clarity | 🧪 |
+| Fireroot | [3,0,0,0] | tough, root | start, meadow, garden (4d) | Main Heat source | 🧪 (ginger) |
 | Nettle | [1,0,3,0] | leaf | meadow | Main Vigor source | 🧪 |
-| Rosehip | [0,0,2,1] | tough, fruit | meadow, garden (5d) | Vigor + Clarity | 🧪 |
+| Rosehip | [0,0,2,0] | tough, fruit | meadow, garden (5d) | Pure (gentle) Vigor | 🧪 |
 | Honey | [0,1,1,0] | sweetener (R4) | market 2c | Smooths Heat brews (R4) | 🧪✨ |
 | Valerian | [0,4,−1,−1] | tough, root | forest (trowel), garden (4d) | **Strong Calm with side-effects**; dulls Clarity | 🧪 |
 | Glowcap | [0,−1,0,4] | tough, fungus | forest | **Strong Clarity**; unsettles Calm | ✨ (glows faintly) |
 | Pine resin | [2,0,0,1] | resinous, oil-like | forest | Heat + Clarity; a lantern-oil ingredient | 🧪 |
 | Bilberry | [0,1,2,1] | delicate, fruit | forest | Gentle all-rounder for Vigor | 🧪 |
 | Angelica root | [2,0,1,1] | tough, root | forest (trowel) | Warming tonic: Heat + Vigor | 🧪 |
-| Brimstone | [4,−1,0,0] | mineral | cave | Strong Heat; for salves and lantern oil only | 🧪✨ |
+| Brimstone | [4,−1,0,0] | mineral, **no-potion** | cave | Strong Heat; salves and lantern oil only (not allowed in potions) | 🧪✨ |
 | Salt | — (modifier R5) | mineral | cave, market 3c | +1 to the strongest trait; +2 shelf days | 🧪✨ |
-| Quartz dust | — (modifier R8) | mineral, crystal | cave | **Purify**: sets the brew's lowest non-zero trait to 0 | ✨ |
+| Quartz dust | — (modifier R8) | mineral, crystal, **rare** (1 per cave trip, max 1 per brew) | cave | **Purify**: sets the brew's lowest non-zero trait to 0 | ✨ |
 | Sunwort | [1,1,1,1] | delicate, flower | garden only (6d, **single harvest of 2**, annual); seed from Bramble's 3rd beat or Wren's note on day 12 | Festival ingredient, required in the Midsummer Draught | ✨ (St John's wort, fictionalized) |
 | Spring water | base | — | free | Potion base | — |
 | Tea leaves | base, +1 Calm | — | market 1c | Tea base | — |
@@ -45,6 +45,8 @@ Vectors are written as `[Heat, Calm, Vigor, Clarity]`. The rules are in [brew-ma
 **New reaction rule R8 (✨):** Quartz dust *purifies*. The brew's lowest non-zero trait becomes 0. This is the late-game answer to tier-3 "avoid" requests.
 
 **Coverage check:** every trait has a pure source (chamomile, sage, nettle, fireroot), a strong source with a side-effect (valerian, glowcap, angelica, brimstone), a canceller (mint for Heat) or modifiers (salt, quartz), and pair blends. The solution-space script in M0c verifies that nothing is dominant or never useful.
+
+**Design principle (from the M0c request-space check):** *starter ingredients are simple and honest, while forest and cave ingredients are strong with a catch.* Each starter ingredient carries at most one side trait, apart from mint's deliberate Heat cancelling, lavender and honey. Depth in tiers 2–3 comes from strong ingredients with side-effects (valerian, glowcap, angelica) and from what's actually in your basket.
 
 ## 3. Tools & stations (v1)
 | Item | Type | Price | Available from | Role |
