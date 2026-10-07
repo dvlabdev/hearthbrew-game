@@ -47,6 +47,16 @@
   --petal:#F4F0E2; --skin:#C8916B; --hair:#4A2D1A; --root:#B57E43; --root-dk:#7A4A20; --glow:#6FF5E3;
   --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915; color-scheme:dark }
 
+/* palette proposals B and C (A = Whisperwood Dusk is the base above). Trait colours never change. */
+:root[data-palette="indigo"]{--bg:#E7E8F1;--surface:#F5F5FA;--sunk:#D8DAE8;--ink:#1D1C3B;--muted:#55557A;--line:#1D1C3B26;--moss:#46695A;--plum:#33318A;--amber:#A4561E;--wisp:#2F6DB3;--iron:#23233A;--iron-hi:#45466A;--petal:#FAF9FF}
+@media (prefers-color-scheme: dark){:root[data-palette="indigo"]:not([data-theme="light"]){--bg:#10122A;--surface:#191C3A;--sunk:#0A0B1E;--ink:#ECE8F7;--muted:#A3A3C4;--line:#ECE8F722;--moss:#8DBBA2;--plum:#A9A6FF;--amber:#E8955A;--wisp:#8FC2FF;--iron:#07081A;--iron-hi:#363A66;--petal:#F1F0FF;color-scheme:dark}
+}
+:root[data-palette="indigo"][data-theme="dark"]{--bg:#10122A;--surface:#191C3A;--sunk:#0A0B1E;--ink:#ECE8F7;--muted:#A3A3C4;--line:#ECE8F722;--moss:#8DBBA2;--plum:#A9A6FF;--amber:#E8955A;--wisp:#8FC2FF;--iron:#07081A;--iron-hi:#363A66;--petal:#F1F0FF;color-scheme:dark}
+:root[data-palette="heather"]{--bg:#F0E8EA;--surface:#FBF6F7;--sunk:#E4D7DB;--ink:#381A29;--muted:#6E5262;--line:#381A2926;--moss:#56692F;--plum:#7C2F61;--amber:#9E6F07;--wisp:#1F7F73;--iron:#2E2229;--iron-hi:#544450;--petal:#FFFBF6}
+@media (prefers-color-scheme: dark){:root[data-palette="heather"]:not([data-theme="light"]){--bg:#1C1217;--surface:#281A21;--sunk:#130C10;--ink:#F4E8E6;--muted:#B9A3AD;--line:#F4E8E622;--moss:#A8BA7E;--plum:#E09AC9;--amber:#EBBB4A;--wisp:#73D2C0;--iron:#0E090C;--iron-hi:#4A3542;--petal:#FFF7EE;color-scheme:dark}
+}
+:root[data-palette="heather"][data-theme="dark"]{--bg:#1C1217;--surface:#281A21;--sunk:#130C10;--ink:#F4E8E6;--muted:#B9A3AD;--line:#F4E8E622;--moss:#A8BA7E;--plum:#E09AC9;--amber:#EBBB4A;--wisp:#73D2C0;--iron:#0E090C;--iron-hi:#4A3542;--petal:#FFF7EE;color-scheme:dark}
+
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:400 var(--step-0)/1.55 var(--body);padding-inline:16px;padding-block:24px 64px}
 .sheet{max-width:960px;margin:0 auto;display:grid;gap:56px}
@@ -64,7 +74,9 @@ button{font:inherit;color:inherit}
 /* masthead */
 .mast{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:center}
 .mast .lede{display:grid;gap:14px}
-.mast .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.controls{display:grid;gap:16px;margin-top:6px}
+.ctl{display:grid;gap:8px;justify-items:start}
+.ctl-help{font-size:.9rem;color:var(--muted);max-width:52ch}
 .seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:1.5px solid var(--ink);border-radius:18px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:10px 12px;min-height:44px;cursor:pointer;font-size:.95rem}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -161,23 +173,45 @@ button{font:inherit;color:inherit}
 .legend{display:grid;gap:12px}
 .legend ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
 
-/* cauldron animation */
-.flame{transform-origin:100px 186px;animation:flick 1.1s ease-in-out infinite alternate}
-.flame.f2{animation-duration:.8s;animation-delay:-.3s}
-.flame.f3{animation-duration:1.4s;animation-delay:-.6s}
-@keyframes flick{from{transform:scaleY(.86) scaleX(1.03)}to{transform:scaleY(1.08) scaleX(.96)}}
-.bub{animation:rise 2.4s ease-in infinite;opacity:0}
-.bub.b2{animation-delay:-.8s}.bub.b3{animation-delay:-1.6s}.bub.b4{animation-delay:-.4s}.bub.b5{animation-delay:-1.2s}
-@keyframes rise{0%{transform:translateY(4px);opacity:0}30%{opacity:.9}100%{transform:translateY(-10px);opacity:0}}
-.steam{animation:steam 4s ease-in-out infinite;opacity:.0}
-.steam.s2{animation-delay:-1.3s}.steam.s3{animation-delay:-2.6s}
-@keyframes steam{0%{transform:translateY(8px);opacity:0}40%{opacity:.55}100%{transform:translateY(-26px);opacity:0}}
-.pot .extra{display:none}
-.pot.boil .extra{display:inline}
-.pot.boil .bub{animation-duration:1.1s}
-.pot.boil .steam{animation-duration:2.2s}
-.pot.boil .flame{animation-duration:.5s}
-@media (prefers-reduced-motion: reduce){.flame,.bub,.steam{animation:none}.bub,.steam{opacity:.6}}
+/* cauldron animation: simmer = lazy, boil = rolling */
+.pot *{transform-box:fill-box}
+.flames{transform-origin:50% 100%;transform:scale(.62);transition:transform .5s ease}
+.pot.boil .flames{transform:scale(1.18,1.32)}
+.flame{transform-origin:50% 100%;animation:flick 1.3s ease-in-out infinite alternate}
+.flame.f2{animation-duration:.9s;animation-delay:-.3s}
+.pot.boil .flame{animation-duration:.28s}
+@keyframes flick{from{transform:scaleY(.86) scaleX(1.04)}to{transform:scaleY(1.1) scaleX(.95)}}
+.bub{opacity:0;animation:rise 3.4s ease-in infinite}
+.bub.b2{animation-delay:-1.7s}
+.pot.boil .bub{animation:pop .7s ease-in infinite}
+.bub.b3{animation-delay:-.2s}.bub.b4{animation-delay:-.45s}.bub.b5{animation-delay:-.1s}.bub.b6{animation-delay:-.55s}.bub.b7{animation-delay:-.3s}.bub.b8{animation-delay:-.62s}
+@keyframes rise{0%{transform:translateY(3px) scale(.6);opacity:0}40%{opacity:.8}100%{transform:translateY(-4px) scale(1);opacity:0}}
+@keyframes pop{0%{transform:translateY(4px) scale(.5);opacity:0}30%{opacity:1}80%{transform:translateY(-8px) scale(1.3);opacity:.9}100%{transform:translateY(-10px) scale(1.6);opacity:0}}
+.splash{opacity:0}
+.pot.boil .splash{animation:splash .9s ease-out infinite}
+.splash.p2{animation-delay:-.3s}.splash.p3{animation-delay:-.6s}.splash.p4{animation-delay:-.45s}
+@keyframes splash{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),-6px) translateY(26px);opacity:0}}
+.steam{opacity:0;stroke-width:3;animation:steam 6s ease-in-out infinite}
+.steam.s2{animation-delay:-3s}
+.steam.s3{display:none}
+.pot.boil .steam{stroke-width:9;animation:billow 1.8s ease-out infinite}
+.pot.boil .steam.s3{display:inline}
+.pot.boil .steam.s2{animation-delay:-.6s}.pot.boil .steam.s3{animation-delay:-1.2s}
+@keyframes steam{0%{transform:translateY(8px);opacity:0}50%{opacity:.35}100%{transform:translateY(-22px);opacity:0}}
+@keyframes billow{0%{transform:translateY(10px) scale(.8);opacity:0}30%{opacity:.85}100%{transform:translateY(-40px) scale(1.6,1.2);opacity:0}}
+.liquid{transform-origin:50% 50%}
+.pot.boil .liquid{animation:heave .32s ease-in-out infinite alternate}
+@keyframes heave{from{transform:scale(1,1)}to{transform:scale(1.02,1.45)}}
+.potbody{transform-origin:50% 100%}
+.pot.boil .potbody{animation:shake .14s linear infinite}
+@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-1.2px,.6px)}50%{transform:translate(1px,-.6px)}75%{transform:translate(-.6px,-.4px)}100%{transform:translate(0,0)}}
+.boilonly{display:none}
+.pot.boil .boilonly{display:inline}
+.heat-cap{font-variant-numeric:tabular-nums;color:var(--muted);text-align:center;font-size:.95rem;max-width:30ch}
+.heat-cap b{color:var(--ink)}
+@media (prefers-reduced-motion: reduce){
+  .flame,.bub,.steam,.splash,.liquid,.potbody,.pot.boil .bub,.pot.boil .steam,.pot.boil .splash,.pot.boil .liquid,.pot.boil .potbody,.pot.boil .flame{animation:none}
+  .bub,.steam{opacity:.6}.pot.boil .splash{opacity:.8}.pot.boil .liquid{transform:scale(1,1.3)}}
 .glowpulse{animation:glow 3s ease-in-out infinite alternate}
 @keyframes glow{from{opacity:.35}to{opacity:.8}}
 @media (prefers-reduced-motion: reduce){.glowpulse{animation:none;opacity:.6}}
@@ -282,20 +316,37 @@ footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);paddi
     <div class="lede">
       <span class="eyebrow">Art direction tile · M0c prototype A</span>
       <h1 id="t">Hearthbrew</h1>
-      <p>Twilight-cozy and witchy, drawn entirely in code. This sheet checks whether flat vector art, two typefaces and a colour-blind-safe trait system can carry the game. Switch the light and the eyesight filters to test it.</p>
+      <p>Twilight-cozy and witchy, drawn entirely in code. This sheet checks whether flat vector art, two typefaces and a colour-blind-safe trait system can carry the game. Pick one of the three palette proposals below; the whole sheet, art included, repaints so you can judge it in place.</p>
       <p class="hand">“Keep the pot on a simmer, child, and the riddles will keep themselves.” — W.</p>
-      <div class="tools" role="group" aria-label="View options">
-        <div class="seg" role="group" aria-label="Light">
-          <button type="button" id="th-auto" aria-pressed="true">System</button>
-          <button type="button" id="th-light" aria-pressed="false">Daylight</button>
-          <button type="button" id="th-dark" aria-pressed="false">Candlelit</button>
+      <div class="controls">
+        <div class="ctl">
+          <span class="eyebrow">Palette proposal</span>
+          <div class="seg" role="group" aria-label="Palette proposal">
+            <button type="button" data-pal="dusk" aria-pressed="true">A · Whisperwood Dusk</button>
+            <button type="button" data-pal="indigo" aria-pressed="false">B · Midnight Indigo</button>
+            <button type="button" data-pal="heather" aria-pressed="false">C · Heather &amp; Honey</button>
+          </div>
+          <p class="ctl-help" id="pal-help"></p>
         </div>
-        <div class="seg" role="group" aria-label="Colour vision simulation">
-          <button type="button" data-cvd="none" aria-pressed="true">Typical</button>
-          <button type="button" data-cvd="prot" aria-pressed="false">Protan</button>
-          <button type="button" data-cvd="deut" aria-pressed="false">Deutan</button>
-          <button type="button" data-cvd="trit" aria-pressed="false">Tritan</button>
-          <button type="button" data-cvd="mono" aria-pressed="false">Mono</button>
+        <div class="ctl">
+          <span class="eyebrow">Day or night version of the palette</span>
+          <div class="seg" role="group" aria-label="Day or night">
+            <button type="button" id="th-auto" aria-pressed="true">Follow phone</button>
+            <button type="button" id="th-light" aria-pressed="false">Day</button>
+            <button type="button" id="th-dark" aria-pressed="false">Night</button>
+          </div>
+          <p class="ctl-help">Every palette has both. In the game, mornings and the shop are drawn by day and the Rest phase by candlelight, or it simply follows your phone’s dark mode.</p>
+        </div>
+        <div class="ctl">
+          <span class="eyebrow">Colour-blindness check (not a palette)</span>
+          <div class="seg" role="group" aria-label="Colour vision simulation">
+            <button type="button" data-cvd="none" aria-pressed="true">Normal</button>
+            <button type="button" data-cvd="prot" aria-pressed="false">Protan</button>
+            <button type="button" data-cvd="deut" aria-pressed="false">Deutan</button>
+            <button type="button" data-cvd="trit" aria-pressed="false">Tritan</button>
+            <button type="button" data-cvd="mono" aria-pressed="false">Grey</button>
+          </div>
+          <p class="ctl-help">Simulates how about 1 in 12 men see the page. Small changes here are the goal: the four traits must stay easy to tell apart.</p>
         </div>
       </div>
     </div>
@@ -314,14 +365,15 @@ footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);paddi
   </section>
 
   <section class="plate" aria-labelledby="p2">
-    <header><h2 id="p2">Palette of the hamlet</h2><span class="no">Plate II</span></header>
+    <header><h2 id="p2">Palette: <span id="pal-name">Whisperwood Dusk</span></h2><span class="no">Plate II</span></header>
+    <p id="pal-desc"></p>
     <div class="swatches">
-      <div class="sw"><i style="background:var(--bg)"></i><b>Parchment / Hollow</b><span>Ground</span></div>
-      <div class="sw"><i style="background:var(--ink)"></i><b>Plum ink</b><span>Line &amp; text</span></div>
-      <div class="sw"><i style="background:var(--moss)"></i><b>Whisperwood moss</b><span>Plants, cloth</span></div>
-      <div class="sw"><i style="background:var(--plum)"></i><b>Hedge-witch plum</b><span>Actions, Wren's hand</span></div>
-      <div class="sw"><i style="background:var(--amber)"></i><b>Candle amber</b><span>Coins, fire, stars</span></div>
-      <div class="sw"><i style="background:var(--wisp)"></i><b>Wisp teal</b><span>Magic, focus ring</span></div>
+      <div class="sw"><i style="background:var(--bg)"></i><b>Ground</b><span data-sw="bg"></span></div>
+      <div class="sw"><i style="background:var(--ink)"></i><b>Ink</b><span data-sw="ink"></span></div>
+      <div class="sw"><i style="background:var(--moss)"></i><b>Nature</b><span data-sw="moss"></span></div>
+      <div class="sw"><i style="background:var(--plum)"></i><b>Action</b><span data-sw="plum"></span></div>
+      <div class="sw"><i style="background:var(--amber)"></i><b>Warm accent</b><span data-sw="amber"></span></div>
+      <div class="sw"><i style="background:var(--wisp)"></i><b>Magic</b><span data-sw="wisp"></span></div>
     </div>
   </section>
 
@@ -417,41 +469,76 @@ footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);paddi
     document.querySelectorAll('[data-cvd]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
   }));
 
+
+  // ---------- palette proposals ----------
+  const PALS = {
+    dusk: { name: 'Whisperwood Dusk', help: 'Green-led. Moss and plum on sage parchment, candle amber, wisp teal.',
+      desc: 'Rooted in the forest itself, the most herbal of the three. Calm and earthy; the plum keeps it witchy rather than rustic.',
+      sw: { bg: 'Sage parchment / deep moss', ink: 'Plum-black', moss: 'Whisperwood moss', plum: 'Hedge-witch plum', amber: 'Candle amber', wisp: 'Wisp teal' } },
+    indigo: { name: 'Midnight Indigo', help: 'Blue-led. Indigo night, copper and moonlight. The most magical and storybook.',
+      desc: 'Built around the night sky over Thornwick: deep indigo, copper pans and pale moonlight. Feels like a fairy-tale illustration and is strongest at night.',
+      sw: { bg: 'Lavender paper / midnight', ink: 'Indigo ink', moss: 'Sage', plum: 'Royal indigo', amber: 'Copper', wisp: 'Moonlight blue' } },
+    heather: { name: 'Heather & Honey', help: 'Warm-led. Heather berry and honey gold. The coziest and most inviting.',
+      desc: 'Built around the hedgerow in bloom: heather, bramble-berry and honey. Warm and welcoming, like the inside of the shop at teatime.',
+      sw: { bg: 'Heather blush / bramble', ink: 'Bramble ink', moss: 'Olive', plum: 'Heather berry', amber: 'Honey gold', wisp: 'Pond teal' } },
+  };
+  function setPalette(key) {
+    if (key === 'dusk') delete root.dataset.palette; else root.dataset.palette = key;
+    const p = PALS[key];
+    document.getElementById('pal-name').textContent = p.name;
+    document.getElementById('pal-help').textContent = p.help;
+    document.getElementById('pal-desc').textContent = p.desc;
+    document.querySelectorAll('[data-sw]').forEach(el => { el.textContent = p.sw[el.dataset.sw]; });
+    document.querySelectorAll('[data-pal]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.pal === key)));
+  }
+  document.querySelectorAll('[data-pal]').forEach(b => b.addEventListener('click', () => setPalette(b.dataset.pal)));
+  setPalette('dusk');
+
   // ---------- cauldron ----------
   function potSVG(id, big) {
-    const extraBubbles = `<g class="extra"><circle class="bub b4" cx="76" cy="96" r="4" fill="var(--petal)"/><circle class="bub b5" cx="128" cy="98" r="3.5" fill="var(--petal)"/></g>`;
+    const bubbles = [[88,94,4],[110,96,3],[76,95,3.5],[124,95,4],[100,92,5],[92,97,3],[116,92,3.5],[132,93,2.5]]
+      .map(([x,y,r],i) => `<circle class="bub b${i+1}${i>1?' boilonly':''}" cx="${x}" cy="${y}" r="${r}" fill="var(--petal)"/>`).join('');
+    const splashes = [[70,84,-10],[134,84,10],[96,80,-4],[114,82,6]]
+      .map(([x,y,dx],i) => `<circle class="splash p${i+1} boilonly" cx="${x}" cy="${y}" r="3" fill="var(--wisp)" style="--dx:${dx}px"/>`).join('');
     return `<svg viewBox="0 0 200 200" class="pot" id="${id}" role="img" aria-label="Cauldron">
-      <g opacity=".9">
-        <path class="steam" d="M78 70 c-8-10 8-16 0-28" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
-        <path class="steam s2" d="M102 66 c-8-10 8-16 0-30" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
-        <path class="steam s3" d="M124 70 c-8-10 8-16 0-28" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+      <g fill="none" stroke="var(--muted)" stroke-linecap="round">
+        <path class="steam" d="M84 70 c-8-10 8-16 0-28"/>
+        <path class="steam s2" d="M112 68 c-8-10 8-16 0-30"/>
+        <path class="steam s3" d="M98 66 c-10-12 10-18 0-34"/>
       </g>
       <g>
         <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root-dk)" stroke="var(--ink)" stroke-width="2" transform="rotate(-8 100 183)"/>
         <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root)" stroke="var(--ink)" stroke-width="2" transform="rotate(8 100 183)"/>
-        <path class="flame" d="M100 186 C78 180 74 160 88 146 C88 158 94 160 96 156 C92 144 100 134 108 128 C106 142 124 150 120 168 C118 180 110 186 100 186Z" fill="var(--heat)"/>
-        <path class="flame f2" d="M100 186 C88 182 86 170 94 162 C96 170 100 170 102 166 C102 160 106 154 110 152 C110 162 118 168 114 178 C112 184 106 186 100 186Z" fill="var(--amber)"/>
-        <path class="flame f3 extra" d="M70 186 C62 180 64 170 72 164 C72 172 78 172 78 170 C80 178 78 186 70 186Z M130 186 C122 180 124 170 132 164 C132 172 138 172 138 170 C140 178 138 186 130 186Z" fill="var(--amber)"/>
+        <g class="flames">
+          <path class="flame" d="M100 186 C78 180 74 160 88 146 C88 158 94 160 96 156 C92 144 100 134 108 128 C106 142 124 150 120 168 C118 180 110 186 100 186Z" fill="var(--heat)"/>
+          <path class="flame f2" d="M100 186 C88 182 86 170 94 162 C96 170 100 170 102 166 C102 160 106 154 110 152 C110 162 118 168 114 178 C112 184 106 186 100 186Z" fill="var(--amber)"/>
+          <path class="flame boilonly" d="M72 186 C62 180 62 166 72 158 C72 168 78 170 80 166 C84 176 80 186 72 186Z M128 186 C118 180 120 166 130 158 C130 168 136 170 138 166 C140 176 136 186 128 186Z" fill="var(--amber)"/>
+        </g>
       </g>
-      <path d="M54 150 l-8 22 M146 150 l8 22" stroke="var(--iron)" stroke-width="7" stroke-linecap="round"/>
-      <path d="M36 92 C34 142 62 166 100 166 C138 166 166 142 164 92 Z" fill="var(--iron)" stroke="var(--ink)" stroke-width="2"/>
-      <path d="M48 104 C50 132 64 148 82 154" fill="none" stroke="var(--iron-hi)" stroke-width="5" stroke-linecap="round"/>
-      <ellipse cx="100" cy="92" rx="68" ry="15" fill="var(--iron-hi)" stroke="var(--ink)" stroke-width="2"/>
-      <ellipse class="liquid" cx="100" cy="93" rx="58" ry="10" fill="var(--wisp)"/>
-      <ellipse cx="86" cy="91" rx="20" ry="3" fill="var(--petal)" opacity=".35"/>
-      <circle class="bub" cx="88" cy="94" r="4" fill="var(--petal)"/>
-      <circle class="bub b2" cx="110" cy="96" r="3" fill="var(--petal)"/>
-      <circle class="bub b3" cx="100" cy="92" r="5" fill="var(--petal)"/>
-      ${extraBubbles}
-      <path d="M32 92 c-10 0-12 14-2 16 M168 92 c10 0 12 14 2 16" fill="none" stroke="var(--iron)" stroke-width="5" stroke-linecap="round"/>
+      <g class="potbody">
+        <path d="M54 150 l-8 22 M146 150 l8 22" stroke="var(--iron)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M36 92 C34 142 62 166 100 166 C138 166 166 142 164 92 Z" fill="var(--iron)" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M48 104 C50 132 64 148 82 154" fill="none" stroke="var(--iron-hi)" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="100" cy="92" rx="68" ry="15" fill="var(--iron-hi)" stroke="var(--ink)" stroke-width="2"/>
+        <ellipse class="liquid" cx="100" cy="93" rx="58" ry="10" fill="var(--wisp)"/>
+        <ellipse cx="86" cy="91" rx="20" ry="3" fill="var(--petal)" opacity=".35"/>
+        ${bubbles}
+        <path d="M32 92 c-10 0-12 14-2 16 M168 92 c10 0 12 14 2 16" fill="none" stroke="var(--iron)" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      ${splashes}
     </svg>`;
   }
   document.getElementById('hero-pot').innerHTML = potSVG('pot-hero', true) +
-    `<div class="seg" role="group" aria-label="Hero cauldron heat"><button type="button" id="hero-sim" aria-pressed="true">Simmer</button><button type="button" id="hero-boil" aria-pressed="false">Boil</button></div>`;
+    `<div class="seg" role="group" aria-label="Hero cauldron heat"><button type="button" id="hero-sim" aria-pressed="true">Simmer</button><button type="button" id="hero-boil" aria-pressed="false">Boil</button></div>` +
+    `<p class="heat-cap" id="hero-cap"></p>`;
   const heroPot = document.getElementById('pot-hero');
   const setHero = boil => { heroPot.classList.toggle('boil', boil);
     document.getElementById('hero-sim').setAttribute('aria-pressed', String(!boil));
-    document.getElementById('hero-boil').setAttribute('aria-pressed', String(boil)); };
+    document.getElementById('hero-boil').setAttribute('aria-pressed', String(boil));
+    document.getElementById('hero-cap').innerHTML = boil
+      ? '<b>Boil · 100 °C.</b> A rolling boil. Roots and bark give up their heart; flowers lose their scent to the steam.'
+      : '<b>Simmer · about 90 °C.</b> Barely trembling. Flowers and leaves keep their oils; roots only give half.'; };
+  setTimeout(() => setHero(false));
   document.getElementById('hero-sim').onclick = () => setHero(false);
   document.getElementById('hero-boil').onclick = () => setHero(true);
   document.getElementById('mini-pot').innerHTML = potSVG('pot-mini', false);
