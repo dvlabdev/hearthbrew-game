@@ -84,6 +84,23 @@ The heat rule creates the intended depth.
 - **Blind-test status:** ✅ PASS (targets: tier 1 ≥70%, tier 2 ≥50%)
 - **Human playtest:** ⏳ waiting for the user's results and 4 answers
 
+## Prototype C: foraging grey-box (2026-10-07)
+- **File:** `prototypes/forage.html`
+- **Live (private):** https://claude.ai/artifact/EazbRDLu3WERyJwpLQ29XV
+- **Shared rules:** a basket of 6 picks, no timer, herb clusters.
+- **The three areas:**
+  - **Meadow** (5×5): shimmering rare bushes.
+  - **Whisperwood** (6×6): a hidden rare plant moves to a neighbouring tile after each pick, and both tiles shake.
+  - **Under the Hill** (6×6): dark, with a lantern radius around your last pick; salt and quartz grow in veins.
+- **Suggested order of the 5 runs:** meadow, meadow, forest, cave, then your choice. A rating follows every run, and a copyable report with 4 open questions comes at the end. Progress is saved on the device.
+- **Checked at 360px:**
+  - No horizontal overflow and no console errors.
+  - Tiles are 58px in the meadow and 48px in the forest and cave.
+  - The forest rustle animates 2 tiles after a pick.
+  - The cave starts with 6 lit tiles.
+  - Area tabs are locked mid-run.
+- **Status:** ⏳ waiting for your 5 runs. Pass needs: median run time 60–90 s, run 5 rated 3 or higher, and each twist described correctly in your own words.
+
 ## Check 4: full request space (2026-10-07)
 **Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).
 

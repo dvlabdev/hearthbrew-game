@@ -14,7 +14,7 @@ Session 3 (build + measure) ──► Session 4 (review + decide) ──► GATE
 
 ---
 
-## Session 3: build and measure
+## Session 3: build and measure ✅ done 2026-10-07 (results in validation.md)
 
 ### 3a. Prototype C, the foraging mini-game → `prototypes/forage.html`
 - **The goal:** find out whether picking in a grid is still fun on the 5th run, and whether each area's twist reads clearly without explanation.
