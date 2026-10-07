@@ -1,6 +1,6 @@
 # Hearthbrew: Game Design Document
 
-**Status:** M0a draft v1. Scope and milestones live in [roadmap.md](roadmap.md); the brewing math is specified in [brew-math.md](brew-math.md).
+**Status:** M0c-reconciled (2026-10-08). Scope and milestones live in [roadmap.md](roadmap.md); the brewing math is specified in [brew-math.md](brew-math.md).
 
 ## 1. One-liner
 A cozy, witchy apothecary game. You have 20 days to restore your late mentor's shop at the edge of an enchanted wood. Read each villager's troubles, brew the remedy that fits, and earn the hamlet's trust before Midsummer Eve.
@@ -22,8 +22,8 @@ A cozy, witchy apothecary game. You have 20 days to restore your late mentor's s
 | Ch. | Days | Beat | Unlocks |
 |---|---|---|---|
 | 1 Cold Hearth | 1–3 | Light the cauldron, serve your first neighbors, clear the garden, first walk in the meadow | Brewing, garden, meadow |
-| 2 The Shop Reopens | 4–8 | Word spreads, so more customers arrive and freshness matters | Kettle (teas), drying rack, garden tonic |
-| 3 Into the Whisperwood | 7–11 | Wren's notes point into the forest | Forest, mortar, salves |
+| 2 The Shop Reopens | 4–6 | Word spreads, so more customers arrive and freshness matters | Kettle (teas), drying rack, garden tonic |
+| 3 Into the Whisperwood | 7–11 | Wren's notes point into the forest | Forest, salve pot, salves |
 | 4 Under the Hill | 12–15 | A cave where Wren gathered crystals and salt | Lantern oil, cave |
 | 5 Midsummer | 16–20 | Gathering the Draught's ingredients, the regulars' final beats, the bonfire | Festival finale |
 
@@ -41,8 +41,8 @@ A cozy, witchy apothecary game. You have 20 days to restore your late mentor's s
 ## 5. The day (4 phases)
 | Phase | Player time | Decisions | Notes |
 |---|---|---|---|
-| **1. Explore & Collect** | 2–5 min | Spend **3 action points**: expedition (1 AP: choose a trail + one event card, see expedition.md), garden actions (plant / water / harvest, 1 AP for all garden work in a day), market (free; costs coins) | Expeditions give variety and rare finds. The garden gives reliable supply that grows over days. |
-| **2. Prepare & Sell** | 3–7 min | Read 3–6 riddles, choose what to brew and how (heat: simmer or boil), and decide which customer gets which brew | One customer is the **featured request**: double pay plus a reputation bonus |
+| **1. Morning** | 30–60 s | **Choose 1 of 3 morning cards**, drawn at random each day from the pool: an **expedition** (a specific trail, with the day's weather → choose your haul → event card), **tend the garden** (water, harvest, plant every plot), the **market** (deals, seeds, sell surplus), a **village errand** (a relationship moment), or **Wren's study** (a Notebook discovery). Only what you pick happens. | Untended plants pause (never die). At least one gathering card (expedition or garden) is always offered. Basic supplies (water, tea leaves, oil, beeswax, honey) are delivered daily by the carrier, so the market is never mandatory. |
+| **2. Prepare & Sell** | 3–7 min | Read 3–6 riddles, choose what to brew and how (heat: simmer or boil), and decide which customer gets which brew | One customer is the **featured request**: double pay plus a relationship bonus |
 | **3. Improve** | 30–90 s | Buy upgrades, donate to the festival, review new Notebook entries | |
 | **4. Rest** | ~10 s | None | Recap, relationship changes, tomorrow's teaser, autosave |
 
@@ -79,7 +79,7 @@ Regulars have **relationship points**:
 | Notebook | 2 | Ingredient vectors revealed on use, reaction rules logged when triggered, keyword glossary, recipes | brew-math.md §6 |
 | Freshness | 4 | Fresh → wilted → spent over days; drying preserves and shifts traits | brew-math.md §4 |
 | Garden | 3 | Plots, seeds, multi-day growth, watering, garden tonic | content-bible (M0b) |
-| Expeditions | 3 | One search-and-pick grid mini-game, one twist per area | content-bible (M0b) |
+| Morning cards | 3, 4 | Choose 1 of 3 random morning cards; the expedition = trail → choose your haul → event card | expedition.md |
 | Relationships | 3, 4 | 4 regulars, points that never drop, 3 beats each | this doc §6 |
 | Economy & upgrades | 3 | Coins from sales; upgrades, donations, seeds, decor | economy.md (M0b) |
 | Festival | 3 | Donations unlock bonfire elements; the final Draught request | content-bible (M0b) |

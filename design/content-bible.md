@@ -7,7 +7,7 @@ Vectors are written as `[Heat, Calm, Vigor, Clarity]`. The rules are in [brew-ma
 |---|---|---|---|---|---|---|
 | Potion | Spring water (free) | Cauldron (3→5 slots, Simmer/Boil) | 2 bottles | 15c | Day 1 | The core puzzle |
 | Tea | Tea leaves (1c) — adds Calm +1 | Kettle (2 slots, always steeped) | 3 cups | 10c | Day 4 | Cheap, quick, many cups. Good for simple Calm requests and frees up the cauldron. |
-| Salve | Oil (3c) + beeswax (2c) | Cauldron with the salve pot (mortar unlocks it) | 2 jars | 24c | Day 9 | High value. Salve requests are about the body ("aching back", "chapped hands"); Clarity is rarely wanted. |
+| Salve | Oil (3c) + beeswax (2c) | Cauldron with the salve pot | 2 jars | 24c | Day 9 | High value. Salve requests are about the body ("aching back", "chapped hands"); Clarity is rarely wanted. |
 
 **Requests follow your stations:** customers only ask for teas once you own the kettle, and for salves once you own the salve pot. Nobody leaves unserved because of something you haven't bought (pillar 4).
 
@@ -60,8 +60,8 @@ Vectors are written as `[Heat, Calm, Vigor, Clarity]`. The rules are in [brew-ma
 | Kettle | Station | 80c | Day 4 | Teas |
 | Drying rack | Station | 50c | Day 5 | Defeats wilting; trait shift |
 | Salve pot | Station | 120c | Day 9 | Salves and lantern oil |
-| Basket (6 picks) → 8 picks | Field tool | start / 70c | Day 6 | Bigger hauls from expeditions |
-| Sickle | Field tool | start | — | Meadow herbs |
+| Basket (5 slots) | Field tool | start | — | Holds the haul; heavy finds take 2 slots (upgrades on the v2 list) |
+| Sickle | Field tool | start | — | Flavour only: cuts herbs on the trail (no rule) |
 | Trowel | Field tool | 45c | Day 7 | Root nodes (valerian, angelica) |
 | Lantern | Field tool | 100c | Day 12 | Cave access (uses lantern oil) |
 | Garden plots (2 → 6) | Garden | +40 / 60 / 90 / 120c | Day 2+ | Steady supply |
@@ -85,15 +85,14 @@ The **mortar** from the roadmap is renamed the **salve pot** in v1, to keep a si
 | Rosehip | 5 |
 | Sunwort | 6 |
 
-- **Garden AP:** 1 AP covers all of the day's garden work (plant, water, harvest).
+- **Tend the garden** is a morning card: choosing it waters, harvests and plants every plot. On days you choose something else, plants **pause** (they never die).
 
 ## 5. Expeditions (v1: trail choice + event cards)
 See **`design/expedition.md`**.
 - Each area has 3 trails with a visible likely yield, plus Wren's hint when a trail matches tomorrow's featured request.
-- The basket fills automatically.
 - **Choose your haul:** 8 finds (10 in rain), a basket of 5 slots; heavy finds take 2. Badges show value and rarity; the shelf strip shows wilting. Tomorrow's customer appears as a clue. Leftovers stay on the trail.
 - Then one event card: **Spot the herb** (two plants side by side, difference circled), **Encounter**, or **Discovery**.
-- About 15–25 s.
+- About 30–60 s in total; the haul itself should settle under 30 s.
 - The search-and-pick grid (prototype C) and the herb walk (prototype C2) were dropped after failed playtests.
 
 | Area | Opens | Trails (examples) | Look-alike pairs for Spot the herb |
@@ -142,7 +141,7 @@ See **`design/expedition.md`**.
 | Seven-herb wreath | collect 7 different herbs | 0c, a collection goal |
 
 - **The finale request:** Midsummer Draught `[5,5,5,5]` with **tol 2**. It **must contain 1–2 Sunwort**, and **R7 does not apply** ("the Draught demands true balance"). Your best brew of day 20 is judged.
-  - Validated (2026-10-07): 17 different 3★ combinations and 199 at 2★ or better, with varied ingredients. See validation.md.
+  - Validated: 11 three-star combinations (9 without brimstone, which is not allowed in potions), with varied ingredients. See validation.md.
   - Every star rating, including 0★, plays an ending.
 
 ## 9. v2 maybe list (do not build in v1)
@@ -153,10 +152,10 @@ See **`design/expedition.md`**.
 |---|---|---|
 | 1 | Brewing and serving (scripted) | — |
 | 2 | Garden | 3rd plot |
-| 3 | Meadow expedition | 4th cauldron slot |
+| 3 | Morning cards begin (meadow expedition, garden, market…) | 4th cauldron slot |
 | 4 | Kettle on sale; tea requests begin once owned | Kettle, shelf |
 | 5 | Drying rack, freshness, garden tonic | Drying rack, compost bin |
-| 6 | Marla's first story beat, lavender seed | Basket +2 |
+| 6 | Marla's first story beat, lavender seed | Plot or shelf |
 | 7 | Whisperwood opens | Trowel |
 | 8 | Bramble's rhyme requests, Wren's letter; the decor shop opens | 4th plot |
 | 9 | Salve pot on sale; salve requests once owned | Salve pot (days 9–10) |

@@ -39,15 +39,15 @@
 | 9–14 | 5 |
 | 15–20 | 6 |
 
-## 2. Expected income (an average player, ~2★ average, featured request served)
-| Days | Income / day | Cumulative (end of block) |
-|---|---|---|
-| 1–3 | ~40c | ~120c |
-| 4–8 | ~60c | ~420c |
-| 9–14 | ~90c (salves) | ~960c |
-| 15–20 | ~110c | ~1,620c |
+## 2. Income (from `tools/economy_sim.py`, median of 300 runs)
+| Days | Average player income / day |
+|---|---|
+| 1–3 | ~56–62c |
+| 4–8 | ~64–72c |
+| 9–14 | ~80–93c (salves) |
+| 15–20 | ~106–110c |
 
-A strong player (~2.6★) earns about +30% (≈2,100c). A weak player (~1.5★) earns about −30% (≈1,130c).
+Totals over 20 days: weak 1,343c · average 1,694c · strong 2,191c.
 
 ## 3. Sinks
 | Category | Total |
@@ -58,7 +58,7 @@ A strong player (~2.6★) earns about +30% (≈2,100c). A weak player (~1.5★) 
 | Shop decor (cosmetic, endless sink) | 15–80c per item, about 12 items |
 
 - **Must-haves for the finale:** the 5th cauldron slot (180c) and the Sunwort seed (free) → about 400c of required spending.
-- **Weak player:** can still reach the festival with all story-critical items by about day 16. They miss some optional upgrades and donations, which leads to a softer ending, not a failure.
+- **Weak player:** can still reach the festival with all story-critical items by about day 13 (sim median for the 5th slot). They miss some optional upgrades and donations, which leads to a softer ending, not a failure.
 - **Strong player:** buys everything by about day 17, after which decor absorbs the surplus. Endless mode adds decor sets and new request seasons.
 
 ## 4. Purchase timeline (an average player)
@@ -66,15 +66,15 @@ A strong player (~2.6★) earns about +30% (≈2,100c). A weak player (~1.5★) 
 |---|---|---|
 | 2 | Garden plot +1 (40c) | 80 |
 | 3 | Cauldron 4th slot (60c) | ~80 |
-| 5 | Kettle (80c) **or** Drying rack (50c) + Compost (30c) | ~100 |
-| 6–7 | The other choice from day 5, Trowel (45c), Basket (70c) | — |
+| 4–5 | Kettle (80c) on day 4, then Drying rack (50c) + Compost (30c) | — |
+| 6–7 | Trowel (45c), 4th plot | — |
 | 9 | Salve pot (120c) | — |
 | 10–11 | Cauldron 5th slot (180c) | — |
 | 12 | Lantern (100c) | — |
 | 13–16 | Plots up to 6, shelf, donations | — |
 | 17–20 | Decor, remaining donations | — |
 
-**Day 5 is a deliberate trade-off:** the kettle (more sales) or the drying rack + compost (less waste).
+**Day 4–5 trade-off:** the kettle (more sales) or the drying rack + compost (less waste) first.
 
 ## 5. Checks the M2 sim must assert
 1. No day 2–15 without either a new unlock or an affordable purchase.

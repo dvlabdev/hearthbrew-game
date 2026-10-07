@@ -1,6 +1,6 @@
 # Brew Math & Request Scoring: spec
 
-**Status:** M0a draft v1. All numbers are **provisional**. M0b.1 (research) refines the ingredient vectors, and M0c (the solution-space script) validates the balance.
+**Status:** M0c-validated (2026-10-08). Values match `design/data/content.json` v2 (variant D); tolerance 1 for tiers 1–2, 0 for tier 3.
 
 ## 1. Traits
 A **trait vector** has 4 components: `[Heat, Calm, Vigor, Clarity]`.
@@ -56,7 +56,7 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 | Wilted | Days 3–4 | −1 on every non-zero trait (toward 0) |
 | Spent | Day 5+ | Composts automatically (becomes fertilizer) |
 | Dried | Drying rack, 1 night | Never decays. Uses the ingredient's own `dried` vector, typically Clarity −1, and for aromatics +1 Heat. Delicate → no longer delicate. |
-| Ground (M3) | Mortar | +1 on the main trait; tough → no longer tough |
+| ~~Ground~~ | — | Moved to the v2 list (no mortar in v1) |
 
 ## 5. Requests & scoring
 **Target**
@@ -74,7 +74,7 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 
 **Bonuses**
 - **Recipe bonus:** the brew is within d ≤ 2 of a *known* named recipe, and that recipe scores at least 2★ for this request → price ×1.2. Named recipes reward mastery but are never required.
-- **Featured request:** price ×2, reputation +2.
+- **Featured request:** price ×2, relationship +1 extra.
 
 **Riddle generation**
 - **Template:** `{who} + {situation keyword(s)} + {intensity word}`.
@@ -85,7 +85,7 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
   - "head in a fog" → Clarity
   - "jittery" → Calm (+ Clarity)
 - **Intensity words** set the magnitude: "a little" = 3, plain = 4–5, "terribly / all week" = 6–7.
-- **Difficulty tiers** follow reputation:
+- **Difficulty tiers** follow the day (story progress):
 
 | Tier | Traits involved | tol | Extra |
 |---|---|---|---|
@@ -96,9 +96,9 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 **Example riddles**
 | Riddle | Hidden T | Valid solutions (3 slots) |
 |---|---|---|
-| Marla: "The baby's had me up all week, I just need to *sleep*." | `[0,6,0,0]` tol 2 | Chamomile×2 (simmer) → d0 · Chamomile + Lavender + Honey → `[0,6,1,1]` d2 |
-| Pell: "Chilled to the bone and my shoulders ache." | `[4,0,4,0]` tol 2 | Fireroot + Nettle (boil) → d0 · + Honey → `[4,2,5,0]` d3 → 2★ (R4 adds +1 Calm) |
-| Fennick: "Exam tomorrow. My head's foggy and my hands won't stop shaking." | `[0,3,0,4]` tol 2 | Sage + Mint (simmer) → `[0,2,0,5]` (Heat clamped) d2 · Sage + Chamomile → `[0,4,0,3]` d2 · Sage×2 + Chamomile → `[0,5,0,6]` d4 → 2★ |
+| Marla: "The baby's had me up all week, I just need to *sleep*." | `[0,6,0,0]` tol 1 | Chamomile×2 (simmer) → d0 ★★★ · Chamomile + Lavender + Honey → `[0,6,1,1]` d2 ★★ |
+| Pell: "Chilled, and my shoulders ache." | `[4,0,4,0]` tol 1 | Fireroot + Nettle (boil) → `[4,0,3,0]` d1 ★★★ · + Honey → `[4,2,4,0]` d2 ★★ (R4 adds +1 Calm) |
+| Fennick: "Exam tomorrow. My head's foggy and my hands won't stop shaking." | `[0,3,0,4]` tol 1 | Sage + Chamomile → `[0,3,0,3]` d1 ★★★ · Sage + Mint (simmer) → `[0,1,0,5]` (Heat clamped) d3 ★★ |
 
 ## 6. The Notebook: what the player knows
 - **Ingredients:**
@@ -109,16 +109,16 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 - **Recipes:** a named recipe is logged when a brew lands within d ≤ 1 of it. Undiscovered recipes appear as silhouettes with Wren's hint.
 - **Legibility vs discovery:** the preview is always *honest about what's known* and shows "?" where things are unknown. Nothing is hidden on purpose once you've discovered it.
 
-## 7. Starter ingredients (provisional — research pass M0b.1 refines them)
+## 7. Starter ingredients (variant D, validated)
 | Ingredient | Vector [H,C,V,Cl] | Tags | Source |
 |---|---|---|---|
 | Chamomile | [0,3,0,0] | delicate, flower | start shelf / garden |
 | Lavender | [0,2,0,1] | delicate, flower | garden |
 | Mint | [−2,1,0,2] | delicate, leaf | start shelf / meadow |
-| Sage | [0,1,0,3] | leaf | start shelf / meadow |
-| Fireroot | [3,0,1,0] | tough, root | start shelf / meadow |
+| Sage | [0,0,0,3] | leaf | start shelf / meadow |
+| Fireroot | [3,0,0,0] | tough, root | start shelf / meadow |
 | Nettle | [1,0,3,0] | leaf | meadow |
-| Rosehip | [0,0,2,1] | tough, fruit | meadow / garden |
+| Rosehip | [0,0,2,0] | tough, fruit | meadow / garden |
 | Honey | [0,1,1,0] | sweetener (R4) | market |
 
 The tags `delicate` and `tough` are exclusive. Sage and nettle are neither (they're robust leaves), so heat doesn't affect them.

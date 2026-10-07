@@ -6,8 +6,8 @@
 - It needs **variety rather than a skill test**. In your words: "only if it's one of many minigames."
 - Identification works as a **single quick moment with the difference shown visually**, not as a whole mini-game.
 
-## Flow (1 action point; **at most 1 expedition per day**, about 20 hauls in the whole game)
-1. **Choose a trail:** three trail cards for each unlocked area. Each card shows its name, the **weather of the day** and its likely yield. When a trail suits tomorrow's teased customer, the card carries Wren's hint.
+## Flow (the expedition is one of the 3 random morning cards; at most 1 per day)
+1. **The trail is fixed by the morning card** (e.g. "Expedition: the Mill Path"). The card shows the **weather of the day** and the likely yield, plus Wren's hint when it suits tomorrow's teased customer. Choosing it over the other two cards is the first decision.
 2. **Choose your haul** (added 2026-10-07; your idea, refined by a designer and editor brainstorm). See below. Target: under 30 s.
 3. **Draw one event card** from the area's deck. Spot the herb appears at most 1 draw in 4, and never two days running.
 
@@ -53,7 +53,7 @@ The trail turns up **8 finds** (10 on rain days), grouped by kind ("Chamomile ×
 
 ## Decisions it creates
 - **Which trail?** A known need for tomorrow vs a chance at a rare find.
-- **Expedition vs garden vs market:** the action-point trade-off (checked in check 6: expeditions win early, the garden late).
+- **Which morning card:** the expedition (weather-driven finds and rares, but untended plants pause) vs the garden (steady chosen herbs) vs market, errand or study (coins, relationships, knowledge). The day's random draw changes the answer.
 - **Event choices:** small and low-stakes, flavour-rich.
 
 ## Validation

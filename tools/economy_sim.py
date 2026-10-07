@@ -20,7 +20,7 @@ MARKET_PER_DAY = 6  # honey, salt, bases, restocks
 # (name, price, unlock day, story_critical)
 UPGRADES = [
     ('plot 3', 40, 2, False), ('cauldron slot 4', 60, 3, True), ('kettle', 80, 4, True),
-    ('drying rack', 50, 5, False), ('compost bin', 30, 5, False), ('basket +2', 70, 6, False),
+    ('drying rack', 50, 5, False), ('compost bin', 30, 5, False),  # basket upgrades moved to v2 (2026-10-08)
     ('trowel', 45, 7, False), ('salve pot', 120, 9, True), ('cauldron slot 5', 180, 10, True),
     ('lantern', 100, 12, False), ('plot 4', 60, 8, False), ('shelf +6', 40, 4, False),
     ('plot 5', 90, 11, False), ('plot 6', 120, 13, False),

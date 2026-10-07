@@ -5,6 +5,8 @@ Each check records: pass, fail or adjust, the evidence, and the date. The criter
 ## Check 4: solution-space analysis (started early, 2026-10-07)
 **Tool:** `tools/solution_space.py` (brute force over every ingredient combination × Simmer/Boil, applying rules R1–R5, R7 and R8). Run `python tools/tune_midsummer.py` for the finale tuning.
 
+*Historical (tol 2 and pre-variant-D values; superseded by the tol-1 results and the full request-space check below).*
+
 | Request | Pool | 3★ combinations | Verdict |
 |---|---|---|---|
 | Marla, sleep `[0,6,0,0]` tol 2 | starter shelf, 3 slots | 3 | ✅ pass (target 2–6) |
@@ -207,7 +209,7 @@ Spec: `design/expedition.md`.
 - **The 10 tuned riddles:** all still solvable (1–9 three-star answers).
 - **Midsummer Draught:** 11 three-star answers (9 without brimstone).
 
-⚠️ **Prototype B was not updated.** It keeps the old values so your playtest results stay comparable.
+⚠️ **Prototype B was not updated.** It keeps the old values so your playtest results stay comparable. **M1 must re-check the riddles against variant D.**
 
 ## Check 6: 20-day economy (2026-10-07)
 **Tool:** `python tools/economy_sim.py`. See economy.md for the results table.
@@ -227,10 +229,10 @@ Spec: `design/expedition.md`.
 
 **Result:** ✅ **all 4 checks pass** for every bot.
 
-**Garden vs expedition:**
+**Garden vs expedition** *(superseded 2026-10-08: action points were removed; the morning is now 1 of 3 random cards. Kept for the yield numbers.)*:
 - An expedition gives about 4.8 random units per action point, with rare finds.
 - The garden gives `plots × 1` chosen units per action point.
 - The crossover is at about 5 plots, so expeditions win early and the garden wins late. That's a real trade-off. ✅ (Input for the check 5 decision audit.)
 
-## Checks 2 and 5–8 and the design-quality checklist
-Not started.
+## Checks 5, 7, 8, the checklist and the editor re-audit
+See `design/quality-review.md` (2026-10-07/08). Editor re-audit: **7.0/10** (gate 7.5) → conditional go, see roadmap.md.
