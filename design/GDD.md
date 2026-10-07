@@ -9,7 +9,7 @@ A cozy, witchy apothecary game. You have 20 days to restore your late mentor's s
 - **Place:** **Thornwick**, a small hamlet where the fields meet the **Whisperwood**, an old, half-enchanted forest. The villagers live alongside small magics: hobs in the hearth, will-o'-wisps on the marsh paths, herbs that are said to be stronger at midsummer.
 - **Tone:** twilight-cozy. Candlelight, steam, moss and soft rain. It's moody but never scary. Magic is everyday and folk-like, never epic.
 - **Folklore hook (real tradition):** across Europe, herbs gathered on Midsummer (St John's) Eve were believed to be the most potent. This is the reason the festival matters to an apothecary.
-- **Palette direction:** deep moss greens, plum, warm candle amber and parchment cream, with wisp-teal for the magic accents. Final colors are set in the M0c art tile.
+- **Palette (locked):** Whisperwood Dusk, with Candlelit (night) as the primary look. See [art-direction.md](art-direction.md).
 - **Voice:** warm, a little wry. Villagers speak plainly about their troubles, and the mentor's old notes are fond and teasing.
 
 ## 3. Frame & story

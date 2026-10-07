@@ -3,6 +3,7 @@
 A cozy, witchy apothecary crafting game for the browser. You inherit Old Mother Wren's shop in Thornwick, at the edge of the Whisperwood, with 20 days until Midsummer Eve.
 - Design: `design/GDD.md`
 - Brewing and scoring rules: `design/brew-math.md`
+- Art direction (palette, type, illustration rules): `design/art-direction.md`
 The source of truth for scope and milestones is `design/roadmap.md`. Read it before starting any milestone.
 
 ## Current phase

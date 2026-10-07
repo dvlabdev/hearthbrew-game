@@ -34,7 +34,10 @@ Each check records: pass, fail or adjust, the evidence, and the date. The criter
   - Marla's riddle card.
   - A working 375px brew screen with an honest preview (glowcap's Calm shows "?" until it's brewed).
 - **Covers check 8 wireframe:** yes, the brew screen.
-- **Status:** ⏳ awaiting your verdict (pass needs: "happy to build in this direction", and readable at 375px).
+- **Iterations:**
+  - v2: fits 360px phones (Samsung S23).
+  - v3: 3 palette proposals; stronger contrast between Simmer and Boil.
+- **Status:** ✅ **PASS (2026-10-07).** The user approved the concept and the flames. They chose **palette A, Whisperwood Dusk, with Candlelit as the primary look**. Locked in `design/art-direction.md`.
 
 ## Checks 1–2 and 5–8 and the design-quality checklist
 Not started.
