@@ -49,8 +49,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .find .nm{font-weight:700;font-size:.95rem;line-height:1.2;display:flex;align-items:center;gap:4px}
 .find .nm svg{width:14px;height:14px;flex:none}
 .find .meta{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--muted);flex-wrap:wrap}
-.coinsmk{color:var(--amber);letter-spacing:1px;font-size:.95rem}
-.coinsmk i{font-style:normal;opacity:.25}
+.val{color:var(--amber);font-weight:700;font-variant-numeric:tabular-nums;background:#F0A63A1F;border-radius:999px;padding:0 7px}
+.val.prime{background:var(--amber);color:var(--bg)}
+.val.poor{color:var(--muted);background:var(--sunk)}
+.wx{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;background:var(--surface);border-radius:14px;padding:8px 10px}
+.wx svg{width:40px;height:40px}
 .heavy{display:inline-flex;gap:2px}
 .heavy i{width:9px;height:9px;border:1.5px solid var(--ink);border-radius:2px}
 .find .taken{position:absolute;left:4px;top:4px;box-shadow:0 0 0 2px var(--surface);background:var(--plum);color:var(--bg);border-radius:999px;min-width:24px;padding:0 6px;font-weight:700;font-size:.9rem;text-align:center}
@@ -107,17 +110,17 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
 (() => {
   // ---------- data: mirrors design/data/haul-toy.json (V3 tuning) ----------
   const D = {
-    basket: 5, freshNights: 3, rareWeight: 6, pay: { featured: 30, other: 15 },
+    basket: 5, freshNights: 3, rareWeight: 8, pay: { featured: 30, other: 15 },
     herbs: {
-      chamomile: { name: 'Chamomile', trait: 'calm',    units: 1, value: 1, rarity: 'common',   slots: 1 },
-      mint:      { name: 'Mint',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1 },
-      sage:      { name: 'Sage',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1 },
-      nettle:    { name: 'Nettle',    trait: 'vigor',   units: 1, value: 1, rarity: 'common',   slots: 1 },
-      fireroot:  { name: 'Fireroot',  trait: 'heat',    units: 1, value: 2, rarity: 'common',   slots: 1 },
-      rosehip:   { name: 'Rosehip',   trait: 'vigor',   units: 1, value: 3, rarity: 'uncommon', slots: 1 },
-      valerian:  { name: 'Valerian',  trait: 'calm',    units: 2, value: 3, rarity: 'uncommon', slots: 2 },
-      lavender:  { name: 'Lavender',  trait: 'calm',    units: 1, value: 1, rarity: 'rare',     slots: 1 },
-      glowcap:   { name: 'Glowcap',   trait: 'clarity', units: 2, value: 1, rarity: 'rare',     slots: 2 },
+      chamomile: { name: 'Chamomile', trait: 'calm',    units: 1, value: 1, rarity: 'common',   slots: 1, kind: 'flower' },
+      mint:      { name: 'Mint',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1, kind: 'leaf' },
+      sage:      { name: 'Sage',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1, kind: 'leaf' },
+      nettle:    { name: 'Nettle',    trait: 'vigor',   units: 1, value: 1, rarity: 'common',   slots: 1, kind: 'leaf' },
+      fireroot:  { name: 'Fireroot',  trait: 'heat',    units: 1, value: 2, rarity: 'common',   slots: 1, kind: 'root' },
+      rosehip:   { name: 'Rosehip',   trait: 'vigor',   units: 1, value: 3, rarity: 'uncommon', slots: 1, kind: 'fruit' },
+      valerian:  { name: 'Valerian',  trait: 'calm',    units: 2, value: 3, rarity: 'uncommon', slots: 2, kind: 'root' },
+      lavender:  { name: 'Lavender',  trait: 'calm',    units: 1, value: 1, rarity: 'rare',     slots: 1, kind: 'flower' },
+      glowcap:   { name: 'Glowcap',   trait: 'clarity', units: 2, value: 1, rarity: 'rare',     slots: 2, kind: 'mushroom' },
     },
     customers: {
       marla:   { name: 'Marla',      trait: 'calm',    clue: 'something to quiet the mind' },
@@ -125,25 +128,25 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
       fennick: { name: 'Fennick',    trait: 'clarity', clue: 'something to clear a foggy head' },
       tamsin:  { name: 'Old Tamsin', trait: 'vigor',   clue: 'something for tired old arms' },
     },
-    weather: { sun: { label: 'Sunny', note: 'Flowers are out in force.' }, rain: { label: 'Rain', note: 'Two extra finds; roots and mushrooms everywhere.' }, wind: { label: 'Windy', note: 'Something rare has blown in.' } },
+    weather: { sun: {"label": "Sunny", "icon": "sun", "finds": 8, "boost": ["flower"], "rareMult": 1, "extraRare": 0, "prime": ["flower"], "nights": 0, "skew": null, "text": "Flowers are at their best (+1 value); mushrooms dry out (−1). Plenty of blooms.", "poor": ["mushroom"]}, rain: {"label": "Rain", "icon": "rain", "finds": 10, "boost": ["mushroom", "root"], "rareMult": 1, "extraRare": 0, "prime": ["mushroom"], "nights": -1, "skew": "calm", "text": "Two extra finds; mushrooms swell (+1 value), flowers get bruised (−1), and wet herbs keep one night less. Gloomy days bring calm-seekers.", "poor": ["flower"]}, wind: {"label": "Windy", "icon": "wind", "finds": 8, "boost": [], "rareMult": 1, "extraRare": 1, "prime": ["fruit"], "nights": 0, "skew": null, "text": "Something rare has blown in, and ripe fruit falls (+1 value).", "poor": []}, mist: {"label": "Mist", "icon": "mist", "finds": 7, "boost": ["mushroom"], "rareMult": 2, "extraRare": 0, "prime": ["mushroom"], "nights": 0, "skew": "clarity", "text": "Fewer finds, but rare things show themselves; mushrooms thrive (+1), leaves go limp (−1). Foggy heads in the village.", "poor": ["leaf"]}, frost: {"label": "Frost", "icon": "frost", "finds": 7, "boost": ["root"], "rareMult": 1, "extraRare": 0, "prime": ["root"], "nights": 1, "skew": "heat", "text": "Roots are sweetest after frost (+1 value), leaves are frost-bitten (−1), and herbs keep a night longer. Everyone wants warming.", "poor": ["leaf"]} },
     startStock: [{ herb: 'chamomile', nights: 1 }, { herb: 'chamomile', nights: 3 }, { herb: 'nettle', nights: 2 }, { herb: 'sage', nights: 3 }],
     days: [
-      { weather: 'sun',  featured: { who: 'marla', units: 2 },   finds: { chamomile: 2, lavender: 1, mint: 2, nettle: 1, rosehip: 1, fireroot: 1 }, others: [{ who: 'tamsin', units: 1 }, { who: 'pell', units: 1 }] },
-      { weather: 'rain', featured: { who: 'pell', units: 2 },    finds: { valerian: 1, glowcap: 1, fireroot: 2, mint: 2, sage: 1, nettle: 2, chamomile: 1 }, others: [{ who: 'fennick', units: 1 }, { who: 'marla', units: 1 }] },
-      { weather: 'wind', featured: { who: 'fennick', units: 2 }, finds: { sage: 2, glowcap: 1, mint: 1, lavender: 1, rosehip: 1, nettle: 1, chamomile: 1 }, others: [{ who: 'tamsin', units: 2 }, { who: 'pell', units: 1 }] },
-      { weather: 'sun',  featured: { who: 'tamsin', units: 2 },  finds: { rosehip: 2, nettle: 1, lavender: 1, chamomile: 2, fireroot: 1, sage: 1 }, others: [{ who: 'marla', units: 2 }, { who: 'fennick', units: 1 }] },
-      { weather: 'rain', featured: { who: 'marla', units: 2 },   finds: { valerian: 1, glowcap: 1, chamomile: 2, fireroot: 2, sage: 2, lavender: 1 }, others: [{ who: 'pell', units: 2 }, { who: 'fennick', units: 2 }] },
+      {"weather": "sun", "featured": {"who": "marla", "units": 2}, "finds": {"chamomile": 2, "lavender": 1, "mint": 2, "nettle": 1, "rosehip": 1, "fireroot": 1}, "others": [{"who": "tamsin", "units": 1}, {"who": "pell", "units": 1}]},
+      {"weather": "rain", "featured": {"who": "pell", "units": 2}, "finds": {"valerian": 1, "glowcap": 1, "fireroot": 2, "mint": 2, "sage": 1, "nettle": 2, "chamomile": 1}, "others": [{"who": "fennick", "units": 1}, {"who": "marla", "units": 1}]},
+      {"weather": "mist", "featured": {"who": "fennick", "units": 2}, "finds": {"sage": 2, "glowcap": 1, "lavender": 1, "mint": 1, "rosehip": 1, "chamomile": 1}, "others": [{"who": "tamsin", "units": 2}, {"who": "fennick", "units": 1}]},
+      {"weather": "frost", "featured": {"who": "tamsin", "units": 2}, "finds": {"rosehip": 2, "fireroot": 2, "valerian": 1, "nettle": 1, "chamomile": 1}, "others": [{"who": "pell", "units": 2}, {"who": "marla", "units": 1}]},
+      {"weather": "wind", "featured": {"who": "marla", "units": 2}, "finds": {"valerian": 1, "glowcap": 1, "chamomile": 2, "fireroot": 2, "sage": 1, "lavender": 1, "mint": 1}, "others": [{"who": "pell", "units": 2}, {"who": "fennick", "units": 2}]},
     ],
   };
   const H = D.herbs, C = D.customers;
 
   // ---------- rules: mirror tools/haul_sim.py ----------
   function serve(stock, trait, units) {
-    const cand = stock.filter(s => H[s.herb].trait === trait).sort((a, b) => a.nights - b.nights || H[b.herb].units - H[a.herb].units);
+    const cand = stock.filter(s => H[s.herb].trait === trait).sort((a, b) => a.nights - b.nights || (b.units ?? H[b.herb].units) - (a.units ?? H[a.herb].units));
     let got = 0; const used = [];
-    for (const s of cand) { if (got >= units) break; used.push(s); got += H[s.herb].units; }
+    for (const s of cand) { if (got >= units) break; used.push(s); got += (s.units ?? H[s.herb].units); }
     if (got < units) return { ok: false, value: 0, stock };
-    return { ok: true, value: used.reduce((a, s) => a + H[s.herb].value, 0), stock: stock.filter(s => !used.includes(s)) };
+    return { ok: true, value: used.reduce((a, s) => a + (s.value ?? H[s.herb].value), 0), stock: stock.filter(s => !used.includes(s)) };
   }
   function resolve(stock, featured, others) {
     let coins = 0; const served = [];
@@ -155,13 +158,18 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
     return { coins, served, stock };
   }
   function night(stock) {
-    const out = stock.map(s => ({ herb: s.herb, nights: s.nights - 1 }));
+    const out = stock.map(s => ({ ...s, nights: s.nights - 1 }));
     return { stock: out.filter(s => s.nights > 0), wilted: out.filter(s => s.nights <= 0).map(s => s.herb) };
   }
   const slotsOf = picks => picks.reduce((a, h) => a + H[h].slots, 0);
+  // weather makes today's picks prime (double dose, +1 value) or poor (-1 value, keeps a night less)
+  function item(h, wk) {
+    const w = D.weather[wk], prime = w.prime.includes(H[h].kind), poor = (w.poor || []).includes(H[h].kind);
+    return { herb: h, prime, poor, nights: D.freshNights + w.nights - (poor ? 1 : 0), units: H[h].units + (prime ? 1 : 0), value: Math.max(0, H[h].value + (prime ? 1 : 0) - (poor ? 1 : 0)) };
+  }
 
   // ---------- state ----------
-  const KEY = 'hearthbrew-haul-v1';
+  const KEY = 'hearthbrew-haul-v2';
   const fresh = () => ({ day: 0, stock: D.startStock.map(s => ({ ...s })), picks: [], t0: Date.now(), phase: 'haul', recap: null, rating: 0, coins: 0, rares: 0, log: [], spot: null, answers: '' });
   let S;
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
@@ -194,6 +202,17 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
       ${P.beard ? `<path d="M50 80 C52 112 66 118 80 118 C94 118 108 112 110 80 C102 96 92 100 80 100 C68 100 58 96 50 80Z" fill="${P.hair}" ${o}/>` : '<path d="M72 94 q8 5 16 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>'}</svg>`;
   }
 
+  function wxIcon(k) {
+    const g = {
+      sun: '<circle cx="20" cy="20" r="8" fill="var(--amber)"/><g stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5 32 32M8 32l3.5-3.5M28.5 11.5 32 8"/></g>',
+      rain: '<path d="M10 22a7 7 0 0 1 2-13.5A9 9 0 0 1 30 10a6 6 0 0 1 0 12z" fill="var(--muted)"/><g stroke="var(--calm)" stroke-width="2.5" stroke-linecap="round"><path d="M13 27l-2 6M21 27l-2 6M29 27l-2 6"/></g>',
+      wind: '<g fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"><path d="M4 14h22a4 4 0 1 0-4-4"/><path d="M4 21h28a4 4 0 1 1-4 4"/><path d="M4 28h14"/></g>',
+      mist: '<g stroke="var(--muted)" stroke-width="3" stroke-linecap="round"><path d="M5 12h30M8 19h24M5 26h30M10 33h20"/></g>',
+      frost: '<g stroke="var(--calm)" stroke-width="2.5" stroke-linecap="round"><path d="M20 4v32M6 12l28 16M6 28l28-16"/><path d="M16 7l4 4 4-4M16 33l4-4 4 4"/></g>',
+    }[k];
+    return `<svg viewBox="0 0 40 40" aria-hidden="true">${g}</svg>`;
+  }
+
   // ---------- render ----------
   const app = document.getElementById('app'), tipEl = document.getElementById('tip');
   const findsList = d => Object.entries(D.days[d].finds);
@@ -214,18 +233,19 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
     const shelf = Object.entries(groups).map(([h, g]) => `<span class="sitem">${pic(h, '')}${H[h].name} ${g.n ? g.n : ''}${g.plus ? ` <span class="plus">${g.n ? '→ ' + (g.n + g.plus) : '+' + g.plus}</span>` : ''}${g.wilt ? ` <span class="wilt">· ${g.wilt} wilts tonight</span>` : ''}</span>`).join('') || '<span class="muted">Empty shelf</span>';
     const tiles = findsList(S.day).map(([h, n]) => {
       const t = takenOf(h), hh = H[h], left = n - t, canAdd = left > 0 && used + hh.slots <= D.basket;
-      const coinsMk = '●'.repeat(hh.value) + `<i>${'●'.repeat(3 - hh.value)}</i>`;
+      const it = item(h, day.weather);
+      const coinsMk = `<span class="val${it.prime ? ' prime' : it.poor ? ' poor' : ''}">◉ ${it.value}${it.prime ? ' ▲' : it.poor ? ' ▼' : ''}</span>`;
       const heavy = hh.slots > 1 ? `<span class="heavy" title="Takes 2 basket slots"><i></i><i></i></span>` : '';
-      return `<button type="button" class="find ${hh.rarity}${!canAdd && !t ? ' out' : ''}" data-h="${h}" aria-label="${hh.name}, ${n} available, value ${hh.value} of 3, ${hh.rarity}${hh.slots > 1 ? ', takes 2 slots' : ''}${t ? ', ' + t + ' in basket' : ''}">
-        ${pic(h)}<span style="display:grid;gap:2px;min-width:0"><span class="nm">${tb(hh.trait)}${hh.name}</span><span class="meta"><span>×${n}</span><span class="coinsmk" aria-hidden="true">${coinsMk}</span>${heavy}</span></span>
+      return `<button type="button" class="find ${hh.rarity}${!canAdd && !t ? ' out' : ''}" data-h="${h}" aria-label="${hh.name}, ${n} available, worth ${it.value} coins${it.prime ? ', prime today: double dose' : it.poor ? ', poor today' : ''}, ${hh.rarity}${hh.slots > 1 ? ', takes 2 slots' : ''}${t ? ', ' + t + ' in basket' : ''}">
+        ${pic(h)}<span style="display:grid;gap:2px;min-width:0"><span class="nm">${tb(hh.trait)}${hh.name}</span><span class="meta"><span>×${n}</span><span aria-hidden="true">${coinsMk}</span>${heavy}</span></span>
         ${t ? `<span class="taken">${t}</span><span class="minus" data-minus="${h}" role="button" aria-label="Put one ${hh.name} back">−</span>` : ''}</button>`;
     }).join('');
     const slotsHTML = []; S.picks.forEach(h => { slotsHTML.push(`<span class="bslot full">${pic(h, '')}</span>`); if (H[h].slots > 1) slotsHTML.push('<span class="bslot cont"></span>'); });
     while (slotsHTML.length < D.basket) slotsHTML.push('<span class="bslot"></span>');
     app.innerHTML = `${top}
-      <div class="clue">${portrait(f.who)}<div style="min-width:0"><span class="muted" style="font-size:.85rem">Tomorrow's featured customer</span><div><b>${cust.name}</b> will ask for</div><q>${f.units > 1 ? cust.clue.replace('something', 'something strong') : cust.clue}</q></div></div>
+      <div class="clue">${portrait(f.who)}<div style="min-width:0"><span class="muted" style="font-size:.85rem">Tomorrow's featured customer</span><div><b>${cust.name}</b> will ask for</div><q>${f.units > 1 ? cust.clue.replace('something', 'something strong') : cust.clue}</q>${f.units > 1 ? '<div class="hand" style="font-size:.9rem">Wren: “strong” means a double helping.</div>' : ''}</div></div>
       <p class="muted" style="font-size:.9rem">Two more villagers will come too. You don't know what they'll need.</p>
-      <div class="weather"><b>${W.label}.</b> ${W.note}</div>
+      <div class="wx">${wxIcon(day.weather)}<div style="min-width:0"><b>${W.label} all day.</b> <span class="muted">${W.text}</span></div></div>
       <section style="display:grid;gap:6px"><h2>Your shelf</h2><div class="shelf">${shelf}</div></section>
       <section style="display:grid;gap:6px"><div class="row"><h2 class="grow">On the trail</h2><span class="muted" style="font-size:.85rem">tap to take · hold for details</span></div><div class="finds">${tiles}</div></section>
       <section style="display:grid;gap:6px"><div class="row"><h2 class="grow">Basket</h2><span class="muted">${used} / ${D.basket} slots</span></div><div class="basket">${slotsHTML.join('')}</div></section>
@@ -252,9 +272,9 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
     document.getElementById('home').onclick = goHome;
   }
   function showTip(h) {
-    const x = H[h];
+    const x = H[h], it = item(h, D.days[S.day].weather);
     const traitName = { heat: 'Heat (warming)', calm: 'Calm (soothing)', vigor: 'Vigor (strengthening)', clarity: 'Clarity (clearing)' }[x.trait];
-    tipEl.innerHTML = `<div class="tip" role="dialog" aria-label="${x.name} details"><b>${x.name}</b><p>Gives ${x.units > 1 ? 'a strong dose of' : ''} ${traitName}. Worth ${x.value} of 3 coins when brewed. ${x.rarity === 'rare' ? 'Rare: counts toward the Midsummer Draught.' : x.rarity === 'uncommon' ? 'Uncommon.' : 'Common.'} ${x.slots > 1 ? 'Heavy: takes 2 basket slots.' : ''} Keeps for 3 nights.</p><button type="button" class="ghost" id="tipclose" style="margin-top:8px">Close</button></div>`;
+    tipEl.innerHTML = `<div class="tip" role="dialog" aria-label="${x.name} details"><b>${x.name}</b><p>Gives ${x.units > 1 ? 'a strong dose of' : ''} ${traitName}. Worth ${it.value} coins when brewed today${it.prime ? ' (prime: weather makes it a double dose)' : it.poor ? ' (poor today: keeps a night less)' : ''}. ${x.rarity === 'rare' ? 'Rare: counts toward the Midsummer Draught.' : x.rarity === 'uncommon' ? 'Uncommon.' : 'Common.'} ${x.slots > 1 ? 'Heavy: takes 2 basket slots.' : ''} Keeps for ${it.nights} nights.</p><button type="button" class="ghost" id="tipclose" style="margin-top:8px">Close</button></div>`;
     document.getElementById('tipclose').onclick = () => { tipEl.innerHTML = ''; };
   }
 
@@ -262,7 +282,7 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
     tipEl.innerHTML = '';
     const day = D.days[S.day];
     const secs = Math.round((Date.now() - S.t0) / 1000);
-    let stock = S.stock.concat(S.picks.map(h => ({ herb: h, nights: D.freshNights })));
+    let stock = S.stock.concat(S.picks.map(h => item(h, day.weather)));
     const r = resolve(stock, day.featured, day.others);
     const n = night(r.stock);
     const rares = S.picks.filter(h => H[h].rarity === 'rare').length;
@@ -314,7 +334,7 @@ td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertic
     app.querySelectorAll('[data-spot]').forEach(b => b.onclick = () => {
       if (S.spot.answered) return;
       S.spot.answered = b.dataset.spot;
-      if (b.dataset.spot === 'left') { S.stock.push({ herb: 'lavender', nights: D.freshNights }); S.rares++; }
+      if (b.dataset.spot === 'left') { S.stock.push({ herb: 'lavender', nights: D.freshNights, units: 1, value: 1 }); S.rares++; }
       render();
     });
     const n = document.getElementById('spotnext'); if (n) n.onclick = nextDay;

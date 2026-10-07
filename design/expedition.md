@@ -16,10 +16,10 @@ The trail turns up **8 finds** (10 on rain days), grouped by kind ("Chamomile ×
 
 | Element | Rule |
 |---|---|
-| **Find tiles** | At most **2 icon badges**: **value** (1–3 coin marks) and **rarity** glow. Details on long-press. |
+| **Find tiles** | At most **2 badges**: **value** as a numbered coin ("◉ 2", gold ▲ when prime, grey ▼ when poor) and **rarity** glow. Details on long-press. |
 | **Shelf strip** | Your stock with **wilt pips** ("Chamomile 2 · 1 wilts tonight"). As you pick, it updates *stock only* ("1 → 3"). |
 | **Tomorrow as a clue** | The teased featured customer as words to interpret ("Marla: *something to quiet the mind*"). **No green ticks**: tomorrow's riddle stays yours to read (pillar 1). |
-| **Weather of the day** | Rain: +2 finds, more mushrooms and roots. Sun: more flowers. Wind: one extra rare blows in. |
+| **Weather (whole day, random)** | Five weathers. Each changes the finds (count and mix), **quality** (prime kinds give a **double dose** and +1 value; poor kinds −1 value and keep a night less), **rarity**, shelf life, and **which customers come**. Sun: flowers prime, mushrooms poor. Rain: +2 finds, mushrooms prime, flowers poor, wet herbs keep a night less, calm-seekers. Wind: +1 rare, fruit prime. Mist: 7 finds, rares ×2, mushrooms prime, leaves poor, clarity-seekers. Frost: roots prime, leaves poor, herbs keep a night longer, warming-seekers. |
 | **Heavy finds** | Roots, quartz and glowcap clusters take **2 slots**. This is the main source of dilemmas: one rare root against two herbs you need. |
 | **New specimen** | The first pick of a species fills its sketch in Wren's Notebook; unknown species show a "?" glow (a known gamble, never a hidden tile). |
 | **Minimal juice** | Picked finds arc into the basket with a soft thunk. No "covers tomorrow" chime and no "perfect basket" sparkle, because both reveal the answer. |

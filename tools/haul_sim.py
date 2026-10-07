@@ -19,16 +19,16 @@ NAMES = list(H)
 # ---------- core rules (mirrored in prototypes/haul.html) ----------
 def serve(stock, need_trait, units):
     """Use the stock items of that trait that wilt soonest. Returns (served, value_used, new_stock)."""
-    cand = sorted([s for s in stock if H[s['herb']]['trait'] == need_trait], key=lambda s: (s['nights'], -H[s['herb']]['units']))
+    cand = sorted([s for s in stock if H[s['herb']]['trait'] == need_trait], key=lambda s: (s['nights'], -s.get('units', H[s['herb']]['units'])))
     got, used = 0, []
     for s in cand:
         if got >= units:
             break
-        used.append(s); got += H[s['herb']]['units']
+        used.append(s); got += s.get('units', H[s['herb']]['units'])
     if got < units:
         return False, 0, stock
-    rest = [s for s in stock if s not in used]
-    return True, sum(H[s['herb']]['value'] for s in used), rest
+    rest = [s for s in stock if not any(s is u for u in used)]  # identity, not equality: twin items must not vanish together
+    return True, sum(s.get('value', H[s['herb']]['value']) for s in used), rest
 
 
 def resolve(stock, featured, others):
@@ -44,7 +44,7 @@ def resolve(stock, featured, others):
 
 def night(stock):
     """Every item loses a night; items at 0 are wilted (gone)."""
-    out = [{'herb': s['herb'], 'nights': s['nights'] - 1} for s in stock]
+    out = [dict(s, nights=s['nights'] - 1) for s in stock]
     return [s for s in out if s['nights'] > 0], [s['herb'] for s in out if s['nights'] <= 0]
 
 
@@ -52,8 +52,17 @@ def slots(picks):
     return sum(H[p]['slots'] for p in picks)
 
 
+def picked_item(p, wkey):
+    w = W[wkey]
+    prime, poor = H[p]['kind'] in w['prime'], H[p]['kind'] in w.get('poor', [])
+    return {'herb': p, 'prime': prime, 'poor': poor,
+            'nights': D['freshNights'] + w['nights'] - (1 if poor else 0),
+            'units': H[p]['units'] + (1 if prime else 0),
+            'value': max(0, H[p]['value'] + (1 if prime else 0) - (1 if poor else 0))}
+
+
 def play_day(stock, day, picks):
-    stock = [dict(s) for s in stock] + [{'herb': p, 'nights': D['freshNights']} for p in picks]
+    stock = [dict(s) for s in stock] + [picked_item(p, day['weather']) for p in picks]
     coins, served, stock = resolve(stock, day['featured'], day['others'])
     stock, wilted = night(stock)
     rares = sum(H[p]['rarity'] == 'rare' for p in picks)
@@ -63,7 +72,11 @@ def play_day(stock, day, picks):
 # ---------- random day generator (generator rule from expedition.md) ----------
 def gen_day(rng, stock):
     wkey = rng.choice(list(W)); w = W[wkey]
-    fw = rng.choice(list(CUST))
+    def pick_cust():
+        if w['skew'] and rng.random() < 0.5:
+            return rng.choice([c for c in CUST if CUST[c]['trait'] == w['skew']])
+        return rng.choice(list(CUST))
+    fw = pick_cust()
     featured = {'who': fw, 'units': rng.choice([1, 2, 2])}
     ftrait = CUST[fw]['trait']
     finds = []
@@ -73,12 +86,12 @@ def gen_day(rng, stock):
     finds.append(rng.choice(wilting) if wilting else rng.choice(NAMES))   # 1 tops up a wilting item
     special = [h for h in NAMES if H[h]['rarity'] == 'rare' or H[h]['slots'] > 1]
     finds.append(rng.choice(special))                               # 1 rare or heavy
-    weights = [(3 if H[h]['kind'] in w['boost'] else 1) * (0.4 if H[h]['rarity'] == 'rare' else 1) for h in NAMES]
+    weights = [(3 if H[h]['kind'] in w['boost'] else 1) * (0.4 * w['rareMult'] if H[h]['rarity'] == 'rare' else 1) for h in NAMES]
     while len(finds) < w['finds']:
         finds.append(rng.choices(NAMES, weights)[0])
     for _ in range(w['extraRare']):
         finds.append(rng.choice([h for h in NAMES if H[h]['rarity'] == 'rare']))
-    others = [{'who': rng.choice(list(CUST)), 'units': rng.choice([1, 1, 2])} for _ in range(2)]
+    others = [{'who': pick_cust(), 'units': rng.choice([1, 1, 2])} for _ in range(2)]
     return {'weather': wkey, 'featured': featured, 'finds': finds, 'others': others}
 
 
@@ -97,7 +110,7 @@ def s_need(stock, day, rng):
 
 
 def s_value(stock, day, rng):
-    return fill(sorted(day['finds'], key=lambda h: -H[h]['value'] / H[h]['slots']))
+    return fill(sorted(day['finds'], key=lambda h: -picked_item(h, day['weather'])['value'] / H[h]['slots']))
 
 
 def s_rarity(stock, day, rng):
@@ -124,7 +137,7 @@ def s_planner(stock, day, rng, samples=8):
             tot = 0
             for _ in range(samples):
                 others = [{'who': rng.choice(list(CUST)), 'units': rng.choice([1, 1, 2])} for _ in range(2)]
-                st2 = [dict(s) for s in stock] + [{'herb': p, 'nights': D['freshNights']} for p in picks]
+                st2 = [dict(s) for s in stock] + [picked_item(p, day['weather']) for p in picks]
                 coins, _, left = resolve(st2, day['featured'], others)
                 tot += coins + 3 * sum(H[s['herb']]['units'] for s in left if s['nights'] > 1)
             score = tot / samples + D['rareWeight'] * sum(H[p]['rarity'] == 'rare' for p in picks)
@@ -173,6 +186,18 @@ if __name__ == '__main__':
     print(f"  2. each single-factor strategy is best in some runs:      {'PASS' if c2 else 'FAIL'} "
           f"({', '.join(f'{k} {wins[k]:.0%}' for k in singles)})")
     print(f"  3. strategies disagree on >= 50% of hauls:                {'PASS' if c3 else 'FAIL'} ({dis:.0%})")
+
+    # 4. weather plays a role: same finds/customers, different weather -> does the best haul change?
+    rng = random.Random(99); changed = 0; trials = 60
+    for t in range(trials):
+        stock = [dict(x) for x in D['startStock']]
+        day = gen_day(rng, stock)
+        best = set()
+        for wk in W:
+            best.add(tuple(sorted(s_planner(stock, dict(day, weather=wk), random.Random(t)))))
+        changed += len(best) > 1
+    c4 = changed / trials >= 0.5
+    print(f"  4. weather changes the best haul (same finds, other weather): {'PASS' if c4 else 'FAIL'} ({changed / trials:.0%} of days)")
 
     print('\nScripted prototype days, planner picks (for the browser cross-check):')
     stock = [dict(s) for s in D['startStock']]

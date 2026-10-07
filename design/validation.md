@@ -152,12 +152,36 @@ Spec: `design/expedition.md`.
 - **Cross-check:** the planner's picks played in the browser give exactly the sim's results (coins 65/66/49/67/48; served ✓✓✓/✓✓✓/✓✓✗/✓✓✓/✓✗✓).
 - **At 360px:** no overflow and no console errors (one badge overlap was found and fixed).
 
-**Status:** ⏳ waiting for your 5 mornings. Pass needs:
-- each haul under 30 s;
-- you hesitated or wanted a 6th slot on at least half of the hauls;
-- the day 5 rating is at least the day 1 rating;
-- the badges are readable at a glance;
-- Spot the herb is understood.
+**Your playtest (2026-10-07):**
+
+| Day | Haul time | Rating |
+|---|---|---|
+| 1 | 204 s | 4/5 |
+| 2 | 90 s | 4/5 |
+| 3 | 40 s | 4/5 |
+| 4 | 28 s | 4/5 |
+| 5 | 10 s | 4/5 |
+
+- Spot the herb answered correctly: "clear this time". ✅
+- You wanted a 6th slot on only 1 of 5 mornings, and were tapping "almost by habit" by days 4–5. ❌ Tension is low.
+- Value was readable only from the description (the coin dots didn't read). ❌
+- You missed Pell twice: "something strong" (2 units) wasn't obvious enough.
+- **Verdict: PASS WITH FIXES.** It's the best-rated morning design so far, steady at 4/5 every day.
+
+**Fixes (2026-10-07):**
+1. **Weather is a whole-day modifier** (your request). Each weather affects the finds (count and mix), **quality** (prime kinds give a **double dose** and +1 value; poor kinds −1 value and keep a night less), **rarity** odds, shelf life, and **which customers come** (frost → warming, mist → clarity, rain → calm). Five weathers: sun, rain, wind, mist, frost.
+2. **Value badge** is a numbered coin ("◉ 2"), gold with ▲ when prime and grey with ▼ when poor.
+3. **"Strong" hint:** Wren notes that "strong" means a double helping.
+
+**Sim re-check:** a new check 4, "weather changes the best haul".
+- Value-only weather effects moved it on only 35–43% of days.
+- Prime-as-double-dose raised it to 53–73%.
+- **Bug found by the browser cross-check:** the sim removed *identical* twin items together. Fixed; after that, "need-only" came within 8% of the planner. Rare weight 6 → 8 fixes it.
+- **Final: all 4 checks pass.** The planner beats need by 10%, value by 20%, rarity by 11%; each strategy wins in some runs; the strategies disagree on 99% of hauls; the weather changes the best haul on 53% of days.
+- **Honest reading:** following tomorrow's clue is a decent beginner strategy, and thinking about rarity and freshness earns about 10–20% more.
+- **Browser cross-check:** exact match on all 5 days (66/68/47/70/51).
+
+**Remaining risk:** habit by day 4–5 in a 5-in-a-row test. To be re-measured in M1, where each haul sits inside a full day.
 
 ## Check 4: full request space (2026-10-07)
 **Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).
