@@ -91,6 +91,7 @@ The **mortar** from the roadmap is renamed the **salve pot** in v1, to keep a si
 See **`design/expedition.md`**.
 - Each area has 3 trails with a visible likely yield, plus Wren's hint when a trail matches tomorrow's featured request.
 - The basket fills automatically.
+- **Choose your haul:** 8 finds (10 in rain), a basket of 5 slots; heavy finds take 2. Badges show value and rarity; the shelf strip shows wilting. Tomorrow's customer appears as a clue. Leftovers stay on the trail.
 - Then one event card: **Spot the herb** (two plants side by side, difference circled), **Encounter**, or **Discovery**.
 - About 15–25 s.
 - The search-and-pick grid (prototype C) and the herb walk (prototype C2) were dropped after failed playtests.
@@ -145,7 +146,7 @@ See **`design/expedition.md`**.
   - Every star rating, including 0★, plays an ending.
 
 ## 9. v2 maybe list (do not build in v1)
-**Rotating micro-games for the morning** (herb identification with a visual comparison, root digging, wisp catching; optional, one per morning; lessons in `expedition.md`) · Lemon balm, mugwort, vervain, yarrow · mortar (grinding) · candles and incense · distiller · moon altar and Arcane · charms · marsh and cliffs · beehive · greenhouse · seasons and moon phases · more regulars.
+**Haul extras:** bloom calendar, At its peak, pinned special orders, Mark the patch, Wren's sets, basket and tool upgrades · **Rotating micro-games for the morning** (herb identification with a visual comparison, root digging, wisp catching; optional, one per morning; lessons in `expedition.md`) · Lemon balm, mugwort, vervain, yarrow · mortar (grinding) · candles and incense · distiller · moon altar and Arcane · charms · marsh and cliffs · beehive · greenhouse · seasons and moon phases · more regulars.
 
 ## 10. Day-by-day pacing (validated by `tools/economy_sim.py`, 2026-10-07)
 | Day | New | Typical purchase (average player) |

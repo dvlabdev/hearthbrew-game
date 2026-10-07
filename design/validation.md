@@ -128,6 +128,37 @@ The heat rule creates the intended depth.
 - **Decision (yours, 2026-10-07):** **trail choice + event cards** for v1. Spec in `design/expedition.md`. Identification survives as an occasional "Spot the herb" event card, with the two plants side by side and the difference circled. A pool of rotating micro-games goes on the v2 list.
 - **Gate impact:** prototype C is **closed by a design decision**, not passed. There is no dexterity or skill risk left in v1's morning. It's measured in the M1 slice instead (morning 15–40 s; trails chosen by need).
 
+## Prototype C3: choose your haul (2026-10-07)
+**Origin:** your idea; features brainstormed by a game designer (14 candidates) and reviewed by an editor. Your decisions:
+- Tomorrow appears as a **clue**, with no green ticks.
+- **Leftovers stay behind.**
+- The haul happens on **every expedition**, at most 1 expedition per day.
+
+Spec: `design/expedition.md`.
+
+**Dominance check:** `python tools/haul_sim.py` (5 days × 300 runs, 5 strategies).
+- **First run: FAIL.** "Always take the most valuable" came within 6% of the planner and won 70% of runs, because rares were also the most valuable. Value and rarity pointed the same way.
+- **Fix (V3):**
+  - Rares pay little in coins and count for Midsummer instead (lavender and glowcap value 1).
+  - Rosehip and valerian pay well (value 3).
+  - Rare weight 6.
+- **Result: ✅ all 3 checks pass.**
+  - The planner beats need-only by 17%, value-only by 26%, rarity-only by 15%.
+  - Each single-factor strategy is the best of the three in some runs (need 33%, value 18%, rarity 52%).
+  - The strategies disagree on 99% of hauls.
+
+**Prototype:** `prototypes/haul.html`, live (private) at https://claude.ai/artifact/58kLwbSX9EwWUw8aqUXoHi
+- 5 scripted mornings, with a Spot the herb card after day 2: side by side, centres circled.
+- **Cross-check:** the planner's picks played in the browser give exactly the sim's results (coins 65/66/49/67/48; served ✓✓✓/✓✓✓/✓✓✗/✓✓✓/✓✗✓).
+- **At 360px:** no overflow and no console errors (one badge overlap was found and fixed).
+
+**Status:** ⏳ waiting for your 5 mornings. Pass needs:
+- each haul under 30 s;
+- you hesitated or wanted a 6th slot on at least half of the hauls;
+- the day 5 rating is at least the day 1 rating;
+- the badges are readable at a glance;
+- Spot the herb is understood.
+
 ## Check 4: full request space (2026-10-07)
 **Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).
 

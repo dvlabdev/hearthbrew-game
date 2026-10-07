@@ -1,0 +1,350 @@
+<title>Hearthbrew Haul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Atkinson+Hyperlegible:wght@400;700&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: one morning per screen at 360px. Clue, shelf, finds grid, basket, then the night recap. Candlelit palette (design/art-direction.md). */
+:root{
+  --bg:#111915; --surface:#19241D; --sunk:#0C120F; --ink:#EEE7D7; --muted:#A8A597; --line:#EEE7D722;
+  --moss:#86A976; --leaf:#5E8F4E; --leaf-dk:#40663A; --grey-leaf:#8FA58A; --plum:#C99BD2; --amber:#F0A63A; --wisp:#5FD3C7; --glow:#6FF5E3;
+  --petal:#F4F0E2; --yolk:#F2C94C; --lilac:#B49BE0; --lav:#9C7CC9; --berry:#C4453B; --root:#B57E43; --root-dk:#7A4A20;
+  --skin:#C8916B; --skin2:#A9714F; --hair:#4A2D1A; --grey-hair:#BDB6A6;
+  --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915; --good:#2BC08E; --bad:#EE7A3C;
+  --display:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --hand:"Kalam", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 var(--body);padding-inline:16px;padding-block:12px 40px}
+.app{max-width:440px;margin:0 auto;display:grid;gap:12px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15}
+h1{font-size:1.45rem} h2{font-size:1.2rem}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--wisp);outline-offset:2px;border-radius:8px}
+.muted{color:var(--muted)} .hand{font-family:var(--hand);color:var(--plum);line-height:1.35}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap} .grow{margin-right:auto}
+.pill{border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;min-height:36px;display:inline-flex;align-items:center;gap:6px;background:transparent;font-variant-numeric:tabular-nums}
+.coins{color:var(--amber);font-weight:700}
+
+.clue{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;align-items:center;background:var(--surface);border-radius:14px;padding:10px}
+.clue svg{width:56px;height:56px}
+.clue q{quotes:"“" "”";font-family:var(--hand);color:var(--plum);font-size:1.1rem}
+.weather{display:flex;align-items:center;gap:8px;font-size:.95rem;color:var(--muted)}
+.weather b{color:var(--ink)}
+
+.shelf{display:flex;gap:6px;flex-wrap:wrap}
+.sitem{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border-radius:999px;padding:2px 10px 2px 2px;font-size:.92rem;font-variant-numeric:tabular-nums}
+.sitem svg{width:28px;height:28px}
+.sitem .plus{color:var(--good);font-weight:700}
+.sitem .wilt{color:var(--amber);font-size:.82rem}
+
+.finds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.find{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;align-items:center;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:8px;min-height:72px;min-width:0;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.find svg.pic{width:52px;height:52px;background:#1E2C21;border-radius:10px}
+.find.rare{border-color:var(--glow);box-shadow:0 0 0 2px #6FF5E333, 0 0 14px #6FF5E355}
+.find.uncommon{border-color:#6FF5E355}
+.find.out{opacity:.4}
+.find .nm{font-weight:700;font-size:.95rem;line-height:1.2;display:flex;align-items:center;gap:4px}
+.find .nm svg{width:14px;height:14px;flex:none}
+.find .meta{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--muted);flex-wrap:wrap}
+.coinsmk{color:var(--amber);letter-spacing:1px;font-size:.95rem}
+.coinsmk i{font-style:normal;opacity:.25}
+.heavy{display:inline-flex;gap:2px}
+.heavy i{width:9px;height:9px;border:1.5px solid var(--ink);border-radius:2px}
+.find .taken{position:absolute;left:4px;top:4px;box-shadow:0 0 0 2px var(--surface);background:var(--plum);color:var(--bg);border-radius:999px;min-width:24px;padding:0 6px;font-weight:700;font-size:.9rem;text-align:center}
+.find .minus{position:absolute;right:4px;bottom:4px;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--bg);font-weight:700;line-height:1;display:grid;place-items:center}
+
+.basket{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.bslot{aspect-ratio:1;border:2px dashed var(--muted);border-radius:10px;display:grid;place-items:center;min-width:0}
+.bslot.full{border-style:solid;border-color:var(--amber);background:var(--surface)}
+.bslot svg{width:80%;height:80%}
+.bslot.cont{border-color:var(--amber);border-style:solid;background:repeating-linear-gradient(135deg,#F0A63A22 0 4px,transparent 4px 8px)}
+.primary{background:var(--plum);color:var(--bg);border:0;border-radius:14px;padding:12px;font-weight:700;font-size:1.05rem;min-height:52px;width:100%}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:10px;min-height:44px}
+.panel{background:var(--surface);border-radius:16px;padding:14px;display:grid;gap:10px;border:2px solid var(--amber)}
+.cust{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center}
+.cust svg{width:44px;height:44px}
+.ok{color:var(--good);font-weight:700} .no{color:var(--bad);font-weight:700}
+.rate{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.rate button{min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font-weight:700}
+.rate button[aria-pressed="true"]{background:var(--amber);color:var(--bg);border-color:var(--amber)}
+.tip{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);max-width:440px;margin:0 auto;background:var(--sunk);border:1.5px solid var(--amber);border-radius:14px;padding:12px;z-index:5}
+.spot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spot button{background:#1E2C21;border:2px solid var(--line);border-radius:14px;padding:6px;display:grid;gap:4px;justify-items:center;min-width:0}
+.spot button.right{border-color:var(--good)} .spot button.wrong{border-color:var(--bad)}
+.spot svg{width:100%;height:auto;aspect-ratio:1}
+textarea{width:100%;min-height:200px;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:10px;font:15px/1.4 var(--body)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.92rem}
+td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+@media (prefers-reduced-motion: no-preference){.bslot.full svg{animation:drop .3s ease-out}@keyframes drop{from{transform:translateY(-14px) scale(.7);opacity:0}to{transform:none;opacity:1}}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="t-heat" viewBox="0 0 48 48"><path d="M24 4 L45 42 H3 Z" fill="var(--heat)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="t-calm" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--calm)" stroke="var(--ink)" stroke-width="2"/></symbol>
+  <symbol id="t-vigor" viewBox="0 0 48 48"><rect x="5" y="5" width="38" height="38" rx="5" fill="var(--vigor)" stroke="var(--ink)" stroke-width="2"/></symbol>
+  <symbol id="t-clarity" viewBox="0 0 48 48"><path d="M24 2 L46 24 L24 46 L2 24 Z" fill="var(--clarity)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="feather" viewBox="0 0 100 100"><g stroke="var(--leaf)" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M50 96 C50 80 48 66 46 52"/><path d="M48 84 l-12 -6 M48 84 l12 -8 M48 74 l-10 -6 M48 72 l11 -7 M47 64 l-9 -5 M47 62 l9 -6"/></g></symbol>
+  <symbol id="p-chamomile" viewBox="0 0 100 100"><use href="#feather"/><g transform="translate(46 34)" stroke="var(--ink)" stroke-width="1.4" fill="var(--petal)"><ellipse rx="5" ry="13" cy="-13"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(45)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(90)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(135)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(180)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(225)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(270)"/><ellipse rx="5" ry="13" cy="-13" transform="rotate(315)"/><ellipse rx="10" ry="12" cy="-3" fill="var(--yolk)"/><ellipse rx="4" ry="5" cx="-3" cy="-8" fill="#FFF3B0" stroke="none"/></g></symbol>
+  <symbol id="p-mayweed" viewBox="0 0 100 100"><use href="#feather"/><g transform="translate(46 34)" stroke="var(--ink)" stroke-width="1.4" fill="var(--petal)"><ellipse rx="4" ry="14" cy="-14"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(40)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(80)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(120)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(160)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(200)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(240)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(280)"/><ellipse rx="4" ry="14" cy="-14" transform="rotate(320)"/><circle r="9" fill="#D9AE3A"/></g></symbol>
+  <symbol id="p-mint" viewBox="0 0 100 100"><path d="M50 96 V22" stroke="var(--leaf-dk)" stroke-width="3.5"/><g fill="#2BAE7E" stroke="var(--ink)" stroke-width="1.3"><path d="M50 80 C34 82 24 72 26 62 C38 60 48 68 50 80Z"/><path d="M50 80 C66 82 76 72 74 62 C62 60 52 68 50 80Z"/><path d="M50 56 C36 58 28 50 30 40 C40 38 48 46 50 56Z"/><path d="M50 56 C64 58 72 50 70 40 C60 38 52 46 50 56Z"/></g><g fill="var(--lilac)" stroke="var(--ink)" stroke-width="1"><ellipse cx="50" cy="16" rx="5" ry="6"/><ellipse cx="50" cy="26" rx="6" ry="6"/></g></symbol>
+  <symbol id="p-sage" viewBox="0 0 100 100"><path d="M50 96 C50 74 50 50 52 30" stroke="var(--leaf-dk)" stroke-width="3" fill="none"/><g stroke="var(--ink)" stroke-width="1.3" fill="var(--grey-leaf)"><ellipse cx="36" cy="70" rx="9" ry="20" transform="rotate(-40 36 70)"/><ellipse cx="64" cy="62" rx="9" ry="20" transform="rotate(40 64 62)"/><ellipse cx="38" cy="40" rx="7" ry="16" transform="rotate(-30 38 40)"/><ellipse cx="62" cy="34" rx="7" ry="16" transform="rotate(30 62 34)"/></g></symbol>
+  <symbol id="p-nettle" viewBox="0 0 100 100"><path d="M50 96 V14" stroke="var(--leaf-dk)" stroke-width="3"/><g fill="var(--leaf)" stroke="var(--ink)" stroke-width="1.3" stroke-linejoin="round"><path d="M50 78 L42 76 L44 72 L36 70 L39 66 L30 63 L35 59 L27 54 C42 52 50 64 50 78Z"/><path d="M50 78 L58 76 L56 72 L64 70 L61 66 L70 63 L65 59 L73 54 C58 52 50 64 50 78Z"/><path d="M50 46 L43 44 L45 40 L38 38 L41 34 L34 31 L38 27 L32 22 C44 21 50 32 50 46Z"/><path d="M50 46 L57 44 L55 40 L62 38 L59 34 L66 31 L62 27 L68 22 C56 21 50 32 50 46Z"/></g><g stroke="#9DBF7A" stroke-width="2.4" stroke-linecap="round"><path d="M50 56 C44 60 40 66 38 74"/><path d="M50 56 C56 60 60 66 62 74"/></g></symbol>
+  <symbol id="p-lavender" viewBox="0 0 100 100"><g stroke="var(--grey-leaf)" stroke-width="2.4" stroke-linecap="round"><path d="M50 96 V20"/><path d="M50 96 C44 70 36 50 30 30"/><path d="M50 96 C56 70 64 50 70 30"/></g><g fill="var(--lav)" stroke="var(--ink)" stroke-width="1"><ellipse cx="50" cy="16" rx="4" ry="6"/><ellipse cx="50" cy="26" rx="4" ry="6"/><ellipse cx="29" cy="26" rx="4" ry="6"/><ellipse cx="31" cy="36" rx="4" ry="6"/><ellipse cx="71" cy="26" rx="4" ry="6"/><ellipse cx="69" cy="36" rx="4" ry="6"/></g></symbol>
+  <symbol id="p-rosehip" viewBox="0 0 100 100"><path d="M50 96 C48 70 44 50 30 30 M47 66 C58 56 66 46 76 34" stroke="var(--root-dk)" stroke-width="3.5" fill="none" stroke-linecap="round"/><g fill="var(--berry)" stroke="var(--ink)" stroke-width="1.4"><ellipse cx="30" cy="26" rx="8" ry="11"/><ellipse cx="76" cy="30" rx="7" ry="10"/><ellipse cx="62" cy="44" rx="6" ry="9"/></g></symbol>
+  <symbol id="p-fireroot" viewBox="0 0 100 100"><g stroke="var(--ink)" stroke-width="2" fill="var(--root)"><ellipse cx="46" cy="58" rx="30" ry="18" transform="rotate(-18 46 58)"/><ellipse cx="26" cy="42" rx="12" ry="16" transform="rotate(-40 26 42)"/><ellipse cx="64" cy="34" rx="11" ry="17" transform="rotate(25 64 34)"/></g><ellipse cx="80" cy="62" rx="6" ry="7" fill="var(--heat)" stroke="var(--ink)" stroke-width="2"/></symbol>
+  <symbol id="p-valerian" viewBox="0 0 100 100"><path d="M50 70 V30" stroke="var(--leaf)" stroke-width="3"/><g fill="#E8B9C9" stroke="var(--ink)" stroke-width="1.5"><circle cx="40" cy="24" r="7"/><circle cx="52" cy="18" r="7"/><circle cx="62" cy="26" r="7"/><circle cx="50" cy="30" r="6"/></g><path d="M50 70 C40 76 34 86 30 94 M50 70 C52 80 54 88 52 96 M50 70 C60 76 68 84 72 92" stroke="var(--root)" stroke-width="5" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="p-glowcap" viewBox="0 0 100 100"><path d="M44 52 C42 68 40 80 36 92 H62 C58 80 56 68 56 52 Z" fill="var(--petal)" stroke="var(--ink)" stroke-width="2"/><path d="M14 56 C14 26 34 14 50 14 C66 14 86 26 86 56 C70 60 30 60 14 56 Z" fill="var(--wisp)" stroke="var(--ink)" stroke-width="2"/><g fill="var(--glow)"><circle cx="38" cy="34" r="5"/><circle cx="62" cy="30" r="4"/><circle cx="70" cy="46" r="4"/></g></symbol>
+</defs></svg>
+
+<div class="app" id="app"></div>
+<div id="tip"></div>
+
+<script>
+(() => {
+  // ---------- data: mirrors design/data/haul-toy.json (V3 tuning) ----------
+  const D = {
+    basket: 5, freshNights: 3, rareWeight: 6, pay: { featured: 30, other: 15 },
+    herbs: {
+      chamomile: { name: 'Chamomile', trait: 'calm',    units: 1, value: 1, rarity: 'common',   slots: 1 },
+      mint:      { name: 'Mint',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1 },
+      sage:      { name: 'Sage',      trait: 'clarity', units: 1, value: 1, rarity: 'common',   slots: 1 },
+      nettle:    { name: 'Nettle',    trait: 'vigor',   units: 1, value: 1, rarity: 'common',   slots: 1 },
+      fireroot:  { name: 'Fireroot',  trait: 'heat',    units: 1, value: 2, rarity: 'common',   slots: 1 },
+      rosehip:   { name: 'Rosehip',   trait: 'vigor',   units: 1, value: 3, rarity: 'uncommon', slots: 1 },
+      valerian:  { name: 'Valerian',  trait: 'calm',    units: 2, value: 3, rarity: 'uncommon', slots: 2 },
+      lavender:  { name: 'Lavender',  trait: 'calm',    units: 1, value: 1, rarity: 'rare',     slots: 1 },
+      glowcap:   { name: 'Glowcap',   trait: 'clarity', units: 2, value: 1, rarity: 'rare',     slots: 2 },
+    },
+    customers: {
+      marla:   { name: 'Marla',      trait: 'calm',    clue: 'something to quiet the mind' },
+      pell:    { name: 'Pell',       trait: 'heat',    clue: 'something to chase off the chill' },
+      fennick: { name: 'Fennick',    trait: 'clarity', clue: 'something to clear a foggy head' },
+      tamsin:  { name: 'Old Tamsin', trait: 'vigor',   clue: 'something for tired old arms' },
+    },
+    weather: { sun: { label: 'Sunny', note: 'Flowers are out in force.' }, rain: { label: 'Rain', note: 'Two extra finds; roots and mushrooms everywhere.' }, wind: { label: 'Windy', note: 'Something rare has blown in.' } },
+    startStock: [{ herb: 'chamomile', nights: 1 }, { herb: 'chamomile', nights: 3 }, { herb: 'nettle', nights: 2 }, { herb: 'sage', nights: 3 }],
+    days: [
+      { weather: 'sun',  featured: { who: 'marla', units: 2 },   finds: { chamomile: 2, lavender: 1, mint: 2, nettle: 1, rosehip: 1, fireroot: 1 }, others: [{ who: 'tamsin', units: 1 }, { who: 'pell', units: 1 }] },
+      { weather: 'rain', featured: { who: 'pell', units: 2 },    finds: { valerian: 1, glowcap: 1, fireroot: 2, mint: 2, sage: 1, nettle: 2, chamomile: 1 }, others: [{ who: 'fennick', units: 1 }, { who: 'marla', units: 1 }] },
+      { weather: 'wind', featured: { who: 'fennick', units: 2 }, finds: { sage: 2, glowcap: 1, mint: 1, lavender: 1, rosehip: 1, nettle: 1, chamomile: 1 }, others: [{ who: 'tamsin', units: 2 }, { who: 'pell', units: 1 }] },
+      { weather: 'sun',  featured: { who: 'tamsin', units: 2 },  finds: { rosehip: 2, nettle: 1, lavender: 1, chamomile: 2, fireroot: 1, sage: 1 }, others: [{ who: 'marla', units: 2 }, { who: 'fennick', units: 1 }] },
+      { weather: 'rain', featured: { who: 'marla', units: 2 },   finds: { valerian: 1, glowcap: 1, chamomile: 2, fireroot: 2, sage: 2, lavender: 1 }, others: [{ who: 'pell', units: 2 }, { who: 'fennick', units: 2 }] },
+    ],
+  };
+  const H = D.herbs, C = D.customers;
+
+  // ---------- rules: mirror tools/haul_sim.py ----------
+  function serve(stock, trait, units) {
+    const cand = stock.filter(s => H[s.herb].trait === trait).sort((a, b) => a.nights - b.nights || H[b.herb].units - H[a.herb].units);
+    let got = 0; const used = [];
+    for (const s of cand) { if (got >= units) break; used.push(s); got += H[s.herb].units; }
+    if (got < units) return { ok: false, value: 0, stock };
+    return { ok: true, value: used.reduce((a, s) => a + H[s.herb].value, 0), stock: stock.filter(s => !used.includes(s)) };
+  }
+  function resolve(stock, featured, others) {
+    let coins = 0; const served = [];
+    [featured, ...others].forEach((c, i) => {
+      const r = serve(stock, C[c.who].trait, c.units);
+      if (r.ok) coins += (i === 0 ? D.pay.featured : D.pay.other) + r.value;
+      served.push(r.ok); stock = r.stock;
+    });
+    return { coins, served, stock };
+  }
+  function night(stock) {
+    const out = stock.map(s => ({ herb: s.herb, nights: s.nights - 1 }));
+    return { stock: out.filter(s => s.nights > 0), wilted: out.filter(s => s.nights <= 0).map(s => s.herb) };
+  }
+  const slotsOf = picks => picks.reduce((a, h) => a + H[h].slots, 0);
+
+  // ---------- state ----------
+  const KEY = 'hearthbrew-haul-v1';
+  const fresh = () => ({ day: 0, stock: D.startStock.map(s => ({ ...s })), picks: [], t0: Date.now(), phase: 'haul', recap: null, rating: 0, coins: 0, rares: 0, log: [], spot: null, answers: '' });
+  let S;
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return v && v.stock ? v : null; } catch (e) { return null; } };
+
+  // ---------- art ----------
+  const pic = (h, cls = 'pic') => `<svg class="${cls}" aria-hidden="true"><use href="#p-${h}"/></svg>`;
+  const tb = t => `<svg aria-hidden="true"><use href="#t-${t}"/></svg>`;
+  function portrait(who) {
+    const P = {
+      marla:   { skin: 'var(--skin)',  hair: 'var(--hair)',      style: 'bun',   cloth: 'var(--moss)',  eyes: 'sleepy', band: 1 },
+      pell:    { skin: 'var(--skin2)', hair: 'var(--root-dk)',   style: 'short', cloth: 'var(--berry)', eyes: 'open', beard: 1, big: 1 },
+      fennick: { skin: 'var(--skin)',  hair: 'var(--hair)',      style: 'messy', cloth: 'var(--plum)',  eyes: 'worried', glasses: 1 },
+      tamsin:  { skin: 'var(--skin)',  hair: 'var(--grey-hair)', style: 'bun',   cloth: 'var(--moss)',  eyes: 'smile', hat: 1 },
+    }[who];
+    const o = 'stroke="var(--ink)" stroke-width="2"';
+    const sh = P.big ? 'M14 160 C16 118 46 104 80 104 C114 104 144 118 146 160Z' : 'M24 160 C26 122 52 108 80 108 C108 108 134 122 136 160Z';
+    const hair = { bun: `<circle cx="80" cy="30" r="14" fill="${P.hair}" ${o}/><path d="M48 70 C46 44 62 36 80 36 C98 36 114 44 112 70 C104 56 92 50 80 50 C68 50 56 56 48 70Z" fill="${P.hair}" ${o}/>`,
+      short: `<path d="M46 66 C44 40 60 32 80 32 C100 32 116 40 114 66 C106 52 94 46 80 46 C66 46 54 52 46 66Z" fill="${P.hair}" ${o}/>`,
+      messy: `<path d="M46 70 C40 40 56 28 80 30 C104 28 122 40 114 70 L108 56 L100 62 L94 50 L84 58 L76 48 L68 58 L60 50 L52 62Z" fill="${P.hair}" ${o}/>` }[P.style];
+    const eyes = { sleepy: '<path d="M60 74 q7 5 14 0 M86 74 q7 5 14 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>',
+      open: '<circle cx="67" cy="74" r="3.5" fill="var(--ink)"/><circle cx="93" cy="74" r="3.5" fill="var(--ink)"/>',
+      worried: '<circle cx="67" cy="76" r="3.5" fill="var(--ink)"/><circle cx="93" cy="76" r="3.5" fill="var(--ink)"/><path d="M58 66 l14 -4 M102 66 l-14 -4" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>',
+      smile: '<path d="M60 76 q7 -6 14 0 M86 76 q7 -6 14 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>' }[P.eyes];
+    return `<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="78" fill="var(--sunk)"/><path d="${sh}" fill="${P.cloth}" ${o}/>
+      <path d="M70 104 h20 v12 c-6 4 -14 4 -20 0z" fill="${P.skin}" ${o}/><ellipse cx="80" cy="72" rx="32" ry="36" fill="${P.skin}" ${o}/>${hair}
+      ${P.band ? '<path d="M50 52 C62 40 98 40 110 52" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round"/>' : ''}
+      ${P.hat ? `<ellipse cx="80" cy="44" rx="48" ry="9" fill="var(--amber)" ${o}/><path d="M56 44 C58 24 102 24 104 44Z" fill="var(--amber)" ${o}/>` : ''}${eyes}
+      ${P.glasses ? '<circle cx="67" cy="75" r="9" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="93" cy="75" r="9" fill="none" stroke="var(--ink)" stroke-width="2"/>' : ''}
+      ${P.beard ? `<path d="M50 80 C52 112 66 118 80 118 C94 118 108 112 110 80 C102 96 92 100 80 100 C68 100 58 96 50 80Z" fill="${P.hair}" ${o}/>` : '<path d="M72 94 q8 5 16 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>'}</svg>`;
+  }
+
+  // ---------- render ----------
+  const app = document.getElementById('app'), tipEl = document.getElementById('tip');
+  const findsList = d => Object.entries(D.days[d].finds);
+  const takenOf = h => S.picks.filter(x => x === h).length;
+
+  function render() {
+    save();
+    if (S.phase === 'report') return renderReport();
+    if (S.phase === 'spot') return renderSpot();
+    const day = D.days[S.day], f = day.featured, cust = C[f.who], W = D.weather[day.weather];
+    const used = slotsOf(S.picks);
+    const top = `<div class="row"><h1 class="grow">Day ${S.day + 1} of 5 · morning</h1><span class="pill"><span class="coins">◉ ${S.coins}</span> · ✦ ${S.rares}</span></div>`;
+    if (S.phase === 'recap') return renderRecap(top);
+    // shelf: current stock grouped, with today's picks shown as +n
+    const groups = {};
+    S.stock.forEach(s => { const g = groups[s.herb] ||= { n: 0, wilt: 0 }; g.n++; if (s.nights === 1) g.wilt++; });
+    S.picks.forEach(h => { (groups[h] ||= { n: 0, wilt: 0 }).plus = (groups[h].plus || 0) + 1; });
+    const shelf = Object.entries(groups).map(([h, g]) => `<span class="sitem">${pic(h, '')}${H[h].name} ${g.n ? g.n : ''}${g.plus ? ` <span class="plus">${g.n ? '→ ' + (g.n + g.plus) : '+' + g.plus}</span>` : ''}${g.wilt ? ` <span class="wilt">· ${g.wilt} wilts tonight</span>` : ''}</span>`).join('') || '<span class="muted">Empty shelf</span>';
+    const tiles = findsList(S.day).map(([h, n]) => {
+      const t = takenOf(h), hh = H[h], left = n - t, canAdd = left > 0 && used + hh.slots <= D.basket;
+      const coinsMk = '●'.repeat(hh.value) + `<i>${'●'.repeat(3 - hh.value)}</i>`;
+      const heavy = hh.slots > 1 ? `<span class="heavy" title="Takes 2 basket slots"><i></i><i></i></span>` : '';
+      return `<button type="button" class="find ${hh.rarity}${!canAdd && !t ? ' out' : ''}" data-h="${h}" aria-label="${hh.name}, ${n} available, value ${hh.value} of 3, ${hh.rarity}${hh.slots > 1 ? ', takes 2 slots' : ''}${t ? ', ' + t + ' in basket' : ''}">
+        ${pic(h)}<span style="display:grid;gap:2px;min-width:0"><span class="nm">${tb(hh.trait)}${hh.name}</span><span class="meta"><span>×${n}</span><span class="coinsmk" aria-hidden="true">${coinsMk}</span>${heavy}</span></span>
+        ${t ? `<span class="taken">${t}</span><span class="minus" data-minus="${h}" role="button" aria-label="Put one ${hh.name} back">−</span>` : ''}</button>`;
+    }).join('');
+    const slotsHTML = []; S.picks.forEach(h => { slotsHTML.push(`<span class="bslot full">${pic(h, '')}</span>`); if (H[h].slots > 1) slotsHTML.push('<span class="bslot cont"></span>'); });
+    while (slotsHTML.length < D.basket) slotsHTML.push('<span class="bslot"></span>');
+    app.innerHTML = `${top}
+      <div class="clue">${portrait(f.who)}<div style="min-width:0"><span class="muted" style="font-size:.85rem">Tomorrow's featured customer</span><div><b>${cust.name}</b> will ask for</div><q>${f.units > 1 ? cust.clue.replace('something', 'something strong') : cust.clue}</q></div></div>
+      <p class="muted" style="font-size:.9rem">Two more villagers will come too. You don't know what they'll need.</p>
+      <div class="weather"><b>${W.label}.</b> ${W.note}</div>
+      <section style="display:grid;gap:6px"><h2>Your shelf</h2><div class="shelf">${shelf}</div></section>
+      <section style="display:grid;gap:6px"><div class="row"><h2 class="grow">On the trail</h2><span class="muted" style="font-size:.85rem">tap to take · hold for details</span></div><div class="finds">${tiles}</div></section>
+      <section style="display:grid;gap:6px"><div class="row"><h2 class="grow">Basket</h2><span class="muted">${used} / ${D.basket} slots</span></div><div class="basket">${slotsHTML.join('')}</div></section>
+      <button type="button" class="primary" id="home">Head home</button>
+      <p class="muted" style="font-size:.85rem">Whatever you leave on the trail is gone for today. What's on your shelf stays.</p>`;
+    bindHaul();
+  }
+
+  function bindHaul() {
+    app.querySelectorAll('[data-h]').forEach(b => {
+      let timer = null, long = false;
+      b.addEventListener('pointerdown', () => { long = false; timer = setTimeout(() => { long = true; showTip(b.dataset.h); }, 450); });
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => clearTimeout(timer)));
+      b.addEventListener('contextmenu', e => e.preventDefault());
+      b.addEventListener('click', e => {
+        if (long) return;
+        const minus = e.target.closest('[data-minus]');
+        const h = b.dataset.h;
+        if (minus) { S.picks.splice(S.picks.lastIndexOf(h), 1); return render(); }
+        const n = D.days[S.day].finds[h];
+        if (takenOf(h) < n && slotsOf(S.picks) + H[h].slots <= D.basket) { S.picks.push(h); render(); }
+      });
+    });
+    document.getElementById('home').onclick = goHome;
+  }
+  function showTip(h) {
+    const x = H[h];
+    const traitName = { heat: 'Heat (warming)', calm: 'Calm (soothing)', vigor: 'Vigor (strengthening)', clarity: 'Clarity (clearing)' }[x.trait];
+    tipEl.innerHTML = `<div class="tip" role="dialog" aria-label="${x.name} details"><b>${x.name}</b><p>Gives ${x.units > 1 ? 'a strong dose of' : ''} ${traitName}. Worth ${x.value} of 3 coins when brewed. ${x.rarity === 'rare' ? 'Rare: counts toward the Midsummer Draught.' : x.rarity === 'uncommon' ? 'Uncommon.' : 'Common.'} ${x.slots > 1 ? 'Heavy: takes 2 basket slots.' : ''} Keeps for 3 nights.</p><button type="button" class="ghost" id="tipclose" style="margin-top:8px">Close</button></div>`;
+    document.getElementById('tipclose').onclick = () => { tipEl.innerHTML = ''; };
+  }
+
+  function goHome() {
+    tipEl.innerHTML = '';
+    const day = D.days[S.day];
+    const secs = Math.round((Date.now() - S.t0) / 1000);
+    let stock = S.stock.concat(S.picks.map(h => ({ herb: h, nights: D.freshNights })));
+    const r = resolve(stock, day.featured, day.others);
+    const n = night(r.stock);
+    const rares = S.picks.filter(h => H[h].rarity === 'rare').length;
+    const left = {}; findsList(S.day).forEach(([h, c]) => { const l = c - takenOf(h); if (l > 0) left[h] = l; });
+    S.recap = { secs, coins: r.coins, served: r.served, rares, wilted: n.wilted, picks: S.picks.slice(), left };
+    S.coins += r.coins; S.rares += rares; S.stock = n.stock; S.phase = 'recap'; S.rating = 0;
+    render(); window.scrollTo({ top: 0 });
+  }
+
+  function renderRecap(top) {
+    const day = D.days[S.day], R = S.recap;
+    const people = [day.featured, ...day.others].map((c, i) => {
+      const cu = C[c.who];
+      const need = i === 0 ? `<q style="quotes:none" class="hand">“${c.units > 1 ? cu.clue.replace('something', 'something strong') : cu.clue}”</q>` : `<span class="muted">wanted ${c.units > 1 ? 'something strong' : 'something'} ${cu.clue.replace('something ', '')}</span>`;
+      return `<div class="cust">${portrait(c.who)}<div style="min-width:0"><b>${cu.name}</b>${i === 0 ? ' <span class="muted">(featured)</span>' : ''}<br>${need}</div><span class="${R.served[i] ? 'ok' : 'no'}">${R.served[i] ? '✓ served' : '✗ not in stock'}</span></div>`;
+    }).join('');
+    const leftTxt = Object.entries(R.left).map(([h, n]) => `${H[h].name} ×${n}`).join(', ') || 'nothing';
+    app.innerHTML = `${top}
+      <section class="panel" aria-live="polite"><h2>Night, then tomorrow's shop</h2>${people}
+        <p><span class="coins">+${R.coins} coins</span>${R.rares ? ` · ✦ ${R.rares} rare${R.rares > 1 ? 's' : ''} saved for Midsummer` : ''}</p>
+        <p class="muted">Left on the trail: ${leftTxt}.${R.wilted.length ? ` Wilted overnight: ${R.wilted.map(h => H[h].name).join(', ')}.` : ''}</p>
+        <p>How was this morning's choice?</p>
+        <div class="rate" role="group" aria-label="Rating 1 to 5">${[1, 2, 3, 4, 5].map(v => `<button type="button" data-rate="${v}" aria-pressed="${S.rating === v}">${v}</button>`).join('')}</div>
+        <p class="muted" style="font-size:.85rem">1 = dull · 5 = I really had to think</p>
+        <button type="button" class="primary" id="next" ${S.rating ? '' : 'disabled'}>${S.day >= D.days.length - 1 ? 'See my results' : 'Next morning'}</button></section>`;
+    app.querySelectorAll('[data-rate]').forEach(b => b.onclick = () => { S.rating = +b.dataset.rate; render(); });
+    document.getElementById('next').onclick = () => {
+      S.log.push({ day: S.day + 1, secs: R.secs, picks: R.picks, left: R.left, coins: R.coins, served: R.served, rares: R.rares, rating: S.rating });
+      if (S.day >= D.days.length - 1) { S.phase = 'report'; return render(); }
+      if (S.day === 1 && !S.spot) { S.phase = 'spot'; S.spot = { answered: null }; return render(); }
+      nextDay();
+    };
+  }
+  function nextDay() { S.day++; S.picks = []; S.phase = 'haul'; S.t0 = Date.now(); S.recap = null; render(); window.scrollTo({ top: 0 }); }
+
+  // ---------- Spot the herb (event card after day 2) ----------
+  function renderSpot() {
+    const a = S.spot.answered;
+    const ring = '<circle cx="46" cy="31" r="17" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-dasharray="5 4"/>';
+    const card = (id, sym, label) => `<button type="button" data-spot="${id}" class="${a ? (id === 'left' ? 'right' : 'wrong') : ''}" aria-label="${label}">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-${sym}"/>${ring}</svg><span>${a ? (id === 'left' ? 'Chamomile' : 'Mayweed') : label}</span></button>`;
+    app.innerHTML = `<div class="row"><h1 class="grow">On the way home</h1></div>
+      <section class="panel"><h2>Spot the herb</h2>
+        <p>Two white daisies by the stile. Only one is chamomile. <b>Look at the circled centres.</b></p>
+        <div class="spot">${card('left', 'chamomile', 'Left flower')}${card('right', 'mayweed', 'Right flower')}</div>
+        ${a ? `<p class="hand">${a === 'left' ? 'Well spotted. Chamomile’s centre is <b>domed</b> and raised; mayweed’s is <b>flat</b>. Take a sprig of lavender from the hedge for your trouble.' : 'Not quite. Look again at the circles: chamomile’s centre is <b>domed</b> and raised, mayweed’s is <b>flat</b>. No harm done.'} — W.</p>
+        <button type="button" class="primary" id="spotnext">Continue to day 3</button>` : '<p class="muted">Tap the one you think is chamomile.</p>'}
+      </section>`;
+    app.querySelectorAll('[data-spot]').forEach(b => b.onclick = () => {
+      if (S.spot.answered) return;
+      S.spot.answered = b.dataset.spot;
+      if (b.dataset.spot === 'left') { S.stock.push({ herb: 'lavender', nights: D.freshNights }); S.rares++; }
+      render();
+    });
+    const n = document.getElementById('spotnext'); if (n) n.onclick = nextDay;
+  }
+
+  function renderReport() {
+    const L = S.log, med = a => a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)];
+    const fmt = o => Object.entries(o).map(([h, n]) => `${H[h].name}×${n}`).join(' ') || '-';
+    const cnt = a => { const o = {}; a.forEach(h => o[h] = (o[h] || 0) + 1); return o; };
+    const report = `Hearthbrew prototype C3 (choose your haul) results\nMedian haul time: ${med(L.map(x => x.secs))} s · day 1 rating ${L[0]?.rating} · day 5 rating ${L[4]?.rating} · total coins ${S.coins}, rares ${S.rares}\nSpot the herb: ${S.spot?.answered === 'left' ? 'right' : S.spot?.answered ? 'wrong' : '-'}\n` +
+      L.map(x => `Day ${x.day}: ${x.secs}s, took ${fmt(cnt(x.picks))} | left ${fmt(x.left)} | served ${x.served.map(v => v ? '✓' : '✗').join('')} +${x.coins} | rated ${x.rating}/5`).join('\n') +
+      `\n\nIn your own words:\n1. On how many mornings did you want a 6th slot? What did it hurt to leave behind? \n2. By day 4–5, were you still reading the tiles, or tapping by habit? \n3. Could you tell value, stock and rarity apart at a glance on your phone? \n4. Was the Spot the herb difference clear this time? \n`;
+    app.innerHTML = `<div class="row"><h1 class="grow">Five mornings done</h1><span class="pill"><span class="coins">◉ ${S.coins}</span> · ✦ ${S.rares}</span></div>
+      <section class="panel"><table><thead><tr><th>Day</th><th>Time</th><th>Served</th><th>Rating</th></tr></thead><tbody>
+      ${L.map(x => `<tr><td>${x.day}</td><td>${x.secs}s</td><td>${x.served.map(v => v ? '✓' : '✗').join(' ')}</td><td>${x.rating}/5</td></tr>`).join('')}</tbody></table>
+      <p>Add your answers at the bottom, then copy everything and paste it back to Claude.</p>
+      <label for="rep" class="muted">Your results</label><textarea id="rep"></textarea>
+      <button type="button" class="primary" id="copy">Copy results</button><p class="muted" id="copied" aria-live="polite"></p>
+      <button type="button" class="ghost" id="again">Start over</button></section>`;
+    const ta = document.getElementById('rep'); ta.value = S.answers || report;
+    ta.oninput = () => { S.answers = ta.value; save(); };
+    document.getElementById('copy').onclick = () => {
+      const out = document.getElementById('copied'), fb = () => { ta.focus(); ta.select(); out.textContent = 'Selected. Use your phone’s Copy.'; };
+      try { navigator.clipboard.writeText(ta.value).then(() => { out.textContent = 'Copied.'; }, fb); } catch (e) { fb(); }
+    };
+    document.getElementById('again').onclick = () => { S = fresh(); render(); };
+  }
+
+  function start(data) { S = (data && data.S) || load() || fresh(); render(); }
+  window.claude?.hot?.snapshot?.(() => ({ S }));
+  window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
