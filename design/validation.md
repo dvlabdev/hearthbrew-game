@@ -99,7 +99,25 @@ The heat rule creates the intended depth.
   - The forest rustle animates 2 tiles after a pick.
   - The cave starts with 6 lit tiles.
   - Area tabs are locked mid-run.
-- **Status:** ⏳ waiting for your 5 runs. Pass needs: median run time 60–90 s, run 5 rated 3 or higher, and each twist described correctly in your own words.
+- **Status:** ❌ **FAIL (user playtest, 2026-10-07).**
+  - Median run time **6 s** (4–20 s); the target was 60–90 s.
+  - Ratings 2–4.
+  - Twists not understood. In your words: the meadow was "just a filler, I need more signals"; the forest was "sometimes I have something below, sometimes not"; in the cave you were "just moving towards the next loot". Overall: "not incredibly fun".
+- **Diagnosis:**
+  - No goal: nothing tells you what you need.
+  - No readable information before a pick, so taps are random.
+  - The twists add noise, not decisions.
+- **Decision (yours):** redesign as **herb identification**. You forage against a shopping list, plants show identifying clues, and harmless look-alikes waste a pick. Spec in `design/forage-v2.md`; prototype C2 follows.
+
+## Prototype C2: herb walk (2026-10-07)
+- **File:** `prototypes/forage-v2.html`
+- **Live (private):** https://claude.ai/artifact/Ss3SERT5AiymbqKCu636CV
+- **Spec:** `design/forage-v2.md`
+- **Three walks with Wren's list.** You inspect a plant (Flower, Leaf and stem, Scent), then pick it or leave it.
+- **Harmless look-alikes,** added one per walk: chamomile/mayweed, nettle/dead-nettle, mint/ground-ivy.
+- **Wrong picks** bring Wren's correction and a new field-guide entry. Rare finds: lavender and rosehip.
+- **Checked at 360px:** no overflow or console errors; 99px tiles; inspect → pick look-alike → correction → guide entry works.
+- **Status:** ⏳ waiting for your 3 walks. Pass needs: median walk 45–90 s, walk 3 rated 4 or higher, clues used, at most 1 unfair look-alike.
 
 ## Check 4: full request space (2026-10-07)
 **Tool:** `python tools/request_space.py [--variant X]`. It generates every request per tier from the keywords × intensity words, and counts 3★ answers for the whole pool and for **realistic baskets** (7–9 kinds × 2 units each).
