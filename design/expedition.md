@@ -6,17 +6,44 @@
 - It needs **variety rather than a skill test**. In your words: "only if it's one of many minigames."
 - Identification works as a **single quick moment with the difference shown visually**, not as a whole mini-game.
 
-## Flow (1 action point, about 15–25 s)
-1. **Choose a trail:** three trail cards for each unlocked area.
-   - Each card shows its name, a small vignette, and its likely yield (**"Mostly: chamomile, mint · Sometimes: lavender"**).
-   - When a trail matches tomorrow's teased featured request, the card carries **Wren's hint** ("Marla will want sleep again. The Mill Path is thick with chamomile.").
-2. **Gather:** the basket fills automatically from the trail's table (4–6 items, or 6–8 with a bigger basket). A short pleasant animation shows the items dropping in.
-3. **Draw one event card** from the area's deck:
+## Flow (1 action point; **at most 1 expedition per day**, about 20 hauls in the whole game)
+1. **Choose a trail:** three trail cards for each unlocked area. Each card shows its name, the **weather of the day** and its likely yield. When a trail suits tomorrow's teased customer, the card carries Wren's hint.
+2. **Choose your haul** (added 2026-10-07; your idea, refined by a designer and editor brainstorm). See below. Target: under 30 s.
+3. **Draw one event card** from the area's deck. Spot the herb appears at most 1 draw in 4, and never two days running.
 
+## Choose your haul
+The trail turns up **8 finds** (10 on rain days), grouped by kind ("Chamomile ×3"). **The basket holds 5 slots.** What you leave behind is gone for today; that's what makes it a choice. Nothing you already own is ever lost.
+
+| Element | Rule |
+|---|---|
+| **Find tiles** | At most **2 icon badges**: **value** (1–3 coin marks) and **rarity** glow. Details on long-press. |
+| **Shelf strip** | Your stock with **wilt pips** ("Chamomile 2 · 1 wilts tonight"). As you pick, it updates *stock only* ("1 → 3"). |
+| **Tomorrow as a clue** | The teased featured customer as words to interpret ("Marla: *something to quiet the mind*"). **No green ticks**: tomorrow's riddle stays yours to read (pillar 1). |
+| **Weather of the day** | Rain: +2 finds, more mushrooms and roots. Sun: more flowers. Wind: one extra rare blows in. |
+| **Heavy finds** | Roots, quartz and glowcap clusters take **2 slots**. This is the main source of dilemmas: one rare root against two herbs you need. |
+| **New specimen** | The first pick of a species fills its sketch in Wren's Notebook; unknown species show a "?" glow (a known gamble, never a hidden tile). |
+| **Minimal juice** | Picked finds arc into the basket with a soft thunk. No "covers tomorrow" chime and no "perfect basket" sparkle, because both reveal the answer. |
+
+**Generator rule:** every day at least 6 of the 8 finds are worth taking:
+- at least 2 serve tomorrow's clue,
+- 1 tops up a shelf item that's wilting,
+- 1 is rare or heavy,
+- the rest is filler.
+
+**Why these, and what was left out:** a game designer proposed 14 features and an editor reviewed them; you settled the disagreements.
+- **Kept:** the set above.
+- **Later (v2 list):** bloom calendar, At its peak, pinned special orders, Mark the patch (a future payoff for leftovers), Wren's sets, basket and tool upgrades (only once basket size is tuned).
+- **Cut:**
+  - "Nothing wasted": it removes the tension.
+  - Linger: wait until event cards prove fun.
+  - A friend on the path: becomes an Encounter card.
+- **Biggest risk (editor):** the haul becomes a solved chore by day 4. It's tested in prototype C3 over 5 days, and by `tools/haul_sim.py`.
+
+## Event cards
 | Event type | What happens | Pillar |
 |---|---|---|
 | **Spot the herb** | Two plants **side by side, with the telling feature circled** (a domed vs flat centre). Choose the useful one to gain a bonus or rare item. A wrong choice brings Wren's explanation over the same highlighted picture, and a field-guide entry. Never a penalty. | 2 |
-| **Encounter** | A villager or creature with a small choice: help a stranded traveller (coins, or a relationship tip), or follow a will-o'-wisp (a rare find or a pretty dead end). | 3, 4 |
+| **Encounter** | A villager or creature with a small choice: help a stranded traveller (coins, or a relationship tip), follow a will-o'-wisp (a rare find or a pretty dead end), or a villager asking for one specific find. | 3, 4 |
 | **Discovery** | A new seed, a page of Wren's notes, a hint about the festival. | 2, 3 |
 
 ## Content for v1

@@ -1,0 +1,292 @@
+{
+  "note": "Choose-your-haul model (prototype C3 + tools/haul_sim.py). An item gives 'units' of one trait; customers need N units of a trait. A served customer pays base + the value of the items used. Items last 3 nights. Score = coins + rareWeight x rares picked. Tuned by tools/haul_sim.py (variant V3): rares pay little in coins but count for Midsummer; rosehip and valerian pay well. Value and rarity must point in different directions.",
+  "basket": 5,
+  "freshNights": 3,
+  "rareWeight": 6,
+  "pay": {
+    "featured": 30,
+    "other": 15
+  },
+  "herbs": {
+    "chamomile": {
+      "name": "Chamomile",
+      "trait": "calm",
+      "units": 1,
+      "value": 1,
+      "rarity": "common",
+      "slots": 1,
+      "kind": "flower"
+    },
+    "mint": {
+      "name": "Mint",
+      "trait": "clarity",
+      "units": 1,
+      "value": 1,
+      "rarity": "common",
+      "slots": 1,
+      "kind": "leaf"
+    },
+    "sage": {
+      "name": "Sage",
+      "trait": "clarity",
+      "units": 1,
+      "value": 1,
+      "rarity": "common",
+      "slots": 1,
+      "kind": "leaf"
+    },
+    "nettle": {
+      "name": "Nettle",
+      "trait": "vigor",
+      "units": 1,
+      "value": 1,
+      "rarity": "common",
+      "slots": 1,
+      "kind": "leaf"
+    },
+    "fireroot": {
+      "name": "Fireroot",
+      "trait": "heat",
+      "units": 1,
+      "value": 2,
+      "rarity": "common",
+      "slots": 1,
+      "kind": "root"
+    },
+    "rosehip": {
+      "name": "Rosehip",
+      "trait": "vigor",
+      "units": 1,
+      "value": 3,
+      "rarity": "uncommon",
+      "slots": 1,
+      "kind": "fruit"
+    },
+    "valerian": {
+      "name": "Valerian",
+      "trait": "calm",
+      "units": 2,
+      "value": 3,
+      "rarity": "uncommon",
+      "slots": 2,
+      "kind": "root"
+    },
+    "lavender": {
+      "name": "Lavender",
+      "trait": "calm",
+      "units": 1,
+      "value": 1,
+      "rarity": "rare",
+      "slots": 1,
+      "kind": "flower"
+    },
+    "glowcap": {
+      "name": "Glowcap",
+      "trait": "clarity",
+      "units": 2,
+      "value": 1,
+      "rarity": "rare",
+      "slots": 2,
+      "kind": "mushroom"
+    }
+  },
+  "customers": {
+    "marla": {
+      "name": "Marla",
+      "trait": "calm",
+      "clue": "something to quiet the mind"
+    },
+    "pell": {
+      "name": "Pell",
+      "trait": "heat",
+      "clue": "something to chase off the chill"
+    },
+    "fennick": {
+      "name": "Fennick",
+      "trait": "clarity",
+      "clue": "something to clear a foggy head"
+    },
+    "tamsin": {
+      "name": "Old Tamsin",
+      "trait": "vigor",
+      "clue": "something for tired old arms"
+    }
+  },
+  "weather": {
+    "sun": {
+      "label": "Sunny",
+      "finds": 8,
+      "boost": [
+        "flower"
+      ],
+      "extraRare": 0
+    },
+    "rain": {
+      "label": "Rain",
+      "finds": 10,
+      "boost": [
+        "mushroom",
+        "root"
+      ],
+      "extraRare": 0
+    },
+    "wind": {
+      "label": "Windy",
+      "finds": 8,
+      "boost": [],
+      "extraRare": 1
+    }
+  },
+  "startStock": [
+    {
+      "herb": "chamomile",
+      "nights": 1
+    },
+    {
+      "herb": "chamomile",
+      "nights": 3
+    },
+    {
+      "herb": "nettle",
+      "nights": 2
+    },
+    {
+      "herb": "sage",
+      "nights": 3
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "weather": "sun",
+      "featured": {
+        "who": "marla",
+        "units": 2
+      },
+      "finds": {
+        "chamomile": 2,
+        "lavender": 1,
+        "mint": 2,
+        "nettle": 1,
+        "rosehip": 1,
+        "fireroot": 1
+      },
+      "others": [
+        {
+          "who": "tamsin",
+          "units": 1
+        },
+        {
+          "who": "pell",
+          "units": 1
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "weather": "rain",
+      "featured": {
+        "who": "pell",
+        "units": 2
+      },
+      "finds": {
+        "valerian": 1,
+        "glowcap": 1,
+        "fireroot": 2,
+        "mint": 2,
+        "sage": 1,
+        "nettle": 2,
+        "chamomile": 1
+      },
+      "others": [
+        {
+          "who": "fennick",
+          "units": 1
+        },
+        {
+          "who": "marla",
+          "units": 1
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "weather": "wind",
+      "featured": {
+        "who": "fennick",
+        "units": 2
+      },
+      "finds": {
+        "sage": 2,
+        "glowcap": 1,
+        "mint": 1,
+        "lavender": 1,
+        "rosehip": 1,
+        "nettle": 1,
+        "chamomile": 1
+      },
+      "others": [
+        {
+          "who": "tamsin",
+          "units": 2
+        },
+        {
+          "who": "pell",
+          "units": 1
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "weather": "sun",
+      "featured": {
+        "who": "tamsin",
+        "units": 2
+      },
+      "finds": {
+        "rosehip": 2,
+        "nettle": 1,
+        "lavender": 1,
+        "chamomile": 2,
+        "fireroot": 1,
+        "sage": 1
+      },
+      "others": [
+        {
+          "who": "marla",
+          "units": 2
+        },
+        {
+          "who": "fennick",
+          "units": 1
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "weather": "rain",
+      "featured": {
+        "who": "marla",
+        "units": 2
+      },
+      "finds": {
+        "valerian": 1,
+        "glowcap": 1,
+        "chamomile": 2,
+        "fireroot": 2,
+        "sage": 2,
+        "lavender": 1
+      },
+      "others": [
+        {
+          "who": "pell",
+          "units": 2
+        },
+        {
+          "who": "fennick",
+          "units": 2
+        }
+      ]
+    }
+  ]
+}
