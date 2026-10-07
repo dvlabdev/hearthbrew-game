@@ -26,7 +26,7 @@ M0c: design validation gate (see `design/validation.md`). Throwaway prototypes g
 
 ## Accessibility (mandatory from M1)
 - Every trait is shown as color + shape + icon, using a colorblind-safe palette.
-- Pointer events only (touch and mouse); the layout must work at 375px width.
+- Pointer events only (touch and mouse). The layout must work at **360px** width (the user tests on a Samsung S23 inside the Claude app, so check 340px too).
 - Minimum font size 16px. Honor reduced motion.
 
 ## Workflow
