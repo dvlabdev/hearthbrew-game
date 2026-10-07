@@ -101,9 +101,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .learn svg{width:16px;height:16px}
 
 /* notebook sheet */
-.sheet{position:fixed;inset:0;background:var(--bg);overflow-y:auto;z-index:10;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 30px)}
+.sheet{position:fixed;inset:0;background:var(--bg);overflow-y:auto;z-index:10;padding:0 16px calc(env(safe-area-inset-bottom,0px) + 30px)}
 .sheet .inner{max-width:440px;margin:0 auto;display:grid;gap:16px}
-.sheet header{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sheet header{position:sticky;top:0;z-index:1;background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 12px) 0 10px;border-bottom:1.5px solid var(--line)}
 .sheet h2{font-size:1.6rem}
 .sheet h3{font-size:1.15rem;border-bottom:1px solid var(--line);padding-bottom:4px}
 .nb-ing{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center}
