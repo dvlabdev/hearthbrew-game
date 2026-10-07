@@ -1,0 +1,690 @@
+<title>Hearthbrew Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Atkinson+Hyperlegible:wght@400;700&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: one-column shop counter for a 360px phone. Customer on top, workbench in the middle, shelf below; the Notebook slides over everything. */
+:root{
+  /* Whisperwood Dusk, Candlelit = primary (design/art-direction.md) */
+  --bg:#111915; --surface:#19241D; --sunk:#0C120F; --ink:#EEE7D7; --muted:#A8A597; --line:#EEE7D722;
+  --moss:#86A976; --plum:#C99BD2; --amber:#F0A63A; --wisp:#5FD3C7; --iron:#0A0C0B; --iron-hi:#3A3F3B;
+  --petal:#F4F0E2; --skin:#C8916B; --skin2:#A9714F; --hair:#4A2D1A; --grey-hair:#BDB6A6; --root:#B57E43; --root-dk:#7A4A20; --glow:#6FF5E3; --berry:#C4453B; --lav:#9C7CC9;
+  --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915;
+  --display:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --hand:"Kalam", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#E9ECDF; --surface:#F6F6EE; --sunk:#DDE2D2; --ink:#2C1F31; --muted:#5D5464; --line:#2C1F3126;
+  --moss:#3E5C38; --plum:#6A3A6D; --amber:#B86A10; --wisp:#1B7F7B; --iron:#2A2830; --iron-hi:#4A4752;
+  --petal:#FBF9F0; --skin:#D9A47E; --skin2:#B98262; --hair:#5E3A22; --grey-hair:#9C9488; --root:#C48A4C; --root-dk:#8A5527; --glow:#3FD3C2; --berry:#B0362C; --lav:#7A57AE;
+  --heat:#C4520A; --calm:#0A6FAE; --vigor:#007F5B; --clarity:#A64C89; --on-trait:#FFFFFF;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);padding-inline:16px;padding-block:12px 40px}
+.app{max-width:440px;margin:0 auto;display:grid;gap:14px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--wisp);outline-offset:2px;border-radius:8px}
+.hand{font-family:var(--hand);color:var(--plum);line-height:1.35}
+.muted{color:var(--muted)}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.top .title{font-family:var(--display);font-size:1.35rem;margin-right:auto}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;min-height:44px;background:transparent;font-variant-numeric:tabular-nums}
+.pill.coins{color:var(--amber);border-color:transparent;padding-inline:4px;font-weight:700}
+.progress{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress i{height:6px;border-radius:3px;background:var(--sunk)}
+.progress i.done{background:var(--amber)}
+.progress i.now{background:var(--plum)}
+
+/* riddle */
+.riddle{background:var(--surface);border-radius:18px;padding:14px;display:grid;grid-template-columns:68px minmax(0,1fr);gap:12px;align-items:start}
+.riddle svg{width:68px;height:68px}
+.riddle .who{font-family:var(--display);font-size:1.2rem}
+.riddle .tier{font-size:.85rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.riddle q{display:block;quotes:"“" "”";font-size:1.05rem;line-height:1.45;margin-top:4px}
+.kw{border-bottom:2.5px solid var(--kc,var(--muted));padding-bottom:1px}
+.kw .tb{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-left:2px}
+.int{border-bottom:2px dotted var(--muted)}
+
+/* bench */
+.bench{display:grid;grid-template-columns:minmax(84px,30%) minmax(0,1fr);gap:10px;align-items:center}
+.bench .pot{width:100%;height:auto}
+.slots{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px}
+.slot{aspect-ratio:1;border:2px dashed var(--muted);border-radius:12px;background:transparent;display:grid;place-items:center;padding:4px;min-height:48px;min-width:0}
+.slot.filled{border-style:solid;border-color:var(--ink);background:var(--surface)}
+.slot svg{width:82%;height:82%}
+.heat{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden}
+.heat button{background:transparent;border:0;padding:8px;min-height:48px;display:grid;gap:0;line-height:1.2}
+.heat button small{color:var(--muted);font-size:.8rem}
+.heat button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.heat button[aria-pressed="true"] small{color:var(--bg);opacity:.75}
+
+/* meter */
+.meter{display:grid;gap:6px;background:var(--surface);border-radius:14px;padding:10px 12px}
+.meter .cap{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
+.mrow{display:grid;grid-template-columns:22px 58px minmax(0,1fr) 32px;gap:6px;align-items:center}
+.mrow svg{width:22px;height:22px}
+.mrow .nm{font-size:15px}
+.bar{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;height:14px}
+.bar i{border-radius:3px;background:var(--sunk)}
+.bar i.on{background:var(--c)}
+.bar i.unk{background:repeating-linear-gradient(135deg,var(--c) 0 3px,transparent 3px 6px)}
+.mrow .val{font-variant-numeric:tabular-nums;text-align:right;font-weight:700}
+
+/* shelf */
+.shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ing{display:grid;justify-items:center;gap:2px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:6px 2px 4px;min-height:44px;font-size:13px;line-height:1.15;min-width:0}
+.ing svg{width:36px;height:36px}
+.ing .tags{display:flex;gap:2px;justify-content:center;min-height:14px}
+.ing .tags svg{width:13px;height:13px}
+.ing small{color:var(--muted);font-size:11px}
+
+.act{display:grid;gap:10px}
+.primary{background:var(--plum);color:var(--bg);border:0;border-radius:14px;padding:14px;font-weight:700;font-size:1.05rem;min-height:52px}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:10px;min-height:44px}
+
+/* result */
+.result{background:var(--surface);border-radius:18px;padding:14px;display:grid;gap:8px;border:2px solid var(--amber)}
+.stars{font-size:1.6rem;letter-spacing:.12em;color:var(--amber);line-height:1}
+.result .say{font-size:1.05rem}
+.result .coin{color:var(--amber);font-weight:700;font-variant-numeric:tabular-nums}
+.note{font-family:var(--hand);color:var(--plum);font-size:1.05rem;line-height:1.35;border-left:2px solid var(--plum);padding-left:10px}
+.learn{font-size:.95rem;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.learn svg{width:16px;height:16px}
+
+/* notebook sheet */
+.sheet{position:fixed;inset:0;background:var(--bg);overflow-y:auto;z-index:10;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 30px)}
+.sheet .inner{max-width:440px;margin:0 auto;display:grid;gap:16px}
+.sheet header{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sheet h2{font-size:1.6rem}
+.sheet h3{font-size:1.15rem;border-bottom:1px solid var(--line);padding-bottom:4px}
+.nb-ing{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center}
+.nb-ing svg.ic{width:40px;height:40px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 4px;border-radius:999px;background:var(--sunk);font-size:.9rem;font-variant-numeric:tabular-nums}
+.chip svg{width:16px;height:16px}
+.list{display:grid;gap:10px}
+.kwrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.kwrow b{font-weight:700}
+
+details.dev{border:1.5px dashed var(--line);border-radius:12px;padding:8px 12px}
+details.dev summary{cursor:pointer;color:var(--muted);min-height:32px}
+details.dev pre{white-space:pre-wrap;font-size:13px;margin:8px 0 0;font-family:ui-monospace,Consolas,monospace;overflow-x:auto}
+
+.end{display:grid;gap:12px}
+.end table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
+.end td,.end th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+.end textarea{width:100%;min-height:150px;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:10px;font:15px/1.4 var(--body)}
+
+/* cauldron */
+.pot *{transform-box:fill-box}
+.flames{transform-origin:50% 100%;transform:scale(.62);transition:transform .5s ease}
+.pot.boil .flames{transform:scale(1.18,1.32)}
+.flame{transform-origin:50% 100%;animation:flick 1.3s ease-in-out infinite alternate}
+.flame.f2{animation-duration:.9s;animation-delay:-.3s}
+.pot.boil .flame{animation-duration:.28s}
+@keyframes flick{from{transform:scaleY(.86) scaleX(1.04)}to{transform:scaleY(1.1) scaleX(.95)}}
+.bub{opacity:0;animation:rise 3.4s ease-in infinite}
+.bub.b2{animation-delay:-1.7s}
+.pot.boil .bub{animation:pop .7s ease-in infinite}
+.bub.b3{animation-delay:-.2s}.bub.b4{animation-delay:-.45s}.bub.b5{animation-delay:-.1s}.bub.b6{animation-delay:-.55s}
+@keyframes rise{0%{transform:translateY(3px) scale(.6);opacity:0}40%{opacity:.8}100%{transform:translateY(-4px) scale(1);opacity:0}}
+@keyframes pop{0%{transform:translateY(4px) scale(.5);opacity:0}30%{opacity:1}80%{transform:translateY(-8px) scale(1.3);opacity:.9}100%{transform:translateY(-10px) scale(1.6);opacity:0}}
+.splash{opacity:0}
+.pot.boil .splash{animation:splash .9s ease-out infinite}
+.splash.p2{animation-delay:-.3s}.splash.p3{animation-delay:-.6s}
+@keyframes splash{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),20px);opacity:0}}
+.steam{opacity:0;stroke-width:3;animation:steam 6s ease-in-out infinite}
+.steam.s2{animation-delay:-3s}
+.pot.boil .steam{stroke-width:9;animation:billow 1.8s ease-out infinite}
+.pot.boil .steam.s2{animation-delay:-.9s}
+@keyframes steam{0%{transform:translateY(8px);opacity:0}50%{opacity:.35}100%{transform:translateY(-22px);opacity:0}}
+@keyframes billow{0%{transform:translateY(10px) scale(.8);opacity:0}30%{opacity:.85}100%{transform:translateY(-40px) scale(1.6,1.2);opacity:0}}
+.liquid{transform-origin:50% 50%;transition:fill .4s}
+.pot.boil .liquid{animation:heave .32s ease-in-out infinite alternate}
+@keyframes heave{from{transform:scale(1,1)}to{transform:scale(1.02,1.45)}}
+.potbody{transform-origin:50% 100%}
+.pot.boil .potbody{animation:shake .14s linear infinite}
+@keyframes shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-1.2px,.6px)}50%{transform:translate(1px,-.6px)}75%{transform:translate(-.6px,-.4px)}}
+.boilonly{display:none}
+.pot.boil .boilonly{display:inline}
+@media (prefers-reduced-motion: reduce){
+  .flame,.bub,.steam,.splash,.liquid,.potbody,.pot.boil .bub,.pot.boil .steam,.pot.boil .splash,.pot.boil .liquid,.pot.boil .potbody,.pot.boil .flame{animation:none}
+  .bub,.steam{opacity:.6}.pot.boil .splash{opacity:.8}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+    <symbol id="t-heat" viewBox="0 0 48 48"><path d="M24 4 L45 42 H3 Z" fill="var(--heat)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/><path d="M24 18c4 5 6 8 6 12a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3-1-3 0-5 0-8z" fill="var(--on-trait)"/></symbol>
+    <symbol id="t-calm" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--calm)" stroke="var(--ink)" stroke-width="2"/><path d="M24 12c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15z" fill="var(--on-trait)"/></symbol>
+    <symbol id="t-vigor" viewBox="0 0 48 48"><rect x="5" y="5" width="38" height="38" rx="5" fill="var(--vigor)" stroke="var(--ink)" stroke-width="2"/><path d="M14 34c0-12 8-20 22-20 0 14-8 22-20 22l-2-2zm2 0 12-12" fill="var(--on-trait)" stroke="var(--vigor)" stroke-width="1.5"/></symbol>
+    <symbol id="t-clarity" viewBox="0 0 48 48"><path d="M24 2 L46 24 L24 46 L2 24 Z" fill="var(--clarity)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/><path d="M24 13l2.8 7.7 8.2.3-6.4 5 2.3 7.9L24 29.3l-6.9 4.6 2.3-7.9-6.4-5 8.2-.3z" fill="var(--on-trait)"/></symbol>
+    <symbol id="tag-delicate" viewBox="0 0 16 16"><path d="M8 2c3 3 4 6 0 12C4 8 5 5 8 2z" fill="var(--petal)" stroke="var(--ink)" stroke-width="1"/></symbol>
+    <symbol id="tag-tough" viewBox="0 0 16 16"><rect x="2" y="5" width="12" height="7" rx="3" fill="var(--root)" stroke="var(--ink)" stroke-width="1"/></symbol>
+
+    <symbol id="i-chamomile" viewBox="0 0 100 100">
+      <path d="M50 52 C48 68 44 80 40 94" fill="none" stroke="var(--moss)" stroke-width="3.5" stroke-linecap="round"/>
+      <g transform="translate(50 36)" stroke="var(--ink)" stroke-width="1.6" fill="var(--petal)">
+        <ellipse rx="6" ry="17" cy="-17"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(40)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(80)"/>
+        <ellipse rx="6" ry="17" cy="-17" transform="rotate(120)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(160)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(200)"/>
+        <ellipse rx="6" ry="17" cy="-17" transform="rotate(240)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(280)"/><ellipse rx="6" ry="17" cy="-17" transform="rotate(320)"/>
+        <circle r="10" fill="var(--amber)"/>
+      </g>
+    </symbol>
+    <symbol id="i-fireroot" viewBox="0 0 100 100">
+      <g stroke="var(--ink)" stroke-width="1.8" fill="var(--root)">
+        <ellipse cx="46" cy="58" rx="28" ry="17" transform="rotate(-18 46 58)"/>
+        <ellipse cx="26" cy="44" rx="11" ry="15" transform="rotate(-40 26 44)"/>
+        <ellipse cx="62" cy="36" rx="10" ry="16" transform="rotate(25 62 36)"/>
+        <ellipse cx="76" cy="62" rx="12" ry="9" transform="rotate(10 76 62)"/>
+      </g>
+      <path d="M30 62c8-2 16-2 26 0M38 52c6 0 12 1 18 3" stroke="var(--root-dk)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <ellipse cx="83" cy="63" rx="5" ry="6" fill="var(--heat)" stroke="var(--ink)" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-mint" viewBox="0 0 100 100">
+      <path d="M50 92 V40" stroke="var(--moss)" stroke-width="3.5" stroke-linecap="round"/>
+      <g stroke="var(--ink)" stroke-width="1.6" fill="var(--vigor)">
+        <path d="M50 60 C30 62 18 50 20 38 C34 36 46 46 50 60Z"/><path d="M50 60 C70 62 82 50 80 38 C66 36 54 46 50 60Z"/>
+        <path d="M50 38 C40 32 38 20 46 10 C56 16 58 28 50 38Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-sage" viewBox="0 0 100 100">
+      <path d="M50 92 C50 70 50 50 52 30" stroke="var(--moss)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <g stroke="var(--ink)" stroke-width="1.6" fill="#8FA58A">
+        <ellipse cx="34" cy="62" rx="9" ry="20" transform="rotate(-40 34 62)"/><ellipse cx="66" cy="54" rx="9" ry="20" transform="rotate(40 66 54)"/>
+        <ellipse cx="52" cy="22" rx="8" ry="16"/>
+      </g>
+    </symbol>
+    <symbol id="i-honey" viewBox="0 0 100 100">
+      <path d="M28 34 H72 V80 C72 88 66 92 50 92 C34 92 28 88 28 80Z" fill="var(--amber)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="24" y="22" width="52" height="14" rx="4" fill="var(--plum)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="36" y="50" width="28" height="20" rx="3" fill="var(--petal)" stroke="var(--ink)" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="i-lavender" viewBox="0 0 100 100">
+      <path d="M50 94 C50 70 48 50 46 18 M50 70 C58 56 62 44 66 30" stroke="var(--moss)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <g fill="var(--lav)" stroke="var(--ink)" stroke-width="1.3">
+        <ellipse cx="46" cy="16" rx="5" ry="7"/><ellipse cx="42" cy="28" rx="5" ry="7"/><ellipse cx="50" cy="30" rx="5" ry="7"/><ellipse cx="44" cy="42" rx="5" ry="7"/><ellipse cx="51" cy="44" rx="5" ry="7"/>
+        <ellipse cx="66" cy="28" rx="5" ry="7"/><ellipse cx="62" cy="40" rx="5" ry="7"/><ellipse cx="69" cy="41" rx="5" ry="7"/>
+      </g>
+    </symbol>
+    <symbol id="i-nettle" viewBox="0 0 100 100">
+      <path d="M50 94 V30" stroke="var(--moss)" stroke-width="3.5" stroke-linecap="round"/>
+      <g fill="var(--moss)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round">
+        <path d="M50 66 L42 64 L44 60 L36 58 L39 54 L30 51 L35 47 L27 42 C40 40 48 50 50 66Z"/>
+        <path d="M50 66 L58 64 L56 60 L64 58 L61 54 L70 51 L65 47 L73 42 C60 40 52 50 50 66Z"/>
+        <path d="M50 34 L45 31 L47 27 L42 24 L46 21 L43 16 L48 15 L50 8 L52 15 L57 16 L54 21 L58 24 L53 27 L55 31Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-rosehip" viewBox="0 0 100 100">
+      <path d="M50 20 C52 30 56 36 60 38" stroke="var(--moss)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="40" cy="62" rx="18" ry="24" fill="var(--berry)" stroke="var(--ink)" stroke-width="1.8" transform="rotate(-12 40 62)"/>
+      <ellipse cx="66" cy="58" rx="14" ry="19" fill="var(--berry)" stroke="var(--ink)" stroke-width="1.8" transform="rotate(14 66 58)"/>
+      <path d="M36 40 l-6-8 M40 38 l0-10 M44 40 l6-8 M64 40 l-4-8 M68 40 l4-8" stroke="var(--root-dk)" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="34" cy="56" rx="4" ry="8" fill="var(--petal)" opacity=".35"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="app" id="app"></div>
+
+<section class="sheet" id="notebook" hidden aria-label="Notebook"></section>
+
+<script>
+(() => {
+  // ---------------- data (mirrors design/data/content.json + riddles-toy.json) ----------------
+  const TRAITS = [
+    { id: 'heat', name: 'Heat', adj: 'warming' }, { id: 'calm', name: 'Calm', adj: 'soothing' },
+    { id: 'vigor', name: 'Vigor', adj: 'strengthening' }, { id: 'clarity', name: 'Clarity', adj: 'clearing' }];
+  const TCOL = ['var(--heat)', 'var(--calm)', 'var(--vigor)', 'var(--clarity)'];
+  const ING = {
+    chamomile: { name: 'Chamomile', vec: [0,3,0,0],  tags: ['delicate'], wren: 'Pure calm. Steep it gently.' },
+    lavender:  { name: 'Lavender',  vec: [0,2,0,1],  tags: ['delicate'], wren: 'Calming, with a breath of clear air.' },
+    mint:      { name: 'Mint',      vec: [-2,1,0,2], tags: ['delicate'], wren: 'Cools the blood: it takes heat away. Clears the head.' },
+    sage:      { name: 'Sage',      vec: [0,1,0,3],  tags: [],           wren: 'A clear head in a leaf. Sturdy; heat won’t hurt it.' },
+    fireroot:  { name: 'Fireroot',  vec: [3,0,1,0],  tags: ['tough'],    wren: 'The warming root. Give it a proper boil.' },
+    nettle:    { name: 'Nettle',    vec: [1,0,3,0],  tags: [],           wren: 'Strength for tired limbs. A little warming too.' },
+    rosehip:   { name: 'Rosehip',   vec: [0,0,2,1],  tags: ['tough'],    wren: 'Hedge fruit for the weary. Tough skin.' },
+    honey:     { name: 'Honey',     vec: [0,1,1,0],  tags: [],           wren: 'Sweet and kind. Softens anything fiery.' },
+  };
+  const ORDER = ['chamomile','lavender','mint','sage','fireroot','nettle','rosehip','honey'];
+  // Wren's starter notes: fully known. Meadow finds: only the strongest trait known until brewed.
+  const START_KNOWN = { chamomile: 1, mint: 1, sage: 1, fireroot: 1, honey: 1 };
+
+  // keyword glossary: traits revealed in the Notebook once decoded (2 stars or better)
+  const KW = {
+    'sleep': ['calm'], 'chilled': ['heat'], 'chilled to the bone': ['heat'], 'frosty': ['heat'],
+    "head's in a fog": ['clarity'], 'foggy': ['clarity'], 'worn out': ['vigor'], 'tossing all night': ['calm'],
+    'stiff': ['vigor', 'heat'], 'shake': ['calm', 'clarity'], 'sniffle': ['clarity', 'heat'],
+    'upset stomach': ['calm', 'vigor'], 'restless': ['calm'], 'aches': ['vigor', 'heat'],
+    'nothing too fiery': ['no heat'],
+  };
+  const INTENSITY = { 'a bit': 3, 'a little': 3, 'slight': 3, 'terribly': 6, 'all week': 6 };
+
+  const PEOPLE = {
+    marla:     { name: 'Marla', role: 'the baker' },
+    pell:      { name: 'Pell', role: 'the woodcutter' },
+    fennick:   { name: 'Fennick', role: 'the apprentice scribe' },
+    tamsin:    { name: 'Old Tamsin', role: 'farmer' },
+    bramble:   { name: 'Bramble', role: 'the hob in your chimney' },
+    traveller: { name: 'A traveller', role: 'passing through' },
+  };
+  const RIDDLES = [
+    { id: 1,  who: 'marla',     tier: 1, tol: 1, target: [0,6,0,0], text: "The baby's had me up {all week}. I just need to {sleep}." },
+    { id: 2,  who: 'pell',      tier: 1, tol: 1, target: [3,0,0,0], text: "{A bit} {chilled} this morning. That {frosty} air got right into me." },
+    { id: 3,  who: 'fennick',   tier: 1, tol: 1, target: [0,0,0,4], text: "My {head's in a fog}. I've read the same line ten times." },
+    { id: 4,  who: 'tamsin',    tier: 1, tol: 1, target: [0,0,3,0], text: "Just {a little} {worn out} after the spring planting, love." },
+    { id: 5,  who: 'bramble',   tier: 1, tol: 1, target: [0,4,0,0], text: "{Tossing all night} up the chimney flue, / a soothing sip is overdue." },
+    { id: 6,  who: 'pell',      tier: 2, tol: 1, target: [4,0,6,0], text: "{Chilled} again, and my back's {terribly} {stiff} from the woodpile." },
+    { id: 7,  who: 'fennick',   tier: 2, tol: 1, target: [0,3,0,6], text: "The exam's tomorrow. My head's {terribly} {foggy}, and my hands {shake} {a little}." },
+    { id: 8,  who: 'traveller', tier: 2, tol: 1, target: [2,0,4,3], text: "A {slight} {sniffle}, and I'm {worn out} from the road." },
+    { id: 9,  who: 'marla',     tier: 2, tol: 1, target: [0,4,2,0], text: "An {upset stomach} after the harvest supper. And {a little} {restless}, too." },
+    { id: 10, who: 'pell',      tier: 3, tol: 1, target: [0,0,6,0], text: "My back {aches} {terribly} from felling the old oak. But {nothing too fiery}, mind. It gives me heartburn." },
+  ];
+  const RULE_NOTES = {
+    R1: 'You boiled a flower. Its gentle oils fly off with the steam: less Calm, less Clarity. Steep flowers and soft leaves on a simmer.',
+    R2: 'A root on a simmer gives up only half its heart. Boil the tough ones.',
+    R3: 'Scorched! Too much heat at a rolling boil burns everything else in the pot.',
+    R4: 'Honey takes the bite out of a hot brew. A little extra Calm.',
+    R7: 'Harmonized: two strengths in perfect balance. The brew sings. (An extra star.)',
+  };
+  const WREN_RULES = [
+    'How strongly they mean it: “a bit”, “a little”, “slight” is a pinch, about 3. Plain words, about 4. “Terribly” or “all week” is a potful, about 6.',
+    'Give them what they asked for, and nothing they didn’t. A sleepy mother doesn’t want a fire in her belly.',
+    'Two troubles of the same kind don’t add up. “Can’t sleep” and “a little restless” is still one pot of Calm: brew for the stronger one.',
+    'Flowers and soft leaves: simmer. Roots and hard fruit: boil. Sturdy leaves like sage and nettle don’t mind either.',
+    'Mint only takes away heat that’s already in the pot. It can’t go below nothing.',
+  ];
+  const TRAIT_USES = {
+    heat: 'Warming. For chills, cold mornings, a cold coming on (sniffles need warming and clearing).',
+    calm: 'Soothing. For sleep, nerves and shaky hands, a restless or upset stomach.',
+    vigor: 'Strengthening. For tired limbs, aching or stiff backs, weariness.',
+    clarity: 'Clearing. For a foggy head, focus, a stuffy nose or sniffles.',
+  };
+
+  // ---------------- state ----------------
+  const fresh = () => ({
+    idx: 0, coins: 0, slots: [null, null, null], boil: false, slotCount: 3,
+    known: Object.fromEntries(ORDER.map(k => [k, START_KNOWN[k] ? [1,1,1,1] : ING[k].vec.map((v, i) => i === mainTrait(ING[k].vec) ? 1 : 0)])),
+    decoded: [], rules: [], results: [], served: null, started: Date.now(), ended: false,
+  });
+  let S;
+
+  // ---------------- brewing (design/brew-math.md, rules R1 R2 R3 R4 R7) ----------------
+  function mainTrait(v) { return v.reduce((m, x, i) => x > v[m] ? i : m, 0); }
+  function brew(names, boil, knownOnly) {
+    const s = [0,0,0,0], unknown = [false,false,false,false], fired = new Set();
+    for (const n of names) {
+      const ing = ING[n], v = ing.vec.slice();
+      if (ing.tags.includes('delicate') && boil) {
+        if (v[1] > 0) { v[1]--; fired.add('R1'); }
+        if (v[3] > 0) { v[3]--; fired.add('R1'); }
+      }
+      if (ing.tags.includes('tough') && !boil) { v[mainTrait(v)]--; fired.add('R2'); }
+      v.forEach((x, i) => { if (knownOnly && !S.known[n][i]) { if (ING[n].vec[i] !== 0) unknown[i] = true; return; } s[i] += x; });
+    }
+    if (names.includes('honey') && names.some(n => ING[n].vec[0] > 0)) { s[1]++; fired.add('R4'); }
+    if (boil && s[0] >= 8) { for (let i = 1; i < 4; i++) s[i]--; fired.add('R3'); }
+    return { vec: s.map(x => Math.max(0, Math.min(10, x))), unknown, fired };
+  }
+  function score(vec, target, tol) {
+    const d = vec.reduce((a, x, i) => a + Math.abs(x - target[i]), 0);
+    let st = d <= tol ? 3 : d <= tol + 2 ? 2 : d <= tol + 4 ? 1 : 0;
+    const top = vec.slice().sort((a, b) => b - a);
+    let harmonized = false;
+    if (top[0] === top[1] && top[0] >= 4 && st < 3) { st++; harmonized = true; }
+    return { d, st, harmonized };
+  }
+  function allSolutions(r, slots) {
+    const pool = ORDER.concat([null]), out = [];
+    const rec = (start, combo) => {
+      if (combo.length === slots) {
+        for (const b of [false, true]) {
+          const names = combo.filter(Boolean); if (!names.length) continue;
+          const res = brew(names, b, false), sc = score(res.vec, r.target, r.tol);
+          if (sc.st === 3) out.push(`${names.join(' + ')} (${b ? 'boil' : 'simmer'}) → [${res.vec}] d${sc.d}`);
+        }
+        return;
+      }
+      for (let i = start; i < pool.length; i++) rec(i, combo.concat([pool[i]]));
+    };
+    rec(0, []);
+    return [...new Set(out)];
+  }
+
+  // ---------------- art ----------------
+  const tb = (id, cls = '') => `<svg class="${cls}" aria-hidden="true"><use href="#t-${id}"/></svg>`;
+  const ic = (id, cls = '') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+  function portrait(who) {
+    const P = {
+      marla:     { skin: 'var(--skin)',  hair: 'var(--hair)',      style: 'bun',   cloth: 'var(--moss)',  band: 'var(--amber)', eyes: 'sleepy', extra: 'flour' },
+      pell:      { skin: 'var(--skin2)', hair: 'var(--root-dk)',   style: 'short', cloth: 'var(--berry)', eyes: 'open', beard: true, big: true },
+      fennick:   { skin: 'var(--skin)',  hair: 'var(--hair)',      style: 'messy', cloth: 'var(--plum)',  eyes: 'worried', glasses: true },
+      tamsin:    { skin: 'var(--skin)',  hair: 'var(--grey-hair)', style: 'bun',   cloth: 'var(--moss)',  eyes: 'smile', hat: true },
+      traveller: { skin: 'var(--skin2)', hair: 'var(--hair)',      style: 'hood',  cloth: 'var(--muted)', eyes: 'open' },
+    }[who];
+    const o = 'stroke="var(--ink)" stroke-width="2"';
+    if (who === 'bramble') return `<svg viewBox="0 0 160 160" role="img" aria-label="Bramble the hob">
+      <circle cx="80" cy="80" r="78" fill="var(--sunk)"/>
+      <path d="M34 160 C36 128 56 116 80 116 C104 116 124 128 126 160Z" fill="var(--root-dk)" ${o}/>
+      <path d="M44 76 L8 54 L40 92Z M116 76 L152 54 L120 92Z" fill="#8A6A4A" ${o} stroke-linejoin="round"/>
+      <ellipse cx="80" cy="82" rx="38" ry="36" fill="#8A6A4A" ${o}/>
+      <path d="M42 62 C46 30 114 30 118 62 C100 52 60 52 42 62Z" fill="var(--moss)" ${o}/>
+      <path d="M80 34 C84 22 92 18 100 18 C96 26 90 30 80 34Z" fill="var(--moss)" ${o}/>
+      <circle cx="66" cy="82" r="11" fill="var(--petal)" ${o}/><circle cx="94" cy="82" r="11" fill="var(--petal)" ${o}/>
+      <circle cx="68" cy="84" r="5" fill="var(--amber)"/><circle cx="96" cy="84" r="5" fill="var(--amber)"/>
+      <path d="M70 102 q10 8 20 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="80" cy="94" r="3" fill="var(--root-dk)"/></svg>`;
+    const sh = P.big ? 'M14 160 C16 118 46 104 80 104 C114 104 144 118 146 160Z' : 'M24 160 C26 122 52 108 80 108 C108 108 134 122 136 160Z';
+    let hair = '';
+    if (P.style === 'bun') hair = `<circle cx="80" cy="30" r="14" fill="${P.hair}" ${o}/><path d="M48 70 C46 44 62 36 80 36 C98 36 114 44 112 70 C104 56 92 50 80 50 C68 50 56 56 48 70Z" fill="${P.hair}" ${o}/>`;
+    if (P.style === 'short') hair = `<path d="M46 66 C44 40 60 32 80 32 C100 32 116 40 114 66 C106 52 94 46 80 46 C66 46 54 52 46 66Z" fill="${P.hair}" ${o}/>`;
+    if (P.style === 'messy') hair = `<path d="M46 70 C40 40 56 28 80 30 C104 28 122 40 114 70 L108 56 L100 62 L94 50 L84 58 L76 48 L68 58 L60 50 L52 62Z" fill="${P.hair}" ${o} stroke-linejoin="round"/>`;
+    if (P.style === 'hood') hair = `<path d="M38 100 C30 60 48 30 80 28 C112 30 130 60 122 100 C114 70 100 56 80 56 C60 56 46 70 38 100Z" fill="${P.cloth}" ${o}/>`;
+    const eyes = {
+      sleepy: '<path d="M60 74 q7 5 14 0 M86 74 q7 5 14 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/><path d="M61 81 q6 4 12 0 M87 81 q6 4 12 0" fill="none" stroke="var(--plum)" stroke-width="1.6" stroke-linecap="round"/>',
+      open: '<circle cx="67" cy="74" r="3.5" fill="var(--ink)"/><circle cx="93" cy="74" r="3.5" fill="var(--ink)"/>',
+      worried: '<circle cx="67" cy="76" r="3.5" fill="var(--ink)"/><circle cx="93" cy="76" r="3.5" fill="var(--ink)"/><path d="M58 66 l14 -4 M102 66 l-14 -4" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>',
+      smile: '<path d="M60 76 q7 -6 14 0 M86 76 q7 -6 14 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>',
+    }[P.eyes];
+    const mouth = P.eyes === 'sleepy' ? '<ellipse cx="80" cy="94" rx="5" ry="6" fill="var(--hair)" stroke="var(--ink)" stroke-width="1.6"/>'
+      : P.eyes === 'worried' ? '<path d="M72 96 q8 -4 16 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>'
+      : '<path d="M72 92 q8 6 16 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>';
+    return `<svg viewBox="0 0 160 160" role="img" aria-label="${PEOPLE[who].name}">
+      <circle cx="80" cy="80" r="78" fill="var(--sunk)"/>
+      <path d="${sh}" fill="${P.cloth}" ${o}/>
+      ${who === 'marla' ? `<path d="M56 160 C58 132 66 118 80 118 C94 118 102 132 104 160Z" fill="var(--petal)" ${o}/>` : ''}
+      <path d="M70 104 h20 v12 c-6 4 -14 4 -20 0z" fill="${P.skin}" ${o}/>
+      <ellipse cx="80" cy="72" rx="32" ry="36" fill="${P.skin}" ${o}/>
+      ${hair}
+      ${P.band ? '<path d="M50 52 C62 40 98 40 110 52" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round"/>' : ''}
+      ${P.hat ? `<ellipse cx="80" cy="44" rx="48" ry="9" fill="var(--amber)" ${o}/><path d="M56 44 C58 24 102 24 104 44Z" fill="var(--amber)" ${o}/>` : ''}
+      ${eyes}
+      ${P.glasses ? '<circle cx="67" cy="75" r="9" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="93" cy="75" r="9" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M76 75 h8" stroke="var(--ink)" stroke-width="2"/>' : ''}
+      ${P.beard ? `<path d="M50 80 C52 112 66 118 80 118 C94 118 108 112 110 80 C102 96 92 100 80 100 C68 100 58 96 50 80Z" fill="${P.hair}" ${o}/>` : mouth}
+      ${P.extra === 'flour' ? '<circle cx="102" cy="88" r="5" fill="var(--petal)" opacity=".9"/>' : ''}
+    </svg>`;
+  }
+  function potSVG() {
+    const bubbles = [[88,94,4],[110,96,3],[76,95,3.5],[124,95,4],[100,92,5],[116,92,3.5]]
+      .map(([x,y,r],i) => `<circle class="bub b${i+1}${i>1?' boilonly':''}" cx="${x}" cy="${y}" r="${r}" fill="var(--petal)"/>`).join('');
+    const splashes = [[70,84,-10],[134,84,10],[100,80,-4]]
+      .map(([x,y,dx],i) => `<circle class="splash p${i+1} boilonly" cx="${x}" cy="${y}" r="3" fill="var(--wisp)" style="--dx:${dx}px"/>`).join('');
+    return `<svg viewBox="0 0 200 200" class="pot" id="pot" role="img" aria-label="Cauldron">
+      <g fill="none" stroke="var(--muted)" stroke-linecap="round"><path class="steam" d="M86 70 c-8-10 8-16 0-28"/><path class="steam s2" d="M112 68 c-8-10 8-16 0-30"/></g>
+      <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root-dk)" stroke="var(--ink)" stroke-width="2" transform="rotate(-8 100 183)"/>
+      <rect x="56" y="178" width="88" height="10" rx="5" fill="var(--root)" stroke="var(--ink)" stroke-width="2" transform="rotate(8 100 183)"/>
+      <g class="flames">
+        <path class="flame" d="M100 186 C78 180 74 160 88 146 C88 158 94 160 96 156 C92 144 100 134 108 128 C106 142 124 150 120 168 C118 180 110 186 100 186Z" fill="var(--heat)"/>
+        <path class="flame f2" d="M100 186 C88 182 86 170 94 162 C96 170 100 170 102 166 C102 160 106 154 110 152 C110 162 118 168 114 178 C112 184 106 186 100 186Z" fill="var(--amber)"/>
+      </g>
+      <g class="potbody">
+        <path d="M54 150 l-8 22 M146 150 l8 22" stroke="var(--iron)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M36 92 C34 142 62 166 100 166 C138 166 166 142 164 92 Z" fill="var(--iron)" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M48 104 C50 132 64 148 82 154" fill="none" stroke="var(--iron-hi)" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="100" cy="92" rx="68" ry="15" fill="var(--iron-hi)" stroke="var(--ink)" stroke-width="2"/>
+        <ellipse class="liquid" cx="100" cy="93" rx="58" ry="10" fill="var(--wisp)"/>
+        ${bubbles}
+        <path d="M32 92 c-10 0-12 14-2 16 M168 92 c10 0 12 14 2 16" fill="none" stroke="var(--iron)" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      ${splashes}
+    </svg>`;
+  }
+
+  // ---------------- rendering ----------------
+  const app = document.getElementById('app'), nb = document.getElementById('notebook');
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+  function riddleHTML(r) {
+    return esc(r.text).replace(/\{([^}]+)\}/g, (_, phrase) => {
+      const key = phrase.toLowerCase();
+      if (INTENSITY[key]) return `<span class="int">${phrase}</span>`;
+      if (S.decoded.includes(key)) {
+        const tr = KW[key].filter(t => t !== 'no heat');
+        const badges = tr.map(t => tb(t, 'tb')).join('');
+        const col = tr.length ? TCOL[TRAITS.findIndex(x => x.id === tr[0])] : 'var(--muted)';
+        return `<span class="kw" style="--kc:${col}">${phrase}${badges}</span>`;
+      }
+      return phrase;
+    }).replace(' / ', '<br>');
+  }
+
+  function render() {
+    if (S.ended) return renderEnd();
+    const r = RIDDLES[S.idx], p = PEOPLE[r.who];
+    const names = S.slots.filter(Boolean);
+    const pv = brew(names, S.boil, true);
+    app.innerHTML = `
+      <div class="top">
+        <span class="title">Hearthbrew</span>
+        <span class="pill coins" aria-label="Coins">◉ ${S.coins}</span>
+        <button type="button" class="pill" id="open-nb">Notebook</button>
+        <button type="button" class="pill" id="theme" aria-label="Switch day or night">${document.documentElement.dataset.theme === 'light' ? 'Night' : 'Day'}</button>
+      </div>
+      <div class="progress" aria-label="Customer ${S.idx + 1} of 10">${RIDDLES.map((_, i) => `<i class="${i < S.idx ? 'done' : i === S.idx ? 'now' : ''}"></i>`).join('')}</div>
+      <article class="riddle">
+        ${portrait(r.who)}
+        <div style="min-width:0">
+          <div class="tier">Customer ${S.idx + 1} of 10 · ${['', 'easy', 'medium', 'tricky'][r.tier]}</div>
+          <div class="who">${p.name}, <span class="muted">${p.role}</span></div>
+          <q>${riddleHTML(r)}</q>
+        </div>
+      </article>
+      ${S.served ? resultHTML() : benchHTML(pv)}
+      <details class="dev" id="dev"><summary>Designer drawer (spoilers)</summary><pre id="devpre"></pre></details>`;
+    bind();
+    if (!S.served) updateDev(pv);
+    else document.getElementById('devpre').textContent = devText();
+  }
+
+  function benchHTML(pv) {
+    const names = S.slots.filter(Boolean);
+    const m = mainTrait(pv.vec);
+    const meter = TRAITS.map((t, i) => {
+      const val = pv.vec[i], unk = pv.unknown[i];
+      const cells = Array.from({ length: 10 }, (_, k) => `<i class="${k < val ? 'on' : unk && (k === val || k === val + 1) ? 'unk' : ''}"></i>`).join('');
+      return `<div class="mrow" style="--c:${TCOL[i]}">${tb(t.id)}<span class="nm">${t.name}</span><div class="bar">${cells}</div><span class="val">${val}${unk ? '?' : ''}</span></div>`;
+    }).join('');
+    return `
+      <div class="bench" style="--n:${S.slotCount}">
+        ${potSVG()}
+        <div class="slots" style="--n:${S.slotCount}">${S.slots.map((n, i) => `<button type="button" class="slot${n ? ' filled' : ''}" data-slot="${i}" aria-label="${n ? 'Remove ' + ING[n].name : 'Empty slot'}">${n ? ic(n) : ''}</button>`).join('')}</div>
+      </div>
+      <div class="heat" role="group" aria-label="Heat">
+        <button type="button" data-heat="0" aria-pressed="${!S.boil}">Simmer<small>gentle, ~90 °C</small></button>
+        <button type="button" data-heat="1" aria-pressed="${S.boil}">Boil<small>rolling, 100 °C</small></button>
+      </div>
+      <div class="meter" aria-live="polite">
+        <div class="cap"><span>What the Notebook predicts</span><span>${pv.unknown.some(Boolean) ? 'hatched = unknown' : ''}</span></div>
+        ${meter}
+      </div>
+      <div class="shelf" aria-label="Shelf">${ORDER.map(k => {
+        const tags = ING[k].tags.map(t => `<svg aria-hidden="true"><use href="#tag-${t}"/></svg>`).join('');
+        return `<button type="button" class="ing" data-ing="${k}">${ic(k)}<span>${ING[k].name}</span><span class="tags">${tags}</span></button>`;
+      }).join('')}</div>
+      <div class="act"><button type="button" class="primary" id="serve" ${names.length ? '' : 'disabled'}>Brew and serve ${PEOPLE[RIDDLES[S.idx].who].name.replace('A traveller', 'the traveller')}</button></div>
+      ${S.idx === 0 && !S.results.length ? '<p class="note">New here? Open the Notebook first: Wren left notes on what each trait is for.</p>' : ''}
+      <p class="muted" style="font-size:.9rem">Tap the shelf to add, tap a slot to remove. <svg style="width:14px;height:14px;vertical-align:-2px" aria-hidden="true"><use href="#tag-delicate"/></svg> delicate · <svg style="width:14px;height:14px;vertical-align:-2px" aria-hidden="true"><use href="#tag-tough"/></svg> tough</p>`;
+  }
+
+  function resultHTML() {
+    const R = S.served;
+    return `
+      <section class="result" aria-live="polite">
+        <span class="stars" aria-label="${R.st} of 3 stars">${'★'.repeat(R.st)}${'☆'.repeat(3 - R.st)}</span>
+        <p class="say">${R.say}</p>
+        <p class="coin">+${R.coins} coins</p>
+        ${R.learned.map(l => `<p class="learn">${l}</p>`).join('')}
+        ${R.notes.map(n => `<p class="note">${n}</p>`).join('')}
+        <button type="button" class="primary" id="next">${S.idx < RIDDLES.length - 1 ? 'Next customer' : 'Close the shop'}</button>
+      </section>`;
+  }
+
+  function reaction(r, vec, st) {
+    const name = PEOPLE[r.who].name;
+    // find the biggest miss to give a qualitative hint (never numbers)
+    let worst = -1, diff = 0;
+    vec.forEach((x, i) => { const dd = x - r.target[i]; if (Math.abs(dd) > Math.abs(diff)) { diff = dd; worst = i; } });
+    const hint = worst < 0 || diff === 0 ? '' : diff > 0
+      ? ` “It's a bit too ${TRAITS[worst].adj}${r.target[worst] === 0 ? ', and I never asked for that' : ''}.”`
+      : ` “I'd hoped for something more ${TRAITS[worst].adj}.”`;
+    const lines = [
+      `${name} sniffs it, winces, and pays out of kindness.${hint}`,
+      `${name} sips. “Mm. It might help a little.”${hint}`,
+      `${name} smiles. “That should do nicely.”${st === 2 ? hint.replace('”', ' But thank you.”') : ''}`,
+      `${name} breathes it in and sighs with relief. “You're Wren's heir, all right.”`,
+    ];
+    return lines[st];
+  }
+
+  function serve() {
+    const r = RIDDLES[S.idx], names = S.slots.filter(Boolean);
+    const res = brew(names, S.boil, false), sc = score(res.vec, r.target, r.tol);
+    const learned = [], notes = [];
+    // reveal unknown ingredient traits
+    for (const n of new Set(names)) {
+      if (S.known[n].some(k => !k)) {
+        S.known[n] = [1,1,1,1];
+        const chips = ING[n].vec.map((v, i) => v ? `<span class="chip">${tb(TRAITS[i].id)}${v}</span>` : '').join('');
+        learned.push(`Notebook: ${ING[n].name} fully known ${chips}`);
+      }
+    }
+    for (const id of ['R1','R2','R3','R4']) if (res.fired.has(id) && !S.rules.includes(id)) { S.rules.push(id); notes.push(RULE_NOTES[id]); }
+    if (sc.harmonized && !S.rules.includes('R7')) { S.rules.push('R7'); notes.push(RULE_NOTES.R7); }
+    if (sc.st >= 2) {
+      const kws = [...r.text.matchAll(/\{([^}]+)\}/g)].map(m => m[1].toLowerCase()).filter(k => KW[k] && !S.decoded.includes(k));
+      for (const k of kws) {
+        S.decoded.push(k);
+        learned.push(`Decoded “${k}” → ${KW[k].map(t => t === 'no heat' ? 'no Heat' : tb(t) + TRAITS.find(x => x.id === t).name).join(' + ')}`);
+      }
+    }
+    const coins = Math.round(10 * [0.25, 0.6, 1, 1.5][sc.st]);
+    S.coins += coins;
+    S.results.push({ id: r.id, who: r.who, tier: r.tier, stars: sc.st, d: sc.d, brew: res.vec, names: names.slice(), boil: S.boil, secs: Math.round((Date.now() - S.started) / 1000) });
+    S.served = { st: sc.st, say: reaction(r, res.vec, sc.st), coins, learned, notes };
+    render();
+  }
+
+  function next() {
+    if (S.idx >= RIDDLES.length - 1) { S.ended = true; S.served = null; return render(); }
+    S.idx++; S.served = null; S.slots = Array(S.slotCount).fill(null); S.boil = false; S.started = Date.now();
+    render(); window.scrollTo({ top: 0 });
+  }
+
+  function devText(pv) {
+    const r = RIDDLES[S.idx];
+    const names = S.slots.filter(Boolean);
+    const real = names.length ? brew(names, S.boil, false) : null;
+    const sc = real ? score(real.vec, r.target, r.tol) : null;
+    return `Target [${r.target}]  tol ${r.tol}  (3★ d≤${r.tol}, 2★ d≤${r.tol + 2}, 1★ d≤${r.tol + 4})\n` +
+      (real ? `Current brew (true values) [${real.vec}]  d=${sc.d}  → ${sc.st}★\n` : '') +
+      `\n3★ solutions with ${S.slotCount} slots:\n` + allSolutions(r, S.slotCount).join('\n');
+  }
+  function updateDev() { const el = document.getElementById('devpre'); if (el) el.textContent = devText(); }
+
+  function bind() {
+    const $ = s => app.querySelector(s);
+    $('#open-nb').onclick = openNotebook;
+    $('#theme').onclick = () => {
+      const root = document.documentElement;
+      if (root.dataset.theme === 'light') delete root.dataset.theme; else root.dataset.theme = 'light';
+      render();
+    };
+    app.querySelectorAll('[data-ing]').forEach(b => b.onclick = () => {
+      const i = S.slots.indexOf(null); if (i < 0) return;
+      S.slots[i] = b.dataset.ing; render();
+    });
+    app.querySelectorAll('[data-slot]').forEach(b => b.onclick = () => { S.slots[+b.dataset.slot] = null; render(); });
+    app.querySelectorAll('[data-heat]').forEach(b => b.onclick = () => { S.boil = b.dataset.heat === '1'; render(); });
+    const pot = document.getElementById('pot');
+    if (pot) {
+      pot.classList.toggle('boil', S.boil);
+      const pv = brew(S.slots.filter(Boolean), S.boil, true);
+      pot.querySelector('.liquid').setAttribute('fill', S.slots.some(Boolean) ? TCOL[mainTrait(pv.vec)] : 'var(--wisp)');
+    }
+    if ($('#serve')) $('#serve').onclick = serve;
+    if ($('#next')) $('#next').onclick = next;
+  }
+
+  function openNotebook() {
+    const ings = ORDER.map(k => {
+      const chips = ING[k].vec.map((v, i) => {
+        if (!v) return '';
+        return S.known[k][i] ? `<span class="chip">${tb(TRAITS[i].id)}${v > 0 ? v : '−' + Math.abs(v)}</span>` : `<span class="chip">${tb(TRAITS[i].id)}?</span>`;
+      }).join('');
+      const unknownMore = S.known[k].some((kn, i) => !kn && ING[k].vec[i] !== 0) ? '<span class="chip">… more to learn</span>' : '';
+      const tags = ING[k].tags.length ? ` · ${ING[k].tags.join(', ')}` : '';
+      return `<div class="nb-ing">${ic(k, 'ic')}<div><b>${ING[k].name}</b><span class="muted">${tags}</span><div class="chips">${chips}${unknownMore}</div>${START_KNOWN[k] || !S.known[k].some(x => !x) ? `<p class="hand">${ING[k].wren}</p>` : '<p class="hand">Found in the meadow. Brew it once to learn the rest.</p>'}</div></div>`;
+    }).join('');
+    const kws = S.decoded.length ? S.decoded.map(k => `<div class="kwrow"><b>“${k}”</b> → ${KW[k].map(t => t === 'no heat' ? 'no Heat at all' : tb(t, '') + ' ' + TRAITS.find(x => x.id === t).name).join(' + ')}</div>`).join('')
+      : '<p class="muted">Serve someone well (two stars or more) to decode the words they used.</p>';
+    const rules = S.rules.length ? S.rules.map(id => `<p class="note">${RULE_NOTES[id]}</p>`).join('') : '<p class="muted">None yet. Wren will note each rule the first time it happens in your pot.</p>';
+    nb.innerHTML = `<div class="inner">
+      <header><h2>Wren's Notebook</h2><button type="button" class="pill" id="close-nb">Close</button></header>
+      <section class="list"><h3>Wren's rules of thumb</h3>${WREN_RULES.map(t => `<p class="hand">${t}</p>`).join('')}</section>
+      <section class="list"><h3>The four traits</h3>${TRAITS.map(t => `<div class="kwrow">${tb(t.id, '')} <b>${t.name}</b> <span>${TRAIT_USES[t.id]}</span></div>`).join('')}</section>
+      <section class="list"><h3>Ingredients</h3>${ings}</section>
+      <section class="list"><h3>Words you've decoded</h3>${kws}</section>
+      <section class="list"><h3>What the pot taught you</h3>${rules}</section>
+      <section class="list"><h3>Workbench</h3><div class="kwrow">Cauldron slots:
+        <button type="button" class="pill" data-slots="3" aria-pressed="${S.slotCount === 3}">3</button>
+        <button type="button" class="pill" data-slots="4" aria-pressed="${S.slotCount === 4}">4</button></div>
+        <button type="button" class="ghost" id="restart">Start the day over</button></section>
+    </div>`;
+    nb.hidden = false; document.body.style.overflow = 'hidden';
+    nb.querySelector('#close-nb').onclick = closeNotebook;
+    nb.querySelectorAll('[data-slots]').forEach(b => b.onclick = () => {
+      S.slotCount = +b.dataset.slots;
+      S.slots = S.slots.slice(0, S.slotCount); while (S.slots.length < S.slotCount) S.slots.push(null);
+      openNotebook(); render();
+    });
+    nb.querySelector('#restart').onclick = () => { S = fresh(); closeNotebook(); render(); };
+    nb.querySelector('#close-nb').focus();
+  }
+  function closeNotebook() { nb.hidden = true; document.body.style.overflow = ''; }
+
+  function renderEnd() {
+    const R = S.results, avg = (R.reduce((a, x) => a + x.stars, 0) / R.length).toFixed(2);
+    const pct = (t, min) => { const xs = R.filter(x => x.tier === t); return xs.length ? Math.round(100 * xs.filter(x => x.stars >= min).length / xs.length) : 0; };
+    const rows = R.map(x => `<tr><td>${x.id}</td><td>${PEOPLE[x.who].name}</td><td>${'★'.repeat(x.stars)}${'☆'.repeat(3 - x.stars)}</td><td>${x.secs}s</td></tr>`).join('');
+    const report = `Hearthbrew prototype B results\nAverage stars: ${avg}\nTier 1 at 2★+: ${pct(1, 2)}%  Tier 2 at 2★+: ${pct(2, 2)}%  Tier 3: ${R.filter(x => x.tier === 3).map(x => x.stars + '★').join('')}\n` +
+      R.map(x => `#${x.id} ${x.who} t${x.tier}: ${x.stars}★ d${x.d} ${x.secs}s  ${x.names.join('+')} (${x.boil ? 'boil' : 'simmer'}) → [${x.brew}]`).join('\n') +
+      `\n\nMy answers:\n1. Did you get an "aha" moment? \n2. Did any riddle feel unfair? Which? \n3. Was the time per riddle OK? \n4. Did you want one more customer? \n`;
+    app.innerHTML = `
+      <div class="top"><span class="title">Hearthbrew</span><span class="pill coins">◉ ${S.coins}</span></div>
+      <section class="end">
+        <h2>The shop is closed</h2>
+        <p>You served 10 customers and earned <b class="coin" style="color:var(--amber)">${S.coins} coins</b>. Average: <b>${avg} ★</b>.</p>
+        <table><thead><tr><th>#</th><th>Customer</th><th>Stars</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>
+        <p>Please add your answers at the bottom, then copy everything and paste it back to Claude.</p>
+        <label for="report" class="muted">Your results</label>
+        <textarea id="report">${esc(report)}</textarea>
+        <button type="button" class="primary" id="copy">Copy results</button>
+        <p class="muted" id="copied" aria-live="polite"></p>
+        <button type="button" class="ghost" id="again">Play again</button>
+      </section>`;
+    document.getElementById('copy').onclick = () => {
+      const ta = document.getElementById('report'), out = document.getElementById('copied');
+      const fallback = () => { ta.focus(); ta.select(); out.textContent = 'Selected. Use your phone’s Copy.'; };
+      try { navigator.clipboard.writeText(ta.value).then(() => { out.textContent = 'Copied.'; }, fallback); } catch (e) { fallback(); }
+    };
+    document.getElementById('again').onclick = () => { S = fresh(); render(); };
+  }
+
+  // ---------------- boot (keeps progress across republishes in an open viewer) ----------------
+  function start(data) {
+    S = data && data.S ? data.S : fresh();
+    render();
+  }
+  window.claude?.hot?.snapshot?.(() => ({ S }));
+  window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>

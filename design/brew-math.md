@@ -89,8 +89,8 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 
 | Tier | Traits involved | tol | Extra |
 |---|---|---|---|
-| 1 (days 1–4) | 1 | 2 | Clear keywords |
-| 2 (days 5–12) | 2 | 2 | — |
+| 1 (days 1–4) | 1 | **1** | Clear keywords |
+| 2 (days 5–12) | 2 | **1** | — |
 | 3 (days 13+) | 2–3 | 1 | Includes "avoid" constraints ("but nothing that keeps me up" → Clarity 0, Heat 0) and synonyms |
 
 **Example riddles**
@@ -129,3 +129,5 @@ The tags `delicate` and `tough` are exclusive. Sage and nettle are neither (they
 3. Featured request: **a regular when one is due that day, otherwise a walk-in** (decided in M0b).
 4. ~~Batch size~~ **Resolved in M0b:** potion = 2 bottles, tea = 3 cups, salve = 2 jars (see content-bible §1).
 5. R7 Harmonized does **not** apply to the Midsummer Draught (see content-bible §8).
+6. **Tolerance (2026-10-07):** tol 1 for all tiers. With tol 2, single ingredients often scored 3★ (prototype B, see validation.md).
+7. **Combining keywords:** traits from several keywords combine by **max**, not by sum. Wren's Notebook teaches this ("two troubles of the same kind don't add up").

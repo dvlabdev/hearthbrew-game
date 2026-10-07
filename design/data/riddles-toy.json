@@ -1,0 +1,190 @@
+{
+  "note": "Prototype B riddle set. Targets hidden. Intensity: a bit/a little/slight = 3, plain = 4, terribly/all week = 6. Secondary keyword traits = half intensity (rounded up). Traits combine by max. tol 1 for all tiers (tol 2 proved too generous, see validation.md).",
+  "pool": [
+    "chamomile",
+    "lavender",
+    "mint",
+    "sage",
+    "fireroot",
+    "nettle",
+    "rosehip",
+    "honey"
+  ],
+  "riddles": [
+    {
+      "id": 1,
+      "who": "marla",
+      "tier": 1,
+      "tol": 1,
+      "target": [
+        0,
+        6,
+        0,
+        0
+      ],
+      "keywords": [
+        "sleep",
+        "all week"
+      ],
+      "text": "The baby's had me up {all week}. I just need to {sleep}."
+    },
+    {
+      "id": 2,
+      "who": "pell",
+      "tier": 1,
+      "tol": 1,
+      "target": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "keywords": [
+        "a bit",
+        "chilled",
+        "frosty"
+      ],
+      "text": "{A bit} {chilled} this morning. That {frosty} air got right into me."
+    },
+    {
+      "id": 3,
+      "who": "fennick",
+      "tier": 1,
+      "tol": 1,
+      "target": [
+        0,
+        0,
+        0,
+        4
+      ],
+      "keywords": [
+        "head's in a fog"
+      ],
+      "text": "My {head's in a fog}. I've read the same line ten times."
+    },
+    {
+      "id": 4,
+      "who": "tamsin",
+      "tier": 1,
+      "tol": 1,
+      "target": [
+        0,
+        0,
+        3,
+        0
+      ],
+      "keywords": [
+        "a little",
+        "worn out"
+      ],
+      "text": "Just {a little} {worn out} after the spring planting, love."
+    },
+    {
+      "id": 5,
+      "who": "bramble",
+      "tier": 1,
+      "tol": 1,
+      "target": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "keywords": [
+        "tossing all night"
+      ],
+      "text": "{Tossing all night} up the chimney flue, / a soothing sip is overdue."
+    },
+    {
+      "id": 6,
+      "who": "pell",
+      "tier": 2,
+      "tol": 1,
+      "target": [
+        4,
+        0,
+        6,
+        0
+      ],
+      "keywords": [
+        "chilled",
+        "terribly",
+        "stiff"
+      ],
+      "text": "{Chilled} again, and my back's {terribly} {stiff} from the woodpile."
+    },
+    {
+      "id": 7,
+      "who": "fennick",
+      "tier": 2,
+      "tol": 1,
+      "target": [
+        0,
+        3,
+        0,
+        6
+      ],
+      "keywords": [
+        "terribly",
+        "foggy",
+        "shake",
+        "a little"
+      ],
+      "text": "The exam's tomorrow. My head's {terribly} {foggy}, and my hands {shake} {a little}."
+    },
+    {
+      "id": 8,
+      "who": "traveller",
+      "tier": 2,
+      "tol": 1,
+      "target": [
+        2,
+        0,
+        4,
+        3
+      ],
+      "keywords": [
+        "slight",
+        "sniffle",
+        "worn out"
+      ],
+      "text": "A {slight} {sniffle}, and I'm {worn out} from the road."
+    },
+    {
+      "id": 9,
+      "who": "marla",
+      "tier": 2,
+      "tol": 1,
+      "target": [
+        0,
+        4,
+        2,
+        0
+      ],
+      "keywords": [
+        "upset stomach",
+        "a little",
+        "restless"
+      ],
+      "text": "An {upset stomach} after the harvest supper. And {a little} {restless}, too."
+    },
+    {
+      "id": 10,
+      "who": "pell",
+      "tier": 3,
+      "tol": 1,
+      "target": [
+        0,
+        0,
+        6,
+        0
+      ],
+      "keywords": [
+        "aches",
+        "terribly",
+        "nothing too fiery"
+      ],
+      "text": "My back {aches} {terribly} from felling the old oak. But {nothing too fiery}, mind. It gives me heartburn."
+    }
+  ]
+}
