@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hearthbrew Technique Study</title>
+<style>
+/* Neutral page chrome so it doesn't bias the four techniques. */
+:root{--bg:#1b1b1d;--fg:#ececec;--muted:#a3a3a8;--line:#ffffff22;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,"Segoe UI",sans-serif;padding-inline:16px;padding-block:16px 40px}
+main{max-width:720px;margin:0 auto;display:grid;gap:28px}
+h1{font-size:1.5rem;margin:0}
+h2{font-size:1.15rem;margin:0}
+p{margin:0;max-width:62ch}
+.muted{color:var(--muted)}
+.study{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:16px}
+.row{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.sz{display:grid;gap:4px;justify-items:center;font-size:12px;color:var(--muted)}
+.sz svg{display:block;border-radius:10px}
+.s128 svg{width:128px;height:128px}.s64 svg{width:64px;height:64px}.s40 svg{width:40px;height:40px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14px}
+dt{color:var(--muted)}dd{margin:0}
+button{font:inherit;min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:#2a2a2e;color:var(--fg);cursor:pointer}
+#perf{font:13px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;color:var(--muted)}
+.stress{display:grid;grid-template-columns:repeat(8,1fr);gap:2px}
+.stress svg{width:100%;height:auto;animation:sway 2s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@media (prefers-reduced-motion: reduce){.stress svg{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Technique study · Stage 2</h1>
+  <p class="muted">Four rendering techniques, one subject (a chamomile sprig), three sizes: 128 px (card art), 64 px (shelf tile), 40 px (smallest icon). Everything is SVG generated in code. The stress test animates 32 copies of each and measures frame rate.</p>
+
+  <!-- shared defs -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Gilded: gold gradient, engraving hatch, stipple -->
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#F6DB8A"/><stop offset=".5" stop-color="#D2A447"/><stop offset="1" stop-color="#9C6E22"/>
+      </linearGradient>
+      <pattern id="hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+        <line x1="0" y1="0" x2="0" y2="3" stroke="url(#gold)" stroke-width=".9"/>
+      </pattern>
+      <pattern id="stipple" width="3" height="3" patternUnits="userSpaceOnUse">
+        <circle cx="1.5" cy="1.5" r=".7" fill="#F6DB8A"/>
+      </pattern>
+      <!-- Shadow theatre: backlit sky -->
+      <radialGradient id="backlit" cx=".5" cy=".62" r=".75">
+        <stop offset="0" stop-color="#FFD08A"/><stop offset=".45" stop-color="#E9806A"/><stop offset="1" stop-color="#3A1E44"/>
+      </radialGradient>
+      <!-- Cyanotype: grain + soft photogram edge -->
+      <filter id="cyanGrain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .14 0"/>
+        <feComposite in2="SourceGraphic" operator="in"/>
+      </filter>
+      <filter id="photogram" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur stdDeviation=".6"/>
+      </filter>
+      <!-- Riso: grain + hand-made wobble -->
+      <filter id="risoGrain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="7" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .2  0 0 0 0 .15  0 0 0 0 .1  0 0 0 .22 0"/>
+        <feComposite in2="SourceGraphic" operator="in"/>
+      </filter>
+      <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3" result="t"/>
+        <feDisplacementMap in="SourceGraphic" in2="t" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- shared chamomile geometry -->
+      <g id="petals8">
+        <ellipse rx="5.5" ry="14" cy="-14"/><ellipse rx="5.5" ry="14" cy="-14" transform="rotate(45)"/>
+        <ellipse rx="5.5" ry="14" cy="-14" transform="rotate(90)"/><ellipse rx="5.5" ry="14" cy="-14" transform="rotate(135)"/>
+        <ellipse rx="5.5" ry="14" cy="-14" transform="rotate(180)"/><ellipse rx="5.5" ry="14" cy="-14" transform="rotate(225)"/>
+        <ellipse rx="5.5" ry="14" cy="-14" transform="rotate(270)"/><ellipse rx="5.5" ry="14" cy="-14" transform="rotate(315)"/>
+      </g>
+      <path id="stem" d="M50 96 C49 80 46 66 42 52 M47 76 C56 70 62 62 66 52"/>
+      <path id="leafs" d="M47 86 l-11 -5 M47 86 l10 -7 M46 74 l-9 -6 M46 72 l10 -6 M44 63 l-8 -5"/>
+    </defs>
+  </svg>
+
+  <!-- 1. Gilded Herbal -->
+  <section class="study" id="gilded">
+    <h2>1 · Gilded Herbal</h2>
+    <p class="muted">Engraved linework in gold leaf on ink-dark ground: hatching fills the petals, stippling models the centre.</p>
+    <div class="row" data-art="gilded"></div>
+    <dl><dt>Technique</dt><dd>&lt;pattern&gt; hatching + stipple clipped to shapes, a gold gradient stroke</dd>
+        <dt>Risk</dt><dd>Fine hatching fills in below 48px, so small icons need a simplified "seal" version</dd></dl>
+  </section>
+
+  <!-- 2. Shadow Theatre -->
+  <section class="study" id="shadow">
+    <h2>2 · Shadow Theatre</h2>
+    <p class="muted">A cut-paper silhouette against a glowing backlit sky (after Lotte Reiniger). Detail lives in the cut-outs and the outline.</p>
+    <div class="row" data-art="shadow"></div>
+    <dl><dt>Technique</dt><dd>Solid silhouette + mask cut-outs, a radial backlight gradient</dd>
+        <dt>Risk</dt><dd>Similar outlines (chamomile vs mayweed) depend only on shape, so the differences must be exaggerated</dd></dl>
+  </section>
+
+  <!-- 3. Cyanotype Herbarium -->
+  <section class="study" id="cyan">
+    <h2>3 · Cyanotype Herbarium</h2>
+    <p class="muted">A pale photogram on Prussian blue (after Anna Atkins, 1843). Where the plant is thicker, the print is whiter.</p>
+    <div class="row" data-art="cyan"></div>
+    <dl><dt>Technique</dt><dd>Translucent stacked whites, a slight blur for the contact-print edge, a grain overlay</dd>
+        <dt>Risk</dt><dd>A monochrome world: the trait colours (especially blue Calm) need a white keyline to stand out</dd></dl>
+  </section>
+
+  <!-- 4. Folk Woodcut / Riso -->
+  <section class="study" id="riso">
+    <h2>4 · Folk Woodcut / Riso</h2>
+    <p class="muted">Bold carved shapes in two spot inks, slightly out of register, with printed grain and hand-made wobble.</p>
+    <div class="row" data-art="riso"></div>
+    <dl><dt>Technique</dt><dd>Offset duplicate ink layers (multiply), grain via feTurbulence, outline wobble via feDisplacementMap</dd>
+        <dt>Risk</dt><dd>Displacement filters are costly when animated: apply them to static layers only</dd></dl>
+  </section>
+
+  <section class="study">
+    <h2>Stress test</h2>
+    <p class="muted">Animates 32 copies of one technique for 2 seconds and reports frames per second. On a phone, under 50 fps means the technique must be used sparingly.</p>
+    <div class="row">
+      <button type="button" data-stress="gilded">Gilded</button><button type="button" data-stress="shadow">Shadow</button>
+      <button type="button" data-stress="cyan">Cyanotype</button><button type="button" data-stress="riso">Riso</button>
+    </div>
+    <div id="perf">No run yet.</div>
+    <div class="stress" id="stress"></div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const chamomile = {
+    gilded: () => `<svg viewBox="0 0 100 100" role="img" aria-label="Chamomile, gilded engraving">
+      <rect width="100" height="100" fill="#1C1416"/>
+      <rect x="4" y="4" width="92" height="92" fill="none" stroke="url(#gold)" stroke-width=".8" opacity=".55"/>
+      <g fill="none" stroke="url(#gold)" stroke-width="1.6" stroke-linecap="round"><use href="#stem"/><use href="#leafs"/></g>
+      <g transform="translate(42 36)"><g fill="url(#hatch)" stroke="url(#gold)" stroke-width="1.2"><use href="#petals8"/></g>
+        <circle r="8.5" fill="url(#stipple)" stroke="url(#gold)" stroke-width="1.3"/></g>
+      <g transform="translate(68 48) scale(.55)"><g fill="url(#hatch)" stroke="url(#gold)" stroke-width="2"><use href="#petals8"/></g>
+        <circle r="8.5" fill="url(#stipple)" stroke="url(#gold)" stroke-width="2"/></g>
+    </svg>`,
+    shadow: () => `<svg viewBox="0 0 100 100" role="img" aria-label="Chamomile, shadow theatre">
+      <rect width="100" height="100" fill="url(#backlit)"/>
+      <g fill="#120C14" stroke="#120C14" stroke-linecap="round">
+        <use href="#stem" fill="none" stroke-width="2.4"/><use href="#leafs" fill="none" stroke-width="2.2"/>
+        <g transform="translate(42 36)"><use href="#petals8"/><circle r="7" fill="#FFD08A" stroke="none"/><circle r="4.5" fill="#120C14" stroke="none"/></g>
+        <g transform="translate(68 48) scale(.55)"><use href="#petals8"/><circle r="7" fill="#FFD08A" stroke="none"/><circle r="4.5" fill="#120C14" stroke="none"/></g>
+        <path d="M0 100 C20 92 40 96 60 92 C76 89 90 94 100 90 V100Z" stroke="none"/>
+      </g>
+    </svg>`,
+    cyan: () => `<svg viewBox="0 0 100 100" role="img" aria-label="Chamomile, cyanotype">
+      <rect width="100" height="100" fill="#1E3C78"/>
+      <rect width="100" height="100" fill="#1E3C78" filter="url(#cyanGrain)"/>
+      <g filter="url(#photogram)">
+        <g fill="none" stroke="#EAF3F8" stroke-opacity=".8" stroke-linecap="round"><use href="#stem" stroke-width="2.2"/><use href="#leafs" stroke-width="1.6"/></g>
+        <g transform="translate(42 36)" fill="#EAF3F8" fill-opacity=".55"><use href="#petals8"/><circle r="7" fill-opacity=".9"/></g>
+        <g transform="translate(68 48) scale(.55)" fill="#EAF3F8" fill-opacity=".55"><use href="#petals8"/><circle r="7" fill-opacity=".9"/></g>
+      </g>
+      <text x="8" y="94" font-family="Georgia,serif" font-style="italic" font-size="7" fill="#EAF3F8" opacity=".8">Matricaria</text>
+    </svg>`,
+    riso: () => `<svg viewBox="0 0 100 100" role="img" aria-label="Chamomile, folk woodcut riso">
+      <rect width="100" height="100" fill="#F3E9D6"/>
+      <g style="mix-blend-mode:multiply">
+        <g transform="translate(1.6 1.2)" fill="#FF6B9A" fill-opacity=".9"><g transform="translate(42 36)"><use href="#petals8"/></g><g transform="translate(68 48) scale(.55)"><use href="#petals8"/></g></g>
+        <g transform="translate(-1 0)" fill="#F2B33D"><circle cx="42" cy="36" r="8"/><circle cx="68" cy="48" r="4.5"/></g>
+        <g filter="url(#wobble)" fill="none" stroke="#1E7F86" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <use href="#stem"/><use href="#leafs" stroke-width="2.6"/>
+          <g transform="translate(42 36)" stroke-width="2.2"><use href="#petals8"/></g>
+          <g transform="translate(68 48) scale(.55)" stroke-width="3.6"><use href="#petals8"/></g>
+        </g>
+      </g>
+      <rect width="100" height="100" fill="#F3E9D6" filter="url(#risoGrain)"/>
+    </svg>`,
+  };
+
+  document.querySelectorAll('[data-art]').forEach(row => {
+    const k = row.dataset.art;
+    row.innerHTML = [['s128', '128 px'], ['s64', '64 px'], ['s40', '40 px']]
+      .map(([c, l]) => `<div class="sz ${c}">${chamomile[k]()}<span>${l}</span></div>`).join('');
+  });
+
+  const perf = document.getElementById('perf'), stress = document.getElementById('stress');
+  /** Animate 32 copies for 2 s and resolve with the measured fps. */
+  const run = k => new Promise(resolve => {
+    stress.innerHTML = Array.from({ length: 32 }, () => chamomile[k]()).join('');
+    let frames = 0; const t0 = performance.now();
+    const tick = now => { frames++; if (now - t0 < 2000) requestAnimationFrame(tick); else {
+      stress.innerHTML = ''; resolve(frames / ((now - t0) / 1000)); } };
+    requestAnimationFrame(tick);
+  });
+  const label = (k, fps) => `${k}: ${fps.toFixed(0)} fps over 2 s with 32 animated copies (${fps >= 50 ? 'smooth' : 'use sparingly'})`;
+  document.querySelectorAll('[data-stress]').forEach(b => b.addEventListener('click', async () => {
+    perf.textContent = label(b.dataset.stress, await run(b.dataset.stress));
+  }));
+  // ?auto runs all four in sequence (used for headless measurement)
+  if (new URLSearchParams(location.search).has('auto')) (async () => {
+    const lines = [];
+    for (const k of Object.keys(chamomile)) lines.push(label(k, await run(k)));
+    perf.textContent = lines.join('\n'); perf.dataset.done = '1';
+  })();
+})();
+</script>
+</body>
+</html>
