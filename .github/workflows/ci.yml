@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # No dependencies to install: the project is no-build (plain ES modules + Node's built-in test runner).
+      - name: Tests
+        run: npm test
+      - name: Full simulations (economy, haul dominance)
+        run: |
+          npm run sim:economy
+          npm run sim:haul
+      - name: Type check (TypeScript over JSDoc)
+        run: npx -y -p typescript@5 tsc -p jsconfig.json

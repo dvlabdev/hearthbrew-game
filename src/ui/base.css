@@ -1,0 +1,38 @@
+/* Base UI: layout and type built on the active style pack's custom properties.
+   Accessibility rules (CLAUDE.md): 360px first, 16px minimum, 44px tap targets, reduced motion. */
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font-body);padding-inline:16px;
+  padding-block:calc(env(safe-area-inset-top,0px) + 12px) calc(env(safe-area-inset-bottom,0px) + 32px)}
+.app{max-width:440px;margin:0 auto;display:grid;gap:16px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;min-height:44px}
+:focus-visible{outline:3px solid var(--wisp);outline-offset:2px;border-radius:8px}
+.muted{color:var(--muted)}
+.hand{font-family:var(--font-hand);color:var(--plum);line-height:1.35}
+.btn{background:var(--plum);color:var(--bg);border:0;border-radius:14px;padding:12px 16px;font-weight:700}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 12px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* title */
+.title{display:grid;gap:14px;justify-items:center;text-align:center;padding-top:24px}
+.title h1{font-size:clamp(2.6rem,12vw,3.4rem)}
+.title .pot{width:min(240px,70vw);height:auto}
+
+/* debug */
+.debug{border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;font:13px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);white-space:pre-wrap}
+
+/* gallery */
+.gallery-controls{display:grid;gap:10px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.tile{background:var(--surface);border-radius:12px;padding:8px;display:grid;gap:4px;justify-items:center;text-align:center;min-width:0}
+.tile svg{width:64px;height:64px}
+.tile.wide{grid-column:span 2}
+.tile.wide svg{width:140px;height:140px}
+.tile code{font-size:11px;color:var(--muted);word-break:break-all}
+.missing{outline:2px solid #f0f}
+a{color:var(--wisp)}
+.gallery-controls .seg{justify-self:start}

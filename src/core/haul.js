@@ -8,7 +8,7 @@ const H = HAUL.herbs;
 /**
  * A herb picked today, shaped by the weather: prime kinds give a double dose (+1 unit) and +1 value;
  * poor kinds lose 1 value and keep a night less.
- * @param {string} herb @param {string} weather @returns {StockItem}
+ * @param {string} herb @param {string} weather @returns {Required<StockItem>}
  */
 export function pickedItem(herb, weather) {
   const w = WEATHER[weather], h = H[herb];
@@ -35,7 +35,9 @@ export function serve(stock, trait, units) {
     .map((s, i) => ({ s, i }))
     .sort((a, b) => a.s.nights - b.s.nights || unitsOf(b.s) - unitsOf(a.s) || a.i - b.i)
     .map(x => x.s);
-  let got = 0; /** @type {StockItem[]} */ const used = [];
+  let got = 0;
+  /** @type {StockItem[]} */
+  const used = [];
   for (const s of cand) { if (got >= units) break; used.push(s); got += unitsOf(s); }
   if (got < units) return { ok: false, value: 0, stock };
   return { ok: true, value: used.reduce((a, s) => a + valueOf(s), 0), stock: stock.filter(s => !used.includes(s)) };
@@ -48,7 +50,9 @@ export function serve(stock, trait, units) {
  * @param {{ who: string, units: number }[]} others
  */
 export function resolveShop(stock, featured, others) {
-  let coins = 0; /** @type {boolean[]} */ const served = [];
+  let coins = 0;
+  /** @type {boolean[]} */
+  const served = [];
   [featured, ...others].forEach((c, i) => {
     const r = serve(stock, CUSTOMERS[c.who].trait, c.units);
     if (r.ok) coins += (i === 0 ? HAUL.pay.featured : HAUL.pay.other) + r.value;

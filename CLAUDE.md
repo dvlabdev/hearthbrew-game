@@ -7,7 +7,7 @@ A cozy, witchy apothecary crafting game for the browser. You inherit Old Mother 
 The source of truth for scope and milestones is `design/roadmap.md`. Read it before starting any milestone.
 
 ## Current phase
-M0c gate: **conditional go** (see `design/roadmap.md`). Waiting on the user's prototype B playtest. Then M1 (vertical slice). Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`.
+M1 setup (branch `m1-setup`): core, tests, sims, art library and shell are done. **Next:** the art direction exploration (roadmap). Brewing, riddle and Notebook screens wait for the user's prototype B verdict. Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`.
 
 ## Design rules
 - Every feature must serve at least one pillar:
@@ -19,11 +19,23 @@ M0c gate: **conditional go** (see `design/roadmap.md`). Waiting on the user's pr
 - In-game remedies are fictional. Never include real harmful recipes; toxic plants are abstract only.
 - Tag every reaction rule as 🧪 real, 🧪✨ exaggerated or ✨ magic.
 
-## Tech (from M1)
-- TypeScript + Vite, DOM/CSS panels plus inline SVG art, Vitest, WebAudio sound effects.
-- `src/core` is pure, serializable state and pure functions, with no DOM. `src/ui` only reads state and dispatches actions.
-- Content lives in typed data files in `src/content`. Adding content should never require changing systems.
-- Saves are versioned, and every schema change ships with a migration test.
+## Tech (no-build, decided 2026-10-09)
+npm cannot install packages on Google Drive's streaming disk (EBADF), so the project has **no dependencies and no build step**.
+- **Code:** plain ES modules (`.js`) with **JSDoc types** and `// @ts-check` style. The browser loads `index.html` directly; JSON is imported with `with { type: 'json' }`.
+- **Commands:**
+  - `npm run dev` starts `tools/serve.mjs` on :5173 (`?debug`, `?gallery`).
+  - `npm test` runs Node's built-in test runner.
+  - `npm run sim:haul` and `npm run sim:economy` run the full simulations.
+  - `npm run typecheck` runs TypeScript over `src/` (this needs a download; CI runs it).
+- **Layout:**
+  - `src/core` holds pure rules, with no DOM.
+  - `src/content/data/content.json` is the single content source.
+  - `src/art` is the art registry plus style packs (`styles/<id>/index.js` + `style.css`). **Screens use only `art(id)`.**
+  - `src/sim` holds the simulations; `src/ui` the screens and CSS.
+- **Reference:**
+  - The Python tools in `tools/` are the validated reference.
+  - After any rule or content change, run `python tools/export_fixtures.py` and then `npm test` (parity tests).
+- **Saves** are versioned, and every schema change ships with a migration and a test (`src/core/save.js`).
 
 ## Accessibility (mandatory from M1)
 - Every trait is shown as color + shape + icon, using a colorblind-safe palette.

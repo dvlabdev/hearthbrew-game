@@ -1,0 +1,58 @@
+/* Style pack v0-prototype: palette (Whisperwood Dusk, Candlelit primary; design/art-direction.md) + art animation.
+   A new style pack ships its own style.css with the same custom-property names. */
+:root{
+  --bg:#111915; --surface:#19241D; --sunk:#0C120F; --ink:#EEE7D7; --muted:#A8A597; --line:#EEE7D722;
+  --moss:#86A976; --plum:#C99BD2; --amber:#F0A63A; --wisp:#5FD3C7; --iron:#0A0C0B; --iron-hi:#3A3F3B;
+  --petal:#F4F0E2; --yolk:#F2C94C; --leaf:#5E8F4E; --leaf-dk:#40663A; --grey-leaf:#8FA58A; --lav:#9C7CC9; --berry:#C4453B;
+  --blueberry:#5B6FC9; --root:#B57E43; --root-dk:#7A4A20; --glow:#6FF5E3; --sulfur:#E2C93A; --salt:#E8E4DA;
+  --skin:#C8916B; --skin2:#A9714F; --hair:#4A2D1A; --grey-hair:#BDB6A6;
+  --heat:#EE7A3C; --calm:#56B4E9; --vigor:#2BC08E; --clarity:#E29BC8; --on-trait:#111915;
+  --font-display:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-hand:"Kalam", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+:root[data-theme="day"]{
+  --bg:#E9ECDF; --surface:#F6F6EE; --sunk:#DDE2D2; --ink:#2C1F31; --muted:#5D5464; --line:#2C1F3126;
+  --moss:#3E5C38; --plum:#6A3A6D; --amber:#B86A10; --wisp:#1B7F7B; --iron:#2A2830; --iron-hi:#4A4752;
+  --petal:#FBF9F0; --root:#C48A4C; --root-dk:#8A5527; --glow:#3FD3C2; --berry:#B0362C; --lav:#7A57AE;
+  --skin:#D9A47E; --skin2:#B98262; --hair:#5E3A22; --grey-hair:#9C9488;
+  --heat:#C4520A; --calm:#0A6FAE; --vigor:#007F5B; --clarity:#A64C89; --on-trait:#FFFFFF;
+  color-scheme:light;
+}
+
+/* cauldron: lazy simmer, rolling boil */
+.pot *{transform-box:fill-box}
+.pot .flames{transform-origin:50% 100%;transform:scale(.62);transition:transform .5s ease}
+.pot.boil .flames{transform:scale(1.18,1.32)}
+.pot .flame{transform-origin:50% 100%;animation:hb-flick 1.3s ease-in-out infinite alternate}
+.pot .flame.f2{animation-duration:.9s;animation-delay:-.3s}
+.pot.boil .flame{animation-duration:.28s}
+.pot .bub{opacity:0;animation:hb-rise 3.4s ease-in infinite}
+.pot .bub.b2{animation-delay:-1.7s}
+.pot.boil .bub{animation:hb-pop .7s ease-in infinite}
+.pot .bub.b3{animation-delay:-.2s}.pot .bub.b4{animation-delay:-.45s}.pot .bub.b5{animation-delay:-.1s}.pot .bub.b6{animation-delay:-.55s}
+.pot .splash{opacity:0}
+.pot.boil .splash{animation:hb-splash .9s ease-out infinite}
+.pot .splash.p2{animation-delay:-.3s}.pot .splash.p3{animation-delay:-.6s}
+.pot .steam{opacity:0;stroke-width:3;animation:hb-steam 6s ease-in-out infinite}
+.pot .steam.s2{animation-delay:-3s}
+.pot.boil .steam{stroke-width:9;animation:hb-billow 1.8s ease-out infinite}
+.pot.boil .steam.s2{animation-delay:-.9s}
+.pot .liquid{transform-origin:50% 50%;transition:fill .4s}
+.pot.boil .liquid{animation:hb-heave .32s ease-in-out infinite alternate}
+.pot .potbody{transform-origin:50% 100%}
+.pot.boil .potbody{animation:hb-shake .14s linear infinite}
+.pot .boilonly{display:none}
+.pot.boil .boilonly{display:inline}
+@keyframes hb-flick{from{transform:scaleY(.86) scaleX(1.04)}to{transform:scaleY(1.1) scaleX(.95)}}
+@keyframes hb-rise{0%{transform:translateY(3px) scale(.6);opacity:0}40%{opacity:.8}100%{transform:translateY(-4px) scale(1);opacity:0}}
+@keyframes hb-pop{0%{transform:translateY(4px) scale(.5);opacity:0}30%{opacity:1}80%{transform:translateY(-8px) scale(1.3);opacity:.9}100%{transform:translateY(-10px) scale(1.6);opacity:0}}
+@keyframes hb-splash{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),20px);opacity:0}}
+@keyframes hb-steam{0%{transform:translateY(8px);opacity:0}50%{opacity:.35}100%{transform:translateY(-22px);opacity:0}}
+@keyframes hb-billow{0%{transform:translateY(10px) scale(.8);opacity:0}30%{opacity:.85}100%{transform:translateY(-40px) scale(1.6,1.2);opacity:0}}
+@keyframes hb-heave{from{transform:scale(1,1)}to{transform:scale(1.02,1.45)}}
+@keyframes hb-shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-1.2px,.6px)}50%{transform:translate(1px,-.6px)}75%{transform:translate(-.6px,-.4px)}}
+@media (prefers-reduced-motion: reduce){
+  .pot .flame,.pot .bub,.pot .steam,.pot .splash,.pot .liquid,.pot .potbody{animation:none !important}
+  .pot .bub,.pot .steam{opacity:.6}.pot.boil .splash{opacity:.8}}

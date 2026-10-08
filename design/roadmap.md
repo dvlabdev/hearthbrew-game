@@ -27,7 +27,9 @@ Replaces the v2 plan (in git history). **Sources of truth:**
 | M0a | Rules (GDD, brew-math) | ✅ done |
 | M0b | Content (research, content bible, economy) | ✅ done |
 | M0c | Validation gate | ⏳ **conditional go**, see below |
-| M1 | Vertical slice: days 1–3 playable | waiting for the gate |
+| M1 setup | No-build stack, core rules (parity with the Python tests), sims, art library (v0), shell, CI | ✅ 2026-10-09 |
+| AD | **Art direction exploration:** moodboard, 4 style packs, your pick → art-direction v2 | ⏳ next |
+| M1 | Vertical slice: days 1–3 playable | waiting for the B verdict + AD |
 | M2 | Core systems: stars, relationships, freshness, upgrades, saves + migrations | — |
 | M3 | Content: forest and cave, teas and salves, 4 regulars × 3 beats, 20-day story, endless-mode spec | — |
 | M4 | Juice & polish: art pass, animation, sound effects, onboarding, accessibility audit | — |

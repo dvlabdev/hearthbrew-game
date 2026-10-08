@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["src/**/*.js", "tests/**/*.js", "tools/**/*.mjs"]
+  "include": ["src/**/*.js"]
 }
