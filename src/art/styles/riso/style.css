@@ -1,0 +1,18 @@
+/* Folk Woodcut / Riso: tokens. Candlelit = fluoro inks on dark paper; Day = inks on cream paper. */
+:root{
+  --bg:#1C1A21; --surface:#28252E; --sunk:#141218; --ink:#F5EFE3; --muted:#CFC6B6; --line:#F5EFE326;
+  --accent:#FF7AA6; --on-accent:#1C1A21; --secondary:#3FC1B8; --highlight:#FFE36E;
+  --paper:#24212A; --ink-key:#4FD1C5; --ink-teal:#2BA89F; --ink-pink:#FF6B9A; --ink-yellow:#F7C548; --riso-blend:screen;
+  --heat:#E17134; --calm:#A9C8FE; --vigor:#32C285; --clarity:#FBD7FE; --on-trait:#1C1A21;
+  --font-display:"Alfa Slab One", "Rockwell", Georgia, serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-hand:"Gochi Hand", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+:root[data-theme="day"]{
+  --bg:#F3E9D6; --surface:#FBF4E6; --sunk:#E7DBC3; --ink:#1F2A44; --muted:#4A5270; --line:#1F2A4426;
+  --accent:#B8174F; --on-accent:#FFF7EC; --secondary:#1E7F86; --highlight:#B8174F;
+  --paper:#F6EDDB; --ink-key:#1E5F7A; --ink-teal:#1E7F86; --ink-pink:#FF5A8A; --ink-yellow:#F2B33D; --riso-blend:multiply;
+  --heat:#A83203; --calm:#3871C5; --vigor:#40996F; --clarity:#781486; --on-trait:#FFF7EC;
+  color-scheme:light;
+}

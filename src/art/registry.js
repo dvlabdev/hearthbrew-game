@@ -1,11 +1,19 @@
 // Art registry: the only way screens get visuals. Style packs live in src/art/styles/<id>/ and implement the same asset ids.
 import * as v0 from './styles/v0-prototype/index.js';
+import * as gilded from './styles/gilded/index.js';
+import * as shadow from './styles/shadow/index.js';
+import * as cyanotype from './styles/cyanotype/index.js';
+import * as riso from './styles/riso/index.js';
 import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS } from '../content/index.js';
 
-/** @typedef {{ id: string, label: string, css: string, ASSETS: Record<string, (opts?: any) => string> }} StylePack */
+/**
+ * @typedef {{ id: string, label: string, css: string, ASSETS: Record<string, (opts?: any) => string>,
+ *   exploration?: boolean, scope?: string[], brief?: { adjectives: string[], inspiration: string, technique: string } }} StylePack
+ * Complete packs must provide every requiredIds() asset. Exploration packs (art-direction study) cover only their `scope`.
+ */
 
 /** @type {Record<string, StylePack>} */
-export const STYLES = { [v0.id]: v0 };
+export const STYLES = Object.fromEntries([v0, gilded, shadow, cyanotype, riso].map(p => [p.id, /** @type {StylePack} */ (p)]));
 let active = v0.id;
 
 /** @param {string} id */

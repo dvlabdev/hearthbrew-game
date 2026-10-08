@@ -1,0 +1,18 @@
+/* Gilded Herbal: tokens. Candlelit = primary. */
+:root{
+  --bg:#14100E; --surface:#1F1815; --sunk:#0D0A09; --ink:#F2E7D1; --muted:#C9B89C; --line:#F2E7D126;
+  --accent:#D9AE56; --on-accent:#1A120E; --secondary:#7A2A35; --highlight:#F2C46A;
+  --gold-hi:#F4D98E; --gold:#D2A447; --gold-lo:#93661F; --art-ground:#1A1311;
+  --heat:#E07145; --calm:#92CCFF; --vigor:#5CBD8C; --clarity:#FFD6F8; --on-trait:#14100E;
+  --font-display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-hand:"Caveat", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+:root[data-theme="day"]{
+  --bg:#F2EADA; --surface:#FBF6EC; --sunk:#E6DCC7; --ink:#2A1C14; --muted:#5E4C3C; --line:#2A1C1426;
+  --accent:#7E5814; --on-accent:#FBF6EC; --secondary:#7A2A35; --highlight:#9C5A10;
+  --gold-hi:#B98A2E; --gold:#8E6418; --gold-lo:#5E4210; --art-ground:#F7EFDF;
+  --heat:#A5360F; --calm:#3276B2; --vigor:#49986F; --clarity:#7C1D6A; --on-trait:#FBF6EC;
+  color-scheme:light;
+}

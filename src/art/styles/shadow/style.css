@@ -1,0 +1,18 @@
+/* Shadow Theatre: tokens. Candlelit = primary (dusk sky); Day = a lit paper screen. */
+:root{
+  --bg:#120D16; --surface:#1E1624; --sunk:#0B080E; --ink:#F6EBDD; --muted:#CDBDB6; --line:#F6EBDD26;
+  --accent:#F2A65A; --on-accent:#1A0F12; --secondary:#E9806A; --highlight:#FFF3C4;
+  --sky1:#FFD596; --sky2:#E9806A; --sky3:#3A1E44; --shade:#100A13;
+  --heat:#E1713E; --calm:#87CFFD; --vigor:#55BE8A; --clarity:#FED7F3; --on-trait:#100A13;
+  --font-display:"Limelight", "Didot", Georgia, serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-hand:"Caveat", "Comic Sans MS", cursive;
+  color-scheme:dark;
+}
+:root[data-theme="day"]{
+  --bg:#EFE2CF; --surface:#F8F0E4; --sunk:#E4D4BD; --ink:#231722; --muted:#594855; --line:#23172226;
+  --accent:#9C3B26; --on-accent:#FFF8EE; --secondary:#C2603F; --highlight:#7A2C12;
+  --sky1:#FFF1D1; --sky2:#F5C38F; --sky3:#D9805F; --shade:#1C121B;
+  --heat:#A5360F; --calm:#3276B2; --vigor:#49986F; --clarity:#7C1D6A; --on-trait:#FFF8EE;
+  color-scheme:light;
+}
