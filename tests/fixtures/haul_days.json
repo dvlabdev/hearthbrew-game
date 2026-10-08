@@ -1,0 +1,299 @@
+[
+ {
+  "day": 1,
+  "weather": "sun",
+  "featured": {
+   "who": "marla",
+   "units": 2
+  },
+  "others": [
+   {
+    "who": "tamsin",
+    "units": 1
+   },
+   {
+    "who": "pell",
+    "units": 1
+   }
+  ],
+  "stockBefore": [
+   {
+    "herb": "chamomile",
+    "nights": 1
+   },
+   {
+    "herb": "chamomile",
+    "nights": 3
+   },
+   {
+    "herb": "nettle",
+    "nights": 2
+   },
+   {
+    "herb": "sage",
+    "nights": 3
+   }
+  ],
+  "picks": [
+   "chamomile",
+   "chamomile",
+   "fireroot",
+   "lavender",
+   "rosehip"
+  ],
+  "coins": 66,
+  "served": [
+   true,
+   true,
+   true
+  ],
+  "rares": 1,
+  "wilted": []
+ },
+ {
+  "day": 2,
+  "weather": "rain",
+  "featured": {
+   "who": "pell",
+   "units": 2
+  },
+  "others": [
+   {
+    "who": "fennick",
+    "units": 1
+   },
+   {
+    "who": "marla",
+    "units": 1
+   }
+  ],
+  "stockBefore": [
+   {
+    "herb": "chamomile",
+    "nights": 2
+   },
+   {
+    "herb": "sage",
+    "nights": 2
+   },
+   {
+    "herb": "chamomile",
+    "prime": true,
+    "poor": false,
+    "nights": 2,
+    "units": 2,
+    "value": 2
+   },
+   {
+    "herb": "lavender",
+    "prime": true,
+    "poor": false,
+    "nights": 2,
+    "units": 2,
+    "value": 2
+   },
+   {
+    "herb": "rosehip",
+    "prime": false,
+    "poor": false,
+    "nights": 2,
+    "units": 1,
+    "value": 3
+   }
+  ],
+  "picks": [
+   "fireroot",
+   "fireroot",
+   "glowcap",
+   "mint"
+  ],
+  "coins": 68,
+  "served": [
+   true,
+   true,
+   true
+  ],
+  "rares": 1,
+  "wilted": []
+ },
+ {
+  "day": 3,
+  "weather": "mist",
+  "featured": {
+   "who": "fennick",
+   "units": 2
+  },
+  "others": [
+   {
+    "who": "tamsin",
+    "units": 2
+   },
+   {
+    "who": "fennick",
+    "units": 1
+   }
+  ],
+  "stockBefore": [
+   {
+    "herb": "chamomile",
+    "nights": 1
+   },
+   {
+    "herb": "sage",
+    "nights": 1
+   },
+   {
+    "herb": "lavender",
+    "prime": true,
+    "poor": false,
+    "nights": 1,
+    "units": 2,
+    "value": 2
+   },
+   {
+    "herb": "rosehip",
+    "prime": false,
+    "poor": false,
+    "nights": 1,
+    "units": 1,
+    "value": 3
+   },
+   {
+    "herb": "mint",
+    "prime": false,
+    "poor": false,
+    "nights": 1,
+    "units": 1,
+    "value": 1
+   }
+  ],
+  "picks": [
+   "glowcap",
+   "lavender",
+   "mint",
+   "sage"
+  ],
+  "coins": 47,
+  "served": [
+   true,
+   false,
+   true
+  ],
+  "rares": 2,
+  "wilted": [
+   "chamomile",
+   "lavender",
+   "rosehip"
+  ]
+ },
+ {
+  "day": 4,
+  "weather": "frost",
+  "featured": {
+   "who": "tamsin",
+   "units": 2
+  },
+  "others": [
+   {
+    "who": "pell",
+    "units": 2
+   },
+   {
+    "who": "marla",
+    "units": 1
+   }
+  ],
+  "stockBefore": [
+   {
+    "herb": "glowcap",
+    "prime": true,
+    "poor": false,
+    "nights": 2,
+    "units": 3,
+    "value": 2
+   },
+   {
+    "herb": "lavender",
+    "prime": false,
+    "poor": false,
+    "nights": 2,
+    "units": 1,
+    "value": 1
+   },
+   {
+    "herb": "sage",
+    "prime": false,
+    "poor": true,
+    "nights": 1,
+    "units": 1,
+    "value": 0
+   }
+  ],
+  "picks": [
+   "fireroot",
+   "rosehip",
+   "rosehip",
+   "valerian"
+  ],
+  "coins": 70,
+  "served": [
+   true,
+   true,
+   true
+  ],
+  "rares": 0,
+  "wilted": [
+   "sage"
+  ]
+ },
+ {
+  "day": 5,
+  "weather": "wind",
+  "featured": {
+   "who": "marla",
+   "units": 2
+  },
+  "others": [
+   {
+    "who": "pell",
+    "units": 2
+   },
+   {
+    "who": "fennick",
+    "units": 2
+   }
+  ],
+  "stockBefore": [
+   {
+    "herb": "glowcap",
+    "prime": true,
+    "poor": false,
+    "nights": 1,
+    "units": 3,
+    "value": 2
+   },
+   {
+    "herb": "valerian",
+    "prime": true,
+    "poor": false,
+    "nights": 3,
+    "units": 3,
+    "value": 4
+   }
+  ],
+  "picks": [
+   "fireroot",
+   "glowcap",
+   "lavender",
+   "sage"
+  ],
+  "coins": 51,
+  "served": [
+   true,
+   false,
+   true
+  ],
+  "rares": 2,
+  "wilted": []
+ }
+]

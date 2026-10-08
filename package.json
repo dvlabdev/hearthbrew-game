@@ -1,0 +1,14 @@
+{
+  "name": "hearthbrew",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A cozy, witchy apothecary crafting game for the browser. No-build: plain ES modules, nothing to install.",
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "sim:haul": "node tools/sim-haul.mjs",
+    "sim:economy": "node tools/sim-economy.mjs",
+    "typecheck": "npx -y -p typescript@5 tsc -p jsconfig.json"
+  }
+}

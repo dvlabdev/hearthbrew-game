@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "traits": [
     {
       "id": "heat",
@@ -686,5 +686,213 @@
       "tol": 0,
       "avoid": true
     }
-  ]
+  ],
+  "haul": {
+    "basket": 5,
+    "freshNights": 3,
+    "rareWeight": 8,
+    "pay": {
+      "featured": 30,
+      "other": 15
+    },
+    "herbs": {
+      "chamomile": {
+        "name": "Chamomile",
+        "trait": "calm",
+        "units": 1,
+        "value": 1,
+        "rarity": "common",
+        "slots": 1,
+        "kind": "flower"
+      },
+      "mint": {
+        "name": "Mint",
+        "trait": "clarity",
+        "units": 1,
+        "value": 1,
+        "rarity": "common",
+        "slots": 1,
+        "kind": "leaf"
+      },
+      "sage": {
+        "name": "Sage",
+        "trait": "clarity",
+        "units": 1,
+        "value": 1,
+        "rarity": "common",
+        "slots": 1,
+        "kind": "leaf"
+      },
+      "nettle": {
+        "name": "Nettle",
+        "trait": "vigor",
+        "units": 1,
+        "value": 1,
+        "rarity": "common",
+        "slots": 1,
+        "kind": "leaf"
+      },
+      "fireroot": {
+        "name": "Fireroot",
+        "trait": "heat",
+        "units": 1,
+        "value": 2,
+        "rarity": "common",
+        "slots": 1,
+        "kind": "root"
+      },
+      "rosehip": {
+        "name": "Rosehip",
+        "trait": "vigor",
+        "units": 1,
+        "value": 3,
+        "rarity": "uncommon",
+        "slots": 1,
+        "kind": "fruit"
+      },
+      "valerian": {
+        "name": "Valerian",
+        "trait": "calm",
+        "units": 2,
+        "value": 3,
+        "rarity": "uncommon",
+        "slots": 2,
+        "kind": "root"
+      },
+      "lavender": {
+        "name": "Lavender",
+        "trait": "calm",
+        "units": 1,
+        "value": 1,
+        "rarity": "rare",
+        "slots": 1,
+        "kind": "flower"
+      },
+      "glowcap": {
+        "name": "Glowcap",
+        "trait": "clarity",
+        "units": 2,
+        "value": 1,
+        "rarity": "rare",
+        "slots": 2,
+        "kind": "mushroom"
+      }
+    }
+  },
+  "weather": {
+    "sun": {
+      "label": "Sunny",
+      "icon": "sun",
+      "finds": 8,
+      "boost": [
+        "flower"
+      ],
+      "rareMult": 1,
+      "extraRare": 0,
+      "prime": [
+        "flower"
+      ],
+      "nights": 0,
+      "skew": null,
+      "text": "Flowers are at their best (+1 value); mushrooms dry out (−1). Plenty of blooms.",
+      "poor": [
+        "mushroom"
+      ]
+    },
+    "rain": {
+      "label": "Rain",
+      "icon": "rain",
+      "finds": 10,
+      "boost": [
+        "mushroom",
+        "root"
+      ],
+      "rareMult": 1,
+      "extraRare": 0,
+      "prime": [
+        "mushroom"
+      ],
+      "nights": -1,
+      "skew": "calm",
+      "text": "Two extra finds; mushrooms swell (+1 value), flowers get bruised (−1), and wet herbs keep one night less. Gloomy days bring calm-seekers.",
+      "poor": [
+        "flower"
+      ]
+    },
+    "wind": {
+      "label": "Windy",
+      "icon": "wind",
+      "finds": 8,
+      "boost": [],
+      "rareMult": 1,
+      "extraRare": 1,
+      "prime": [
+        "fruit"
+      ],
+      "nights": 0,
+      "skew": null,
+      "text": "Something rare has blown in, and ripe fruit falls (+1 value).",
+      "poor": []
+    },
+    "mist": {
+      "label": "Mist",
+      "icon": "mist",
+      "finds": 7,
+      "boost": [
+        "mushroom"
+      ],
+      "rareMult": 2,
+      "extraRare": 0,
+      "prime": [
+        "mushroom"
+      ],
+      "nights": 0,
+      "skew": "clarity",
+      "text": "Fewer finds, but rare things show themselves; mushrooms thrive (+1), leaves go limp (−1). Foggy heads in the village.",
+      "poor": [
+        "leaf"
+      ]
+    },
+    "frost": {
+      "label": "Frost",
+      "icon": "frost",
+      "finds": 7,
+      "boost": [
+        "root"
+      ],
+      "rareMult": 1,
+      "extraRare": 0,
+      "prime": [
+        "root"
+      ],
+      "nights": 1,
+      "skew": "heat",
+      "text": "Roots are sweetest after frost (+1 value), leaves are frost-bitten (−1), and herbs keep a night longer. Everyone wants warming.",
+      "poor": [
+        "leaf"
+      ]
+    }
+  },
+  "customers": {
+    "marla": {
+      "name": "Marla",
+      "trait": "calm",
+      "clue": "something to quiet the mind"
+    },
+    "pell": {
+      "name": "Pell",
+      "trait": "heat",
+      "clue": "something to chase off the chill"
+    },
+    "fennick": {
+      "name": "Fennick",
+      "trait": "clarity",
+      "clue": "something to clear a foggy head"
+    },
+    "tamsin": {
+      "name": "Old Tamsin",
+      "trait": "vigor",
+      "clue": "something for tired old arms"
+    }
+  }
 }

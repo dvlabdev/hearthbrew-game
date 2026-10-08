@@ -1,0 +1,6890 @@
+[
+ {
+  "names": [
+   "pine"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   1,
+   3,
+   6,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "honey",
+   "chamomile",
+   "mint",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   3,
+   1,
+   4
+  ],
+  "target": [
+   1,
+   7,
+   0,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "rosehip",
+   "angelica",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   4,
+   2,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   1,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "glowcap",
+   "glowcap",
+   "salt",
+   "fireroot",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   0,
+   10
+  ],
+  "target": [
+   5,
+   5,
+   7,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "quartz",
+   "sage",
+   "brimstone",
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   0,
+   0,
+   4
+  ],
+  "target": [
+   7,
+   6,
+   4,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "sunwort",
+   "sunwort",
+   "chamomile",
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   7,
+   3,
+   2
+  ],
+  "target": [
+   0,
+   1,
+   6,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "honey",
+   "sage",
+   "salt",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   4
+  ],
+  "target": [
+   4,
+   6,
+   4,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "rosehip",
+   "glowcap",
+   "valerian",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   1,
+   3
+  ],
+  "target": [
+   7,
+   7,
+   5,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "salt",
+   "sunwort",
+   "quartz",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   6,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   0,
+   4,
+   5,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 21
+ },
+ {
+  "names": [
+   "sunwort",
+   "valerian",
+   "salt",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   5,
+   3,
+   0
+  ],
+  "target": [
+   7,
+   1,
+   4,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   6,
+   2,
+   7,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   3,
+   3,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   5,
+   2,
+   0,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "quartz",
+   "fireroot",
+   "honey",
+   "quartz",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   1,
+   6,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "glowcap",
+   "sunwort",
+   "brimstone",
+   "angelica",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   8,
+   0,
+   2,
+   5
+  ],
+  "target": [
+   3,
+   6,
+   0,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   0,
+   1
+  ],
+  "target": [
+   5,
+   0,
+   0,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "salt",
+   "pine",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   0,
+   5
+  ],
+  "target": [
+   7,
+   2,
+   2,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "pine",
+   "salt",
+   "honey",
+   "mint",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   2,
+   2,
+   4
+  ],
+  "target": [
+   2,
+   0,
+   0,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "quartz",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   2,
+   2,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "brimstone",
+   "brimstone",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   2,
+   5,
+   2,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "brimstone",
+   "glowcap",
+   "salt",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   0,
+   3,
+   4
+  ],
+  "target": [
+   7,
+   7,
+   1,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "honey",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   1,
+   0
+  ],
+  "target": [
+   7,
+   5,
+   6,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "nettle",
+   "bilberry",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   7,
+   0
+  ],
+  "target": [
+   4,
+   3,
+   4,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "fireroot",
+   "sage",
+   "valerian",
+   "sage",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   3,
+   0,
+   5
+  ],
+  "target": [
+   0,
+   5,
+   2,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "valerian",
+   "mint",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   4
+  ],
+  "target": [
+   2,
+   4,
+   4,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "valerian",
+   "brimstone",
+   "chamomile",
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   6,
+   0,
+   0
+  ],
+  "target": [
+   0,
+   4,
+   1,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "bilberry",
+   "pine",
+   "salt",
+   "lavender",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   1,
+   3,
+   2
+  ],
+  "target": [
+   3,
+   7,
+   6,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "sunwort",
+   "valerian",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   4,
+   1,
+   0
+  ],
+  "target": [
+   5,
+   0,
+   6,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "glowcap",
+   "sage",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   9
+  ],
+  "target": [
+   5,
+   0,
+   5,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   1,
+   1,
+   0,
+   2
+  ],
+  "tol": 2,
+  "stars": 2,
+  "d": 3
+ },
+ {
+  "names": [
+   "glowcap",
+   "chamomile",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   1,
+   0,
+   3
+  ],
+  "target": [
+   5,
+   6,
+   6,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "honey",
+   "fireroot",
+   "nettle",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   5,
+   4,
+   0
+  ],
+  "target": [
+   6,
+   4,
+   2,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   4,
+   5,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "mint",
+   "nettle",
+   "lavender",
+   "sunwort",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   3,
+   0
+  ],
+  "target": [
+   5,
+   0,
+   0,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   2,
+   6,
+   5,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "pine",
+   "rosehip",
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   4,
+   1
+  ],
+  "target": [
+   7,
+   7,
+   4,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "fireroot",
+   "quartz",
+   "chamomile",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   4,
+   2,
+   0
+  ],
+  "target": [
+   6,
+   0,
+   2,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "valerian",
+   "fireroot",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   3,
+   0,
+   2
+  ],
+  "target": [
+   0,
+   3,
+   4,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "sunwort",
+   "nettle",
+   "sunwort",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   5,
+   3
+  ],
+  "target": [
+   6,
+   5,
+   4,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "rosehip",
+   "nettle",
+   "glowcap",
+   "glowcap",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   5,
+   10
+  ],
+  "target": [
+   6,
+   3,
+   0,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "nettle",
+   "sunwort",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   2,
+   4,
+   0
+  ],
+  "target": [
+   2,
+   2,
+   0,
+   1
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 5
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   4,
+   3,
+   2,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   1,
+   6,
+   4,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   7,
+   1,
+   3,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "bilberry",
+   "mint",
+   "mint",
+   "mint"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   2,
+   7
+  ],
+  "target": [
+   4,
+   4,
+   3,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "sunwort",
+   "pine",
+   "pine",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   0,
+   2
+  ],
+  "target": [
+   2,
+   3,
+   7,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "bilberry",
+   "brimstone",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   0,
+   3,
+   1
+  ],
+  "target": [
+   7,
+   2,
+   6,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   7,
+   4,
+   2,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "fireroot",
+   "sage",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   4,
+   0,
+   2
+  ],
+  "target": [
+   7,
+   6,
+   6,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "brimstone",
+   "pine",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   6,
+   0,
+   0,
+   4
+  ],
+  "target": [
+   7,
+   3,
+   6,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "lavender",
+   "angelica",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   1,
+   4,
+   1
+  ],
+  "target": [
+   4,
+   2,
+   5,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "pine",
+   "chamomile",
+   "lavender",
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   7,
+   1,
+   2
+  ],
+  "target": [
+   4,
+   5,
+   0,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 6
+ },
+ {
+  "names": [
+   "valerian",
+   "bilberry",
+   "mint",
+   "rosehip",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   8,
+   2,
+   2
+  ],
+  "target": [
+   2,
+   5,
+   3,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "nettle",
+   "glowcap",
+   "mint",
+   "brimstone",
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   0,
+   4,
+   6
+  ],
+  "target": [
+   2,
+   1,
+   0,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   3,
+   7,
+   5,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "quartz",
+   "valerian",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   0,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "bilberry",
+   "valerian",
+   "salt",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   3,
+   0
+  ],
+  "target": [
+   6,
+   4,
+   3,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   1,
+   1,
+   1
+  ],
+  "target": [
+   4,
+   7,
+   1,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "pine",
+   "bilberry",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   5,
+   1
+  ],
+  "target": [
+   2,
+   4,
+   6,
+   1
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "chamomile",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   2,
+   3,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "fireroot",
+   "pine",
+   "bilberry",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   1,
+   3,
+   3
+  ],
+  "target": [
+   3,
+   2,
+   2,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 5
+ },
+ {
+  "names": [
+   "lavender",
+   "lavender",
+   "valerian",
+   "glowcap",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   5,
+   2,
+   3
+  ],
+  "target": [
+   5,
+   2,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   6,
+   7,
+   0,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 19
+ },
+ {
+  "names": [
+   "bilberry",
+   "mint",
+   "salt",
+   "brimstone",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   1,
+   2,
+   3
+  ],
+  "target": [
+   2,
+   0,
+   7,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   2,
+   1
+  ],
+  "target": [
+   4,
+   5,
+   0,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "mint",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   0,
+   0,
+   2
+  ],
+  "target": [
+   3,
+   2,
+   3,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "rosehip",
+   "bilberry",
+   "nettle",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   0,
+   6,
+   1
+  ],
+  "target": [
+   7,
+   5,
+   3,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "quartz",
+   "mint",
+   "rosehip",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   4,
+   0
+  ],
+  "target": [
+   1,
+   5,
+   2,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "brimstone",
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   6,
+   0,
+   2,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "angelica",
+   "chamomile",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   1,
+   1
+  ],
+  "target": [
+   4,
+   5,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "honey",
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   3,
+   0
+  ],
+  "target": [
+   0,
+   5,
+   4,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 6
+ },
+ {
+  "names": [
+   "bilberry",
+   "sunwort",
+   "sunwort",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   3,
+   4,
+   6
+  ],
+  "target": [
+   4,
+   0,
+   1,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt",
+   "sage",
+   "angelica",
+   "salt",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   5
+  ],
+  "target": [
+   2,
+   5,
+   2,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "mint",
+   "nettle",
+   "valerian",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   7,
+   2,
+   1
+  ],
+  "target": [
+   1,
+   1,
+   5,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "honey",
+   "pine",
+   "salt",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   4,
+   2,
+   1
+  ],
+  "target": [
+   5,
+   6,
+   0,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "nettle",
+   "salt",
+   "rosehip",
+   "sage",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   5,
+   3
+  ],
+  "target": [
+   7,
+   0,
+   7,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "sunwort"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   2,
+   4,
+   3,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "chamomile",
+   "bilberry",
+   "sunwort",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   5,
+   6,
+   2
+  ],
+  "target": [
+   1,
+   5,
+   3,
+   1
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 5
+ },
+ {
+  "names": [
+   "salt",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   1,
+   6,
+   6,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "lavender",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   5,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   4,
+   5,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "lavender",
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   1,
+   1
+  ],
+  "target": [
+   1,
+   7,
+   0,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "sunwort",
+   "lavender",
+   "rosehip",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   3,
+   0
+  ],
+  "target": [
+   1,
+   2,
+   1,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   0,
+   7,
+   4,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "nettle",
+   "sunwort",
+   "honey",
+   "quartz",
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   5,
+   5,
+   2
+  ],
+  "target": [
+   3,
+   6,
+   7,
+   1
+  ],
+  "tol": 0,
+  "stars": 1,
+  "d": 7
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   7,
+   2,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "rosehip",
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   1,
+   2,
+   1
+  ],
+  "target": [
+   6,
+   4,
+   2,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   2,
+   3,
+   7,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "nettle",
+   "quartz",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   3
+  ],
+  "target": [
+   6,
+   1,
+   7,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "pine",
+   "sunwort",
+   "bilberry",
+   "mint",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   6,
+   3,
+   5
+  ],
+  "target": [
+   3,
+   1,
+   6,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "nettle",
+   "glowcap",
+   "chamomile",
+   "chamomile",
+   "pine"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   5,
+   3,
+   4
+  ],
+  "target": [
+   2,
+   7,
+   1,
+   3
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "nettle",
+   "sunwort",
+   "quartz",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   4,
+   3
+  ],
+  "target": [
+   0,
+   4,
+   2,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   6,
+   0,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   5,
+   7,
+   1,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "salt",
+   "glowcap",
+   "valerian",
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   2
+  ],
+  "target": [
+   6,
+   7,
+   4,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   6,
+   3,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   3,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "angelica",
+   "valerian",
+   "bilberry",
+   "salt",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   7,
+   3,
+   0
+  ],
+  "target": [
+   4,
+   0,
+   3,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "fireroot",
+   "salt",
+   "angelica",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   4,
+   0,
+   5,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "sunwort",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   1,
+   4
+  ],
+  "target": [
+   5,
+   5,
+   6,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "sunwort",
+   "brimstone",
+   "angelica",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   6,
+   1,
+   4,
+   3
+  ],
+  "target": [
+   3,
+   6,
+   5,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "rosehip",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   5,
+   0
+  ],
+  "target": [
+   6,
+   7,
+   2,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 21
+ },
+ {
+  "names": [
+   "bilberry",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   2,
+   1
+  ],
+  "target": [
+   1,
+   1,
+   3,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "bilberry",
+   "sunwort",
+   "sage",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   3,
+   3
+  ],
+  "target": [
+   4,
+   0,
+   1,
+   1
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 5
+ },
+ {
+  "names": [
+   "salt",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   3,
+   7,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 19
+ },
+ {
+  "names": [
+   "sage",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   4
+  ],
+  "target": [
+   2,
+   7,
+   7,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 19
+ },
+ {
+  "names": [
+   "fireroot",
+   "mint",
+   "chamomile",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   3,
+   0,
+   1
+  ],
+  "target": [
+   1,
+   7,
+   7,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "bilberry",
+   "sage",
+   "lavender",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   0,
+   2,
+   3
+  ],
+  "target": [
+   1,
+   4,
+   3,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "nettle",
+   "chamomile",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   3,
+   3,
+   0
+  ],
+  "target": [
+   4,
+   4,
+   6,
+   1
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "bilberry",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   1
+  ],
+  "target": [
+   1,
+   4,
+   5,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "glowcap",
+   "honey",
+   "sunwort",
+   "nettle",
+   "sunwort"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   1,
+   6,
+   4
+  ],
+  "target": [
+   0,
+   4,
+   7,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "rosehip",
+   "salt",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   6,
+   0
+  ],
+  "target": [
+   4,
+   4,
+   4,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "chamomile",
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   1,
+   0
+  ],
+  "target": [
+   5,
+   5,
+   1,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "salt",
+   "angelica",
+   "sage",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   1,
+   3,
+   6
+  ],
+  "target": [
+   6,
+   7,
+   5,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   5,
+   4,
+   7,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt",
+   "lavender",
+   "chamomile",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   5,
+   0,
+   4
+  ],
+  "target": [
+   0,
+   1,
+   5,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "glowcap",
+   "valerian",
+   "chamomile",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   1,
+   3
+  ],
+  "target": [
+   1,
+   3,
+   2,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "salt",
+   "sage",
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   1,
+   1,
+   5
+  ],
+  "target": [
+   0,
+   4,
+   2,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "sage",
+   "mint"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   0,
+   5
+  ],
+  "target": [
+   1,
+   6,
+   0,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "chamomile",
+   "glowcap",
+   "brimstone",
+   "bilberry",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   2,
+   4
+  ],
+  "target": [
+   0,
+   6,
+   4,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "nettle",
+   "angelica",
+   "lavender",
+   "mint",
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   5,
+   4
+  ],
+  "target": [
+   6,
+   7,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "sage",
+   "fireroot",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   7,
+   2,
+   3,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "chamomile",
+   "sage",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   2,
+   3
+  ],
+  "target": [
+   1,
+   5,
+   6,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "mint",
+   "valerian",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   1,
+   4,
+   1
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   5,
+   2,
+   2,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "valerian",
+   "sage",
+   "angelica",
+   "valerian",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   8,
+   0,
+   2
+  ],
+  "target": [
+   3,
+   2,
+   5,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 19
+ },
+ {
+  "names": [
+   "fireroot",
+   "glowcap",
+   "lavender",
+   "bilberry",
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   4,
+   3,
+   5
+  ],
+  "target": [
+   7,
+   0,
+   4,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "angelica",
+   "sage",
+   "rosehip",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   3,
+   8
+  ],
+  "target": [
+   6,
+   1,
+   7,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "fireroot",
+   "lavender",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   1,
+   0,
+   1
+  ],
+  "target": [
+   6,
+   1,
+   3,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   0,
+   5,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "sunwort",
+   "brimstone",
+   "pine",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   1,
+   2,
+   1
+  ],
+  "target": [
+   7,
+   7,
+   6,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "bilberry",
+   "rosehip",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   2,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   1,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "lavender",
+   "lavender",
+   "quartz",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   0,
+   2
+  ],
+  "target": [
+   7,
+   6,
+   1,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "sage",
+   "honey",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   1,
+   1,
+   3
+  ],
+  "target": [
+   3,
+   4,
+   3,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   7,
+   5,
+   2,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "rosehip",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   4
+  ],
+  "target": [
+   6,
+   4,
+   6,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "rosehip",
+   "mint",
+   "angelica",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   3,
+   4
+  ],
+  "target": [
+   3,
+   7,
+   4,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "pine",
+   "mint"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   0,
+   3
+  ],
+  "target": [
+   4,
+   2,
+   1,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "honey",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   3
+  ],
+  "target": [
+   7,
+   7,
+   0,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "mint",
+   "lavender",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   6,
+   0,
+   2
+  ],
+  "target": [
+   7,
+   5,
+   1,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "brimstone",
+   "pine",
+   "brimstone",
+   "mint",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   8,
+   0,
+   0,
+   6
+  ],
+  "target": [
+   4,
+   1,
+   0,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "pine",
+   "honey",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   5,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   0,
+   4,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "quartz",
+   "valerian",
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   2,
+   4,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   1,
+   5,
+   6,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "chamomile",
+   "mint",
+   "lavender",
+   "chamomile",
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   10,
+   0,
+   4
+  ],
+  "target": [
+   2,
+   0,
+   0,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   3
+  ],
+  "target": [
+   0,
+   3,
+   2,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "lavender",
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   2,
+   0
+  ],
+  "target": [
+   3,
+   0,
+   4,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "sage",
+   "brimstone",
+   "angelica",
+   "mint",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   0,
+   1,
+   8
+  ],
+  "target": [
+   3,
+   5,
+   1,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "chamomile",
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   1,
+   0
+  ],
+  "target": [
+   0,
+   0,
+   4,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "chamomile",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   3,
+   7,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "sage",
+   "pine",
+   "bilberry",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   1,
+   5,
+   5
+  ],
+  "target": [
+   3,
+   0,
+   1,
+   2
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 8
+ },
+ {
+  "names": [
+   "lavender",
+   "sunwort",
+   "mint",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   4,
+   1,
+   4
+  ],
+  "target": [
+   7,
+   7,
+   0,
+   5
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 11
+ },
+ {
+  "names": [
+   "nettle",
+   "nettle",
+   "rosehip",
+   "sunwort",
+   "mint"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   2,
+   8,
+   3
+  ],
+  "target": [
+   3,
+   3,
+   7,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "sage",
+   "sunwort",
+   "brimstone",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   1,
+   6
+  ],
+  "target": [
+   1,
+   2,
+   1,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   5,
+   5,
+   4,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "angelica",
+   "honey",
+   "pine",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   2,
+   2,
+   5
+  ],
+  "target": [
+   6,
+   2,
+   5,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "mint",
+   "fireroot",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   4,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   6,
+   4,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "angelica",
+   "fireroot",
+   "sunwort",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   1,
+   5,
+   2
+  ],
+  "target": [
+   2,
+   0,
+   2,
+   4
+  ],
+  "tol": 0,
+  "stars": 1,
+  "d": 9
+ },
+ {
+  "names": [
+   "chamomile",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   0,
+   4
+  ],
+  "target": [
+   2,
+   3,
+   7,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "bilberry",
+   "lavender",
+   "angelica",
+   "lavender",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   5,
+   3,
+   7
+  ],
+  "target": [
+   7,
+   0,
+   4,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   0,
+   1,
+   3,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "pine",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   3,
+   1
+  ],
+  "target": [
+   5,
+   6,
+   3,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   2,
+   1,
+   6,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 6
+ },
+ {
+  "names": [
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   0,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 19
+ },
+ {
+  "names": [
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   6,
+   6,
+   5,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "fireroot",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   5,
+   5,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "bilberry",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   3
+  ],
+  "target": [
+   0,
+   6,
+   3,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "mint",
+   "sage",
+   "nettle",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   2,
+   3
+  ],
+  "target": [
+   5,
+   1,
+   6,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "lavender",
+   "brimstone",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   4,
+   0,
+   1
+  ],
+  "target": [
+   5,
+   4,
+   3,
+   1
+  ],
+  "tol": 1,
+  "stars": 2,
+  "d": 4
+ },
+ {
+  "names": [
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "target": [
+   0,
+   2,
+   2,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "sage",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "target": [
+   0,
+   5,
+   1,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "fireroot",
+   "valerian",
+   "sage",
+   "sunwort",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   4,
+   2,
+   2
+  ],
+  "target": [
+   0,
+   2,
+   3,
+   6
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 11
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   2,
+   1,
+   2,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 5
+ },
+ {
+  "names": [
+   "sunwort",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   2,
+   1
+  ],
+  "target": [
+   7,
+   7,
+   6,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   2,
+   4,
+   6,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "valerian",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   4,
+   1,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "glowcap",
+   "valerian",
+   "salt",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   3,
+   0,
+   5
+  ],
+  "target": [
+   4,
+   7,
+   1,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "angelica",
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   2,
+   1,
+   2
+  ],
+  "target": [
+   5,
+   0,
+   4,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "chamomile",
+   "brimstone",
+   "lavender",
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   2,
+   0,
+   1
+  ],
+  "target": [
+   3,
+   3,
+   3,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "nettle",
+   "angelica",
+   "quartz",
+   "salt",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   5,
+   4
+  ],
+  "target": [
+   6,
+   4,
+   4,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "glowcap",
+   "lavender",
+   "honey",
+   "salt",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   2,
+   5,
+   4
+  ],
+  "target": [
+   6,
+   3,
+   2,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   6,
+   5,
+   1,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "lavender",
+   "quartz",
+   "sunwort"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   3,
+   6,
+   2,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "salt",
+   "brimstone",
+   "pine",
+   "honey",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   0,
+   0,
+   7,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   2,
+   0,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   4,
+   4,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "fireroot",
+   "lavender",
+   "angelica",
+   "fireroot",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   5,
+   0,
+   1
+  ],
+  "target": [
+   3,
+   1,
+   7,
+   7
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 19
+ },
+ {
+  "names": [
+   "angelica",
+   "valerian",
+   "rosehip",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   3,
+   4,
+   0
+  ],
+  "target": [
+   1,
+   6,
+   7,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "nettle",
+   "mint",
+   "glowcap",
+   "mint",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   5,
+   8
+  ],
+  "target": [
+   3,
+   4,
+   4,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "angelica",
+   "salt",
+   "fireroot",
+   "bilberry",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   0,
+   6,
+   1
+  ],
+  "target": [
+   0,
+   3,
+   3,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "brimstone",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   2,
+   2,
+   7,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "rosehip",
+   "sage",
+   "nettle",
+   "valerian",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   4,
+   2
+  ],
+  "target": [
+   0,
+   2,
+   5,
+   2
+  ],
+  "tol": 2,
+  "stars": 3,
+  "d": 3
+ },
+ {
+  "names": [
+   "lavender",
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   5,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 23
+ },
+ {
+  "names": [
+   "rosehip",
+   "quartz",
+   "sage",
+   "quartz",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   4
+  ],
+  "target": [
+   5,
+   2,
+   6,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "valerian",
+   "pine",
+   "chamomile",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   6,
+   0,
+   1
+  ],
+  "target": [
+   5,
+   4,
+   6,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "bilberry",
+   "glowcap",
+   "pine",
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   2,
+   5
+  ],
+  "target": [
+   4,
+   5,
+   1,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   1,
+   5,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "chamomile",
+   "rosehip",
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   1,
+   0
+  ],
+  "target": [
+   1,
+   5,
+   6,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "target": [
+   5,
+   4,
+   4,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   5,
+   7,
+   5,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "mint",
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   3
+  ],
+  "target": [
+   5,
+   4,
+   0,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   1,
+   1,
+   1
+  ],
+  "target": [
+   0,
+   4,
+   5,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "nettle",
+   "honey",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   4,
+   0
+  ],
+  "target": [
+   3,
+   6,
+   7,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "sunwort",
+   "pine",
+   "glowcap",
+   "fireroot"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   0,
+   1,
+   5
+  ],
+  "target": [
+   4,
+   4,
+   0,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "sunwort",
+   "lavender",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   1,
+   2,
+   1
+  ],
+  "target": [
+   5,
+   6,
+   2,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "valerian",
+   "pine",
+   "brimstone",
+   "mint",
+   "sunwort"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   4,
+   0,
+   3
+  ],
+  "target": [
+   6,
+   3,
+   4,
+   0
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "angelica",
+   "mint",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   2
+  ],
+  "target": [
+   5,
+   0,
+   6,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "angelica",
+   "sage",
+   "glowcap",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   3,
+   8
+  ],
+  "target": [
+   7,
+   1,
+   4,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   7,
+   7,
+   6,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 23
+ },
+ {
+  "names": [
+   "sunwort",
+   "angelica",
+   "mint",
+   "chamomile",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   2,
+   7
+  ],
+  "target": [
+   4,
+   1,
+   6,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "lavender",
+   "brimstone",
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   3,
+   1,
+   4,
+   3
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "valerian",
+   "angelica",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   3,
+   0,
+   3
+  ],
+  "target": [
+   7,
+   5,
+   6,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   6,
+   6,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 20
+ },
+ {
+  "names": [
+   "fireroot",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   5,
+   2,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   1,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   7,
+   7,
+   1,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 22
+ },
+ {
+  "names": [
+   "sunwort",
+   "quartz",
+   "sunwort",
+   "valerian",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   5,
+   0,
+   2
+  ],
+  "target": [
+   1,
+   7,
+   7,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "pine",
+   "brimstone",
+   "brimstone",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   10,
+   1,
+   0,
+   1
+  ],
+  "target": [
+   5,
+   4,
+   3,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   1,
+   6,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "sunwort",
+   "salt",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   1
+  ],
+  "target": [
+   4,
+   3,
+   6,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "fireroot",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   2,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   7,
+   2,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   7,
+   5,
+   0,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   7,
+   5,
+   4,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 21
+ },
+ {
+  "names": [
+   "mint",
+   "chamomile",
+   "sage",
+   "angelica",
+   "nettle"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   4,
+   6
+  ],
+  "target": [
+   3,
+   3,
+   2,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "valerian",
+   "pine",
+   "sage",
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   8,
+   0,
+   2
+  ],
+  "target": [
+   1,
+   1,
+   5,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt",
+   "rosehip",
+   "angelica",
+   "angelica",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   4,
+   2
+  ],
+  "target": [
+   4,
+   7,
+   1,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "fireroot",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   2,
+   1,
+   0
+  ],
+  "target": [
+   4,
+   5,
+   2,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   7,
+   4,
+   4,
+   0
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "lavender",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   4,
+   3,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "rosehip",
+   "pine"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   3,
+   1,
+   4,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "glowcap",
+   "mint",
+   "pine"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   6
+  ],
+  "target": [
+   6,
+   6,
+   2,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "bilberry",
+   "fireroot"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   4,
+   2,
+   6,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   5,
+   3,
+   5,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "mint",
+   "lavender",
+   "bilberry",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   2,
+   4
+  ],
+  "target": [
+   6,
+   5,
+   4,
+   6
+  ],
+  "tol": 0,
+  "stars": 1,
+  "d": 11
+ },
+ {
+  "names": [
+   "bilberry",
+   "mint",
+   "sunwort"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   1
+  ],
+  "target": [
+   0,
+   0,
+   7,
+   1
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 4
+ },
+ {
+  "names": [
+   "pine",
+   "bilberry",
+   "pine",
+   "salt"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   1,
+   2,
+   3
+  ],
+  "target": [
+   2,
+   3,
+   4,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "fireroot",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   3,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   4,
+   0,
+   2,
+   3
+  ],
+  "tol": 0,
+  "stars": 1,
+  "d": 4
+ },
+ {
+  "names": [
+   "valerian",
+   "rosehip",
+   "chamomile",
+   "pine",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   9,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   2,
+   2,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "honey",
+   "pine",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   1,
+   1,
+   4
+  ],
+  "target": [
+   3,
+   4,
+   4,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "bilberry",
+   "mint",
+   "pine"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   2,
+   4
+  ],
+  "target": [
+   5,
+   3,
+   2,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   1,
+   3,
+   7,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "salt",
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   6,
+   0,
+   5,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "lavender",
+   "pine",
+   "sage",
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   2,
+   1,
+   5
+  ],
+  "target": [
+   7,
+   6,
+   1,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "nettle",
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   0,
+   3,
+   1
+  ],
+  "target": [
+   3,
+   7,
+   0,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "sunwort"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   0,
+   6,
+   2,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "fireroot",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   4,
+   5,
+   2,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "brimstone",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   1,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   0,
+   4,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "angelica",
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   1,
+   2
+  ],
+  "target": [
+   2,
+   2,
+   5,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "mint",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   1,
+   3
+  ],
+  "target": [
+   5,
+   7,
+   6,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 20
+ },
+ {
+  "names": [
+   "fireroot",
+   "brimstone",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   7,
+   1,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   5,
+   3,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "chamomile",
+   "salt",
+   "quartz",
+   "lavender",
+   "sage"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   7,
+   5,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "lavender",
+   "sage",
+   "angelica",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   2,
+   2,
+   6
+  ],
+  "target": [
+   6,
+   4,
+   4,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "sunwort",
+   "honey",
+   "quartz",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   2,
+   2,
+   0
+  ],
+  "target": [
+   1,
+   7,
+   7,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 20
+ },
+ {
+  "names": [
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "target": [
+   2,
+   3,
+   6,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "brimstone",
+   "angelica",
+   "lavender",
+   "nettle",
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   10,
+   0,
+   4,
+   2
+  ],
+  "target": [
+   3,
+   7,
+   5,
+   4
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "valerian",
+   "sage",
+   "pine",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   3,
+   0,
+   7
+  ],
+  "target": [
+   3,
+   3,
+   3,
+   7
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 4
+ },
+ {
+  "names": [
+   "brimstone",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   5,
+   0,
+   1,
+   1
+  ],
+  "target": [
+   3,
+   0,
+   4,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "mint"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   3,
+   3,
+   1,
+   7
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "lavender",
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   1,
+   0,
+   1
+  ],
+  "target": [
+   4,
+   1,
+   5,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "brimstone"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   7,
+   0,
+   7,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "mint",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   2
+  ],
+  "target": [
+   7,
+   5,
+   1,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "bilberry",
+   "bilberry"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   4,
+   2
+  ],
+  "target": [
+   6,
+   5,
+   1,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "fireroot",
+   "brimstone",
+   "lavender",
+   "lavender"
+  ],
+  "boil": false,
+  "vec": [
+   6,
+   3,
+   0,
+   2
+  ],
+  "target": [
+   2,
+   0,
+   2,
+   6
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "salt",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   7,
+   6,
+   6,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 24
+ },
+ {
+  "names": [
+   "mint",
+   "angelica",
+   "quartz",
+   "rosehip"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   0
+  ],
+  "target": [
+   4,
+   1,
+   4,
+   0
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "rosehip",
+   "quartz",
+   "salt",
+   "glowcap",
+   "angelica"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   2,
+   5
+  ],
+  "target": [
+   2,
+   4,
+   5,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "salt",
+   "sage",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   7
+  ],
+  "target": [
+   0,
+   7,
+   2,
+   6
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "bilberry",
+   "lavender",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   2,
+   4
+  ],
+  "target": [
+   7,
+   4,
+   4,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 17
+ },
+ {
+  "names": [
+   "nettle",
+   "sage",
+   "brimstone"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   3,
+   3
+  ],
+  "target": [
+   6,
+   3,
+   6,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "sage",
+   "lavender",
+   "glowcap"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   0,
+   7
+  ],
+  "target": [
+   7,
+   6,
+   1,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "lavender",
+   "valerian",
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   6,
+   2,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "glowcap",
+   "nettle"
+  ],
+  "boil": true,
+  "vec": [
+   1,
+   0,
+   3,
+   4
+  ],
+  "target": [
+   7,
+   0,
+   7,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "valerian",
+   "fireroot",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   6,
+   0,
+   0
+  ],
+  "target": [
+   2,
+   2,
+   2,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "honey",
+   "pine",
+   "mint"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   1,
+   3
+  ],
+  "target": [
+   7,
+   6,
+   0,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "rosehip",
+   "mint",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   3,
+   1
+  ],
+  "target": [
+   1,
+   6,
+   3,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "sage",
+   "brimstone",
+   "nettle",
+   "mint",
+   "chamomile"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   1,
+   3,
+   4
+  ],
+  "target": [
+   1,
+   0,
+   3,
+   5
+  ],
+  "tol": 0,
+  "stars": 1,
+  "d": 4
+ },
+ {
+  "names": [
+   "quartz",
+   "sunwort",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   0,
+   0,
+   5,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 7
+ },
+ {
+  "names": [
+   "quartz",
+   "salt",
+   "bilberry",
+   "salt",
+   "glowcap"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   5
+  ],
+  "target": [
+   7,
+   1,
+   0,
+   1
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "sage",
+   "lavender",
+   "fireroot",
+   "rosehip",
+   "fireroot"
+  ],
+  "boil": true,
+  "vec": [
+   6,
+   1,
+   2,
+   3
+  ],
+  "target": [
+   3,
+   0,
+   6,
+   5
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "quartz",
+   "mint",
+   "fireroot",
+   "honey"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   1,
+   1
+  ],
+  "target": [
+   6,
+   2,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "bilberry",
+   "honey",
+   "rosehip"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   2,
+   4,
+   1
+  ],
+  "target": [
+   1,
+   6,
+   1,
+   1
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 8
+ },
+ {
+  "names": [
+   "rosehip",
+   "rosehip",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   0,
+   5,
+   0
+  ],
+  "target": [
+   0,
+   0,
+   1,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 6
+ },
+ {
+  "names": [
+   "lavender",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   1,
+   1,
+   1
+  ],
+  "target": [
+   6,
+   1,
+   2,
+   0
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "pine",
+   "honey",
+   "fireroot"
+  ],
+  "boil": false,
+  "vec": [
+   4,
+   2,
+   1,
+   1
+  ],
+  "target": [
+   5,
+   0,
+   7,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "brimstone",
+   "bilberry",
+   "salt"
+  ],
+  "boil": true,
+  "vec": [
+   5,
+   0,
+   2,
+   0
+  ],
+  "target": [
+   2,
+   6,
+   5,
+   2
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "mint",
+   "rosehip",
+   "sage",
+   "sage",
+   "valerian"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   4,
+   0,
+   7
+  ],
+  "target": [
+   6,
+   2,
+   0,
+   3
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "sunwort",
+   "honey",
+   "fireroot"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   2,
+   2,
+   0
+  ],
+  "target": [
+   6,
+   3,
+   3,
+   2
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 6
+ },
+ {
+  "names": [
+   "sage",
+   "lavender",
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   2,
+   0,
+   3
+  ],
+  "target": [
+   4,
+   2,
+   4,
+   4
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 9
+ },
+ {
+  "names": [
+   "valerian"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   5,
+   7,
+   7
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   3,
+   0,
+   0
+  ],
+  "target": [
+   3,
+   5,
+   7,
+   6
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 18
+ },
+ {
+  "names": [
+   "pine",
+   "rosehip",
+   "lavender",
+   "pine",
+   "bilberry"
+  ],
+  "boil": true,
+  "vec": [
+   4,
+   1,
+   4,
+   2
+  ],
+  "target": [
+   1,
+   1,
+   1,
+   1
+  ],
+  "tol": 1,
+  "stars": 1,
+  "d": 7
+ },
+ {
+  "names": [
+   "quartz",
+   "fireroot",
+   "pine",
+   "valerian",
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   5,
+   0,
+   0
+  ],
+  "target": [
+   5,
+   6,
+   7,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 15
+ },
+ {
+  "names": [
+   "sage",
+   "mint",
+   "nettle",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   3,
+   8
+  ],
+  "target": [
+   1,
+   6,
+   4,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 11
+ },
+ {
+  "names": [
+   "valerian",
+   "mint",
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   4,
+   0,
+   1
+  ],
+  "target": [
+   3,
+   4,
+   0,
+   3
+  ],
+  "tol": 2,
+  "stars": 1,
+  "d": 5
+ },
+ {
+  "names": [
+   "glowcap",
+   "honey",
+   "glowcap",
+   "mint",
+   "sage"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   1,
+   10
+  ],
+  "target": [
+   7,
+   0,
+   1,
+   4
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 13
+ },
+ {
+  "names": [
+   "valerian",
+   "fireroot",
+   "lavender",
+   "glowcap",
+   "chamomile"
+  ],
+  "boil": false,
+  "vec": [
+   2,
+   7,
+   0,
+   3
+  ],
+  "target": [
+   4,
+   1,
+   0,
+   5
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "pine",
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   1,
+   0,
+   1
+  ],
+  "target": [
+   1,
+   6,
+   5,
+   2
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "honey"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   1,
+   1,
+   0
+  ],
+  "target": [
+   6,
+   4,
+   2,
+   0
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 10
+ },
+ {
+  "names": [
+   "lavender",
+   "salt",
+   "angelica"
+  ],
+  "boil": true,
+  "vec": [
+   3,
+   1,
+   1,
+   1
+  ],
+  "target": [
+   5,
+   2,
+   4,
+   7
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 12
+ },
+ {
+  "names": [
+   "pine"
+  ],
+  "boil": true,
+  "vec": [
+   2,
+   0,
+   0,
+   1
+  ],
+  "target": [
+   6,
+   5,
+   6,
+   2
+  ],
+  "tol": 2,
+  "stars": 0,
+  "d": 16
+ },
+ {
+  "names": [
+   "lavender"
+  ],
+  "boil": true,
+  "vec": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "target": [
+   1,
+   0,
+   7,
+   5
+  ],
+  "tol": 0,
+  "stars": 0,
+  "d": 14
+ },
+ {
+  "names": [
+   "quartz"
+  ],
+  "boil": false,
+  "vec": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "target": [
+   0,
+   1,
+   5,
+   3
+  ],
+  "tol": 1,
+  "stars": 0,
+  "d": 9
+ }
+]

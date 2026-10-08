@@ -1,13 +1,13 @@
 """Solution-space analysis for Hearthbrew brewing (M0c check 4).
 
-Loads design/data/content.json and brute-forces every ingredient combination
+Loads src/content/data/content.json and brute-forces every ingredient combination
 x Simmer/Boil to count how many brews score 3 stars for a request.
 Rules implemented: R1, R2, R3, R4, R5, R7, R8 (see design/brew-math.md).
 """
 import itertools, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-with open(os.path.join(ROOT, 'design', 'data', 'content.json'), encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'src', 'content', 'data', 'content.json'), encoding='utf-8') as f:
     CONTENT = json.load(f)
 
 I = {k: (list(v['vec']), set(v['tags'])) for k, v in CONTENT['ingredients'].items()}
