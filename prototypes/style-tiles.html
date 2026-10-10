@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hearthbrew Style Tiles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700&family=Limelight&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Alfa+Slab+One&family=Caveat:wght@500;600&family=Gochi+Hand&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700&family=Limelight&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Alfa+Slab+One&family=Caveat:wght@500;600&family=Gochi+Hand&family=Fraunces:opsz,wght@9..144,600&family=DM+Serif+Display&family=Cormorant+Garamond:wght@600;700&display=swap">
 <style>
 /* Page chrome is deliberately neutral so it doesn't favour a direction. */
 :root{--c-bg:#17171A;--c-fg:#EDEDED;--c-muted:#A6A6AD;--c-line:#FFFFFF24;color-scheme:dark}
@@ -139,11 +139,24 @@ select{font:inherit;font-size:.92rem;min-height:40px;border-radius:999px;backgro
 .pack{background:var(--bg);color:var(--ink);font-family:var(--font-body);border-radius:22px;padding:22px 16px;display:grid;gap:26px}
 .t-eyebrow,.t-label{margin:0;font:700 .74rem/1.2 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .t-head{display:grid;gap:8px}
-.t-title{margin:0;font-family:var(--font-display);font-weight:400;font-size:2.6rem;line-height:1;color:var(--accent)}
+.t-title{margin:0;font-family:var(--font-display);font-weight:var(--display-weight,400);font-size:2.6rem;line-height:1;color:var(--accent)}
 .t-chips{display:flex;gap:6px;flex-wrap:wrap}.t-chips span{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.9rem}
 .t-insp{margin:0;color:var(--muted);font-size:.95rem}
 .t-block{display:grid;gap:12px}
 .t-card{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px}
+.g-screen{border-radius:var(--r-card,16px);overflow:hidden;background:var(--bg);box-shadow:0 0 0 1px var(--line),0 18px 40px -18px #000;margin-inline:-6px}
+.g-top{position:relative}
+.g-scene{position:relative;aspect-ratio:360/250;overflow:hidden}.g-scene>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.g-cust{position:absolute;left:11%;top:24%;width:42%}.g-cust svg{width:100%;height:auto;display:block}
+.g-hud{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:8px}
+.hud-pill{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:4px 12px;border-radius:999px;background:var(--hud-bg,var(--surface));color:var(--hud-ink,var(--ink));border:var(--hud-border,0);font-weight:700;font-variant-numeric:tabular-nums;backdrop-filter:blur(4px)}
+.hud-pill small{font-weight:400;font-size:.85rem;color:var(--muted)}.hud-pill svg{width:20px;height:20px;display:block}
+.g-panel{display:grid;gap:12px;padding:0 12px 14px;position:relative}
+.g-bubble{margin-top:-30px;position:relative;background:var(--card-bg,var(--surface));border:var(--card-border,1px solid var(--line));box-shadow:var(--card-shadow,none);border-radius:var(--r-card,16px);padding:12px 14px}
+.g-bubble p{margin:0}
+.g-shelf{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px 4px 4px;border-radius:999px;background:var(--surface);box-shadow:var(--card-shadow,none);border:var(--card-border,1px solid var(--line));font-weight:700;font-variant-numeric:tabular-nums}
+.chip svg{width:36px;height:36px;display:block}
 .t-portrait svg{width:76px;height:76px;display:block;border-radius:12px}
 .t-quote p{margin:0}.t-who{font-family:var(--font-display);font-size:1.15rem}.t-who span{font-family:var(--font-body);font-size:.9rem;color:var(--muted)}
 .kw{border-bottom:3px solid var(--calm)}.int{border-bottom:2px dotted var(--muted)}
@@ -152,14 +165,14 @@ select{font:inherit;font-size:.92rem;min-height:40px;border-radius:999px;backgro
 .t-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .slot{aspect-ratio:1;border:2px dashed var(--muted);border-radius:12px;display:grid;place-items:center;overflow:hidden}
 .slot.full{border:1px solid var(--line);background:var(--surface)}.slot svg{width:100%;height:100%;display:block}
-.t-meter{display:grid;gap:6px;background:var(--surface);border-radius:14px;padding:10px 12px;border:1px solid var(--line)}
+.t-meter{display:grid;gap:6px;background:var(--card-bg,var(--surface));border-radius:var(--r-card,14px);padding:10px 12px;border:var(--card-border,1px solid var(--line));box-shadow:var(--card-shadow,none)}
 .m-row{display:grid;grid-template-columns:22px 58px minmax(0,1fr) 20px;gap:8px;align-items:center;font-size:.95rem}
 .m-ic svg{width:22px;height:22px;display:block}
 .m-bar{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;height:12px}.m-bar i{border-radius:3px;background:var(--sunk)}.m-bar i.on{background:var(--c)}
 .m-v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
 .t-actions{display:grid;grid-template-columns:1fr 2fr;gap:8px}
-.b-primary,.b-ghost{font:700 1rem var(--font-body);min-height:50px;border-radius:14px;cursor:pointer}
-.b-primary{background:var(--accent);color:var(--on-accent);border:0}
+.b-primary,.b-ghost{font:700 1rem var(--font-body);min-height:50px;border-radius:var(--r-btn,14px);cursor:pointer}
+.b-primary{background:var(--btn-bg,var(--accent));color:var(--on-accent);border:0;box-shadow:var(--btn-shadow,none)}
 .b-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .t-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .sw{display:grid;gap:4px;font-size:.78rem;color:var(--muted)}.sw i{display:block;height:40px;border-radius:10px;border:1px solid var(--line)}
@@ -174,7 +187,7 @@ select{font:inherit;font-size:.92rem;min-height:40px;border-radius:999px;backgro
 .ing{display:grid;grid-template-columns:96px 48px;align-items:end;gap:8px;font-size:.9rem}
 .ing>svg{width:96px;height:96px;grid-row:span 2;display:block}.ing-s svg{width:48px;height:48px;display:block}
 .t-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.t-pair figure{margin:0;display:grid;gap:6px}.t-pair svg{width:100%;height:auto;display:block}
+.t-pair figure{margin:0;display:grid;gap:6px}.t-pair svg{width:100%;height:auto;display:block;border-radius:var(--r-card,10px)}
 .t-pair figcaption{font-size:.9rem;color:var(--muted)}
 .t-bigpot svg{width:min(240px,100%);height:auto;display:block;margin:0 auto}
 .t-tex{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;font-size:.92rem;color:var(--muted)}
@@ -185,7 +198,7 @@ select{font:inherit;font-size:.92rem;min-height:40px;border-radius:999px;backgro
 .compare h3{margin:0 0 8px;font-size:1rem}
 .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cmp-cell{padding:10px;gap:6px;border-radius:14px;justify-items:center;text-align:center}
-.cmp-art svg{width:100%;height:auto;display:block;max-width:150px}
+.cmp-art svg{width:100%;height:auto;display:block;max-width:150px}.cmp-art{width:100%;display:grid;justify-items:center}.cmp-art .g-scene{width:100%;border-radius:10px}.cmp-art .g-scene svg,.cmp-art .g-cust svg{max-width:none}
 .cmp-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .cmp-traits{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.cmp-traits svg{width:100%}
 .cmp-name{font-size:.8rem;color:var(--muted)}
@@ -208,9 +221,10 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
   <filter id="cvd-tritan"><feColorMatrix type="matrix" values="1.256 -0.077 -0.179 0 0  -0.078 0.931 0.148 0 0  0.005 0.691 0.304 0 0  0 0 0 1 0"/></filter>
   <filter id="cvd-grey"><feColorMatrix type="saturate" values="0"/></filter>
 </defs></svg>
+
 <div class="wrap">
   <div class="bar">
-    <h1>Hearthbrew · Stage 3 style tiles</h1>
+    <h1>Hearthbrew · style tiles</h1>
     <div class="tabs" role="group" aria-label="Direction"><button type="button" data-show="gilded" aria-pressed="true">Gilded Herbal</button><button type="button" data-show="shadow" aria-pressed="false">Shadow Theatre</button><button type="button" data-show="cyanotype" aria-pressed="false">Cyanotype Herbarium</button><button type="button" data-show="riso" aria-pressed="false">Folk Woodcut / Riso</button><button type="button" data-show="compare" aria-pressed="false">Compare all</button></div>
     <div class="row">
       <div class="seg" role="group" aria-label="Light"><button type="button" data-theme="night" aria-pressed="true">Candlelit</button><button type="button" data-theme="day" aria-pressed="false">Day</button></div>
@@ -228,6 +242,7 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
     <p class="t-insp">Gilded apothecary jars, illuminated herbals, banknote engraving</p>
   </header>
 
+  
   <section class="t-block"><p class="t-label">Riddle card · brew screen</p>
     <div class="t-card">
       <div class="t-portrait"><svg viewBox="0 0 160 160" role="img" aria-label="Marla, engraved portrait" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -457,6 +472,7 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
     <p class="t-insp">Lotte Reiniger's cut-paper silhouette films (1926), shadow puppetry</p>
   </header>
 
+  
   <section class="t-block"><p class="t-label">Riddle card · brew screen</p>
     <div class="t-card">
       <div class="t-portrait"><svg viewBox="0 0 160 160" role="img" aria-label="Marla in silhouette" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -614,6 +630,7 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
     <p class="t-insp">Anna Atkins' Photographs of British Algae: Cyanotype Impressions (1843), herbarium sheets</p>
   </header>
 
+  
   <section class="t-block"><p class="t-label">Riddle card · brew screen</p>
     <div class="t-card">
       <div class="t-portrait"><svg viewBox="0 0 160 160" role="img" aria-label="Marla, cyanotype portrait" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -812,6 +829,7 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
     <p class="t-insp">Folk herbal woodcuts, linocut, risograph zines (spot inks, misregistration, grain)</p>
   </header>
 
+  
   <section class="t-block"><p class="t-label">Riddle card · brew screen</p>
     <div class="t-card">
       <div class="t-portrait"><svg viewBox="0 0 160 160" role="img" aria-label="Marla, riso portrait" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -1250,7 +1268,7 @@ body.shot{padding:0}body.shot .bar,body.shot .rate,body.shot .intro{display:none
   const press = (sel, on) => document.querySelectorAll(sel).forEach(b => b.setAttribute('aria-pressed', String(on(b))));
   function apply() {
     document.querySelectorAll('[data-view]').forEach(v => { v.hidden = v.dataset.view !== st.view; });
-    document.querySelectorAll('.pack').forEach(p => p.classList.toggle('day', st.day));
+    document.querySelectorAll('.pack, .defs-host').forEach(p => p.classList.toggle('day', st.day));
     document.querySelectorAll('svg.pot').forEach(s => s.classList.toggle('boil', st.boil));
     document.getElementById('stage').style.filter = st.cvd ? 'url(#cvd-' + st.cvd + ')' : '';
     press('[data-show]', b => b.dataset.show === st.view);

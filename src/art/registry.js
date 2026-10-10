@@ -4,16 +4,20 @@ import * as gilded from './styles/gilded/index.js';
 import * as shadow from './styles/shadow/index.js';
 import * as cyanotype from './styles/cyanotype/index.js';
 import * as riso from './styles/riso/index.js';
+import * as storybook from './styles/storybook/index.js';
+import * as fable from './styles/fable/index.js';
+import * as naturalist from './styles/naturalist/index.js';
 import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS } from '../content/index.js';
 
 /**
  * @typedef {{ id: string, label: string, css: string, ASSETS: Record<string, (opts?: any) => string>,
- *   exploration?: boolean, scope?: string[], brief?: { adjectives: string[], inspiration: string, technique: string } }} StylePack
+ *   exploration?: boolean, round?: number, defs?: string, scope?: string[], brief?: { adjectives: string[], inspiration: string, technique: string } }} StylePack
+ * `defs` (gradients, filters, clip paths) must be injected once per page; assets reference them by id.
  * Complete packs must provide every requiredIds() asset. Exploration packs (art-direction study) cover only their `scope`.
  */
 
 /** @type {Record<string, StylePack>} */
-export const STYLES = Object.fromEntries([v0, gilded, shadow, cyanotype, riso].map(p => [p.id, /** @type {StylePack} */ (p)]));
+export const STYLES = Object.fromEntries([v0, gilded, shadow, cyanotype, riso, storybook, fable, naturalist].map(p => [p.id, /** @type {StylePack} */ (p)]));
 let active = v0.id;
 
 /** @param {string} id */

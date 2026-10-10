@@ -25,6 +25,19 @@ test('exploration packs cover the style-tile scope', () => {
   }
 });
 
+test('round 2 packs show the game: a shop scene, moods, and one shared defs block with no dangling refs', () => {
+  for (const pack of Object.values(STYLES).filter(p => p.round === 2)) {
+    for (const asset of ['scene:shop', 'ingredient:rosehip']) assert.ok(pack.ASSETS[asset], `${pack.id} is missing ${asset}`);
+    assert.notEqual(pack.ASSETS['portrait:marla']({ mood: 'happy' }), pack.ASSETS['portrait:marla']({ mood: 'tired' }), `${pack.id}: moods must differ`);
+    const defined = new Set([...(pack.defs || '').matchAll(/id="([^"]+)"/g)].map(m => m[1]));
+    for (const asset of pack.scope || []) {
+      const out = [pack.ASSETS[asset]({}), pack.ASSETS[asset]({ layer: 'front', boil: true })].join('');
+      assert.doesNotMatch(out, /\sid="/, `${pack.id}:${asset} declares its own ids (put them in defs)`);
+      for (const [, ref] of out.matchAll(/url\(#([^)]+)\)/g)) assert.ok(defined.has(ref), `${pack.id}:${asset} uses undefined #${ref}`);
+    }
+  }
+});
+
 test('the cauldron has distinct simmer and boil states', () => {
   setStyle('v0-prototype');
   assert.doesNotMatch(art('prop:cauldron', { boil: false }), /class="pot boil"/);

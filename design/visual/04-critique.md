@@ -1,6 +1,6 @@
 # Stage 4: Critique & selection
 
-**Status:** critiques complete (2026-10-09) · ⏳ waiting for your ratings and choice (gate 👤).
+**Status:** round 1 **rejected** by the product owner (2026-10-09). Round 2 exploration in progress (see the verdict below).
 
 **Method:**
 - 8 screenshots (4 directions × Candlelit/Day, 360px) in `shots/03-*.png`.
@@ -114,5 +114,23 @@ About 8–12 real assets in the hybrid, **each timed against the 30-minute produ
 - production at 30 minutes or less per asset;
 - you rate it at least 4/5.
 
-## Your verdict
-*(to be filled in from your copied report)*
+## Your verdict (2026-10-09): none of the four is right for this game
+| Direction | Why not |
+|---|---|
+| Gilded Herbal | Too gold. The traits would get boring by the second session |
+| Shadow Theatre | Out of scope, and not "game" enough |
+| Cyanotype Herbarium | Too flat and too simple |
+| Folk Woodcut / Riso | Too cartoonish, and unrealistically colourful, so it can be confusing |
+
+**Wanted instead:**
+- closer to a **soft painted storybook** and to **crisp modern flat**, plus something else;
+- by implication: **game-like**, with depth, natural colours, and richer drawing.
+
+**What the design lead takes from it (process lessons):**
+1. **Show the game, not a board.** Round 1 tiles were designer artefacts (swatches, isolated icons), so even good assets didn't read as a game. Round 2 leads each tile with a **game screen**: the shop room, the customer at the counter, a HUD, the riddle and the brew bench.
+2. **Depth and material.** Light, shading, glow and highlights, not flat single-fill shapes.
+3. **Natural colour.** Ingredients in their real colours; no stylised colour swaps (pink chamomile).
+4. **Drawing quality per direction.** Round 1 shared one set of simple drawings so the comparison isolated *style*; that capped richness. Round 2 draws each direction on its own terms (sharing only the layout).
+5. The brief's "isn't" list said *no gradients*. That is overridden by this verdict: soft gradients and light are now in, while neon and corporate flat stay out.
+
+→ Round 2: `design/visual/04b-round2.md`.

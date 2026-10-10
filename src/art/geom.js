@@ -65,3 +65,42 @@ export function cauldron(/** @type {{ boil?: boolean, label: string, body: strin
     ${o.after || ''}
   </svg>`;
 }
+
+// ---- Round 2 (game-screen exploration): shared LAYOUT only; each direction draws its own detail on top. ----
+
+/** Customer bust, front view (viewBox 0 0 160 160). Moods change brows, eyes and mouth. */
+export const FACE = {
+  body: 'M16 160 C18 132 38 117 62 112 L98 112 C122 117 142 132 144 160 Z',
+  bib: 'M64 131 L96 131 L99 160 L61 160 Z',
+  straps: 'M63 113 L65 132 M97 113 L95 132',
+  neck: 'M69 94 L69 115 C75 120 85 120 91 115 L91 94 Z',
+  head: /** @type {[number, number, number, number]} */ ([80, 78, 31, 35]),
+  hairL: 'M51 64 C44 80 45 97 56 105 C52 92 53 80 58 70 Z',
+  hairR: 'M109 64 C116 80 115 97 104 105 C108 92 107 80 102 70 Z',
+  scarf: 'M47 75 C42 46 59 33 80 33 C101 33 118 46 113 75 C105 61 94 56 80 56 C66 56 55 61 47 75 Z',
+  knot: ['M105 44 C113 33 126 35 124 46 C122 53 112 50 105 46 Z', 'M105 46 C116 50 121 61 113 65 C106 65 103 55 105 46 Z'],
+  eyes: /** @type {[number, number][]} */ ([[68, 83], [92, 83]]),
+  nose: 'M80 86 Q77 94 80 96 Q83 97 85 95',
+  cheeks: /** @type {[number, number][]} */ ([[63, 94], [97, 94]]),
+  smudge: /** @type {[number, number]} */ ([102, 100]),
+  brows: { tired: ['M60 74 L73 69.5', 'M87 69.5 L100 74'], happy: ['M60 73 Q66 67.5 73 70.5', 'M87 70.5 Q94 67.5 100 73'] },
+  mouth: { tired: 'M73 105 Q80 103 87 105', happy: 'M70.5 101.5 Q80 112 89.5 101.5' },
+};
+
+/** The shop room behind the counter (viewBox 0 0 360 250). The customer stands at x 40-190. */
+export const SCENE = {
+  window: 'M236 150 V64 A42 42 0 0 1 320 64 V150 Z',
+  mullions: 'M278 22 V150 M236 94 H320',
+  hills: 'M236 126 Q258 106 280 120 Q300 108 320 116 V150 H236 Z',
+  orb: /** @type {[number, number, number]} */ ([300, 50, 10]),
+  stars: [[250, 50, 1.3], [264, 36, 1], [314, 82, 1.1], [247, 78, 1], [286, 40, 0.9], [258, 64, 0.8]],
+  bundles: /** @type {[number, number][]} */ ([[150, 22], [176, 30], [202, 20]]),
+  shelves: /** @type {[number, number, number][]} */ ([[12, 70, 128], [12, 132, 70]]),   // x, y, width
+  // jars on the shelves: x, base y, w, h, kind, contents token
+  jars: /** @type {[number, number, number, number, string, string][]} */ ([
+    [20, 70, 18, 26, 'jar', '--jar1'], [44, 70, 14, 34, 'bottle', '--jar2'], [66, 70, 22, 22, 'round', '--jar3'],
+    [94, 70, 18, 30, 'jar', '--jar4'], [118, 70, 14, 24, 'bottle', '--jar1'], [18, 132, 20, 24, 'round', '--jar4'], [44, 132, 16, 30, 'jar', '--jar2'],
+  ]),
+  lantern: /** @type {[number, number]} */ ([214, 58]),
+  counterTop: 196,
+};

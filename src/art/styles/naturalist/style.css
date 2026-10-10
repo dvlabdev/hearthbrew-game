@@ -1,0 +1,39 @@
+/* Naturalist Still-life: tokens. Candlelit = walnut shadows and one candle (primary); Day = linen and north light. */
+:root{
+  --bg:#17120E; --surface:#241C15; --sunk:#0F0B08; --ink:#F2E7D5; --muted:#C2B39C; --line:#F2E7D522;
+  --accent:#D98A4E; --on-accent:#1A100A; --secondary:#A3B97F; --highlight:#F0C987;
+  --heat:#D4794C; --calm:#A2CBEC; --vigor:#94B574; --clarity:#F2E2B1; --on-trait:#17120E; --trait-rim:#17120E; --gem-hi:#FFFFFF;
+  /* scene + art */
+  --sky-top:#121C2E; --sky-bot:#3A4560; --hill:#222B30; --hill-dk:#141B1E; --orb:#EDE6CF; --star:#F6F0DC; --star-o:1; --beam-o:.07;
+  --wall:#5A4532; --wall-dk:#2A2018; --wood:#5C3A24; --wood-dk:#2E1D12; --wood-hi:#8E5E3A; --glow:#FFC27A; --glow-o:.55;
+  --skin:#D9A47E; --skin-hi:#F0C6A2; --skin-sh:#A06A4C; --cheek:#C8695A; --bags:#6E4A52; --hair:#4A3022; --hair-hi:#8A6248;
+  --eye:#1E1612; --iris:#6A7A44; --eye-white:#F1E8DC; --lips:#A85A50; --lips-hi:#C47A6C; --mouth-in:#5E2A26; --ink-line:#2E2016;
+  --scarf:#A8503C; --scarf-dk:#6A2C20; --dress:#5D6F7A; --dress-dk:#33414A; --apron:#E6DCC8; --apron-sh:#B5A88F; --flour:#FFFFFF;
+  --leaf:#6E8B4E; --leaf-dk:#3C5230; --leaf-hi:#A6BC7A; --vein:#2F3F22; --sepal:#4A4A2A; --petal:#FBF7EC; --petal-sh:#C9BFAC; --yolk:#E6B321; --yolk-hi:#F8DA70; --yolk-dk:#A5780C;
+  --root:#B47C4A; --root-hi:#DDAE7C; --root-dk:#6A4224; --ember:#FF7A30; --ember-hi:#FFE2A2;
+  --berry:#B8322A; --berry-hi:#EC8A70; --berry-dk:#5A1410; --twig:#5A3F2C; --twine:#C9A26A; --cork:#B38B5C; --bloom:#A894D0;
+  --iron:#36322E; --iron-hi:#857C72; --iron-dk:#141210; --steam:#E8E2D8; --stone:#9A9184; --stone-dk:#6B6358;
+  --clay:#A65A38; --clay-dk:#7A3F26; --jar1:#6E8FA6; --jar2:#A8603E; --jar3:#8EA466; --jar4:#C9A050; --glass:#D8E0DC;
+  --coin:#C98A48; --coin-hi:#F6D29A; --coin-dk:#7A4E1E; --plate:#E9DFC8; --shadow:#080504;
+  /* chrome: labelled paper, ruled borders, leather-tab buttons */
+  --font-display:"Cormorant Garamond", "Garamond", Georgia, serif; --display-weight:700;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-hand:"Caveat", "Comic Sans MS", cursive;
+  --r-card:6px; --r-btn:8px;
+  --card-bg:linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--glow)) 0%, var(--surface) 100%);
+  --card-border:1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  --card-shadow:0 12px 26px -10px #000000CC, inset 0 0 0 3px var(--surface), inset 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+  --btn-bg:linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, #FFF0D8) 0%, var(--accent) 45%, color-mix(in srgb, var(--accent) 72%, #2A1408) 100%);
+  --btn-shadow:0 3px 0 color-mix(in srgb, var(--accent) 45%, #000), 0 8px 18px -6px #000000AA;
+  --hud-bg:color-mix(in srgb, var(--sunk) 82%, transparent); --hud-ink:var(--ink); --hud-border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  color-scheme:dark;
+}
+:root[data-theme="day"]{
+  --bg:#EFE6D4; --surface:#FAF4E8; --sunk:#E2D6C0; --ink:#2A2119; --muted:#5A4C3E; --line:#2A211926;
+  --accent:#8E3B22; --on-accent:#FAF4E8; --secondary:#4F6B34; --highlight:#8A4A10;
+  --heat:#9F3C16; --calm:#4276A2; --vigor:#659649; --clarity:#584400; --on-trait:#FAF4E8; --trait-rim:#FAF4E8;
+  --sky-top:#A9C7D6; --sky-bot:#EDE3C8; --hill:#8BA27A; --hill-dk:#6C855E; --orb:#FFF4D0; --star-o:0; --beam-o:.4;
+  --wall:#DCC9A8; --wall-dk:#B39C78; --glow:#FFEBC0; --glow-o:.2;
+  --steam:#FFFFFF; --plate:#F2EAD6; --shadow:#3A2A1C;
+  color-scheme:light;
+}
