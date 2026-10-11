@@ -43,3 +43,14 @@ test('the cauldron has distinct simmer and boil states', () => {
   assert.doesNotMatch(art('prop:cauldron', { boil: false }), /class="pot boil"/);
   assert.match(art('prop:cauldron', { boil: true }), /class="pot boil"/);
 });
+
+test('level of detail: mini has no filters or hairlines, hero adds detail over icon', () => {
+  for (const pack of Object.values(STYLES).filter(p => (p.round || 1) >= 3)) {
+    for (const id of (pack.scope || []).filter(a => a.startsWith('ingredient:'))) {
+      const mini = pack.ASSETS[id]({ lod: 'mini' }), icon = pack.ASSETS[id]({}), hero = pack.ASSETS[id]({ lod: 'hero' });
+      assert.doesNotMatch(mini, /filter="/, `${pack.id}:${id} mini uses a filter`);
+      assert.doesNotMatch(mini, /stroke-width="0?\.\d+"/, `${pack.id}:${id} mini has a hairline`);
+      assert.ok(mini.length < icon.length && icon.length < hero.length, `${pack.id}:${id} detail should grow mini < icon < hero`);
+    }
+  }
+});

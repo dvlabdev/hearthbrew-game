@@ -55,3 +55,19 @@
 
 Also folded in: a larger customer in the scene (pillar 1) and a proper stepped halo for the lantern.
 → Round 3: one hybrid pack (`src/art/styles/hearthlight/`) on `prototypes/style-tiles-r3.html`, shown next to its three parents. Rate it on your phone: https://claude.ai/artifact/HPcSzR7YKU5HRzphqYuKQ5 (shots: `shots/04c-hearthlight-{night,day}.png`). AA contrast passes in both themes; tests pass.
+
+## Round 3 verdict (2026-10-11)
+"The comparison is very interesting. Each of the styles has great points."
+
+**What you liked in each:**
+- **Naturalist:**
+  - its **Spot-the-herb card**, on white paper "like a paper page";
+  - its chamomile (along with Hearthlight's).
+- **Hearthlight:**
+  - its chamomile;
+  - its **background lighting**;
+  - its **shop scene with the shadows**.
+  - (Naturalist is "too realistic and darkish".)
+- **Modern Fable:** its stylisation, "a great option to simplify the design and the level of detail".
+
+**Decision: detail by size**, one style with a level-of-detail ladder. → `04d-direction.md`.
