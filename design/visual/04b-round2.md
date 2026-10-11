@@ -1,6 +1,6 @@
 # Stage 3–4, round 2: three new directions
 
-**Status:** 2026-10-10 · built and technically checked · ⏳ waiting for your rating (gate 👤) on your phone: https://claude.ai/artifact/PwPeRDrMYiAFRDXcTMSBC9
+**Status:** 2026-10-11 · rated by the product owner → **hybrid "Hearthlight"** in progress (round 3). Page: https://claude.ai/artifact/PwPeRDrMYiAFRDXcTMSBC9
 **Why there's a round 2:** you rejected all four round 1 directions (see `04-critique.md`, "Your verdict"). The reasons were: too gold or boring traits; not "game" enough; too flat and simple; cartoonish, unrealistic colour. You pointed toward *soft painted storybook*, *crisp modern flat*, *something else*.
 
 ## What changed in the method
@@ -36,5 +36,22 @@
 - The Day themes keep the moon position for the sun, and the window light is subtle.
 - The naturalist filters (noise textures) need a phone performance check before production.
 
-## Your verdict
-*(to be filled in from your copied report)*
+## Your verdict (2026-10-11)
+| Direction | Rating |
+|---|---|
+| Lantern Storybook | 4/5 |
+| Modern Fable | 3/5 |
+| Naturalist Still-life | 4/5 |
+
+**Favourite: a mix.** "I like the colour palette and style of Lantern, the geometric style of design of Modern Fable, but also the realistic style of Naturalist."
+
+## Synthesis: Hearthlight (each parent gets one job)
+| Layer | From | Rule |
+|---|---|---|
+| **Construction** | Modern Fable | Clean geometric forms: lens petals, faceted roots, crisp shelves and bundles, and a clear shadow plane on every form. Silhouettes read at 40px |
+| **Light and palette** | Lantern Storybook | Dusk-blue room and lantern amber; gradient light from the lantern side, rim light, glow, one paper grain |
+| **Detail and material** | Naturalist | **Detail where the eye goes** (a hierarchy, not everywhere): faces (iris, lids, lips, modelling), botanical truth (spiral seed-heads, veins, divided leaves), the counter's wood grain. Backgrounds stay simple |
+| **Chrome** | Lantern + Fable | Glowing cards with crisp 14px corners; chunky pressable buttons in lantern amber |
+
+Also folded in: a larger customer in the scene (pillar 1) and a proper stepped halo for the lantern.
+→ Round 3: one hybrid pack (`src/art/styles/hearthlight/`) on `prototypes/style-tiles-r3.html`, shown next to its three parents. Rate it on your phone: https://claude.ai/artifact/HPcSzR7YKU5HRzphqYuKQ5 (shots: `shots/04c-hearthlight-{night,day}.png`). AA contrast passes in both themes; tests pass.

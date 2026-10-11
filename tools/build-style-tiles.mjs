@@ -7,7 +7,9 @@ import { STYLES } from '../src/art/registry.js';
 
 const root = new URL('..', import.meta.url);
 const ROUND = Number(process.argv[2] || 2);
-const packs = Object.values(STYLES).filter(p => p.exploration && (p.round || 1) === ROUND);
+const current = Object.values(STYLES).filter(p => p.exploration && (p.round || 1) === ROUND);
+// A hybrid round also shows the directions it was mixed from, for comparison.
+const packs = [...current, ...[...new Set(current.flatMap(p => p.parents || []))].map(id => STYLES[id])];
 const OUT = ROUND === 1 ? 'prototypes/style-tiles.html' : `prototypes/style-tiles-r${ROUND}.html`;
 const read = (/** @type {string} */ rel) => readFileSync(fileURLToPath(new URL(rel, root)), 'utf8');
 
@@ -128,7 +130,7 @@ function compare() {
 const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hearthbrew Style Tiles</title>
+<title>Hearthbrew Style Tiles${ROUND > 1 ? ` R${ROUND}` : ''}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700&family=Limelight&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Alfa+Slab+One&family=Caveat:wght@500;600&family=Gochi+Hand&family=Fraunces:opsz,wght@9..144,600&family=DM+Serif+Display&family=Cormorant+Garamond:wght@600;700&display=swap">
 <style>
@@ -164,7 +166,7 @@ ${anim}
 .g-screen{border-radius:var(--r-card,16px);overflow:hidden;background:var(--bg);box-shadow:0 0 0 1px var(--line),0 18px 40px -18px #000;margin-inline:-6px}
 .g-top{position:relative}
 .g-scene{position:relative;aspect-ratio:360/250;overflow:hidden}.g-scene>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.g-cust{position:absolute;left:11%;top:24%;width:42%}.g-cust svg{width:100%;height:auto;display:block}
+.g-cust{position:absolute;left:7%;top:17%;width:50%}.g-cust svg{width:100%;height:auto;display:block}
 .g-hud{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:8px}
 .hud-pill{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:4px 12px;border-radius:999px;background:var(--hud-bg,var(--surface));color:var(--hud-ink,var(--ink));border:var(--hud-border,0);font-weight:700;font-variant-numeric:tabular-nums;backdrop-filter:blur(4px)}
 .hud-pill small{font-weight:400;font-size:.85rem;color:var(--muted)}.hud-pill svg{width:20px;height:20px;display:block}
@@ -249,7 +251,7 @@ ${packs.map(p => p.defs ? `<div class="pack-${p.id} defs-host" aria-hidden="true
       <select id="cvd" aria-label="Colour vision"><option value="">Normal vision</option><option value="protan">Protan</option><option value="deutan">Deutan</option><option value="tritan">Tritan</option><option value="grey">Greyscale</option></select>
     </div>
   </div>
-  <p class="intro">${ROUND > 1 ? 'Round 2, after your feedback: each direction leads with the game screen itself, with depth, light and natural colour. Same scene and layout in all three, so you compare the look. ' : ''}${['One', 'Two', 'Three', 'Four', 'Five'][packs.length - 1]} directions, identical content. Judge each against the brief: witchy, warm, herbal, curious, calm, readable on this screen. Then rate them at the bottom.</p>
+  <p class="intro">${ROUND > 2 ? `Round ${ROUND}: <b>${current.map(p => p.label).join(', ')}</b>, your mix. Lantern's palette and light, Modern Fable's geometry, Naturalist's detail where the eye goes. The three parents follow for comparison. ` : ROUND > 1 ? 'Round 2, after your feedback: each direction leads with the game screen itself, with depth, light and natural colour. Same scene and layout in all three, so you compare the look. ' : ''}${['One', 'Two', 'Three', 'Four', 'Five'][packs.length - 1]} directions, identical content. Judge each against the brief: witchy, warm, herbal, curious, calm, readable on this screen. Then rate them at the bottom.</p>
   <div id="stage">
     ${packs.map((p, i) => `<div data-view="${p.id}"${i ? ' hidden' : ''}>${tile(p)}</div>`).join('')}
     <div data-view="compare" hidden>${compare()}</div>

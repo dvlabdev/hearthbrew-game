@@ -25,8 +25,8 @@ test('exploration packs cover the style-tile scope', () => {
   }
 });
 
-test('round 2 packs show the game: a shop scene, moods, and one shared defs block with no dangling refs', () => {
-  for (const pack of Object.values(STYLES).filter(p => p.round === 2)) {
+test('round 2+ packs show the game: a shop scene, moods, and one shared defs block with no dangling refs', () => {
+  for (const pack of Object.values(STYLES).filter(p => (p.round || 1) >= 2)) {
     for (const asset of ['scene:shop', 'ingredient:rosehip']) assert.ok(pack.ASSETS[asset], `${pack.id} is missing ${asset}`);
     assert.notEqual(pack.ASSETS['portrait:marla']({ mood: 'happy' }), pack.ASSETS['portrait:marla']({ mood: 'tired' }), `${pack.id}: moods must differ`);
     const defined = new Set([...(pack.defs || '').matchAll(/id="([^"]+)"/g)].map(m => m[1]));
