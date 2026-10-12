@@ -7,7 +7,7 @@ A cozy, witchy apothecary crafting game for the browser. You inherit Old Mother 
 The source of truth for scope and milestones is `design/roadmap.md`. Read it before starting any milestone.
 
 ## Current phase
-M1 setup: core, tests, sims, art library and shell are done. **Art direction: Hearthlight v2 is locked** (`design/visual/04d-direction.md`); the validation spike awaits the user's rating, then comes Stage 5 (the design system). Brewing, riddle and Notebook screens wait for the user's prototype B verdict. Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`.
+M1 setup: core, tests, sims, art library and shell are done. **Art direction: Hearthlight v2 is locked** (`design/visual/04d-direction.md`); the validation spike awaits the user's rating. **Built while the user decides:** the design-system skeleton (`src/ui/tokens.css`, `components.css`, `?components`, CSS lint; `design/visual/05-design-system.md`) and the playable mornings (`design/morning.md`: cards → haul → event → interim shop → night; `src/core/day.js`, `src/ui/screens/`). Brewing, riddle and Notebook screens wait for the user's prototype B verdict. Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`.
 
 ## Design rules
 - Every feature must serve at least one pillar:
