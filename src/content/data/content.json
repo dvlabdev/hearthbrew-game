@@ -894,5 +894,112 @@
       "trait": "vigor",
       "clue": "something for tired old arms"
     }
+  },
+  "morning": {
+    "cards": {
+      "expedition": {
+        "weight": 3,
+        "title": "Expedition: {trail}",
+        "text": "Walk the trail and choose your haul."
+      },
+      "garden": {
+        "weight": 2,
+        "title": "Tend the garden",
+        "text": "Harvest what your plots have grown."
+      },
+      "market": {
+        "weight": 1.5,
+        "title": "Market day",
+        "text": "Buy one herb at the stalls."
+      },
+      "errand": {
+        "weight": 1.5,
+        "title": "Village errand",
+        "text": "Lend a hand in Thornwick."
+      },
+      "study": {
+        "weight": 1,
+        "title": "Wren's study",
+        "text": "An hour with the old Notebook."
+      }
+    },
+    "trails": [
+      "the Mill Path",
+      "Fern Hollow",
+      "the Old Orchard",
+      "Brook Meadow",
+      "the Ridge Track",
+      "Crow Copse",
+      "Bramble Lane",
+      "the Holloway",
+      "Wisp Fen"
+    ],
+    "garden": {
+      "plots": [
+        "chamomile",
+        "mint"
+      ]
+    },
+    "market": {
+      "markup": 2,
+      "offers": 3
+    },
+    "errand": {
+      "coins": 8,
+      "texts": [
+        "{who} needed a hand with the washing line.",
+        "You carried {who}'s parcels up the hill.",
+        "{who} asked you to mind the stall for an hour."
+      ]
+    },
+    "study": {
+      "texts": [
+        "Wren's margin note: “{herb}, see the second page.”",
+        "A pressed {herb} falls out of the Notebook, with a note.",
+        "Wren's handwriting, faded: “{herb}: remember this one.”"
+      ]
+    }
+  },
+  "events": {
+    "spot": [
+      {
+        "id": "chamomile-mayweed",
+        "good": "chamomile",
+        "bad": "mayweed",
+        "feature": "domed centre",
+        "reward": "lavender",
+        "right": "Domed centre, apple scent: chamomile. Wren would be proud.",
+        "wrong": "Look again: chamomile's centre is a tall dome. Mayweed's is flat. Same white petals, different plant."
+      }
+    ],
+    "encounter": [
+      {
+        "id": "traveller",
+        "title": "A stranded traveller",
+        "text": "A traveller sits on the stile, map upside down, lunch long gone.",
+        "options": [
+          {
+            "label": "Share your lunch",
+            "effect": "friend",
+            "text": "They'll tell the village about you."
+          },
+          {
+            "label": "Point the way",
+            "effect": "coins",
+            "coins": 3,
+            "text": "They press a coin tip into your hand."
+          }
+        ]
+      }
+    ],
+    "discovery": [
+      {
+        "id": "wren-page",
+        "title": "A page of Wren's notes",
+        "text": "Tucked under a stone by the path, in Wren's hand: “Delicate flowers don't like a rolling boil.”",
+        "rule": "R1"
+      }
+    ],
+    "spotEvery": 2
   }
 }

@@ -1,5 +1,6 @@
 // Versioned save/load. Every schema change adds a migration and a test (CLAUDE.md).
 import { SAVE_VERSION, newGame } from './state.js';
+import { START_STOCK } from './haul.js';
 
 export const SAVE_KEY = 'hearthbrew-save';
 
@@ -11,8 +12,11 @@ export const SAVE_KEY = 'hearthbrew-save';
 export const MIGRATIONS = {
   0: old => {
     const fresh = newGame(old.seed ?? 1);
-    return { ...fresh, day: old.day ?? 1, coins: old.coins ?? 0, shelf: old.stock ?? [], saveVersion: 1 };
+    const { today, lastSpotDay, log, ...v1 } = fresh;
+    return { ...v1, day: old.day ?? 1, coins: old.coins ?? 0, shelf: old.stock ?? [], saveVersion: 1 };
   },
+  // v1 -> v2 (2026-10-12): the playable day loop (design/morning.md). No day in progress; an empty shelf gets the starting stock.
+  1: old => ({ ...old, shelf: old.shelf && old.shelf.length ? old.shelf : START_STOCK.map(s => ({ ...s })), today: null, lastSpotDay: -9, log: {}, saveVersion: 2 }),
 };
 
 /** Bring any older save up to the current version. @param {any} raw @returns {import('./state.js').GameState} */

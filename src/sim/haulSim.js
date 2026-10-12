@@ -1,32 +1,13 @@
 // Haul dominance simulation. Port of tools/haul_sim.py strategies and checks, running on the real core (src/core/haul.js).
 import { HAUL, WEATHER, CUSTOMERS } from '../content/index.js';
-import { pickedItem, resolveShop, playDay, slotsUsed } from '../core/haul.js';
+import { pickedItem, resolveShop, playDay, slotsUsed, genDay, START_STOCK } from '../core/haul.js';
 import { makeRng, pick, pickWeighted } from '../core/rng.js';
 
 /** @typedef {import('../content/types.js').StockItem} StockItem */
-/** @typedef {{ weather: string, featured: {who: string, units: number}, finds: string[], others: {who: string, units: number}[] }} Day */
+/** @typedef {import('../core/haul.js').Day} Day */
 
 const H = HAUL.herbs, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
-export const START_STOCK = [{ herb: 'chamomile', nights: 1 }, { herb: 'chamomile', nights: 3 }, { herb: 'nettle', nights: 2 }, { herb: 'sage', nights: 3 }];
-
-/** Random day following the generator rule in expedition.md. @param {() => number} rng @param {StockItem[]} stock @returns {Day} */
-export function genDay(rng, stock) {
-  const wk = pick(rng, WKEYS), w = WEATHER[wk];
-  const pickCust = () => (w.skew && rng() < 0.5 ? pick(rng, CUST.filter(c => CUSTOMERS[c].trait === w.skew)) : pick(rng, CUST));
-  const featured = { who: pickCust(), units: pick(rng, [1, 2, 2]) };
-  const ft = CUSTOMERS[featured.who].trait;
-  const finds = [];
-  const serving = NAMES.filter(h => H[h].trait === ft);
-  finds.push(pick(rng, serving), pick(rng, serving));
-  const wilting = stock.filter(s => s.nights === 1).map(s => s.herb);
-  finds.push(wilting.length ? pick(rng, wilting) : pick(rng, NAMES));
-  finds.push(pick(rng, NAMES.filter(h => H[h].rarity === 'rare' || H[h].slots > 1)));
-  const weights = NAMES.map(h => (w.boost.includes(H[h].kind) ? 3 : 1) * (H[h].rarity === 'rare' ? 0.4 * w.rareMult : 1));
-  while (finds.length < w.finds) finds.push(pickWeighted(rng, NAMES, weights));
-  for (let i = 0; i < w.extraRare; i++) finds.push(pick(rng, NAMES.filter(h => H[h].rarity === 'rare')));
-  const others = [0, 1].map(() => ({ who: pickCust(), units: pick(rng, [1, 1, 2]) }));
-  return { weather: wk, featured, finds, others };
-}
+export { genDay, START_STOCK };
 
 /** @param {string[]} order */
 function fill(order) {

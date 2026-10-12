@@ -1,9 +1,16 @@
 // Choose-your-haul rules (design/expedition.md). Port of tools/haul_sim.py, checked against it by tests.
 import { HAUL, WEATHER, CUSTOMERS } from '../content/index.js';
+import { pick, pickWeighted } from './rng.js';
 
 /** @typedef {import('../content/types.js').StockItem} StockItem */
 
-const H = HAUL.herbs;
+const H = HAUL.herbs, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
+
+/** @typedef {{ weather: string, featured: {who: string, units: number}, finds: string[], others: {who: string, units: number}[] }} Day */
+
+/** The validated starting shelf (prototype C3 and the sims). @type {StockItem[]} */
+export const START_STOCK = [{ herb: 'chamomile', nights: 1 }, { herb: 'chamomile', nights: 3 }, { herb: 'nettle', nights: 2 }, { herb: 'sage', nights: 3 }];
+
 
 /**
  * A herb picked today, shaped by the weather: prime kinds give a double dose (+1 unit) and +1 value;
@@ -81,4 +88,23 @@ export function playDay(stock, day, picks) {
   const r = resolveShop(all, day.featured, day.others);
   const n = night(r.stock);
   return { stock: n.stock, coins: r.coins, served: r.served, wilted: n.wilted, rares: picks.filter(p => H[p].rarity === 'rare').length };
+}
+
+/** Random day following the generator rule in expedition.md. @param {() => number} rng @param {StockItem[]} stock @returns {Day} */
+export function genDay(rng, stock) {
+  const wk = pick(rng, WKEYS), w = WEATHER[wk];
+  const pickCust = () => (w.skew && rng() < 0.5 ? pick(rng, CUST.filter(c => CUSTOMERS[c].trait === w.skew)) : pick(rng, CUST));
+  const featured = { who: pickCust(), units: pick(rng, [1, 2, 2]) };
+  const ft = CUSTOMERS[featured.who].trait;
+  const finds = [];
+  const serving = NAMES.filter(h => H[h].trait === ft);
+  finds.push(pick(rng, serving), pick(rng, serving));
+  const wilting = stock.filter(s => s.nights === 1).map(s => s.herb);
+  finds.push(wilting.length ? pick(rng, wilting) : pick(rng, NAMES));
+  finds.push(pick(rng, NAMES.filter(h => H[h].rarity === 'rare' || H[h].slots > 1)));
+  const weights = NAMES.map(h => (w.boost.includes(H[h].kind) ? 3 : 1) * (H[h].rarity === 'rare' ? 0.4 * w.rareMult : 1));
+  while (finds.length < w.finds) finds.push(pickWeighted(rng, NAMES, weights));
+  for (let i = 0; i < w.extraRare; i++) finds.push(pick(rng, NAMES.filter(h => H[h].rarity === 'rare')));
+  const others = [0, 1].map(() => ({ who: pickCust(), units: pick(rng, [1, 1, 2]) }));
+  return { weather: wk, featured, finds, others };
 }
