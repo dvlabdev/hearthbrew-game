@@ -21,6 +21,9 @@ import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS } from '../content/index.js'
 export const STYLES = Object.fromEntries([v0, gilded, shadow, cyanotype, riso, storybook, fable, naturalist, hearthlight].map(p => [p.id, /** @type {StylePack} */ (p)]));
 let active = v0.id;
 
+/** The active pack's shared <defs> (gradients, filters, clip paths): inject once per page. */
+export const styleDefs = () => STYLES[active].defs || '';
+
 /** @param {string} id */
 export function setStyle(id) {
   if (!STYLES[id]) throw new Error(`Unknown style pack: ${id}`);
@@ -34,12 +37,13 @@ export const activeStyle = () => STYLES[active];
  * @param {any} [opts] e.g. { boil: true } for the cauldron
  */
 export function art(id, opts) {
-  const fn = STYLES[active].ASSETS[id];
+  // exploration packs cover part of the content: fall back to the complete v0 pack, then to a visible placeholder
+  const fn = STYLES[active].ASSETS[id] || STYLES[v0.id].ASSETS[id];
   return fn ? fn(opts) : `<svg viewBox="0 0 100 100" role="img" aria-label="missing ${id}"><rect width="100" height="100" fill="#f0f" opacity=".3"/><text x="50" y="55" font-size="10" text-anchor="middle">${id}</text></svg>`;
 }
 
 /** @param {string} id */
-export const hasArt = id => !!STYLES[active].ASSETS[id];
+export const hasArt = id => !!(STYLES[active].ASSETS[id] || STYLES[v0.id].ASSETS[id]);
 
 /** Every asset id the game content needs. Each style pack must provide all of them. */
 export function requiredIds() {

@@ -1,0 +1,43 @@
+/* Semantic tokens: the ONLY values components and screens use (enforced by tests/css-lint.test.js).
+   Style packs (src/art/styles/<id>/style.css) supply the raw palette and chrome; the fallbacks cover older packs (v0).
+   Changing the look = changing a pack, never a component. Doc: design/visual/05-design-system.md */
+:root{
+  /* colour roles */
+  --c-bg:var(--bg); --c-surface:var(--surface); --c-sunk:var(--sunk);
+  --c-ink:var(--ink); --c-muted:var(--muted); --c-line:var(--line);
+  --c-accent:var(--accent, var(--plum)); --c-on-accent:var(--on-accent, var(--bg));
+  --c-secondary:var(--secondary, var(--wisp)); --c-focus:var(--highlight, var(--wisp));
+  --c-coin:var(--coin, var(--amber)); --c-coin-ink:var(--coin-dk, var(--iron));
+  --c-rare:var(--lav, var(--plum)); --c-prime:var(--vigor); --c-poor:var(--muted); --c-wilt:var(--heat);
+  --c-shadow:var(--shadow, var(--iron));
+
+  /* chrome (packs may override the raw names: --card-bg, --card-border, --card-shadow, --btn-bg, --btn-shadow, --hud-bg) */
+  --card-fill:var(--card-bg, var(--surface)); --card-edge:var(--card-border, 1px solid var(--line));
+  --elev-card:var(--card-shadow, 0 2px 0 var(--sunk));
+  --btn-fill:var(--btn-bg, var(--c-accent)); --btn-elev:var(--btn-shadow, 0 3px 0 var(--sunk));
+  --hud-fill:var(--hud-bg, var(--surface)); --hud-edge:var(--hud-border, 1px solid var(--line));
+
+  /* type: 16px floor (CLAUDE.md), ratio 1.25 */
+  --f-display:var(--font-display); --f-body:var(--font-body); --f-hand:var(--font-hand);
+  --fs-0:1rem; --fs-1:1.25rem; --fs-2:1.5625rem; --fs-3:1.953rem; --fs-4:2.441rem;
+  --lh-tight:1.15; --lh-body:1.5; --w-display:var(--display-weight, 400);
+
+  /* space: 4pt base */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px;
+
+  /* shape */
+  --radius-sm:8px; --radius-card:var(--r-card, 16px); --radius-btn:var(--r-btn, 14px); --radius-pill:999px;
+
+  /* size */
+  --tap:44px; --art-mini:40px; --art-icon:72px; --art-hero:160px; --page-max:440px;
+
+  /* motion */
+  --t-fast:120ms; --t-base:200ms; --t-slow:320ms; --t-story:600ms;
+  --ease-out:cubic-bezier(.2,.8,.2,1); --ease-spring:cubic-bezier(.3,1.4,.5,1);
+
+  /* layers */
+  --z-hud:10; --z-sheet:50; --z-toast:60;
+}
+@media (prefers-reduced-motion: reduce){
+  :root{ --t-fast:0ms; --t-base:0ms; --t-slow:0ms; --t-story:0ms; }
+}

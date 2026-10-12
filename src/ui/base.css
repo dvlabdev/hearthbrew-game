@@ -1,38 +1,36 @@
-/* Base UI: layout and type built on the active style pack's custom properties.
-   Accessibility rules (CLAUDE.md): 360px first, 16px minimum, 44px tap targets, reduced motion. */
+/* Base: page layout and type on the semantic tokens (tokens.css). 360px first, 16px minimum, 44px targets. */
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font-body);padding-inline:16px;
-  padding-block:calc(env(safe-area-inset-top,0px) + 12px) calc(env(safe-area-inset-bottom,0px) + 32px)}
-.app{max-width:440px;margin:0 auto;display:grid;gap:16px}
-h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+body{background:var(--c-bg);color:var(--c-ink);font:400 var(--fs-0)/var(--lh-body) var(--f-body);padding-inline:var(--s-4);
+  padding-block:calc(env(safe-area-inset-top,0px) + var(--s-3)) calc(env(safe-area-inset-bottom,0px) + var(--s-6))}
+.app{max-width:var(--page-max);margin:0 auto;display:grid;gap:var(--s-4)}
+.app>*{min-width:0}
+h1,h2,h3{font-family:var(--f-display);font-weight:var(--w-display);margin:0;line-height:var(--lh-tight);text-wrap:balance}
 p{margin:0}
-button{font:inherit;color:inherit;cursor:pointer;min-height:44px}
-:focus-visible{outline:3px solid var(--wisp);outline-offset:2px;border-radius:8px}
-.muted{color:var(--muted)}
-.hand{font-family:var(--font-hand);color:var(--plum);line-height:1.35}
-.btn{background:var(--plum);color:var(--bg);border:0;border-radius:14px;padding:12px 16px;font-weight:700}
-.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px}
-.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden}
-.seg button{background:transparent;border:0;padding:8px 12px}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button{font:inherit;color:inherit;cursor:pointer;min-height:var(--tap)}
+a{color:var(--c-secondary)}
+.muted{color:var(--c-muted)}
+.hand{font-family:var(--f-hand);font-size:var(--fs-1);line-height:1.35}
+[hidden]{display:none}
+.defs-host{position:absolute;width:0;height:0;overflow:hidden}
 
 /* title */
-.title{display:grid;gap:14px;justify-items:center;text-align:center;padding-top:24px}
-.title h1{font-size:clamp(2.6rem,12vw,3.4rem)}
+.title{display:grid;gap:var(--s-4);justify-items:center;text-align:center;padding-top:var(--s-5)}
+.title h1{font-size:clamp(var(--fs-4),12vw,3.4rem)}
 .title .pot{width:min(240px,70vw);height:auto}
 
 /* debug */
-.debug{border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;font:13px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);white-space:pre-wrap}
+.debug{border:1.5px dashed var(--c-line);border-radius:var(--radius-sm);padding:var(--s-2) var(--s-3);font:var(--fs-0)/1.5 ui-monospace,Consolas,monospace;color:var(--c-muted);white-space:pre-wrap}
 
-/* gallery */
-.gallery-controls{display:grid;gap:10px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
-.tile{background:var(--surface);border-radius:12px;padding:8px;display:grid;gap:4px;justify-items:center;text-align:center;min-width:0}
+/* gallery (art + components) */
+.gallery-controls{display:grid;gap:var(--s-2)}
+.gallery-controls .seg{justify-self:start}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:var(--s-2)}
+.tile{background:var(--c-surface);border-radius:var(--radius-sm);padding:var(--s-2);display:grid;gap:var(--s-1);justify-items:center;text-align:center;min-width:0}
 .tile svg{width:64px;height:64px}
 .tile.wide{grid-column:span 2}
 .tile.wide svg{width:140px;height:140px}
-.tile code{font-size:11px;color:var(--muted);word-break:break-all}
-.missing{outline:2px solid #f0f}
-a{color:var(--wisp)}
-.gallery-controls .seg{justify-self:start}
+.tile code{font-size:var(--fs-0);color:var(--c-muted);word-break:break-all}
+.missing{outline:2px dashed var(--c-wilt)}
+.states{display:flex;flex-wrap:wrap;gap:var(--s-2);align-items:center}
+.spec-label{color:var(--c-muted)}
