@@ -103,10 +103,11 @@ export function applyHaul(state, picks) {
   t.picks = picks.slice();
   for (const p of picks) { s.shelf.push(pickedItem(p, t.weather)); if (!knows(s, p)) learn(s, p); }
   const rng = rngFor(s, 3);
-  const kinds = /** @type {('spot' | 'encounter' | 'discovery')[]} */ (['encounter', 'discovery']);
+  const kinds = /** @type {('spot' | 'encounter' | 'discovery')[]} */ (['encounter']);
+  if (EVENTS.discovery.some(e => !s.notebook.rules.includes(e.rule))) kinds.push('discovery');   // a page is found once
   if (s.day - s.lastSpotDay >= EVENTS.spotEvery) kinds.push('spot', 'spot');
   const kind = pick(rng, kinds);
-  const deck = kind === 'spot' ? EVENTS.spot : kind === 'encounter' ? EVENTS.encounter : EVENTS.discovery;
+  const deck = kind === 'spot' ? EVENTS.spot : kind === 'encounter' ? EVENTS.encounter : EVENTS.discovery.filter(e => !s.notebook.rules.includes(e.rule));
   t.event = { kind, id: pick(rng, deck).id };
   if (kind === 'spot') s.lastSpotDay = s.day;
   t.phase = 'event';

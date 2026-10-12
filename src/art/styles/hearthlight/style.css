@@ -23,6 +23,8 @@
   --lav:#8E78C8; --lav-dk:#5E4C98; --lav-hi:#C9BCEE;
   --skin2:#C98E68; --skin2-hi:#E8B690; --skin2-sh:#97603F; --beard:#6B4630; --beard-dk:#432A1C; --beard-hi:#A88A70;
   --plaid:#9A3E34; --plaid-dk:#5E2420; --plaid-line:#2A1414; --plaid-hi:#E0A890; --cap:#4F6B5A; --cap-dk:#2F4538;
+  --wx-rain-top:#7D8B99; --wx-rain-bot:#B9C2C4; --wx-frost-top:#B9D3E6; --wx-frost-bot:#EEF3F5; --wx-cloud:#8E98A3; --wx-rain:#DDE6EE; --wx-puddle:#9DB3C2;
+  --wx-frost:#F4F8FA; --wx-leaf:#C98A3A; --wx-rain-ink:#9CC3E6;
   --wx-sun-top:#8FC6DC; --wx-sun-bot:#FBE2A6; --wx-mist-top:#B7C0CB; --wx-mist-bot:#E4E0D6; --wx-orb:#FFF2C6; --wx-mist:#FFFFFF;
   --wx-far:#8FAE96; --wx-near:#4E7A5A; --wx-tree:#3A6048; --wx-tree-dk:#24402F; --wx-path:#D9C49A; --wx-orb-ink:#F2B35E; --wx-mist-ink:#B9C4D0;
   --paper:#EFE5D2; --paper-sh:#C9B99A; --paper-line:#8A7458; --paper-ink:#5A4636; --paper-mark:#A4441C; --shadow:#0B0810;
@@ -45,7 +47,7 @@
   --heat:#9F3C10; --calm:#3876AF; --vigor:#5B9746; --clarity:#564500; --on-trait:#FFF8EC; --trait-rim:#FFF8EC;
   --sky-top:#8EC5DE; --sky-bot:#F6E2AE; --hill-far:#A9C68E; --hill:#86A96E; --hill-dk:#5F8A53; --orb:#FFF6CF; --star-o:0; --beam-o:.35;
   --wall:#EBD3B0; --wall-dk:#CFAE86; --wood:#9A6640; --wood-dk:#6A4228; --wood-hi:#C99467; --glow:#FFE7B0; --glow-o:.25;
-  --steam:#FFFFFF; --plate:#D6E5C8; --plate-dk:#B9D2A6; --paper:#FBF5E8; --wx-orb-ink:#B5641A; --wx-mist-ink:#5E6B7A; --shadow:#5A3E2A;
+  --steam:#FFFFFF; --plate:#D6E5C8; --plate-dk:#B9D2A6; --paper:#FBF5E8; --wx-orb-ink:#B5641A; --wx-mist-ink:#5E6B7A; --wx-rain-ink:#2F6FA8; --shadow:#5A3E2A;
   color-scheme:light;
 }
 

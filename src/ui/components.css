@@ -55,7 +55,8 @@
 .slot.span2 svg{width:auto;height:85%}
 
 /* ---------- shelf chip with wilt pips ---------- */
-.shelf{display:flex;gap:var(--s-2);overflow-x:auto;padding-bottom:var(--s-1);scrollbar-width:thin}
+.shelf{display:flex;gap:var(--s-2);overflow-x:auto;padding-bottom:var(--s-1);scrollbar-width:none}
+.shelf::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:var(--s-1);padding:var(--s-1) var(--s-3) var(--s-1) var(--s-1);border-radius:var(--radius-pill);
   background:var(--c-surface);border:var(--card-edge);font-weight:700;font-variant-numeric:tabular-nums;color:var(--c-ink)}
 .chip svg{width:var(--art-mini);height:var(--art-mini);display:block}
@@ -113,3 +114,9 @@
 .row-between{display:flex;justify-content:space-between;align-items:center;gap:var(--s-2);flex-wrap:wrap}
 .art-wide svg{width:100%;height:auto;display:block;border-radius:var(--radius-card)}
 .dock{position:sticky;bottom:0;padding:var(--s-3) 0 calc(env(safe-area-inset-bottom,0px) + var(--s-3));background:var(--c-bg);display:grid;gap:var(--s-2)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-2)}
+.mcard.spot{grid-template-columns:1fr;padding:var(--s-1)}
+.mcard.spot svg{width:100%;height:auto}
+.banner{margin:0;border-radius:var(--radius-card);overflow:hidden;background:var(--card-fill);border:var(--card-edge);box-shadow:var(--elev-card)}
+.banner svg{display:block;width:100%;height:96px}
+.banner figcaption{padding:var(--s-3) var(--s-4)}
