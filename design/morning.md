@@ -58,3 +58,9 @@ Three distinct types are drawn by weight, from those eligible today.
 ## Debug
 - `?debug` shows the phase timers.
 - `?debug&day=N&seed=S` starts a seeded game and **bot-plays** to day N (planner picks), to test hauls on days 5 and 10 (roadmap M1).
+- **Randomness** comes from named streams seeded by (seed, day, stream name), one per feature: `stream(state, name)` in `src/core/rng.js`, added 2026-10-13.
+  - **The streams:** `day.weather`, `day.customers`, `day.finds`, `morning.offer`, `morning.card`, `event.draw`, `event.resolve`, `spot.order`.
+  - **Why:** a new draw in one feature never shifts another. A test adds finds and checks that the weather, customers and morning offer stay put.
+  - **A new random feature** takes a new stream name.
+  - **One-time change:** the switch from numbered steps changed which days a given seed produces. Saved days in progress are unaffected.
+  - **Open:** a statistical balance check by bot-play (many seeds × 20 days) is deferred until the game flow is defined (the user's decision).

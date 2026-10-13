@@ -1,13 +1,14 @@
 // The interim day loop (design/morning.md): morning cards → haul → event → shop → night.
-// Pure functions: each takes a GameState and returns a new one. Randomness is seeded by (seed, day, step),
-// so a day replays identically after a reload.
+// Pure functions: each takes a GameState and returns a new one. Randomness comes from named streams seeded by
+// (seed, day, stream name), one per feature (src/core/rng.js stream()), so a day replays identically after a reload
+// and a new draw in one feature never shifts another.
 // What cards and events *do* is data (content.json, in the effects vocabulary of ./effects.js); the few behaviours
 // that aren't plain effects live in the CARD_ACTIONS and EVENT_KINDS registries; PHASES + dispatch() are the one
 // place that says which action is allowed when (design/effects.md).
 import { MORNING, EVENTS, HAUL, WEATHER, herbName } from '../content/index.js';
 import { t as tr, fill } from '../content/strings.js';
 import { genDay, pickedItem, resolveShop, night, slotsUsed } from './haul.js';
-import { makeRng, pick, pickWeighted, shuffle } from './rng.js';
+import { stream, pick, pickWeighted, shuffle } from './rng.js';
 import { applyEffects, CONDITIONS, knows, learn, marketHerbs, marketPrice, teachesSomething } from './effects.js';
 
 export { knows };
@@ -16,8 +17,6 @@ export { knows };
 /** @typedef {import('./effects.js').Vars} Vars */
 /** @typedef {typeof MORNING.cards[string]} CardDef */
 
-/** A deterministic stream for one step of one day. @param {GameState} s @param {number} step */
-const rngFor = (s, step) => makeRng((s.seed * 7919 + s.day * 104729 + step * 31) | 0);
 /** @param {GameState} s @returns {GameState} */
 const clone = s => JSON.parse(JSON.stringify(s));
 
@@ -49,8 +48,8 @@ const eligible = s => Object.keys(MORNING.cards).filter(k => { const w = MORNING
 /** Start a day: weather, the customers, the finds (if you go out) and 3 morning cards. @param {GameState} state */
 export function startDay(state) {
   const s = clone(state);
-  const rng = rngFor(s, 1);
-  const d = genDay(rng, s.shelf);
+  const d = genDay({ weather: stream(s, 'day.weather'), customers: stream(s, 'day.customers'), finds: stream(s, 'day.finds') }, s.shelf);
+  const rng = stream(s, 'morning.offer');   // which cards, their trail names, the market stalls
   const types = eligible(s);
   /** @type {string[]} */ const chosen = [];
   while (chosen.length < 3 && chosen.length < types.length) {
@@ -81,7 +80,7 @@ export function chooseCard(state, index, opts = {}) {
   t.card = index;
   const def = MORNING.cards[card.type];
   const action = def.action ? CARD_ACTIONS[def.action] : null;
-  const rng = rngFor(s, 2);
+  const rng = stream(s, 'morning.card');   // the chosen card's effects and its note text
   const vars = action?.choose ? action.choose(s, card, def, opts) : applyEffects(s, def.effects || [], { rng });
   if (def.note) t.note = tr(def.note, { ...vars, text: def.texts ? fill(pick(rng, def.texts), vars) : '' });
   t.phase = action?.next || 'shop';
@@ -102,18 +101,18 @@ export const EVENT_KINDS = {
     resolve: (s, card, choice) => {
       const ev = /** @type {NonNullable<Today['event']>} */ (/** @type {Today} */ (s.today).event);
       ev.right = spotOrder(s, card)[choice] === card.good;
-      if (ev.right) applyEffects(s, [{ addHerbs: [card.reward] }, { learnHerb: card.reward }], { rng: rngFor(s, 4) });
+      if (ev.right) applyEffects(s, [{ addHerbs: [card.reward] }, { learnHerb: card.reward }], { rng: stream(s, 'event.resolve') });
     },
   },
   /** A meeting with options; each option's effects apply. */
   encounter: {
     deck: () => EVENTS.encounter,
-    resolve: (s, card, choice) => { applyEffects(s, card.options[choice].effects, { rng: rngFor(s, 4) }); },
+    resolve: (s, card, choice) => { applyEffects(s, card.options[choice].effects, { rng: stream(s, 'event.resolve') }); },
   },
   /** A page of Wren's notes: offered only while it still teaches something. */
   discovery: {
     deck: s => EVENTS.discovery.filter(e => teachesSomething(s, e.effects)),
-    resolve: (s, card) => { applyEffects(s, card.effects, { rng: rngFor(s, 4) }); },
+    resolve: (s, card) => { applyEffects(s, card.effects, { rng: stream(s, 'event.resolve') }); },
   },
 };
 
@@ -126,7 +125,7 @@ export function applyHaul(state, picks) {
   for (const p of picks) { const i = pool.indexOf(p); if (i < 0) throw new Error(`${p} was not found today`); pool.splice(i, 1); }
   t.picks = picks.slice();
   for (const p of picks) { s.shelf.push(pickedItem(p, t.weather)); if (!knows(s, p)) learn(s, p); }
-  const rng = rngFor(s, 3);
+  const rng = stream(s, 'event.draw');   // which kind of event, and which entry
   const kinds = EVENTS.draw
     .filter(d => { const k = EVENT_KINDS[d.kind]; return k.deck(s).length > 0 && (!k.available || k.available(s)); })
     .flatMap(d => Array.from({ length: d.weight }, () => d.kind));
@@ -152,7 +151,7 @@ export function resolveEvent(state, choice) {
 }
 
 /** Spot the herb: which plant is drawn left and right today (seeded, so it can't be learned by position). @param {GameState} s @param {{good: string, bad: string}} card */
-export function spotOrder(s, card) { return rngFor(s, 5)() < 0.5 ? [card.good, card.bad] : [card.bad, card.good]; }
+export function spotOrder(s, card) { return stream(s, 'spot.order')() < 0.5 ? [card.good, card.bad] : [card.bad, card.good]; }
 
 /** Open the shop (interim: served from the shelf by the validated haul rules). @param {GameState} state */
 export function runShop(state) {

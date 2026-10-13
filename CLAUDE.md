@@ -37,6 +37,7 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
   - The Python tools in `tools/` are **frozen** (2026-10-13) as historical validation. Their fixtures stay as parity tests; the JS core is the source of truth.
   - Don't port new rules to Python. Re-run `python tools/export_fixtures.py` only to re-check the old rules.
 - **Saves** are versioned, and every schema change ships with a migration and a test (`src/core/save.js`). Renamed content ids go in `content.aliases`; `repairIds()` fixes saves on load.
+- **Randomness** uses `stream(state, name)` (`src/core/rng.js`), with one named stream per feature, never a shared or numbered one. The sims pass a single generator to `genDay`, which keeps their validated draw order.
 
 ## Accessibility (mandatory from M1)
 - Every trait is shown as color + shape + icon, using a colorblind-safe palette.

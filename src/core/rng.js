@@ -11,6 +11,30 @@ export function makeRng(seed) {
   };
 }
 
+/** FNV-1a hash of a stream name. @param {string} name */
+function hashName(name) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < name.length; i++) h = Math.imul(h ^ name.charCodeAt(i), 0x01000193);
+  return h >>> 0;
+}
+
+/** Murmur3-style finalizer: mixes the inputs so nearby seeds, days and names give unrelated streams. @param {number[]} xs */
+function mix(...xs) {
+  let h = 0x9e3779b9;
+  for (const x of xs) {
+    h = Math.imul(h ^ (x | 0), 0x85ebca6b);
+    h ^= h >>> 13; h = Math.imul(h, 0xc2b2ae35); h ^= h >>> 16;
+  }
+  return h | 0;
+}
+
+/**
+ * A deterministic stream for one feature of one day (design/morning.md): `day.finds`, `morning.offer`, `event.draw`…
+ * Each name is independent of every other, so a new draw in one feature never shifts another. Adding a stream is a new name.
+ * @param {{ seed: number, day: number }} s @param {string} name
+ */
+export const stream = (s, name) => makeRng(mix(s.seed, s.day, hashName(name)));
+
 /** @template T @param {() => number} rng @param {readonly T[]} arr @returns {T} */
 export function pick(rng, arr) {
   return arr[Math.floor(rng() * arr.length)];
