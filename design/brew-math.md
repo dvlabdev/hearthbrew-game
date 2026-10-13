@@ -46,7 +46,18 @@ Each rule has a condition, an effect, a tag, and a Notebook entry written the fi
 | R7 | The brew's two highest traits are equal and ≥ 4 | **Harmonized**: +1 star (max 3★) | ✨ magic (a Wren-taught "balance charm") |
 | R8 | Quartz dust in the brew | **Purify**: the lowest non-zero trait becomes 0 | ✨ magic |
 
-- Rules run in a fixed order: per-ingredient rules (R1, R2) → sum → brew-level rules (R3–R7).
+- Rules run in a fixed order: per-ingredient rules (R1, R2) → sum → brew-level rules (R4, R3, R5, R8) → flags (R6) → scoring (R7, then the R6 cap).
+
+**Where rules live (2026-10-13, audit Direction 5):**
+- **Code:** each rule is one entry in `RULES` (`src/core/rules.js`): an id, a stage (`ingredient`, `brew`, `flag`, `score`) and an `apply`. Array order is run order within a stage. R4 must come before R3, so honey's +1 Calm is applied before scorching.
+- **Content:** the text and tag live in `content.rules`. A test checks that the two lists match exactly.
+- **Adding a rule (e.g. R9 for a tea station):**
+  1. Its text and tag go in `content.rules`.
+  2. One entry goes in `RULES`, in its stage and position.
+  3. Add tests.
+
+  `brew()` and `score()` don't change. The Python reference is frozen, so new rules exist in JS only.
+- **Verified:** moving the rules into the registry left every result identical over 18,224 brews (every 1–3 ingredient combination × simmer/boil × base × binder, scored against 4 targets with and without Harmonize).
 - The full reaction set is designed in M0b.1, from the research.
 
 ## 4. Freshness & processing

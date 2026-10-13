@@ -47,3 +47,38 @@ test('brimstone is not allowed in potions; prices follow the economy', () => {
   assert.equal(price('potion', 2, { featured: true }), 30);
   assert.equal(price('salve', 2), 24);
 });
+
+test('every content rule has exactly one implementation, and every implementation has its content entry', async () => {
+  const { RULES, STAGES } = await import('../src/core/rules.js');
+  const { CONTENT } = await import('../src/content/index.js');
+  const code = RULES.map(r => r.id), content = CONTENT.rules.map(r => r.id);
+  assert.equal(new Set(code).size, code.length, 'a rule is implemented twice');
+  assert.deepEqual([...code].sort(), [...content].sort(), 'src/core/rules.js and content.rules list different rules');
+  for (const r of RULES) assert.ok(STAGES.includes(r.stage), `${r.id}: unknown stage ${r.stage}`);
+  for (const r of CONTENT.rules) assert.ok(['real', 'exaggerated', 'magic'].includes(r.tag), `${r.id} needs a real / exaggerated / magic tag`);
+});
+
+test('a new rule is one registry entry: it runs in its stage and is reported', async () => {
+  const { RULES } = await import('../src/core/rules.js');
+  // R99 (test only): a rolling boil with 3+ ingredients wakes +1 Vigor
+  RULES.splice(RULES.findIndex(r => r.stage === 'flag'), 0, { id: 'R99', stage: 'brew', apply: (s, c) => {
+    if (!c.boil || c.names.length < 3) return false;
+    s[2] += 1;
+    return true;
+  } });
+  try {
+    const before = brew(['sage', 'sage', 'sage']);
+    const r = brew(['sage', 'sage', 'sage'], { boil: true });
+    assert.ok(r.fired.has('R99'));
+    assert.equal(r.vec[2], before.vec[2] + 1);
+    assert.ok(!before.fired.has('R99'), 'not on a simmer');
+  } finally { RULES.splice(RULES.findIndex(r => r.id === 'R99'), 1); }
+  assert.ok(!brew(['sage', 'sage', 'sage'], { boil: true }).fired.has('R99'), 'removed again');
+});
+
+test('R7 Harmonized lives in the registry and score() reports it', async () => {
+  const { score } = await import('../src/core/score.js');
+  const h = score([5, 5, 0, 0], [5, 5, 3, 0], 0);
+  assert.ok(h.harmonized && h.stars >= 1);
+  assert.equal(score([5, 5, 0, 0], [5, 5, 3, 0], 0, { harmonize: false }).harmonized, false, 'not for the Midsummer Draught');
+});

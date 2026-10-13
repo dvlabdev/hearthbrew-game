@@ -17,7 +17,7 @@ M1 setup: core, tests, sims, art library and shell are done. **Art direction: He
   4. Cozy, with gentle stakes: missed opportunities, never lost progress.
 - **Scope guard:** anything on the "v2 maybe" list in the roadmap stays out of v1. Propose additions, don't implement them.
 - In-game remedies are fictional. Never include real harmful recipes; toxic plants are abstract only.
-- Tag every reaction rule as 🧪 real, 🧪✨ exaggerated or ✨ magic.
+- Tag every reaction rule as 🧪 real, 🧪✨ exaggerated or ✨ magic. Rules are entries in `src/core/rules.js` (text and tag in `content.rules`; a test keeps them in sync).
 
 ## Tech (no-build, decided 2026-10-09)
 npm cannot install packages on Google Drive's streaming disk (EBADF), so the project has **no dependencies and no build step**.
