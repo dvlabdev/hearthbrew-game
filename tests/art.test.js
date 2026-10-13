@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { STYLES, setStyle, art, requiredIds } from '../src/art/registry.js';
+import { STYLES, setStyle, art, requiredIds, loadAll } from '../src/art/registry.js';
+
+await loadAll();   // packs load lazily; the tests check every one, archived included
 
 test('every style pack provides the assets it promises, as labelled SVG', () => {
   for (const id of Object.keys(STYLES)) {
@@ -53,4 +55,45 @@ test('level of detail: mini has no filters or hairlines, hero adds detail over i
       assert.ok(mini.length < icon.length && icon.length < hero.length, `${pack.id}:${id} detail should grow mini < icon < hero`);
     }
   }
+});
+
+test('the manifest lists every style folder, and only those', async () => {
+  const { readdirSync, statSync } = await import('node:fs');
+  const { MANIFEST } = await import('../src/art/styles/manifest.js');
+  const dir = new URL('../src/art/styles/', import.meta.url);
+  const folders = readdirSync(dir).filter(f => statSync(new URL(f, dir)).isDirectory()).sort();
+  assert.deepEqual(MANIFEST.map(m => m.id).sort(), folders);
+  for (const m of MANIFEST) assert.equal(STYLES[m.id].id, m.id, `${m.id}: manifest id matches the pack`);
+  assert.ok(MANIFEST.filter(m => !m.archived).length >= 2, 'v0 and the current pack are not archived');
+});
+
+test('Hearthlight families never draw the same id twice', async () => {
+  const { merge } = await import('../src/art/styles/hearthlight/index.js');
+  const f = () => '<svg/>';
+  assert.throws(() => merge({ a: { 'ui:coin': f }, b: { 'ui:coin': f } }), /drawn twice/);
+  assert.deepEqual(Object.keys(merge({ a: { x: f }, b: { y: f } })), ['x', 'y']);
+});
+
+test('current packs simplify through the painter, never by post-processing SVG text', async () => {
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const { MANIFEST } = await import('../src/art/styles/manifest.js');
+  for (const m of MANIFEST.filter(x => !x.archived)) {
+    const dir = new URL(`../src/art/styles/${m.id}/`, import.meta.url);
+    for (const f of readdirSync(dir).filter(x => x.endsWith('.js'))) {
+      const src = readFileSync(new URL(f, dir), 'utf8');
+      assert.doesNotMatch(src, /\.replace\(\s*(\/[^/]*<|['"`]<)/, `${m.id}/${f} rewrites SVG markup with replace(); use the painter (src/art/lod.js)`);
+      assert.doesNotMatch(src, /^let lod\b/m, `${m.id}/${f} keeps the level of detail in module state; pass the painter instead`);
+    }
+  }
+});
+
+test('painter: what each level keeps', async () => {
+  const { painter } = await import('../src/art/lod.js');
+  const mini = painter('mini', { prefix: 'hl' }), icon = painter(undefined, { prefix: 'hl' }), hero = painter('hero', { prefix: 'hl' });
+  assert.equal(icon.lod, 'icon');
+  assert.equal(mini.paint('honey'), 'style="fill:var(--honey)"');
+  assert.equal(icon.paint('honey'), 'fill="url(#hl-honey)"');
+  assert.deepEqual([mini.soft('x'), icon.soft('x'), mini.fine('x'), icon.fine('x')], ['', 'x', '', 'x']);
+  assert.deepEqual([mini.detail('x'), icon.detail('x'), hero.detail('x')], ['', '', 'x']);
+  assert.ok(hero.atLeast('icon') && !mini.atLeast('icon'));
 });

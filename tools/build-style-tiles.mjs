@@ -3,7 +3,9 @@
 // Usage: node tools/build-style-tiles.mjs [round]   (round 1 -> style-tiles.html, round N -> style-tiles-rN.html; default 2)
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { STYLES } from '../src/art/registry.js';
+import { STYLES, loadAll } from '../src/art/registry.js';
+
+await loadAll();
 
 const root = new URL('..', import.meta.url);
 const ROUND = Number(process.argv[2] || 2);

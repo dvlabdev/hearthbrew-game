@@ -32,12 +32,12 @@
   --tap:44px; --art-mini:40px; --art-icon:72px; --art-hero:160px; --page-max:440px;
 
   /* motion */
-  --t-fast:120ms; --t-base:200ms; --t-slow:320ms; --t-story:600ms;
+  --t-fast:120ms; --t-base:200ms; --t-slow:320ms; --t-story:600ms; --t-develop:1600ms; --t-develop-tone:2400ms;
   --ease-out:cubic-bezier(.2,.8,.2,1); --ease-spring:cubic-bezier(.3,1.4,.5,1);
 
   /* layers */
   --z-hud:10; --z-sheet:50; --z-toast:60;
 }
 @media (prefers-reduced-motion: reduce){
-  :root{ --t-fast:0ms; --t-base:0ms; --t-slow:0ms; --t-story:0ms; }
+  :root{ --t-fast:0ms; --t-base:0ms; --t-slow:0ms; --t-story:0ms; --t-develop:0ms; --t-develop-tone:0ms; }
 }

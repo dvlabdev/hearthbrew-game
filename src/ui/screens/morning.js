@@ -2,8 +2,7 @@
 import { WEATHER, MORNING } from '../../content/index.js';
 import { t } from '../../content/strings.js';
 import { marketPrice } from '../../core/effects.js';
-import { html, pic, raw } from '../dom.js';
-import { art } from '../../art/registry.js';
+import { html, pic } from '../dom.js';
 import { hud, clue, herbName, title } from './common.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState @typedef {import('../../core/state.js').Card} Card */
@@ -24,7 +23,7 @@ export const morning = {
     const sheet = market >= 0 ? t0.offer[market] : null;
     return html`${hud(s)}<section class="screen">
     ${title(t('morning.heading'))}
-    <figure class="banner">${raw(art(`weather:${t0.weather}`).replace('<svg ', '<svg preserveAspectRatio="xMidYMid slice" '))}<figcaption><b>${w.label}.</b> ${w.text}</figcaption></figure>
+    <figure class="banner">${pic(`weather:${t0.weather}`, { fit: 'slice' })}<figcaption><b>${w.label}.</b> ${w.text}</figcaption></figure>
     ${clue(s)}
     <div class="stack"><p class="eyebrow">${t('morning.choose')}</p>
       ${t0.offer.map((c, i) => html`<button class="mcard" type="button" data-action="card" data-i="${i}" data-key="card-${c.type}">${cardArt(c, t0.weather)}<span><b>${c.title}</b><span>${c.text}</span></span></button>`)}</div>

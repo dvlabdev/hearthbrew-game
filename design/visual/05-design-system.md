@@ -70,6 +70,25 @@
 - **Palette:** `--bg`, `--surface`, `--sunk`, `--ink`, `--muted`, `--line`, `--accent`, `--on-accent`, `--secondary`, `--highlight`, trait colours plus `--on-trait`, and the fonts.
 - **Optional chrome:** `--r-card`, `--r-btn`, `--card-bg`, `--card-border`, `--card-shadow`, `--btn-bg`, `--btn-shadow`, `--hud-bg`, `--hud-border`, `--display-weight`.
 - **Art:** the `requiredIds()` assets, plus `defs` if it uses shared gradients or filters.
+- **CSS:** tokens only. `style.css` holds `:root` / `[data-theme]` blocks and nothing else; behaviour (e.g. the Notebook develop, now `src/ui/notebook.css`) lives in `src/ui`. A lint test enforces it.
+
+### Pack structure (audit Direction 4, 2026-10-13)
+- **Manifest:** `src/art/styles/manifest.js` lists every pack (id, label, round, `archived`, `parents`, `load`) without importing it.
+  - The game loads only its active pack, plus v0, the complete fallback, which is always loaded. A plain load fetches about 100 KB of art code instead of all 9 packs.
+  - **Archived packs:** rounds 1 and 2 load on demand, in the gallery's "Archive" group and in the tile and spike tools (`loadAll()`).
+  - **API:** `await loadStyle(id)` loads and activates a pack; `ensureStyle(id)` loads it without activating; `art()` stays synchronous.
+- **Families:** a pack is split by asset family. Hearthlight has `kit.js` (the shared drawing vocabulary), `defs.js`, `ingredients.js`, `plants.js`, `people.js`, `scene.js`, `weather.js`, `notebook.js` and `ui.js`.
+  - Each exports a partial `ASSETS` map; `index.js` merges them and throws if an id is drawn twice.
+  - **A new asset goes in its family file.**
+- **Detail by size:** `src/art/lod.js`. A drawing function receives a painter `p` and decides, where it draws, what each size keeps:
+  - `p.paint(grad)`: a gradient fill, flat at mini;
+  - `p.soft(…)`: filtered layers (blur, glow, grain, embers), dropped at mini;
+  - `p.fine(…)`: hairlines, dropped at mini;
+  - `p.detail(…)`: hero-only extras;
+  - `p.is` / `p.atLeast` for explicit branches.
+
+  **Never simplify by rewriting SVG text** (a test forbids `.replace(/<…/)` and a module-level `let lod` in current packs). The switch from the old regex pass was verified as **byte-identical over 625 renders** (every asset × mini/icon/hero × options).
+- **Options an asset may take:** `lod`, `at` (nest inside another drawing, as on the Notebook page), `fit: 'slice'` (fill a wider box: the morning banner), plus its own (`mood`, `bare`, `boil`, `layer`, `ingredient`).
 
 ## Still to do (after the style decision)
 - Final values per token, with contrast documented.

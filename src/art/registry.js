@@ -1,13 +1,7 @@
 // Art registry: the only way screens get visuals. Style packs live in src/art/styles/<id>/ and implement the same asset ids.
+// Packs load lazily (src/art/styles/manifest.js): the game loads its one active pack; v0, the complete fallback, is always here.
 import * as v0 from './styles/v0-prototype/index.js';
-import * as gilded from './styles/gilded/index.js';
-import * as shadow from './styles/shadow/index.js';
-import * as cyanotype from './styles/cyanotype/index.js';
-import * as riso from './styles/riso/index.js';
-import * as storybook from './styles/storybook/index.js';
-import * as fable from './styles/fable/index.js';
-import * as naturalist from './styles/naturalist/index.js';
-import * as hearthlight from './styles/hearthlight/index.js';
+import { MANIFEST } from './styles/manifest.js';
 import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS, MORNING, EVENTS } from '../content/index.js';
 
 /**
@@ -17,16 +11,40 @@ import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS, MORNING, EVENTS } from '../
  * Complete packs must provide every requiredIds() asset. Exploration packs (art-direction study) cover only their `scope`.
  */
 
-/** @type {Record<string, StylePack>} */
-export const STYLES = Object.fromEntries([v0, gilded, shadow, cyanotype, riso, storybook, fable, naturalist, hearthlight].map(p => [p.id, /** @type {StylePack} */ (p)]));
+export { MANIFEST };
+
+/** The packs loaded so far, by id. v0 is always loaded. @type {Record<string, StylePack>} */
+export const STYLES = { [v0.id]: /** @type {StylePack} */ (/** @type {unknown} */ (v0)) };
 let active = v0.id;
+
+/** Load a pack (once) without activating it. @param {string} id @returns {Promise<StylePack>} */
+export async function ensureStyle(id) {
+  if (STYLES[id]) return STYLES[id];
+  const entry = MANIFEST.find(m => m.id === id);
+  if (!entry) throw new Error(`Unknown style pack: ${id}`);
+  STYLES[id] = /** @type {StylePack} */ (await entry.load());
+  return STYLES[id];
+}
+
+/** Load a pack and make it the active one. @param {string} id */
+export async function loadStyle(id) {
+  await ensureStyle(id);
+  setStyle(id);
+  return STYLES[id];
+}
+
+/** Load every pack, archived ones included (tests, galleries, tools). */
+export async function loadAll() {
+  await Promise.all(MANIFEST.map(m => ensureStyle(m.id)));
+  return STYLES;
+}
 
 /** The active pack's shared <defs> (gradients, filters, clip paths): inject once per page. */
 export const styleDefs = () => STYLES[active].defs || '';
 
-/** @param {string} id */
+/** Activate a pack that is already loaded. @param {string} id */
 export function setStyle(id) {
-  if (!STYLES[id]) throw new Error(`Unknown style pack: ${id}`);
+  if (!STYLES[id]) throw new Error(`Style pack not loaded: ${id} (await loadStyle first)`);
   active = id;
 }
 export const activeStyle = () => STYLES[active];

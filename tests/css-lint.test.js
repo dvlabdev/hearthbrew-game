@@ -25,3 +25,16 @@ test('no text smaller than the 16px floor in the type scale', () => {
   const tokens = readFileSync(UI + 'tokens.css', 'utf8');
   for (const [, v] of tokens.matchAll(/--fs-[\w-]+:([\d.]+)rem/g)) assert.ok(Number(v) >= 1, `type token ${v}rem is under 16px`);
 });
+
+test('style pack CSS holds tokens only (behaviour belongs in src/ui)', () => {
+  const PACKS = fileURLToPath(new URL('../src/art/styles/', import.meta.url));
+  for (const id of readdirSync(PACKS).filter(f => existsSync(`${PACKS}${f}/style.css`))) {
+    const css = readFileSync(`${PACKS}${id}/style.css`, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    // every rule's selector (skipping @media / @supports wrappers) must be a :root token block
+    for (const [, sel] of css.matchAll(/([^{}]+)\{/g)) {
+      const s = sel.trim();
+      if (s.startsWith('@')) continue;
+      for (const part of s.split(',')) assert.match(part.trim(), /^:root(\[data-theme(="[\w-]+")?\]|:not\(\[data-theme(="[\w-]+")?\]\))*$/, `${id}/style.css: "${part.trim()}" is not a token block`);
+    }
+  }
+});

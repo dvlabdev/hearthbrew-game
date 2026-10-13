@@ -1,5 +1,5 @@
 // Hearthbrew entry point: style setup, the game (src/ui/game.js), ?gallery (art) and ?components (design system).
-import { art, STYLES, setStyle, activeStyle, requiredIds, styleDefs } from './art/registry.js';
+import { art, STYLES, MANIFEST, loadStyle, activeStyle, requiredIds, styleDefs } from './art/registry.js';
 import { componentsGallery } from './ui/componentsGallery.js';
 import { startGame } from './ui/game.js';
 
@@ -8,25 +8,29 @@ const params = new URLSearchParams(location.search);
 const root = document.documentElement;
 export const DEFAULT_STYLE = 'hearthlight';
 
-/** Switch the style pack: its tokens (stylesheet) and its shared SVG defs. @param {string} id */
-function useStyle(id) {
-  setStyle(id);
+/** Switch the style pack (loading it on first use): its tokens (stylesheet) and its shared SVG defs. @param {string} id */
+async function useStyle(id) {
+  await loadStyle(id);
   const link = /** @type {HTMLLinkElement} */ (document.getElementById('style-pack'));
   link.href = STYLES[id].css;
   const host = /** @type {HTMLElement} */ (document.getElementById('defs'));
   host.innerHTML = `<svg width="0" height="0">${styleDefs()}</svg>`;
 }
 
-/** Shared controls for the two galleries: style pack + Candlelit/Day. @param {() => void} render */
+/** @param {import('./art/styles/manifest.js').PackEntry} m */
+const styleButton = m => `<button type="button" data-style="${m.id}" aria-pressed="${m.id === activeStyle().id}">${m.label}${m.round ? ` · R${m.round}` : ''}</button>`;
+
+/** Shared controls for the two galleries: style pack (current, then the archive, loaded on demand) + Candlelit/Day. @param {() => void} render */
 function controls(render, extra = '') {
   const html = `<div class="gallery-controls">
-    <div class="seg" role="group" aria-label="Style pack">${Object.values(STYLES).filter(s => !s.exploration || s.round === 3).map(s =>
-      `<button type="button" data-style="${s.id}" aria-pressed="${s.id === activeStyle().id}">${s.label}</button>`).join('')}</div>
+    <div class="seg" role="group" aria-label="Style pack">${MANIFEST.filter(m => !m.archived).map(styleButton).join('')}</div>
+    <details${activeStyle() && MANIFEST.find(m => m.id === activeStyle().id)?.archived ? ' open' : ''}><summary>Archive (earlier rounds)</summary>
+      <div class="seg" role="group" aria-label="Archived style packs">${MANIFEST.filter(m => m.archived).map(styleButton).join('')}</div></details>
     <div class="seg" role="group" aria-label="Light">
       <button type="button" data-theme="" aria-pressed="${!root.dataset.theme}">Candlelit</button>
       <button type="button" data-theme="day" aria-pressed="${root.dataset.theme === 'day'}">Day</button></div>${extra}</div>`;
   const wire = () => {
-    app.querySelectorAll('[data-style]').forEach(b => b.addEventListener('click', () => { useStyle(/** @type {HTMLElement} */ (b).dataset.style || ''); render(); }));
+    app.querySelectorAll('[data-style]').forEach(b => b.addEventListener('click', async () => { await useStyle(/** @type {HTMLElement} */ (b).dataset.style || ''); render(); }));
     app.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => {
       const t = /** @type {HTMLElement} */ (b).dataset.theme; if (t) root.dataset.theme = t; else delete root.dataset.theme; render();
     }));
@@ -59,7 +63,8 @@ function components() {
   render();
 }
 
-useStyle(STYLES[params.get('style') || ''] ? /** @type {string} */ (params.get('style')) : DEFAULT_STYLE);
+const wanted = params.get('style') || '';
+await useStyle(MANIFEST.some(m => m.id === wanted) ? wanted : DEFAULT_STYLE);
 if (params.has('gallery')) gallery();
 else if (params.has('components')) components();
 else startGame(app, params);

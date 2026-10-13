@@ -30,6 +30,8 @@
   --lav:#8E78C8; --lav-dk:#5E4C98; --lav-hi:#C9BCEE;
   --skin2:#C98E68; --skin2-hi:#E8B690; --skin2-sh:#97603F; --beard:#6B4630; --beard-dk:#432A1C; --beard-hi:#A88A70;
   --plaid:#9A3E34; --plaid-dk:#5E2420; --plaid-line:#2A1414; --plaid-hi:#E0A890; --cap:#4F6B5A; --cap-dk:#2F4538;
+  --wx-rain-top:#7D8B99; --wx-rain-bot:#B9C2C4; --wx-frost-top:#B9D3E6; --wx-frost-bot:#EEF3F5; --wx-cloud:#8E98A3; --wx-rain:#DDE6EE; --wx-puddle:#9DB3C2;
+  --wx-frost:#F4F8FA; --wx-leaf:#C98A3A; --wx-rain-ink:#9CC3E6;
   --wx-sun-top:#8FC6DC; --wx-sun-bot:#FBE2A6; --wx-mist-top:#B7C0CB; --wx-mist-bot:#E4E0D6; --wx-orb:#FFF2C6; --wx-mist:#FFFFFF;
   --wx-far:#8FAE96; --wx-near:#4E7A5A; --wx-tree:#3A6048; --wx-tree-dk:#24402F; --wx-path:#D9C49A; --wx-orb-ink:#F2B35E; --wx-mist-ink:#B9C4D0;
   --paper:#EFE5D2; --paper-sh:#C9B99A; --paper-line:#8A7458; --paper-ink:#5A4636; --paper-mark:#A4441C; --shadow:#0B0810;
@@ -52,18 +54,10 @@
   --heat:#9F3C10; --calm:#3876AF; --vigor:#5B9746; --clarity:#564500; --on-trait:#FFF8EC; --trait-rim:#FFF8EC;
   --sky-top:#8EC5DE; --sky-bot:#F6E2AE; --hill-far:#A9C68E; --hill:#86A96E; --hill-dk:#5F8A53; --orb:#FFF6CF; --star-o:0; --beam-o:.35;
   --wall:#EBD3B0; --wall-dk:#CFAE86; --wood:#9A6640; --wood-dk:#6A4228; --wood-hi:#C99467; --glow:#FFE7B0; --glow-o:.25;
-  --steam:#FFFFFF; --plate:#D6E5C8; --plate-dk:#B9D2A6; --paper:#FBF5E8; --wx-orb-ink:#B5641A; --wx-mist-ink:#5E6B7A; --shadow:#5A3E2A;
+  --steam:#FFFFFF; --plate:#D6E5C8; --plate-dk:#B9D2A6; --paper:#FBF5E8; --wx-orb-ink:#B5641A; --wx-mist-ink:#5E6B7A; --wx-rain-ink:#2F6FA8; --shadow:#5A3E2A;
   color-scheme:light;
 }
 
-/* Notebook "develop": an unlearned entry is a pencil sketch; learning it develops the full plate. */
-.pack-hearthlight .nb-sketch *{fill:none !important;stroke:var(--paper-line) !important;stroke-width:.55px !important}
-.pack-hearthlight .nb-sketch [filter]{display:none}
-.pack-hearthlight .nb-sketch,.pack-hearthlight .nb-full{transition:opacity 1.6s ease, filter 2.4s ease}
-.pack-hearthlight .nb-full{opacity:0;filter:sepia(1) saturate(.3) brightness(1.1)}
-.pack-hearthlight .developed .nb-full{opacity:1;filter:none}
-.pack-hearthlight .developed .nb-sketch{opacity:0}
-@media (prefers-reduced-motion: reduce){.pack-hearthlight .nb-sketch,.pack-hearthlight .nb-full{transition:none}}
 
 /* Shared cauldron animation (class names from src/art/geom.js cauldron()). Used by every style pack. */
 .pot *{transform-box:fill-box}
@@ -100,6 +94,18 @@
 @media (prefers-reduced-motion: reduce){
   .pot .flame,.pot .bub,.pot .steam,.pot .splash,.pot .liquid,.pot .potbody{animation:none !important}
   .pot .bub,.pot .steam{opacity:.6}.pot.boil .splash{opacity:.8}}
+
+/* Notebook "develop" (design/visual/04d-direction.md): an unlearned entry is a pencil sketch; learning it develops
+   the full plate. Markup: an ancestor gets .developed; the page holds .nb-sketch and .nb-full (src/art notebook:page).
+   Behaviour lives here, not in a style pack; colours come from the pack's --paper-line. Reduced motion zeroes the
+   --t-develop tokens (src/ui/tokens.css); the fallbacks serve pages without tokens (the spike). */
+.nb-sketch *{fill:none!important;stroke:var(--paper-line,var(--c-line))!important;stroke-width:.55px!important}
+.nb-sketch [filter]{display:none}
+.nb-sketch,.nb-full{transition:opacity var(--t-develop,1.6s) ease,filter var(--t-develop-tone,2.4s) ease}
+.nb-full{opacity:0;filter:sepia(1) saturate(.3) brightness(1.1)}
+.developed .nb-full{opacity:1;filter:none}
+.developed .nb-sketch{opacity:0}
+@media (prefers-reduced-motion: reduce){.nb-sketch,.nb-full{transition:none}}
 
 *{box-sizing:border-box}
 html{background:#1D1828}
@@ -164,7 +170,7 @@ body.shot .bar,body.shot .rate-sec{display:none}body.shot .pack-hearthlight{padd
   <radialGradient id="hl-iron" cx="0.62" cy="0.25" r="0.85"><stop offset="0" style="stop-color:var(--iron-hi)"/><stop offset="0.45" style="stop-color:var(--iron)"/><stop offset="1" style="stop-color:var(--iron-dk)"/></radialGradient>
   <radialGradient id="hl-skin" cx="0.64" cy="0.4" r="0.72"><stop offset="0" style="stop-color:var(--skin-hi)"/><stop offset="0.6" style="stop-color:var(--skin)"/><stop offset="1" style="stop-color:var(--skin-sh)"/></radialGradient>
   <radialGradient id="hl-skin2" cx="0.64" cy="0.4" r="0.72"><stop offset="0" style="stop-color:var(--skin2-hi)"/><stop offset="0.6" style="stop-color:var(--skin2)"/><stop offset="1" style="stop-color:var(--skin2-sh)"/></radialGradient>
-  <linearGradient id="hl-wx-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-sun-top)"/><stop offset="1" style="stop-color:var(--wx-sun-bot)"/></linearGradient><linearGradient id="hl-wx-mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-mist-top)"/><stop offset="1" style="stop-color:var(--wx-mist-bot)"/></linearGradient>
+  <linearGradient id="hl-wx-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-sun-top)"/><stop offset="1" style="stop-color:var(--wx-sun-bot)"/></linearGradient><linearGradient id="hl-wx-mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-mist-top)"/><stop offset="1" style="stop-color:var(--wx-mist-bot)"/></linearGradient><linearGradient id="hl-wx-rain" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-rain-top)"/><stop offset="1" style="stop-color:var(--wx-rain-bot)"/></linearGradient><linearGradient id="hl-wx-frost" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wx-frost-top)"/><stop offset="1" style="stop-color:var(--wx-frost-bot)"/></linearGradient>
   <linearGradient id="hl-plaid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--plaid)"/><stop offset="1" style="stop-color:var(--plaid-dk)"/></linearGradient>
   <linearGradient id="hl-petal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--petal)"/><stop offset="0.65" style="stop-color:var(--petal)"/><stop offset="1" style="stop-color:var(--petal-sh)"/></linearGradient>
   <radialGradient id="hl-yolk" cx="0.6" cy="0.3" r="0.75"><stop offset="0" style="stop-color:var(--yolk-hi)"/><stop offset="0.55" style="stop-color:var(--yolk)"/><stop offset="1" style="stop-color:var(--yolk-dk)"/></radialGradient>
@@ -948,7 +954,7 @@ body.shot .bar,body.shot .rate-sec{display:none}body.shot .pack-hearthlight{padd
     <path d="M118 30 L36 100 H70 Z M118 30 L96 100 H122 Z" style="fill:var(--wx-orb)" opacity=".14"/>
     <path d="M0 62 L22 50 L40 56 L62 44 L86 54 L108 46 L130 52 L160 42 V100 H0 Z" style="fill:var(--wx-far)" opacity="1"/>
     <path d="M8 44 L15.04 66 H0.96 Z" style="fill:var(--wx-tree)"/><path d="M8 44 L8 66 H0.96 Z" style="fill:var(--wx-tree-dk)"/><path d="M20 34 L29.6 64 H10.4 Z" style="fill:var(--wx-tree)"/><path d="M20 34 L20 64 H10.4 Z" style="fill:var(--wx-tree-dk)"/><path d="M34 46 L40.4 66 H27.6 Z" style="fill:var(--wx-tree)"/><path d="M34 46 L34 66 H27.6 Z" style="fill:var(--wx-tree-dk)"/><path d="M128 38 L136.32 64 H119.68 Z" style="fill:var(--wx-tree)"/><path d="M128 38 L128 64 H119.68 Z" style="fill:var(--wx-tree-dk)"/><path d="M142 32 L152.88 66 H131.12 Z" style="fill:var(--wx-tree)"/><path d="M142 32 L142 66 H131.12 Z" style="fill:var(--wx-tree-dk)"/><path d="M154 42 L161.04 64 H146.96 Z" style="fill:var(--wx-tree)"/><path d="M154 42 L154 64 H146.96 Z" style="fill:var(--wx-tree-dk)"/><path d="M116 48 L121.76 66 H110.24 Z" style="fill:var(--wx-tree)"/><path d="M116 48 L116 66 H110.24 Z" style="fill:var(--wx-tree-dk)"/>
-    <path d="M0 78 Q40 70 80 76 Q120 82 160 72 V100 H0 Z" style="fill:var(--wx-near)"/><path d="M0 78 Q40 70 80 76 L70 100 H0 Z" style="fill:var(--wx-tree-dk)" opacity=".35"/>
+    <path d="M0 78 Q40 70 80 76 Q120 82 160 72 V100 H0 Z" style="fill:var(--wx-near)"/><path d="M0 78 Q40 70 80 76 L70 100 H0 Z" style="fill:var(--wx-tree-dk)" opacity="0.35"/>
     <path d="M66 100 Q76 88 90 80 Q100 75 112 75" fill="none" style="stroke:var(--wx-path)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <g style="fill:var(--wx-tree-dk)" opacity=".3"><path d="M20 65 L-6 71 H2 Z"/><path d="M128 65 L102 71 H110 Z"/><path d="M142 67 L116 73 H124 Z"/></g>
     
@@ -957,7 +963,7 @@ body.shot .bar,body.shot .rate-sec{display:none}body.shot .pack-hearthlight{padd
     
     <path d="M0 62 L22 50 L40 56 L62 44 L86 54 L108 46 L130 52 L160 42 V100 H0 Z" style="fill:var(--wx-far)" opacity="0.55"/>
     <rect x="-5" y="54" width="70" height="10" rx="5" style="fill:var(--wx-mist)" opacity=".6" filter="url(#hl-soft)"/><rect x="70" y="60" width="80" height="12" rx="6" style="fill:var(--wx-mist)" opacity=".6" filter="url(#hl-soft)"/><path d="M8 44 L15.04 66 H0.96 Z" style="fill:var(--wx-tree)"/><path d="M8 44 L8 66 H0.96 Z" style="fill:var(--wx-tree-dk)"/><path d="M20 34 L29.6 64 H10.4 Z" style="fill:var(--wx-tree)"/><path d="M20 34 L20 64 H10.4 Z" style="fill:var(--wx-tree-dk)"/><path d="M34 46 L40.4 66 H27.6 Z" style="fill:var(--wx-tree)"/><path d="M34 46 L34 66 H27.6 Z" style="fill:var(--wx-tree-dk)"/><path d="M128 38 L136.32 64 H119.68 Z" style="fill:var(--wx-tree)"/><path d="M128 38 L128 64 H119.68 Z" style="fill:var(--wx-tree-dk)"/><path d="M142 32 L152.88 66 H131.12 Z" style="fill:var(--wx-tree)"/><path d="M142 32 L142 66 H131.12 Z" style="fill:var(--wx-tree-dk)"/><path d="M154 42 L161.04 64 H146.96 Z" style="fill:var(--wx-tree)"/><path d="M154 42 L154 64 H146.96 Z" style="fill:var(--wx-tree-dk)"/><path d="M116 48 L121.76 66 H110.24 Z" style="fill:var(--wx-tree)"/><path d="M116 48 L116 66 H110.24 Z" style="fill:var(--wx-tree-dk)"/>
-    <path d="M0 78 Q40 70 80 76 Q120 82 160 72 V100 H0 Z" style="fill:var(--wx-near)"/><path d="M0 78 Q40 70 80 76 L70 100 H0 Z" style="fill:var(--wx-tree-dk)" opacity=".35"/>
+    <path d="M0 78 Q40 70 80 76 Q120 82 160 72 V100 H0 Z" style="fill:var(--wx-near)"/><path d="M0 78 Q40 70 80 76 L70 100 H0 Z" style="fill:var(--wx-tree-dk)" opacity="0.35"/>
     <path d="M66 100 Q76 88 90 80 Q100 75 112 75" fill="none" style="stroke:var(--wx-path)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <rect x="15" y="74" width="90" height="10" rx="5" style="fill:var(--wx-mist)" opacity=".6" filter="url(#hl-soft)"/>
     <rect width="160" height="100" style="fill:var(--wx-mist)" opacity=".22"/>

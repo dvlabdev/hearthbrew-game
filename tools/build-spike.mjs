@@ -3,7 +3,9 @@
 // Self-contained, so it publishes as one Artifact. Usage: node tools/build-spike.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { STYLES } from '../src/art/registry.js';
+import { STYLES, loadAll } from '../src/art/registry.js';
+
+await loadAll();
 
 const root = new URL('..', import.meta.url);
 const read = (/** @type {string} */ rel) => readFileSync(fileURLToPath(new URL(rel, root)), 'utf8');
@@ -26,6 +28,7 @@ const html = `<!doctype html>
 <style>
 ${css}
 ${read('src/art/anim.css')}
+${read('src/ui/notebook.css')}
 *{box-sizing:border-box}
 html{background:#1D1828}
 body{margin:0;font:16px/1.5 var(--font-body,"Atkinson Hyperlegible",system-ui,sans-serif)}

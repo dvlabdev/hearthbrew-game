@@ -31,7 +31,7 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
   - `src/core` holds pure rules, with no DOM.
   - `src/content/data/content.json` is the single content source (schema: `design/content-model.md`). No content ids, numbers or player text in code: player text goes through `t()` (`src/content/strings.js`), and `validateContent()` must pass (`?debug` shows it). Card, encounter and discovery behaviour is data in the effects vocabulary; the UI changes state only through `dispatch()` (`design/effects.md`).
   - Screens are objects in `SCREENS` (`src/ui/game.js`) with `view()` built from `html` (never raw template strings: values are escaped), clicks through `data-action`, and updates through `morph` (`design/ui-architecture.md`).
-  - `src/art` is the art registry plus style packs (`styles/<id>/index.js` + `style.css`). **Screens use only `art(id)`.**
+  - `src/art` is the art registry plus style packs (`styles/<id>/index.js` + `style.css`). **Screens use only `art(id)`.** Packs load lazily via `styles/manifest.js` (old rounds are archived); Hearthlight is split by asset family, and size-dependent detail goes through the painter (`src/art/lod.js`), never by rewriting SVG text.
   - `src/sim` holds the simulations; `src/ui` the screens and CSS.
 - **Reference:**
   - The Python tools in `tools/` are **frozen** (2026-10-13) as historical validation. Their fixtures stay as parity tests; the JS core is the source of truth.

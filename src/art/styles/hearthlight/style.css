@@ -51,11 +51,3 @@
   color-scheme:light;
 }
 
-/* Notebook "develop": an unlearned entry is a pencil sketch; learning it develops the full plate. */
-:root .nb-sketch *{fill:none !important;stroke:var(--paper-line) !important;stroke-width:.55px !important}
-:root .nb-sketch [filter]{display:none}
-:root .nb-sketch,:root .nb-full{transition:opacity 1.6s ease, filter 2.4s ease}
-:root .nb-full{opacity:0;filter:sepia(1) saturate(.3) brightness(1.1)}
-:root .developed .nb-full{opacity:1;filter:none}
-:root .developed .nb-sketch{opacity:0}
-@media (prefers-reduced-motion: reduce){:root .nb-sketch,:root .nb-full{transition:none}}

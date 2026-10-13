@@ -1,0 +1,11 @@
+/* Notebook "develop" (design/visual/04d-direction.md): an unlearned entry is a pencil sketch; learning it develops
+   the full plate. Markup: an ancestor gets .developed; the page holds .nb-sketch and .nb-full (src/art notebook:page).
+   Behaviour lives here, not in a style pack; colours come from the pack's --paper-line. Reduced motion zeroes the
+   --t-develop tokens (src/ui/tokens.css); the fallbacks serve pages without tokens (the spike). */
+.nb-sketch *{fill:none!important;stroke:var(--paper-line,var(--c-line))!important;stroke-width:.55px!important}
+.nb-sketch [filter]{display:none}
+.nb-sketch,.nb-full{transition:opacity var(--t-develop,1.6s) ease,filter var(--t-develop-tone,2.4s) ease}
+.nb-full{opacity:0;filter:sepia(1) saturate(.3) brightness(1.1)}
+.developed .nb-full{opacity:1;filter:none}
+.developed .nb-sketch{opacity:0}
+@media (prefers-reduced-motion: reduce){.nb-sketch,.nb-full{transition:none}}
