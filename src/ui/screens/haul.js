@@ -1,14 +1,14 @@
 // Choose your haul (design/expedition.md): finds grouped by kind, a 5-slot basket, the shelf strip, the clue as words.
 // Long-press a find for its details; tap a basket slot to put a find back. What you leave behind stays behind.
 import { art } from '../../art/registry.js';
-import { HAUL } from '../../content/index.js';
+import { HAUL, traitName } from '../../content/index.js';
+import { t as tr, tn } from '../../content/strings.js';
 import { applyHaul, knows, logPhase } from '../../core/day.js';
 import { pickedItem, slotsUsed } from '../../core/haul.js';
 import { findTile } from '../components.js';
 import { hud, clue, shelfStrip, herbName, H } from './common.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState */
-const TRAIT = { heat: 'Heat', calm: 'Calm', vigor: 'Vigor', clarity: 'Clarity' };
 const LONG_PRESS = 450;
 
 /** @param {GameState} s @param {(next: GameState) => void} go */
@@ -28,21 +28,21 @@ export function haul(s, go) {
       return findTile({ herb: h, label: herbName(h), count: n, value: it.value, prime: it.prime, poor: it.poor, rare: H[h].rarity === 'rare', heavy: H[h].slots > 1,
         pressed: n === 0, disabled: n > 0 && used + H[h].slots > HAUL.basket }).replace('<button type="button" class="find', `<button type="button" data-find="${h}" class="find`);
     }).join('');
-    const slots = picks.map((p, i) => `<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-unpick="${i}" aria-label="Put back ${herbName(p)}">${art(`ingredient:${p}`, { lod: 'mini' })}</button>`).join('')
+    const slots = picks.map((p, i) => `<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-unpick="${i}" aria-label="${tr('haul.putBack', { herb: herbName(p) })}">${art(`ingredient:${p}`, { lod: 'mini' })}</button>`).join('')
       + Array.from({ length: HAUL.basket - used }, () => '<span class="slot" aria-hidden="true"></span>').join('');
     const d = detail ? pickedItem(detail, t.weather) : null;
     return `${hud(s)}<section class="screen">
-      <div><p class="eyebrow">${card.title}</p><h1>Choose your haul</h1></div>
+      <div><p class="eyebrow">${card.title}</p><h1>${tr('haul.heading')}</h1></div>
       ${clue(s)}
       ${shelfStrip(s.shelf, picks)}
-      <div class="stack"><div class="row-between"><p class="eyebrow">Today's finds</p><span class="muted">Hold for details</span></div><div class="finds">${tiles}</div></div>
-      <div class="stack"><div class="row-between"><p class="eyebrow">Basket</p><span class="muted">${used}/${HAUL.basket} slots</span></div><div class="basket">${slots}</div></div>
-      <div class="dock"><button class="btn block" type="button" data-home>${picks.length ? `Head home with ${picks.length}` : 'Head home empty-handed'}</button></div>
-      ${detail && d ? `<div class="sheet" role="dialog" aria-label="${herbName(detail)} details"><div class="clue">${art(`ingredient:${detail}`)}<div><b>${herbName(detail)}</b>
-        <span class="muted">${H[detail].kind} · ${H[detail].rarity}${H[detail].slots > 1 ? ' · heavy: 2 slots' : ''}</span></div></div>
-        <p>Worth ${d.value} coin${d.value === 1 ? '' : 's'}${d.prime ? ' (prime today: a double dose)' : d.poor ? ' (poor today)' : ''}. Keeps ${d.nights} nights.</p>
-        <p>${knows(s, detail) ? `Brings <b>${TRAIT[/** @type {'heat'} */ (H[detail].trait)]}</b>.` : '<span class="muted">The Notebook doesn\'t know this one yet. Pick it to learn it.</span>'}</p>
-        <button class="btn secondary block" type="button" data-close>Close</button></div>` : ''}
+      <div class="stack"><div class="row-between"><p class="eyebrow">${tr('haul.finds')}</p><span class="muted">${tr('haul.hold')}</span></div><div class="finds">${tiles}</div></div>
+      <div class="stack"><div class="row-between"><p class="eyebrow">${tr('haul.basket')}</p><span class="muted">${tr('haul.slots', { used, total: HAUL.basket })}</span></div><div class="basket">${slots}</div></div>
+      <div class="dock"><button class="btn block" type="button" data-home>${picks.length ? tr('haul.home', { n: picks.length }) : tr('haul.homeEmpty')}</button></div>
+      ${detail && d ? `<div class="sheet" role="dialog" aria-label="${tr('haul.details', { herb: herbName(detail) })}"><div class="clue">${art(`ingredient:${detail}`)}<div><b>${herbName(detail)}</b>
+        <span class="muted">${tr(`kind.${H[detail].kind}`)} · ${tr(`rarity.${H[detail].rarity}`)}${H[detail].slots > 1 ? tr('haul.heavy') : ''}</span></div></div>
+        <p>${tn('haul.worth', d.value, { value: d.value })}${d.prime ? tr('haul.prime') : d.poor ? tr('haul.poor') : ''}. ${tr('haul.keeps', { nights: d.nights })}</p>
+        <p>${knows(s, detail) ? tr('haul.brings', { trait: traitName(H[detail].trait) }) : `<span class="muted">${tr('haul.unknown')}</span>`}</p>
+        <button class="btn secondary block" type="button" data-close>${tr('common.close')}</button></div>` : ''}
     </section>`;
   };
 

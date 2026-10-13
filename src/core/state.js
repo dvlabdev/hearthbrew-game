@@ -1,15 +1,14 @@
 // Game state: a plain, serializable object. Systems are pure functions over it.
-import { VERSION } from '../content/index.js';
-import { START_STOCK } from './haul.js';
+import { VERSION, CUSTOMERS, START } from '../content/index.js';
 
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 
 /**
  * @typedef {object} GameState
  * @property {number} saveVersion
  * @property {number} contentVersion
  * @property {number} seed
- * @property {number} day                    1..20, then endless
+ * @property {number} day                    1..START.days, then endless
  * @property {number} coins
  * @property {import('../content/types.js').StockItem[]} shelf
  * @property {{ plant: string | null, age: number, tended: boolean }[]} garden
@@ -49,12 +48,12 @@ export function newGame(seed = 1) {
     contentVersion: VERSION,
     seed,
     day: 1,
-    coins: 0,
-    shelf: START_STOCK.map(s => ({ ...s })),
-    garden: [{ plant: null, age: 0, tended: false }, { plant: null, age: 0, tended: false }],
+    coins: START.coins,
+    shelf: START.shelf.map(s => ({ ...s })),
+    garden: Array.from({ length: START.garden }, () => ({ plant: null, age: 0, tended: false })),
     notebook: { known: {}, decoded: [], rules: [], recipes: [] },
-    relationships: { marla: 0, pell: 0, fennick: 0, bramble: 0 },
-    owned: ['cauldron', 'shelf', 'basket', 'sickle', 'watering-can'],
+    relationships: Object.fromEntries(Object.keys(CUSTOMERS).map(id => [id, 0])),
+    owned: START.owned.slice(),
     today: null,
     lastSpotDay: -9,
     log: {},

@@ -1,12 +1,12 @@
 // Haul dominance simulation. Port of tools/haul_sim.py strategies and checks, running on the real core (src/core/haul.js).
-import { HAUL, WEATHER, CUSTOMERS } from '../content/index.js';
+import { HAUL, FORAGE, WEATHER, CUSTOMERS } from '../content/index.js';
 import { pickedItem, resolveShop, playDay, slotsUsed, genDay, START_STOCK } from '../core/haul.js';
 import { makeRng, pick, pickWeighted } from '../core/rng.js';
 
 /** @typedef {import('../content/types.js').StockItem} StockItem */
 /** @typedef {import('../core/haul.js').Day} Day */
 
-const H = HAUL.herbs, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
+const H = FORAGE, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
 export { genDay, START_STOCK };
 
 /** @param {string[]} order */

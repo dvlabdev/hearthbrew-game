@@ -1,23 +1,20 @@
 // The interim day loop (design/morning.md): morning cards → haul → event → shop → night.
 // Pure functions: each takes a GameState and returns a new one. Randomness is seeded by (seed, day, step),
 // so a day replays identically after a reload.
-import { MORNING, EVENTS, HAUL, CUSTOMERS, WEATHER } from '../content/index.js';
+import { MORNING, EVENTS, HAUL, FORAGE, CUSTOMERS, WEATHER, herbName, traitName } from '../content/index.js';
+import { t as tr, fill } from '../content/strings.js';
 import { genDay, pickedItem, resolveShop, night, slotsUsed } from './haul.js';
 import { makeRng, pick, pickWeighted, shuffle } from './rng.js';
 
 /** @typedef {import('./state.js').GameState} GameState @typedef {import('./state.js').Today} Today @typedef {import('./state.js').Card} Card */
 /** @typedef {import('./state.js').CardType} CardType */
 
-const H = HAUL.herbs;
+const H = FORAGE;
 const REGULARS = Object.keys(CUSTOMERS);
 /** A deterministic stream for one step of one day. @param {GameState} s @param {number} step */
 const rngFor = (s, step) => makeRng((s.seed * 7919 + s.day * 104729 + step * 31) | 0);
 /** @param {GameState} s @returns {GameState} */
 const clone = s => JSON.parse(JSON.stringify(s));
-/** @param {string} t @param {Record<string, string>} v */
-const fill = (t, v) => t.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '');
-/** @param {string} herb */
-const herbName = herb => herb[0].toUpperCase() + herb.slice(1);
 /** The cheapest market price. */
 const marketPrice = (/** @type {string} */ herb) => H[herb].value + MORNING.market.markup;
 
@@ -66,28 +63,26 @@ export function chooseCard(state, index, opts = {}) {
   if (card.type === 'expedition') { t.phase = 'haul'; return s; }
   if (card.type === 'garden') {
     for (const herb of MORNING.garden.plots) { s.shelf.push(pickedItem(herb, t.weather)); t.gained.push(herb); }
-    t.note = 'Your plots gave what they had.';
+    t.note = tr('note.garden');
   } else if (card.type === 'market') {
     const herb = opts.buy && card.offers?.includes(opts.buy) ? opts.buy : /** @type {string} */ (card.offers?.[0]);
     s.coins -= marketPrice(herb);
     s.shelf.push(pickedItem(herb, t.weather)); t.gained.push(herb);
-    t.note = `You bought ${herbName(herb)} for ${marketPrice(herb)} coins.`;
+    t.note = tr('note.market', { herb: herbName(herb), price: marketPrice(herb) });
   } else if (card.type === 'errand') {
     const who = pick(rng, REGULARS);
     s.coins += MORNING.errand.coins;
     s.relationships[who] = (s.relationships[who] || 0) + 1;
-    t.note = `${fill(pick(rng, MORNING.errand.texts), { who: CUSTOMERS[who].name })} +${MORNING.errand.coins} coins, and ${CUSTOMERS[who].name} won't forget it.`;
+    t.note = tr('note.errand', { text: fill(pick(rng, MORNING.errand.texts), { who: CUSTOMERS[who].name }), coins: MORNING.errand.coins, who: CUSTOMERS[who].name });
   } else if (card.type === 'study') {
     const herb = pick(rng, Object.keys(H).filter(h => !s.notebook.known[h]));
     learn(s, herb);
-    t.note = `${fill(pick(rng, MORNING.study.texts), { herb: herbName(herb) })} ${herbName(herb)} brings ${traitName(H[herb].trait)}.`;
+    t.note = tr('note.study', { text: fill(pick(rng, MORNING.study.texts), { herb: herbName(herb) }), herb: herbName(herb), trait: traitName(H[herb].trait) });
   }
   t.phase = 'shop';
   return s;
 }
 
-/** @param {string} trait */
-const traitName = trait => ({ heat: 'Heat', calm: 'Calm', vigor: 'Vigor', clarity: 'Clarity' })[trait] || trait;
 /** The Notebook learns a herb's trait (all four slots of its trait vector are known for v1). @param {GameState} s @param {string} herb */
 function learn(s, herb) { s.notebook.known[herb] = [true, true, true, true]; }
 /** @param {GameState} s @param {string} herb */

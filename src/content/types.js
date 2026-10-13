@@ -11,6 +11,16 @@
  * @property {string[]} sources
  * @property {number} [grow]        days to grow in the garden
  * @property {number} [price]       market price
+ * @property {Forage} [forage]      present when the herb can be found on a haul
+ */
+
+/**
+ * @typedef {object} Forage
+ * @property {string} kind          flower, leaf, root, fruit, mushroom (weather prime/poor/boost match on it)
+ * @property {'common' | 'uncommon' | 'rare'} rarity
+ * @property {number} slots         basket slots (1 or 2)
+ * @property {number} units         doses per find
+ * @property {number} value         coins when served
  */
 
 /**
@@ -25,16 +35,7 @@
  * @property {boolean} [noHarmonize]
  */
 
-/**
- * @typedef {object} HaulHerb
- * @property {string} name
- * @property {TraitId} trait
- * @property {number} units
- * @property {number} value
- * @property {'common' | 'uncommon' | 'rare'} rarity
- * @property {number} slots
- * @property {string} kind
- */
+/** @typedef {Forage & { name: string, trait: TraitId }} HaulHerb  derived in content/index.js (FORAGE) */
 
 /**
  * @typedef {object} Weather

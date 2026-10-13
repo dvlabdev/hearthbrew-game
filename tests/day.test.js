@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import { newGame, SAVE_VERSION } from '../src/core/state.js';
 import { migrate } from '../src/core/save.js';
 import { startDay, chooseCard, applyHaul, resolveEvent, runShop, endDay, nextDay, spotOrder } from '../src/core/day.js';
-import { HAUL, CUSTOMERS, EVENTS } from '../src/content/index.js';
+import { HAUL, FORAGE, CUSTOMERS, EVENTS } from '../src/content/index.js';
 import { STRATEGIES } from '../src/sim/haulSim.js';
 import { makeRng } from '../src/core/rng.js';
 
-const H = HAUL.herbs;
+const H = FORAGE;
 
 test('a morning offers 3 distinct cards, at most one expedition, market only when affordable', () => {
   for (let seed = 1; seed <= 60; seed++) {

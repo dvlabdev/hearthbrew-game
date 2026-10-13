@@ -29,13 +29,13 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
   - `npm run typecheck` runs TypeScript over `src/` (this needs a download; CI runs it).
 - **Layout:**
   - `src/core` holds pure rules, with no DOM.
-  - `src/content/data/content.json` is the single content source.
+  - `src/content/data/content.json` is the single content source (schema: `design/content-model.md`). No content ids, numbers or player text in code: player text goes through `t()` (`src/content/strings.js`), and `validateContent()` must pass (`?debug` shows it).
   - `src/art` is the art registry plus style packs (`styles/<id>/index.js` + `style.css`). **Screens use only `art(id)`.**
   - `src/sim` holds the simulations; `src/ui` the screens and CSS.
 - **Reference:**
-  - The Python tools in `tools/` are the validated reference.
-  - After any rule or content change, run `python tools/export_fixtures.py` and then `npm test` (parity tests).
-- **Saves** are versioned, and every schema change ships with a migration and a test (`src/core/save.js`).
+  - The Python tools in `tools/` are **frozen** (2026-10-13) as historical validation. Their fixtures stay as parity tests; the JS core is the source of truth.
+  - Don't port new rules to Python. Re-run `python tools/export_fixtures.py` only to re-check the old rules.
+- **Saves** are versioned, and every schema change ships with a migration and a test (`src/core/save.js`). Renamed content ids go in `content.aliases`; `repairIds()` fixes saves on load.
 
 ## Accessibility (mandatory from M1)
 - Every trait is shown as color + shape + icon, using a colorblind-safe palette.

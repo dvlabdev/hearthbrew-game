@@ -1,35 +1,67 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { INGREDIENTS, RECIPES, CONTENT, HAUL, WEATHER, CUSTOMERS, TRAIT_IDS } from '../src/content/index.js';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { CONTENT, FORAGE, INGREDIENTS, HAUL, TRAIT_IDS, herbName, traitName } from '../src/content/index.js';
+import { validateContent } from '../src/content/validate.js';
+import { t, tn } from '../src/content/strings.js';
+import { mainTrait } from '../src/content/traits.js';
 
-test('every ingredient has a 4-trait vector and tags', () => {
-  for (const [id, ing] of Object.entries(INGREDIENTS)) {
-    assert.equal(ing.vec.length, 4, id);
-    assert.ok(ing.vec.every(Number.isInteger), id);
-    assert.ok(Array.isArray(ing.tags), id);
-    assert.ok(!(ing.tags.includes('delicate') && ing.tags.includes('tough')), `${id}: delicate and tough are exclusive`);
-  }
+test('content.json passes validation', () => {
+  assert.deepEqual(validateContent(CONTENT), []);
 });
 
-test('rule ids are unique and every rule is tagged real / exaggerated / magic', () => {
-  const ids = CONTENT.rules.map(r => r.id);
-  assert.equal(new Set(ids).size, ids.length);
-  for (const r of CONTENT.rules) assert.ok(['real', 'exaggerated', 'magic'].includes(r.tag), r.id);
+test('validation names the broken reference', () => {
+  /** @type {any} */ const c = structuredClone(CONTENT);
+  c.events.spot[0].reward = 'lavendr';
+  c.morning.garden.plots.push('honey');                     // an ingredient, but not a foraged herb
+  c.events.discovery[0].rule = 'R99';
+  c.weather.sun.prime.push('moss');
+  c.ingredients.mint.forage.slots = 3;
+  c.aliases.herb.oldmint = 'mintt';
+  c.strings['hud.day'] = 'Day {day';
+  const errors = validateContent(c);
+  for (const needle of ['"lavendr"', '"honey" is not a foraged herb', '"R99"', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
+    assert.ok(errors.some(e => e.includes(needle)), `expected an error mentioning ${needle}; got:\n${errors.join('\n')}`);
 });
 
-test('recipes reference real ingredients and have 4-trait profiles', () => {
-  for (const [id, r] of Object.entries(RECIPES)) {
-    assert.equal(r.vec.length, 4, id);
-    for (const ing of Object.keys(r.requires || {})) assert.ok(INGREDIENTS[ing], `${id} requires unknown ${ing}`);
+test('every foraged herb is an ingredient whose trait is its strongest one', () => {
+  assert.ok(Object.keys(FORAGE).length >= 9);
+  for (const [id, h] of Object.entries(FORAGE)) {
+    assert.equal(h.trait, TRAIT_IDS[mainTrait(INGREDIENTS[id].vec)], id);
+    assert.equal(h.name, INGREDIENTS[id].name, id);
   }
-});
-
-test('haul herbs, weathers and customers are consistent', () => {
-  for (const [id, h] of Object.entries(HAUL.herbs)) {
-    assert.ok(TRAIT_IDS.includes(h.trait), id);
-    assert.ok(h.slots === 1 || h.slots === 2, id);
-  }
-  for (const [id, w] of Object.entries(WEATHER)) assert.ok(Array.isArray(w.prime) && w.finds > 0, id);
-  for (const [id, c] of Object.entries(CUSTOMERS)) assert.ok(TRAIT_IDS.includes(c.trait), id);
   assert.equal(HAUL.rareWeight, 8, 'tuned value from haul_sim (V3 + weather)');
+});
+
+test('names come from content', () => {
+  assert.equal(herbName('glowcap'), 'Glowcap');
+  assert.equal(herbName('pine'), 'Pine resin');
+  assert.equal(herbName('mayweed'), 'Mayweed');
+  assert.equal(traitName('calm'), 'Calm');
+});
+
+test('strings: placeholders and plurals', () => {
+  assert.equal(t('hud.day', { day: 3, days: 20 }), 'Day 3 <small>of 20</small>');
+  assert.equal(tn('haul.worth', 1, { value: 1 }), 'Worth 1 coin');
+  assert.equal(tn('haul.worth', 2, { value: 2 }), 'Worth 2 coins');
+  assert.equal(t('no.such.key'), 'no.such.key');
+});
+
+test('every string key used in src exists in content.strings', () => {
+  /** @param {string} dir @returns {string[]} */
+  const files = dir => readdirSync(dir).flatMap(f => {
+    const p = join(dir, f);
+    return statSync(p).isDirectory() ? (f === 'styles' ? [] : files(p)) : p.endsWith('.js') ? [p] : [];
+  });
+  const S = /** @type {Record<string, string>} */ (CONTENT.strings);
+  /** @type {string[]} */ const missing = [];
+  let used = 0;
+  for (const f of files('src')) {
+    const src = readFileSync(f, 'utf8');
+    for (const m of src.matchAll(/\b(t|tr)\('([\w.]+)'/g)) { used++; if (!(m[2] in S)) missing.push(`${f}: ${m[2]}`); }
+    for (const m of src.matchAll(/\btn\('([\w.]+)'/g)) { used++; for (const form of ['one', 'other']) if (!(`${m[1]}.${form}` in S)) missing.push(`${f}: ${m[1]}.${form}`); }
+  }
+  assert.ok(used > 40, `only ${used} string uses found: is the scan broken?`);
+  assert.deepEqual(missing, []);
 });

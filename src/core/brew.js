@@ -1,15 +1,11 @@
 // Brewing (design/brew-math.md). Port of tools/solution_space.py brew(), the validated reference.
-import { INGREDIENTS, BASES } from '../content/index.js';
+import { INGREDIENTS, BASES, DEFAULT_BASE } from '../content/index.js';
+import { mainTrait } from '../content/traits.js';
 
 /** @typedef {import('../content/types.js').TraitVec} TraitVec */
 /** @typedef {'R1' | 'R2' | 'R3' | 'R4' | 'R5' | 'R6' | 'R8'} RuleId */
 
-/** Index of the strongest trait (first one on ties). @param {readonly number[]} v */
-export function mainTrait(v) {
-  let m = 0;
-  for (let i = 1; i < v.length; i++) if (v[i] > v[m]) m = i;
-  return m;
-}
+export { mainTrait };
 
 /** @param {string} name @param {string} tag */
 const has = (name, tag) => INGREDIENTS[name].tags.includes(tag);
@@ -22,7 +18,7 @@ const has = (name, tag) => INGREDIENTS[name].tags.includes(tag);
  */
 export function brew(names, opts = {}) {
   const boil = !!opts.boil;
-  const base = BASES[opts.base || 'water'];
+  const base = BASES[opts.base || DEFAULT_BASE];
   /** @type {number[]} */
   const s = base && base.mod ? base.mod.slice() : [0, 0, 0, 0];
   /** @type {Set<RuleId>} */
@@ -37,7 +33,7 @@ export function brew(names, opts = {}) {
     if (has(n, 'tough') && !boil) { v[mainTrait(v)]--; fired.add('R2'); }   // R2: roots need a decoction
     for (let i = 0; i < 4; i++) s[i] += v[i];
   }
-  if (names.includes('honey') && names.some(n => INGREDIENTS[n].vec[0] > 0)) { s[1] += 1; fired.add('R4'); }
+  if (names.some(n => has(n, 'sweetener')) && names.some(n => INGREDIENTS[n].vec[0] > 0)) { s[1] += 1; fired.add('R4'); }   // R4: honey soothes heat
   if (boil && s[0] >= 8) { for (let i = 1; i < 4; i++) s[i] -= 1; fired.add('R3'); }   // R3: scorched
   if (names.some(n => has(n, 'mod-salt'))) { s[mainTrait(s)] += 1; fired.add('R5'); }
   if (names.some(n => has(n, 'mod-purify'))) {                                          // R8: quartz purifies

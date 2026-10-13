@@ -1,7 +1,9 @@
 // The game: title, then the day loop (design/morning.md). Each screen gets the state and `go(next)`;
 // `go` saves and renders by phase, so a reload resumes the day where it was.
 import { art } from '../art/registry.js';
-import { VERSION } from '../content/index.js';
+import { VERSION, CONTENT, START } from '../content/index.js';
+import { t } from '../content/strings.js';
+import { validateContent } from '../content/validate.js';
 import { SAVE_VERSION, newGame } from '../core/state.js';
 import { save, load } from '../core/save.js';
 import { startDay, chooseCard, applyHaul, resolveEvent, runShop, endDay, nextDay } from '../core/day.js';
@@ -44,24 +46,26 @@ export function startGame(app, params) {
     window.scrollTo(0, 0);
   };
 
+  const contentErrors = debug ? validateContent(CONTENT) : [];
+  const errorsLine = () => (contentErrors.length ? `\nCONTENT ERRORS (${contentErrors.length}):\n${contentErrors.join('\n')}` : '\ncontent: valid');
   /** @param {GameState} s */
   const debugPanel = s => `<pre class="debug">content v${VERSION} · save v${SAVE_VERSION} · seed ${s.seed} · day ${s.day} · phase ${s.today?.phase}
 haul times (s): ${(s.log.haul || []).map(ms => (ms / 1000).toFixed(1)).join(', ') || '-'} (target < 30)
-${innerWidth}×${innerHeight}</pre>`;
+${innerWidth}×${innerHeight}${errorsLine()}</pre>`;
 
   const title = () => {
     const saved = load();
     app.innerHTML = `
       <section class="title">
-        <p class="muted">Thornwick · 20 days to Midsummer Eve</p>
-        <h1>Hearthbrew</h1>
+        <p class="muted">${t('title.place', { days: START.days })}</p>
+        <h1>${t('title.name')}</h1>
         ${art('prop:cauldron')}
-        <p class="hand">“Keep the pot on a simmer, child, and the riddles will keep themselves.” — W.</p>
-        ${saved?.today ? `<button class="btn block" type="button" data-continue>Continue · Day ${saved.day}</button>` : ''}
-        <button class="btn ${saved?.today ? 'ghost' : ''} block" type="button" data-new>${saved?.today ? 'Start over' : 'Begin · Day 1'}</button>
-        <p class="muted">An early build: mornings, the haul and events are playable; brewing comes next.</p>
-        <p class="muted"><a href="?gallery">Art gallery</a> · <a href="?components">Components</a></p>
-      </section>${debug ? `<pre class="debug">content v${VERSION} · save v${SAVE_VERSION} · try ?debug&day=5&seed=3</pre>` : ''}`;
+        <p class="hand">${t('title.quote')}</p>
+        ${saved?.today ? `<button class="btn block" type="button" data-continue>${t('title.continue', { day: saved.day })}</button>` : ''}
+        <button class="btn ${saved?.today ? 'ghost' : ''} block" type="button" data-new>${saved?.today ? t('title.restart') : t('title.begin')}</button>
+        <p class="muted">${t('title.build')}</p>
+        <p class="muted"><a href="?gallery">${t('title.gallery')}</a> · <a href="?components">${t('title.components')}</a></p>
+      </section>${debug ? `<pre class="debug">content v${VERSION} · save v${SAVE_VERSION} · try ?debug&day=5&seed=3${errorsLine()}</pre>` : ''}`;
     app.querySelector('[data-continue]')?.addEventListener('click', () => saved && go(saved));
     app.querySelector('[data-new]')?.addEventListener('click', () => go(startDay(newGame((Date.now() % 100000) + 1))));
   };

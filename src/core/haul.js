@@ -1,16 +1,15 @@
 // Choose-your-haul rules (design/expedition.md). Port of tools/haul_sim.py, checked against it by tests.
-import { HAUL, WEATHER, CUSTOMERS } from '../content/index.js';
+import { HAUL, FORAGE, WEATHER, CUSTOMERS, START } from '../content/index.js';
 import { pick, pickWeighted } from './rng.js';
 
 /** @typedef {import('../content/types.js').StockItem} StockItem */
 
-const H = HAUL.herbs, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
+const H = FORAGE, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
 
 /** @typedef {{ weather: string, featured: {who: string, units: number}, finds: string[], others: {who: string, units: number}[] }} Day */
 
-/** The validated starting shelf (prototype C3 and the sims). @type {StockItem[]} */
-export const START_STOCK = [{ herb: 'chamomile', nights: 1 }, { herb: 'chamomile', nights: 3 }, { herb: 'nettle', nights: 2 }, { herb: 'sage', nights: 3 }];
-
+/** The validated starting shelf (prototype C3 and the sims), from content.start. @type {StockItem[]} */
+export const START_STOCK = START.shelf;
 
 /**
  * A herb picked today, shaped by the weather: prime kinds give a double dose (+1 unit) and +1 value;

@@ -1,16 +1,17 @@
 // Morning: the weather card, the customer expected this afternoon, and 3 cards: pick 1 (design/morning.md).
 import { art } from '../../art/registry.js';
 import { WEATHER, MORNING } from '../../content/index.js';
+import { t as tr } from '../../content/strings.js';
 import { chooseCard } from '../../core/day.js';
 import { hud, clue, herbName, H } from './common.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState @typedef {import('../../core/state.js').Card} Card */
 
-/** Card art per type (mini detail level). @param {Card} c @param {string} weather */
-const cardArt = (c, weather) => ({
-  expedition: art(`weather:${weather}`, { lod: 'mini' }), garden: art('ingredient:chamomile', { lod: 'mini' }),
-  market: art('ui:coin'), errand: art('ingredient:honey', { lod: 'mini' }), study: art('ingredient:sage', { lod: 'mini' }),
-})[c.type];
+/** Card art (mini detail level) from content; "weather" means today's weather. @param {Card} c @param {string} weather */
+const cardArt = (c, weather) => {
+  const id = MORNING.cards[c.type].art;
+  return art(id === 'weather' ? `weather:${weather}` : id, { lod: 'mini' });
+};
 
 /** @param {GameState} s @param {(next: GameState) => void} go */
 export function morning(s, go) {
@@ -18,14 +19,14 @@ export function morning(s, go) {
   const w = WEATHER[t.weather];
   let market = -1;
   const html = () => `${hud(s)}<section class="screen">
-    <h1>Morning</h1>
+    <h1>${tr('morning.heading')}</h1>
     <figure class="banner">${art(`weather:${t.weather}`).replace('<svg ', '<svg preserveAspectRatio="xMidYMid slice" ')}<figcaption><b>${w.label}.</b> ${w.text}</figcaption></figure>
     ${clue(s)}
-    <div class="stack"><p class="eyebrow">Choose one</p>
+    <div class="stack"><p class="eyebrow">${tr('morning.choose')}</p>
       ${t.offer.map((c, i) => `<button class="mcard" type="button" data-card="${i}">${cardArt(c, t.weather)}<span><b>${c.title}</b><span>${c.text}</span></span></button>`).join('')}</div>
-    ${market >= 0 ? `<div class="sheet" role="dialog" aria-label="Market stalls"><b>${MORNING.cards.market.title}</b><p class="muted">Pick one herb to buy.</p>
-      ${(t.offer[market].offers || []).map(h => `<button class="btn secondary block" type="button" data-buy="${h}">${herbName(h)} · ${H[h].value + MORNING.market.markup} coins</button>`).join('')}
-      <button class="btn ghost block" type="button" data-close>Not today</button></div>` : ''}
+    ${market >= 0 ? `<div class="sheet" role="dialog" aria-label="${MORNING.cards.market.title}"><b>${MORNING.cards.market.title}</b><p class="muted">${tr('market.pick')}</p>
+      ${(t.offer[market].offers || []).map(h => `<button class="btn secondary block" type="button" data-buy="${h}">${tr('market.offer', { herb: herbName(h), price: H[h].value + MORNING.market.markup })}</button>`).join('')}
+      <button class="btn ghost block" type="button" data-close>${tr('market.close')}</button></div>` : ''}
   </section>`;
   /** @param {HTMLElement} root */
   const wire = root => {

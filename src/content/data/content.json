@@ -1,5 +1,35 @@
 {
-  "version": 3,
+  "version": 4,
+  "start": {
+    "days": 20,
+    "coins": 0,
+    "shelf": [
+      {
+        "herb": "chamomile",
+        "nights": 1
+      },
+      {
+        "herb": "chamomile",
+        "nights": 3
+      },
+      {
+        "herb": "nettle",
+        "nights": 2
+      },
+      {
+        "herb": "sage",
+        "nights": 3
+      }
+    ],
+    "garden": 2,
+    "owned": [
+      "cauldron",
+      "shelf",
+      "basket",
+      "sickle",
+      "watering-can"
+    ]
+  },
   "traits": [
     {
       "id": "heat",
@@ -43,24 +73,14 @@
         "start",
         "garden"
       ],
-      "grow": 2
-    },
-    "lavender": {
-      "name": "Lavender",
-      "vec": [
-        0,
-        2,
-        0,
-        1
-      ],
-      "tags": [
-        "delicate",
-        "flower"
-      ],
-      "sources": [
-        "garden"
-      ],
-      "grow": 3
+      "grow": 2,
+      "forage": {
+        "kind": "flower",
+        "rarity": "common",
+        "slots": 1,
+        "units": 1,
+        "value": 1
+      }
     },
     "mint": {
       "name": "Mint",
@@ -79,7 +99,14 @@
         "meadow",
         "garden"
       ],
-      "grow": 2
+      "grow": 2,
+      "forage": {
+        "kind": "leaf",
+        "rarity": "common",
+        "slots": 1,
+        "units": 1,
+        "value": 1
+      }
     },
     "sage": {
       "name": "Sage",
@@ -95,7 +122,36 @@
       "sources": [
         "start",
         "meadow"
-      ]
+      ],
+      "forage": {
+        "kind": "leaf",
+        "rarity": "common",
+        "slots": 1,
+        "units": 1,
+        "value": 1
+      }
+    },
+    "nettle": {
+      "name": "Nettle",
+      "vec": [
+        1,
+        0,
+        3,
+        0
+      ],
+      "tags": [
+        "leaf"
+      ],
+      "sources": [
+        "meadow"
+      ],
+      "forage": {
+        "kind": "leaf",
+        "rarity": "common",
+        "slots": 1,
+        "units": 1,
+        "value": 1
+      }
     },
     "fireroot": {
       "name": "Fireroot",
@@ -114,22 +170,14 @@
         "meadow",
         "garden"
       ],
-      "grow": 4
-    },
-    "nettle": {
-      "name": "Nettle",
-      "vec": [
-        1,
-        0,
-        3,
-        0
-      ],
-      "tags": [
-        "leaf"
-      ],
-      "sources": [
-        "meadow"
-      ]
+      "grow": 4,
+      "forage": {
+        "kind": "root",
+        "rarity": "common",
+        "slots": 1,
+        "units": 1,
+        "value": 2
+      }
     },
     "rosehip": {
       "name": "Rosehip",
@@ -147,23 +195,14 @@
         "meadow",
         "garden"
       ],
-      "grow": 5
-    },
-    "honey": {
-      "name": "Honey",
-      "vec": [
-        0,
-        1,
-        1,
-        0
-      ],
-      "tags": [
-        "sweetener"
-      ],
-      "sources": [
-        "market"
-      ],
-      "price": 2
+      "grow": 5,
+      "forage": {
+        "kind": "fruit",
+        "rarity": "uncommon",
+        "slots": 1,
+        "units": 1,
+        "value": 3
+      }
     },
     "valerian": {
       "name": "Valerian",
@@ -182,7 +221,38 @@
         "garden"
       ],
       "grow": 4,
-      "needs": "trowel"
+      "needs": "trowel",
+      "forage": {
+        "kind": "root",
+        "rarity": "uncommon",
+        "slots": 2,
+        "units": 2,
+        "value": 3
+      }
+    },
+    "lavender": {
+      "name": "Lavender",
+      "vec": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "tags": [
+        "delicate",
+        "flower"
+      ],
+      "sources": [
+        "garden"
+      ],
+      "grow": 3,
+      "forage": {
+        "kind": "flower",
+        "rarity": "rare",
+        "slots": 1,
+        "units": 1,
+        "value": 1
+      }
     },
     "glowcap": {
       "name": "Glowcap",
@@ -198,7 +268,30 @@
       ],
       "sources": [
         "forest"
-      ]
+      ],
+      "forage": {
+        "kind": "mushroom",
+        "rarity": "rare",
+        "slots": 2,
+        "units": 2,
+        "value": 1
+      }
+    },
+    "honey": {
+      "name": "Honey",
+      "vec": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "tags": [
+        "sweetener"
+      ],
+      "sources": [
+        "market"
+      ],
+      "price": 2
     },
     "pine": {
       "name": "Pine resin",
@@ -320,6 +413,11 @@
       "annual": true
     }
   },
+  "plants": {
+    "mayweed": {
+      "name": "Mayweed"
+    }
+  },
   "bases": {
     "water": {
       "name": "Spring water",
@@ -330,7 +428,8 @@
         0,
         0
       ],
-      "price": 0
+      "price": 0,
+      "default": true
     },
     "tealeaves": {
       "name": "Tea leaves",
@@ -694,89 +793,6 @@
     "pay": {
       "featured": 30,
       "other": 15
-    },
-    "herbs": {
-      "chamomile": {
-        "name": "Chamomile",
-        "trait": "calm",
-        "units": 1,
-        "value": 1,
-        "rarity": "common",
-        "slots": 1,
-        "kind": "flower"
-      },
-      "mint": {
-        "name": "Mint",
-        "trait": "clarity",
-        "units": 1,
-        "value": 1,
-        "rarity": "common",
-        "slots": 1,
-        "kind": "leaf"
-      },
-      "sage": {
-        "name": "Sage",
-        "trait": "clarity",
-        "units": 1,
-        "value": 1,
-        "rarity": "common",
-        "slots": 1,
-        "kind": "leaf"
-      },
-      "nettle": {
-        "name": "Nettle",
-        "trait": "vigor",
-        "units": 1,
-        "value": 1,
-        "rarity": "common",
-        "slots": 1,
-        "kind": "leaf"
-      },
-      "fireroot": {
-        "name": "Fireroot",
-        "trait": "heat",
-        "units": 1,
-        "value": 2,
-        "rarity": "common",
-        "slots": 1,
-        "kind": "root"
-      },
-      "rosehip": {
-        "name": "Rosehip",
-        "trait": "vigor",
-        "units": 1,
-        "value": 3,
-        "rarity": "uncommon",
-        "slots": 1,
-        "kind": "fruit"
-      },
-      "valerian": {
-        "name": "Valerian",
-        "trait": "calm",
-        "units": 2,
-        "value": 3,
-        "rarity": "uncommon",
-        "slots": 2,
-        "kind": "root"
-      },
-      "lavender": {
-        "name": "Lavender",
-        "trait": "calm",
-        "units": 1,
-        "value": 1,
-        "rarity": "rare",
-        "slots": 1,
-        "kind": "flower"
-      },
-      "glowcap": {
-        "name": "Glowcap",
-        "trait": "clarity",
-        "units": 2,
-        "value": 1,
-        "rarity": "rare",
-        "slots": 2,
-        "kind": "mushroom"
-      }
     }
   },
   "weather": {
@@ -900,27 +916,32 @@
       "expedition": {
         "weight": 3,
         "title": "Expedition: {trail}",
-        "text": "Walk the trail and choose your haul."
+        "text": "Walk the trail and choose your haul.",
+        "art": "weather"
       },
       "garden": {
         "weight": 2,
         "title": "Tend the garden",
-        "text": "Harvest what your plots have grown."
+        "text": "Harvest what your plots have grown.",
+        "art": "ingredient:chamomile"
       },
       "market": {
         "weight": 1.5,
         "title": "Market day",
-        "text": "Buy one herb at the stalls."
+        "text": "Buy one herb at the stalls.",
+        "art": "ui:coin"
       },
       "errand": {
         "weight": 1.5,
         "title": "Village errand",
-        "text": "Lend a hand in Thornwick."
+        "text": "Lend a hand in Thornwick.",
+        "art": "ingredient:honey"
       },
       "study": {
         "weight": 1,
         "title": "Wren's study",
-        "text": "An hour with the old Notebook."
+        "text": "An hour with the old Notebook.",
+        "art": "ingredient:sage"
       }
     },
     "trails": [
@@ -1001,5 +1022,94 @@
       }
     ],
     "spotEvery": 2
+  },
+  "aliases": {
+    "herb": {},
+    "customer": {}
+  },
+  "strings": {
+    "title.place": "Thornwick · {days} days to Midsummer Eve",
+    "title.name": "Hearthbrew",
+    "title.quote": "“Keep the pot on a simmer, child, and the riddles will keep themselves.” — W.",
+    "title.continue": "Continue · Day {day}",
+    "title.restart": "Start over",
+    "title.begin": "Begin · Day 1",
+    "title.build": "An early build: mornings, the haul and events are playable; brewing comes next.",
+    "title.gallery": "Art gallery",
+    "title.components": "Components",
+    "hud.day": "Day {day} <small>of {days}</small>",
+    "hud.coins": "{coins} coins",
+    "clue.heading": "At the shop this afternoon",
+    "clue.strong": " · a good strong dose",
+    "shelf.heading": "Your shelf",
+    "shelf.empty": "Empty",
+    "shelf.chip": "{herb}: {count}",
+    "shelf.chipNext": " going to {next}",
+    "shelf.chipWilt": ", {n} wilt tonight",
+    "morning.heading": "Morning",
+    "morning.choose": "Choose one",
+    "market.pick": "Pick one herb to buy.",
+    "market.offer": "{herb} · {price} coins",
+    "market.close": "Not today",
+    "note.garden": "Your plots gave what they had.",
+    "note.market": "You bought {herb} for {price} coins.",
+    "note.errand": "{text} +{coins} coins, and {who} won't forget it.",
+    "note.study": "{text} {herb} brings {trait}.",
+    "haul.heading": "Choose your haul",
+    "haul.finds": "Today's finds",
+    "haul.hold": "Hold for details",
+    "haul.basket": "Basket",
+    "haul.slots": "{used}/{total} slots",
+    "haul.home": "Head home with {n}",
+    "haul.homeEmpty": "Head home empty-handed",
+    "haul.putBack": "Put back {herb}",
+    "haul.details": "{herb} details",
+    "haul.heavy": " · heavy: 2 slots",
+    "haul.worth.one": "Worth {value} coin",
+    "haul.worth.other": "Worth {value} coins",
+    "haul.prime": " (prime today: a double dose)",
+    "haul.poor": " (poor today)",
+    "haul.keeps": "Keeps {nights} nights.",
+    "haul.brings": "Brings <b>{trait}</b>.",
+    "haul.unknown": "The Notebook doesn't know this one yet. Pick it to learn it.",
+    "common.close": "Close",
+    "find.label": "{herb}, {count} found, worth {value}",
+    "find.prime": ", prime",
+    "find.poor": ", poor",
+    "find.rare": ", rare",
+    "find.heavy": ", takes 2 slots",
+    "find.slots": "2 slots",
+    "kind.flower": "flower",
+    "kind.leaf": "leaf",
+    "kind.root": "root",
+    "kind.fruit": "fruit",
+    "kind.mushroom": "mushroom",
+    "rarity.common": "common",
+    "rarity.uncommon": "uncommon",
+    "rarity.rare": "rare",
+    "spot.heading": "Spot the herb",
+    "spot.ask": "Two look-alikes by the path. Which one is <b>{herb}</b>? Look inside the circle.",
+    "spot.left": "The left plant",
+    "spot.right": "The right plant",
+    "spot.reward": "You found a <b>{herb}</b> nearby, a rare one. It's in your basket.",
+    "spot.guide": "The field guide in the Notebook remembers it for you.",
+    "discovery.keep": "Keep the page",
+    "discovery.kept": "Tucked into the Notebook, under brewing rules.",
+    "event.next": "On to the shop",
+    "shop.heading": "Afternoon: the shop",
+    "shop.added": "Added to the shelf: {list}.",
+    "shop.expected": "Expected today",
+    "shop.featured": " · the one you heard about",
+    "shop.interim": "Until the brewing bench is built, your shelf serves them by itself.",
+    "shop.open": "Open the shop",
+    "night.heading": "Night",
+    "night.served": "Went home with what they needed.",
+    "night.missed": "Your shelf had nothing for them today. They'll be back.",
+    "night.takings": "The day's takings",
+    "night.wilted": "Wilted overnight: {list}.",
+    "night.noWilt": "Nothing wilted tonight.",
+    "night.finale": "Midsummer Eve is here. (The festival arrives in a later build.)",
+    "night.left": "{n} days to Midsummer Eve.",
+    "night.sleep": "Sleep"
   }
 }

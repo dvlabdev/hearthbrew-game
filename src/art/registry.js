@@ -8,7 +8,7 @@ import * as storybook from './styles/storybook/index.js';
 import * as fable from './styles/fable/index.js';
 import * as naturalist from './styles/naturalist/index.js';
 import * as hearthlight from './styles/hearthlight/index.js';
-import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS } from '../content/index.js';
+import { INGREDIENTS, CUSTOMERS, WEATHER, TRAIT_IDS, MORNING, EVENTS } from '../content/index.js';
 
 /**
  * @typedef {{ id: string, label: string, css: string, ASSETS: Record<string, (opts?: any) => string>,
@@ -47,12 +47,14 @@ export const hasArt = id => !!(STYLES[active].ASSETS[id] || STYLES[v0.id].ASSETS
 
 /** Every asset id the game content needs. Each style pack must provide all of them. */
 export function requiredIds() {
-  return [
+  return [...new Set([
     ...TRAIT_IDS.map(t => `trait:${t}`),
     ...Object.keys(INGREDIENTS).map(i => `ingredient:${i}`),
     ...[...Object.keys(CUSTOMERS), 'bramble', 'traveller'].map(c => `portrait:${c}`),
     ...Object.keys(WEATHER).map(w => `weather:${w}`),
+    ...Object.values(MORNING.cards).map(c => c.art).filter(a => a !== 'weather'),
+    ...EVENTS.spot.flatMap(e => [`plant:${e.good}`, `plant:${e.bad}`]),
     'prop:cauldron', 'ui:coin',
     'plant:chamomile', 'plant:mayweed', 'plant:nettle', 'plant:deadnettle', 'plant:mint', 'plant:groundivy',
-  ];
+  ])];
 }
