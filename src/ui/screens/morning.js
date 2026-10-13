@@ -1,45 +1,52 @@
 // Morning: the weather card, the customer expected this afternoon, and 3 cards: pick 1 (design/morning.md).
-import { art } from '../../art/registry.js';
 import { WEATHER, MORNING } from '../../content/index.js';
-import { t as tr } from '../../content/strings.js';
-import { dispatch } from '../../core/day.js';
+import { t } from '../../content/strings.js';
 import { marketPrice } from '../../core/effects.js';
-import { hud, clue, herbName } from './common.js';
+import { html, pic, raw } from '../dom.js';
+import { art } from '../../art/registry.js';
+import { hud, clue, herbName, title } from './common.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState @typedef {import('../../core/state.js').Card} Card */
+/** @typedef {NonNullable<GameState['today']>} Today */
 
 /** Card art (mini detail level) from content; "weather" means today's weather. @param {Card} c @param {string} weather */
 const cardArt = (c, weather) => {
   const id = MORNING.cards[c.type].art;
-  return art(id === 'weather' ? `weather:${weather}` : id, { lod: 'mini' });
+  return pic(id === 'weather' ? `weather:${weather}` : id, { lod: 'mini' });
 };
 
-/** @param {GameState} s @param {(next: GameState) => void} go */
-export function morning(s, go) {
-  const t = /** @type {NonNullable<GameState['today']>} */ (s.today);
-  const w = WEATHER[t.weather];
-  let market = -1;
-  const html = () => `${hud(s)}<section class="screen">
-    <h1>${tr('morning.heading')}</h1>
-    <figure class="banner">${art(`weather:${t.weather}`).replace('<svg ', '<svg preserveAspectRatio="xMidYMid slice" ')}<figcaption><b>${w.label}.</b> ${w.text}</figcaption></figure>
+/** @type {import('../screen.js').Screen} */
+export const morning = {
+  init: () => ({ market: -1 }),   // index of the card whose sub-choice sheet is open
+  view(s, { market }) {
+    const t0 = /** @type {Today} */ (s.today);
+    const w = WEATHER[t0.weather];
+    const sheet = market >= 0 ? t0.offer[market] : null;
+    return html`${hud(s)}<section class="screen">
+    ${title(t('morning.heading'))}
+    <figure class="banner">${raw(art(`weather:${t0.weather}`).replace('<svg ', '<svg preserveAspectRatio="xMidYMid slice" '))}<figcaption><b>${w.label}.</b> ${w.text}</figcaption></figure>
     ${clue(s)}
-    <div class="stack"><p class="eyebrow">${tr('morning.choose')}</p>
-      ${t.offer.map((c, i) => `<button class="mcard" type="button" data-card="${i}">${cardArt(c, t.weather)}<span><b>${c.title}</b><span>${c.text}</span></span></button>`).join('')}</div>
-    ${market >= 0 ? `<div class="sheet" role="dialog" aria-label="${t.offer[market].title}"><b>${t.offer[market].title}</b><p class="muted">${tr('market.pick')}</p>
-      ${(t.offer[market].offers || []).map(h => `<button class="btn secondary block" type="button" data-buy="${h}">${tr('market.offer', { herb: herbName(h), price: marketPrice(h, MORNING.cards[t.offer[market].type].markup || 0) })}</button>`).join('')}
-      <button class="btn ghost block" type="button" data-close>${tr('market.close')}</button></div>` : ''}
+    <div class="stack"><p class="eyebrow">${t('morning.choose')}</p>
+      ${t0.offer.map((c, i) => html`<button class="mcard" type="button" data-action="card" data-i="${i}" data-key="card-${c.type}">${cardArt(c, t0.weather)}<span><b>${c.title}</b><span>${c.text}</span></span></button>`)}</div>
+    ${sheet ? html`<div class="sheet" role="dialog" aria-label="${sheet.title}"><b>${sheet.title}</b><p class="muted">${t('market.pick')}</p>
+      ${(sheet.offers || []).map(h => html`<button class="btn secondary block" type="button" data-action="buy" data-herb="${h}">${t('market.offer', { herb: herbName(h), price: marketPrice(h, MORNING.cards[sheet.type].markup || 0) })}</button>`)}
+      <button class="btn ghost block" type="button" data-action="close">${t('market.close')}</button></div>` : ''}
   </section>`;
-  /** @param {HTMLElement} root */
-  const wire = root => {
-    root.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => {
-      const i = Number(/** @type {HTMLElement} */ (b).dataset.card);
-      if (t.offer[i].offers) { market = i; rerender(root); return; }   // a card with a sub-choice (the stalls) opens its sheet
-      go(dispatch(s, { type: 'chooseCard', index: i }));
-    }));
-    root.querySelectorAll('[data-buy]').forEach(b => b.addEventListener('click', () => go(dispatch(s, { type: 'chooseCard', index: market, buy: /** @type {HTMLElement} */ (b).dataset.buy }))));
-    root.querySelector('[data-close]')?.addEventListener('click', () => { market = -1; rerender(root); });
-  };
-  /** @param {HTMLElement} root */
-  const rerender = root => { root.innerHTML = html(); wire(root); };
-  return { html, wire };
-}
+  },
+  actions: {
+    card(ctx, d) {
+      const i = Number(d.i), card = /** @type {Today} */ (ctx.s.today).offer[i];
+      if (card.offers) { ctx.set({ market: i }); focusSheet(ctx.root); return; }   // a card with a sub-choice opens its sheet
+      ctx.act({ type: 'chooseCard', index: i });
+    },
+    buy: (ctx, d) => ctx.act({ type: 'chooseCard', index: ctx.local.market, buy: d.herb }),
+    close(ctx) {
+      const i = ctx.local.market;
+      ctx.set({ market: -1 });
+      /** @type {HTMLElement | null} */ (ctx.root.querySelector(`[data-action="card"][data-i="${i}"]`))?.focus();
+    },
+  },
+};
+
+/** Move focus into a newly opened sheet. @param {HTMLElement} root */
+export const focusSheet = root => /** @type {HTMLElement | null} */ (root.querySelector('.sheet button'))?.focus();

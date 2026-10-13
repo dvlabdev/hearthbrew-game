@@ -32,15 +32,20 @@
 
 /* ---------- find tile (Choose your haul) ---------- */
 .finds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-2)}
-.find{position:relative;display:grid;grid-template-columns:var(--art-mini) minmax(0,1fr);gap:var(--s-2);align-items:center;min-height:calc(var(--tap) + var(--s-3));
-  padding:var(--s-2);border-radius:var(--radius-btn);background:var(--card-fill);border:var(--card-edge);color:var(--c-ink);font:inherit;text-align:left;cursor:pointer}
+.find{position:relative;display:grid;grid-template-columns:calc(var(--art-mini) + 2 * var(--s-2)) minmax(0,1fr);align-items:stretch;min-height:calc(var(--tap) + var(--s-3));
+  border-radius:var(--radius-btn);background:var(--card-fill);border:var(--card-edge);color:var(--c-ink)}
+.find>button{background:transparent;border:0;color:inherit;font:inherit;text-align:left;min-height:var(--tap);border-radius:var(--radius-btn)}
+.find-info{position:relative;display:grid;place-items:center;padding:0}   /* the picture: opens the details */
+.find-i{position:absolute;right:var(--s-1);bottom:var(--s-1);display:grid;place-items:center;width:1.25rem;height:1.25rem;border-radius:50%;
+  background:var(--c-sunk);border:1px solid var(--c-line);color:var(--c-ink);font:italic 700 var(--fs-0)/1 var(--f-body)}
+.find-pick{display:grid;align-content:center;gap:var(--s-1);padding:var(--s-2) var(--s-2) var(--s-2) 0}   /* the rest: picks the herb */
 .find svg{width:var(--art-mini);height:var(--art-mini);display:block}
 .find .name{font-weight:700;line-height:1.2;overflow-wrap:anywhere}
 .find .sub{display:flex;gap:var(--s-2);align-items:center;flex-wrap:wrap;color:var(--c-muted)}
 .find .slots{border:1px solid var(--c-line);border-radius:var(--radius-pill);padding:0 var(--s-2);color:var(--c-muted)}
 .find.rare{box-shadow:0 0 0 2px var(--c-rare),0 0 14px color-mix(in srgb,var(--c-rare) 55%,transparent)}
-.find[aria-pressed="true"]{background:var(--c-sunk);opacity:.6}
-.find[disabled]{opacity:.4;cursor:not-allowed}
+.find.is-picked{background:var(--c-sunk);opacity:.6}
+.find.is-full .find-pick{opacity:.4;cursor:not-allowed}
 .coin-badge{display:inline-flex;align-items:center;gap:2px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c-ink)}
 .coin-badge svg{width:20px;height:20px}
 .coin-badge.prime::after{content:"▲";color:var(--c-prime)}

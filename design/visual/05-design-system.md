@@ -56,7 +56,7 @@
 | Button | `.btn`, `.btn.secondary`, `.btn.ghost`, `.block` | 44px minimum; the pressed state sinks 2px |
 | Card | `.card`, `.eyebrow` | |
 | Morning card | `.mcard` | a big tappable card with icon-size art |
-| Find tile | `.find` (`.rare`, `.heavy`, pressed = picked, disabled = no room) | **at most 2 badges**: coin value (▲/▼) and the rarity glow; heavy shows a "2 slots" tag |
+| Find tile | `.find` (`.rare`, `.heavy`, `.is-picked`, `.is-full` = no room) holding two buttons: `.find-info` (the picture + ⓘ badge: details) and `.find-pick` (the rest: pick; long-press also opens details) | **at most 2 badges**: coin value (▲/▼) and the rarity glow; heavy shows a "2 slots" tag |
 | Basket | `.basket` > `.slot` (`.full`, `.span2`) | 5 slots |
 | Shelf chip | `.chip` with `.pips` > `.pip.wilt` and a `.delta` "→3" | |
 | HUD | `.hud` > `.pill` | |

@@ -1,71 +1,81 @@
 // Choose your haul (design/expedition.md): finds grouped by kind, a 5-slot basket, the shelf strip, the clue as words.
-// Long-press a find for its details; tap a basket slot to put a find back. What you leave behind stays behind.
-import { art } from '../../art/registry.js';
+// Tap a find to pick it; tap its picture (or long-press it) for details; tap a basket slot to put a find back.
+// What you leave behind stays behind.
 import { HAUL, traitName } from '../../content/index.js';
-import { t as tr, tn } from '../../content/strings.js';
+import { t, tn } from '../../content/strings.js';
 import { dispatch, knows, logPhase } from '../../core/day.js';
 import { pickedItem, slotsUsed } from '../../core/haul.js';
 import { findTile } from '../components.js';
-import { hud, clue, shelfStrip, herbName, H } from './common.js';
+import { html, pic, tx } from '../dom.js';
+import { hud, clue, shelfStrip, herbName, H, title } from './common.js';
+import { focusSheet } from './morning.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState */
-const LONG_PRESS = 450;
+/** @typedef {NonNullable<GameState['today']>} Today */
 
-/** @param {GameState} s @param {(next: GameState) => void} go */
-export function haul(s, go) {
-  const t = /** @type {NonNullable<GameState['today']>} */ (s.today);
-  const card = t.offer[/** @type {number} */ (t.card)];
-  const started = performance.now();
-  /** @type {string[]} */ let picks = [];
-  /** @type {string | null} */ let detail = null;
-  const kinds = [...new Set(t.finds)];
-  const left = (/** @type {string} */ h) => t.finds.filter(f => f === h).length - picks.filter(p => p === h).length;
+/** How many of a herb are still on the path. @param {Today} t0 @param {string[]} picks @param {string} h */
+const left = (t0, picks, h) => t0.finds.filter(f => f === h).length - picks.filter(p => p === h).length;
 
-  const html = () => {
+/** @type {import('../screen.js').Screen} */
+export const haul = {
+  init: () => ({ picks: [], detail: null, started: performance.now() }),
+  view(s, { picks, detail }) {
+    const t0 = /** @type {Today} */ (s.today);
+    const card = t0.offer[/** @type {number} */ (t0.card)];
     const used = slotsUsed(picks);
-    const tiles = kinds.map(h => {
-      const it = pickedItem(h, t.weather), n = left(h);
+    const tiles = [...new Set(t0.finds)].map(h => {
+      const it = pickedItem(h, t0.weather), n = left(t0, picks, h);
       return findTile({ herb: h, label: herbName(h), count: n, value: it.value, prime: it.prime, poor: it.poor, rare: H[h].rarity === 'rare', heavy: H[h].slots > 1,
-        pressed: n === 0, disabled: n > 0 && used + H[h].slots > HAUL.basket }).replace('<button type="button" class="find', `<button type="button" data-find="${h}" class="find`);
-    }).join('');
-    const slots = picks.map((p, i) => `<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-unpick="${i}" aria-label="${tr('haul.putBack', { herb: herbName(p) })}">${art(`ingredient:${p}`, { lod: 'mini' })}</button>`).join('')
-      + Array.from({ length: HAUL.basket - used }, () => '<span class="slot" aria-hidden="true"></span>').join('');
-    const d = detail ? pickedItem(detail, t.weather) : null;
-    return `${hud(s)}<section class="screen">
-      <div><p class="eyebrow">${card.title}</p><h1>${tr('haul.heading')}</h1></div>
+        pressed: n === 0, disabled: n > 0 && used + H[h].slots > HAUL.basket });
+    });
+    // slots keep a stable key per pick (herb + its occurrence), so a put-back or a new pick keeps the others' elements
+    /** @type {Record<string, number>} */ const seen = {};
+    const slots = picks.map((p, i) => html`<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-action="unpick" data-i="${i}" data-key="slot-${p}-${seen[p] = (seen[p] || 0) + 1}" aria-label="${t('haul.putBack', { herb: herbName(p) })}">${pic(`ingredient:${p}`, { lod: 'mini' })}</button>`);
+    const empty = Array.from({ length: HAUL.basket - used }, () => html`<span class="slot" aria-hidden="true"></span>`);
+    const d = detail ? pickedItem(detail, t0.weather) : null;
+    return html`${hud(s)}<section class="screen">
+      <div><p class="eyebrow">${card.title}</p>${title(t('haul.heading'))}</div>
       ${clue(s)}
       ${shelfStrip(s.shelf, picks)}
-      <div class="stack"><div class="row-between"><p class="eyebrow">${tr('haul.finds')}</p><span class="muted">${tr('haul.hold')}</span></div><div class="finds">${tiles}</div></div>
-      <div class="stack"><div class="row-between"><p class="eyebrow">${tr('haul.basket')}</p><span class="muted">${tr('haul.slots', { used, total: HAUL.basket })}</span></div><div class="basket">${slots}</div></div>
-      <div class="dock"><button class="btn block" type="button" data-home>${picks.length ? tr('haul.home', { n: picks.length }) : tr('haul.homeEmpty')}</button></div>
-      ${detail && d ? `<div class="sheet" role="dialog" aria-label="${tr('haul.details', { herb: herbName(detail) })}"><div class="clue">${art(`ingredient:${detail}`)}<div><b>${herbName(detail)}</b>
-        <span class="muted">${tr(`kind.${H[detail].kind}`)} · ${tr(`rarity.${H[detail].rarity}`)}${H[detail].slots > 1 ? tr('haul.heavy') : ''}</span></div></div>
-        <p>${tn('haul.worth', d.value, { value: d.value })}${d.prime ? tr('haul.prime') : d.poor ? tr('haul.poor') : ''}. ${tr('haul.keeps', { nights: d.nights })}</p>
-        <p>${knows(s, detail) ? tr('haul.brings', { trait: traitName(H[detail].trait) }) : `<span class="muted">${tr('haul.unknown')}</span>`}</p>
-        <button class="btn secondary block" type="button" data-close>${tr('common.close')}</button></div>` : ''}
+      <div class="stack"><div class="row-between"><p class="eyebrow">${t('haul.finds')}</p><span class="muted">${t('haul.hint')}</span></div><div class="finds">${tiles}</div></div>
+      <div class="stack"><div class="row-between"><p class="eyebrow">${t('haul.basket')}</p><span class="muted">${t('haul.slots', { used, total: HAUL.basket })}</span></div><div class="basket">${slots}${empty}</div></div>
+      <div class="dock"><button class="btn block" type="button" data-action="home">${picks.length ? t('haul.home', { n: picks.length }) : t('haul.homeEmpty')}</button></div>
+      ${detail && d ? html`<div class="sheet" role="dialog" aria-label="${t('haul.details', { herb: herbName(detail) })}"><div class="clue">${pic(`ingredient:${detail}`)}<div><b>${herbName(detail)}</b>
+        <span class="muted">${t(`kind.${H[detail].kind}`)} · ${t(`rarity.${H[detail].rarity}`)}${H[detail].slots > 1 ? t('haul.heavy') : ''}</span></div></div>
+        <p>${tn('haul.worth', d.value, { value: d.value })}${d.prime ? t('haul.prime') : d.poor ? t('haul.poor') : ''}. ${t('haul.keeps', { nights: d.nights })}</p>
+        <p>${knows(s, detail) ? tx('haul.brings', { trait: traitName(H[detail].trait) }) : html`<span class="muted">${t('haul.unknown')}</span>`}</p>
+        <button class="btn secondary block" type="button" data-action="close">${t('common.close')}</button></div>` : ''}
     </section>`;
-  };
+  },
+  actions: {
+    pick(ctx, d) {
+      const t0 = /** @type {Today} */ (ctx.s.today), h = /** @type {string} */ (d.herb), picks = ctx.local.picks;
+      if (left(t0, picks, h) <= 0 || slotsUsed(picks) + H[h].slots > HAUL.basket) return;
+      const next = [...picks, h];
+      ctx.set({ picks: next });
+      ctx.say(t('say.picked', { herb: herbName(h), used: slotsUsed(next), total: HAUL.basket }));
+    },
+    unpick(ctx, d) {
+      const i = Number(d.i), h = ctx.local.picks[i];
+      const next = ctx.local.picks.filter((/** @type {string} */ _, j) => j !== i);
+      ctx.set({ picks: next });
+      ctx.say(t('say.putBack', { herb: herbName(h), used: slotsUsed(next), total: HAUL.basket }));
+      // the slot is gone: keep focus in the basket (the next filled slot, or the find it came from)
+      /** @type {HTMLElement | null} */ (ctx.root.querySelector(`[data-action="unpick"][data-i="${Math.min(i, next.length - 1)}"]`) || ctx.root.querySelector(`.find-pick[data-herb="${h}"]`))?.focus();
+    },
+    details(ctx, d) {
+      ctx.set({ detail: d.herb, from: d.action === 'details' ? 'info' : 'pick' });
+      focusSheet(ctx.root);
+    },
+    close(ctx) {
+      const { detail: h, from } = ctx.local;
+      ctx.set({ detail: null });
+      /** @type {HTMLElement | null} */ (ctx.root.querySelector(`.find-${from}[data-herb="${h}"]`))?.focus();   // back where the sheet was opened
+    },
+    home(ctx) {
+      const timed = logPhase(ctx.s, 'haul', performance.now() - ctx.local.started);   // debug metric
+      ctx.go(dispatch(timed, { type: 'takeHaul', picks: ctx.local.picks }));
+    },
+  },
+};
 
-  /** @param {HTMLElement} root */
-  const wire = root => {
-    root.querySelectorAll('[data-find]').forEach(el => {
-      const b = /** @type {HTMLButtonElement} */ (el), h = /** @type {string} */ (b.dataset.find);
-      /** @type {number | undefined} */ let timer; let long = false;
-      b.addEventListener('pointerdown', () => { long = false; timer = window.setTimeout(() => { long = true; detail = h; rerender(root); }, LONG_PRESS); });
-      ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => clearTimeout(timer)));
-      b.addEventListener('contextmenu', e => e.preventDefault());
-      b.addEventListener('click', () => {
-        if (long || b.disabled) return;
-        if (left(h) > 0 && slotsUsed(picks) + H[h].slots <= HAUL.basket) { picks = [...picks, h]; rerender(root); }
-      });
-    });
-    root.querySelectorAll('[data-unpick]').forEach(b => b.addEventListener('click', () => {
-      const i = Number(/** @type {HTMLElement} */ (b).dataset.unpick); picks = picks.filter((_, j) => j !== i); rerender(root);
-    }));
-    root.querySelector('[data-close]')?.addEventListener('click', () => { detail = null; rerender(root); });
-    root.querySelector('[data-home]')?.addEventListener('click', () => go(dispatch(logPhase(s, 'haul', performance.now() - started), { type: 'takeHaul', picks })));
-  };
-  /** @param {HTMLElement} root */
-  const rerender = root => { const y = window.scrollY; root.innerHTML = html(); wire(root); window.scrollTo(0, y); };
-  return { html, wire };
-}
