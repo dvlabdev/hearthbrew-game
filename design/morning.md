@@ -1,5 +1,7 @@
 # The morning, playable (interim day loop, 2026-10-12)
 
+> **The target loop is [game-flow.md](game-flow.md)** (approved 2026-10-14). This interim loop (raw herbs served automatically, teased the same morning) is replaced as the sell phase is built.
+
 **Why:**
 - It makes the validated morning (`expedition.md`: cards, haul, event) playable on the phone now.
 - Brewing, riddles and the Notebook still wait for the prototype B verdict.

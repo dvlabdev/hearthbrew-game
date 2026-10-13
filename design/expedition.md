@@ -12,6 +12,8 @@
 3. **Draw one event card** from the area's deck. Spot the herb appears at most 1 draw in 4, and never two days running.
 
 ## Choose your haul
+
+> **Update 2026-10-14 ([game-flow.md](game-flow.md), D3):** once brewing is in the loop, find tiles drop the coin value. They show the herb's trait once the Notebook knows it ("?" before); a prime find gives 2 shelf items; poor keeps a night less. The teased customer comes from the night before (D6).
 The trail turns up **8 finds** (10 on rain days), grouped by kind ("Chamomile ×3"). **The basket holds 5 slots.** What you leave behind is gone for today; that's what makes it a choice. Nothing you already own is ever lost.
 
 | Element | Rule |

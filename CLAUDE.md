@@ -7,7 +7,14 @@ A cozy, witchy apothecary crafting game for the browser. You inherit Old Mother 
 The source of truth for scope and milestones is `design/roadmap.md`. Read it before starting any milestone.
 
 ## Current phase
-M1 setup: core, tests, sims, art library and shell are done. **Art direction: Hearthlight v2 is locked** (`design/visual/04d-direction.md`); the validation spike awaits the user's rating. **Built while the user decides:** the design-system skeleton (`src/ui/tokens.css`, `components.css`, `?components`, CSS lint; `design/visual/05-design-system.md`) and the playable mornings (`design/morning.md`: cards → haul → event → interim shop → night; `src/core/day.js`, `src/ui/screens/`). Brewing, riddle and Notebook screens wait for the user's prototype B verdict. Throwaway prototypes go in `prototypes/`; content data lives in `design/data/content.json`.
+M1 setup is done (core, tests, sims, art library, shell). **The code audit is closed** (`design/audit-2026-10-12.md`, all 7 directions, 2026-10-13). **The game flow is approved** (`design/game-flow.md`, 2026-10-14): it is the source of truth for the day and the 20 days, and it lists the next build steps in order.
+- **Art direction:** Hearthlight v2 is locked (`design/visual/04d-direction.md`); the validation spike awaits the user's rating, which gates art production.
+- **Built:**
+  - the design system (`src/ui/tokens.css`, `components.css`, `?components`);
+  - the playable mornings with an interim shop (`design/morning.md`).
+- **Gated:** the sell phase, brewing, riddle and Notebook screens wait for the user's prototype B verdict.
+- **Next without a gate:** the regulars fix (Bramble is the 4th regular, Tamsin a walk-in).
+- **Paths:** throwaway prototypes go in `prototypes/`; content lives in `src/content/data/content.json`.
 
 ## Design rules
 - Every feature must serve at least one pillar:

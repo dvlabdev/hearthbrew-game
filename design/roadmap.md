@@ -1,6 +1,7 @@
 # Hearthbrew: Roadmap (v3, 2026-10-08)
 
 Replaces the v2 plan (in git history). **Sources of truth:**
+- **The game loop (the day and the 20 days): `game-flow.md`** (approved 2026-10-14; it wins over older docs on the loop)
 - Design: `GDD.md`
 - Rules: `brew-math.md`
 - Content: `content-bible.md`
@@ -15,11 +16,10 @@ Replaces the v2 plan (in git history). **Sources of truth:**
 3. **Always one more day:** tomorrow's teased customer, multi-day growth.
 4. **Cozy, gentle stakes:** missed opportunities, never lost progress.
 
-## The day (current design)
+## The day (current design: `game-flow.md`)
 1. **Morning:** choose **1 of 3 random cards** (expedition → choose your haul → event card; garden; market; village errand; Wren's study).
-2. **Prepare & Sell:** riddles, brewing (Simmer/Boil), serving.
-3. **Improve:** upgrades, donations, decor.
-4. **Rest:** a 10 s recap and tomorrow's clue.
+2. **Prepare & Sell:** riddles, brewing (Simmer/Boil), serving one customer at a time; spare bottles go to the shelf.
+3. **Rest, with the ledger:** recap, then upgrades, donations and the Notebook (Improve lives here since 2026-10-14), then tomorrow's teaser.
 
 ## Milestones
 | # | Milestone | Status |

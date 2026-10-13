@@ -39,6 +39,8 @@ A cozy, witchy apothecary game. You have 20 days to restore your late mentor's s
 4. **Cozy, with gentle stakes.** You can miss opportunities, but you never lose progress.
 
 ## 5. The day (4 phases)
+
+> **Superseded on the loop by [game-flow.md](game-flow.md)** (approved 2026-10-14). Notably, Improve is now a ledger on the night screen, and the sell phase serves one customer at a time with spare bottles kept on the shelf.
 | Phase | Player time | Decisions | Notes |
 |---|---|---|---|
 | **1. Morning** | 30–60 s | **Choose 1 of 3 morning cards**, drawn at random each day from the pool: an **expedition** (a specific trail, with the day's weather → choose your haul → event card), **tend the garden** (water, harvest, plant every plot), the **market** (deals, seeds, sell surplus), a **village errand** (a relationship moment), or **Wren's study** (a Notebook discovery). Only what you pick happens. | Untended plants pause (never die). At least one gathering card (expedition or garden) is always offered. Basic supplies (water, tea leaves, oil, beeswax, honey) are delivered daily by the carrier, so the market is never mandatory. |
