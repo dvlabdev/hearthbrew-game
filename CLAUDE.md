@@ -26,7 +26,7 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
   - `npm run dev` starts `tools/serve.mjs` on :5173 (`?debug`, `?gallery`).
   - `npm test` runs Node's built-in test runner.
   - `npm run sim:haul` and `npm run sim:economy` run the full simulations.
-  - `npm run typecheck` runs TypeScript over `src/` (this needs a download; CI runs it).
+  - `npm run typecheck` runs TypeScript over `src/` (strict JSDoc). Locally it uses TypeScript installed outside Drive in `%LOCALAPPDATA%/hearthbrew-tools` (the script prints the one-time install command); CI runs the same script.
 - **Layout:**
   - `src/core` holds pure rules, with no DOM.
   - `src/content/data/content.json` is the single content source (schema: `design/content-model.md`). No content ids, numbers or player text in code: player text goes through `t()` (`src/content/strings.js`), and `validateContent()` must pass (`?debug` shows it). Card, encounter and discovery behaviour is data in the effects vocabulary; the UI changes state only through `dispatch()` (`design/effects.md`).
@@ -48,7 +48,8 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
 For each feature:
 1. Write a spec in `design/`.
 2. Implement it.
-3. Run `npm run test`.
+3. Run `npm run test` and `npm run typecheck` (both must pass before committing).
 4. Play it in the built-in browser.
 5. Write playtest notes and metrics.
 6. Adjust.
+7. After every push, check the CI run on GitHub and confirm it's green (a red CI went unnoticed for 8 pushes once).

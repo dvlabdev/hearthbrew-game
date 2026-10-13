@@ -125,7 +125,7 @@ export function validateContent(c) {
   }
   for (const e of ev.encounter || []) {
     if (!(e.options || []).length) err(`events.encounter.${e.id}`, 'needs options');
-    (e.options || []).forEach((/** @type {any} */ o, i) => effects(`events.encounter.${e.id}.options[${i}].effects`, o.effects));
+    (e.options || []).forEach((/** @type {any} */ o, /** @type {number} */ i) => effects(`events.encounter.${e.id}.options[${i}].effects`, o.effects));
   }
   for (const e of ev.discovery || []) {
     effects(`events.discovery.${e.id}.effects`, e.effects);

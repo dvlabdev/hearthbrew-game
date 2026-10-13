@@ -7,8 +7,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       # No dependencies to install: the project is no-build (plain ES modules + Node's built-in test runner).
@@ -18,5 +18,6 @@ jobs:
         run: |
           npm run sim:economy
           npm run sim:haul
+      # Same script as locally (tools/typecheck.mjs); in CI it runs the pinned TypeScript through npx.
       - name: Type check (TypeScript over JSDoc)
-        run: npx -y -p typescript@5 tsc -p jsconfig.json
+        run: npm run typecheck

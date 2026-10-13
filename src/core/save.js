@@ -34,7 +34,7 @@ export function repairIds(state) {
   const cust = (/** @type {string} */ id) => ALIASES.customer[id] ?? id;
   const s = { ...state, contentVersion: VERSION };
   s.shelf = (state.shelf || []).map(it => ({ ...it, herb: herb(it.herb) })).filter(it => FORAGE[it.herb]);
-  s.notebook = { ...state.notebook, known: Object.fromEntries(Object.entries(state.notebook?.known || {}).map(([k, v]) => [herb(k), v]).filter(([k]) => INGREDIENTS[k])) };
+  s.notebook = { ...state.notebook, known: Object.fromEntries(Object.entries(state.notebook?.known || {}).map(([k, v]) => /** @type {[string, boolean[]]} */ ([herb(k), v])).filter(([k]) => INGREDIENTS[k])) };
   const rel = Object.fromEntries(Object.entries(state.relationships || {}).map(([k, v]) => [cust(k), v]));
   s.relationships = Object.fromEntries(Object.keys(CUSTOMERS).map(id => [id, rel[id] ?? 0]));
   const t = state.today;
@@ -43,7 +43,7 @@ export function repairIds(state) {
     const who = [t.featured, ...t.others].map(v => ({ ...v, who: cust(v.who) }));
     const ev = t.event;
     const ok = herbs.every(h => FORAGE[h]) && who.every(v => CUSTOMERS[v.who]) && !!WEATHER[t.weather]
-      && (!ev || EVENTS[ev.kind]?.some(e => e.id === ev.id));
+      && (!ev || /** @type {Record<string, { id: string }[] | undefined>} */ (/** @type {unknown} */ (EVENTS))[ev.kind]?.some(e => e.id === ev.id));
     if (!ok) return startDay({ ...s, today: null });
     const [featured, ...others] = who;
     s.today = { ...t, finds: t.finds.map(herb), picks: t.picks.map(herb), gained: t.gained.map(herb), featured, others };

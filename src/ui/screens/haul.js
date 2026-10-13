@@ -30,7 +30,7 @@ export const haul = {
     });
     // slots keep a stable key per pick (herb + its occurrence), so a put-back or a new pick keeps the others' elements
     /** @type {Record<string, number>} */ const seen = {};
-    const slots = picks.map((p, i) => html`<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-action="unpick" data-i="${i}" data-key="slot-${p}-${seen[p] = (seen[p] || 0) + 1}" aria-label="${t('haul.putBack', { herb: herbName(p) })}">${pic(`ingredient:${p}`, { lod: 'mini' })}</button>`);
+    const slots = picks.map((/** @type {string} */ p, /** @type {number} */ i) => html`<button type="button" class="slot full${H[p].slots > 1 ? ' span2' : ''}" data-action="unpick" data-i="${i}" data-key="slot-${p}-${seen[p] = (seen[p] || 0) + 1}" aria-label="${t('haul.putBack', { herb: herbName(p) })}">${pic(`ingredient:${p}`, { lod: 'mini' })}</button>`);
     const empty = Array.from({ length: HAUL.basket - used }, () => html`<span class="slot" aria-hidden="true"></span>`);
     const d = detail ? pickedItem(detail, t0.weather) : null;
     return html`${hud(s)}<section class="screen">
@@ -57,7 +57,7 @@ export const haul = {
     },
     unpick(ctx, d) {
       const i = Number(d.i), h = ctx.local.picks[i];
-      const next = ctx.local.picks.filter((/** @type {string} */ _, j) => j !== i);
+      const next = ctx.local.picks.filter((/** @type {string} */ _, /** @type {number} */ j) => j !== i);
       ctx.set({ picks: next });
       ctx.say(t('say.putBack', { herb: herbName(h), used: slotsUsed(next), total: HAUL.basket }));
       // the slot is gone: keep focus in the basket (the next filled slot, or the find it came from)

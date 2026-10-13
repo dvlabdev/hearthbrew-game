@@ -4,7 +4,7 @@ import { art } from '../art/registry.js';
 import { findTile, shelfChip, meter } from './components.js';
 
 
-/** @param {string} title @param {string} body @param {string} [note] */
+/** @param {string} title @param {string | import('./dom.js').Raw} body @param {string} [note] */
 const section = (title, body, note = '') => `<section class="card"><h2>${title}</h2>${note ? `<p class="muted">${note}</p>` : ''}${body}</section>`;
 
 export function componentsGallery() {

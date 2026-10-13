@@ -9,6 +9,6 @@
     "test": "node --test \"tests/**/*.test.js\"",
     "sim:haul": "node tools/sim-haul.mjs",
     "sim:economy": "node tools/sim-economy.mjs",
-    "typecheck": "npx -y -p typescript@5 tsc -p jsconfig.json"
+    "typecheck": "node tools/typecheck.mjs"
   }
 }

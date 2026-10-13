@@ -32,10 +32,10 @@ export const CARD_ACTIONS = {
   haul: { next: 'haul' },
   /** The market stalls: a few affordable herbs; buy one. */
   buyHerb: {
-    deal: (s, def, rng) => ({ offers: shuffle(rng, marketHerbs().filter(h => marketPrice(h, def.markup) <= s.coins)).slice(0, def.offers) }),
+    deal: (s, def, rng) => ({ offers: shuffle(rng, marketHerbs().filter(h => marketPrice(h, def.markup ?? 0) <= s.coins)).slice(0, def.offers) }),
     choose: (s, card, def, opts) => {
       const herb = opts.buy && card.offers?.includes(opts.buy) ? opts.buy : /** @type {string} */ (card.offers?.[0]);
-      const price = marketPrice(herb, def.markup);
+      const price = marketPrice(herb, def.markup ?? 0);
       applyEffects(s, [{ coins: -price }, { addHerbs: [herb] }], { rng: () => 0 });
       return { herb: herbName(herb), price };
     },

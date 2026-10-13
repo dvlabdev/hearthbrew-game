@@ -35,7 +35,7 @@ export const EFFECTS = {
   addHerbs: (s, herbs) => {
     const t = /** @type {Today} */ (s.today);
     for (const h of herbs) { s.shelf.push(pickedItem(h, t.weather)); t.gained.push(h); }
-    return herbs.length === 1 ? { herb: herbName(herbs[0]) } : {};
+    return herbs.length === 1 ? { herb: herbName(herbs[0]) } : /** @type {Vars} */ ({});
   },
   /** learnHerb: "unknown" (a random herb the Notebook doesn't know) | herb id. */
   learnHerb: (s, which, ctx) => {
