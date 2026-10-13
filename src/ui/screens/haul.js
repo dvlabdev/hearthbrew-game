@@ -3,7 +3,7 @@
 import { art } from '../../art/registry.js';
 import { HAUL, traitName } from '../../content/index.js';
 import { t as tr, tn } from '../../content/strings.js';
-import { applyHaul, knows, logPhase } from '../../core/day.js';
+import { dispatch, knows, logPhase } from '../../core/day.js';
 import { pickedItem, slotsUsed } from '../../core/haul.js';
 import { findTile } from '../components.js';
 import { hud, clue, shelfStrip, herbName, H } from './common.js';
@@ -63,7 +63,7 @@ export function haul(s, go) {
       const i = Number(/** @type {HTMLElement} */ (b).dataset.unpick); picks = picks.filter((_, j) => j !== i); rerender(root);
     }));
     root.querySelector('[data-close]')?.addEventListener('click', () => { detail = null; rerender(root); });
-    root.querySelector('[data-home]')?.addEventListener('click', () => go(applyHaul(logPhase(s, 'haul', performance.now() - started), picks)));
+    root.querySelector('[data-home]')?.addEventListener('click', () => go(dispatch(logPhase(s, 'haul', performance.now() - started), { type: 'takeHaul', picks })));
   };
   /** @param {HTMLElement} root */
   const rerender = root => { const y = window.scrollY; root.innerHTML = html(); wire(root); window.scrollTo(0, y); };

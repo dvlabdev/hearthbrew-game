@@ -6,7 +6,7 @@ import { t } from '../content/strings.js';
 import { validateContent } from '../content/validate.js';
 import { SAVE_VERSION, newGame } from '../core/state.js';
 import { save, load } from '../core/save.js';
-import { startDay, chooseCard, applyHaul, resolveEvent, runShop, endDay, nextDay } from '../core/day.js';
+import { startDay, dispatch } from '../core/day.js';
 import { STRATEGIES } from '../sim/haulSim.js';
 import { makeRng } from '../core/rng.js';
 import { morning } from './screens/morning.js';
@@ -23,9 +23,12 @@ function botTo(seed, toDay) {
   while (s.day < toDay) {
     const t = /** @type {NonNullable<GameState['today']>} */ (s.today);
     const exp = t.offer.findIndex(c => c.type === 'expedition');
-    s = chooseCard(s, Math.max(0, exp));
-    if (s.today?.phase === 'haul') s = resolveEvent(applyHaul(s, STRATEGIES.planner(s.shelf, { ...t }, rng)), 0);
-    s = nextDay(endDay(runShop(s)));
+    s = dispatch(s, { type: 'chooseCard', index: Math.max(0, exp), buy: t.offer[Math.max(0, exp)].offers?.[0] });
+    if (s.today?.phase === 'haul') {
+      s = dispatch(s, { type: 'takeHaul', picks: STRATEGIES.planner(s.shelf, { ...t }, rng) });
+      s = dispatch(s, { type: 'resolveEvent', choice: 0 });
+    }
+    s = dispatch(dispatch(s, { type: 'openShop' }), { type: 'sleep' });
   }
   return s;
 }

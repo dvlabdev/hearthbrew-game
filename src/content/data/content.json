@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "start": {
     "days": 20,
     "coins": 0,
@@ -917,31 +917,72 @@
         "weight": 3,
         "title": "Expedition: {trail}",
         "text": "Walk the trail and choose your haul.",
-        "art": "weather"
+        "art": "weather",
+        "action": "haul"
       },
       "garden": {
         "weight": 2,
         "title": "Tend the garden",
         "text": "Harvest what your plots have grown.",
-        "art": "ingredient:chamomile"
-      },
-      "market": {
-        "weight": 1.5,
-        "title": "Market day",
-        "text": "Buy one herb at the stalls.",
-        "art": "ui:coin"
+        "art": "ingredient:chamomile",
+        "effects": [
+          {
+            "addHerbs": [
+              "chamomile",
+              "mint"
+            ]
+          }
+        ],
+        "note": "note.garden"
       },
       "errand": {
         "weight": 1.5,
         "title": "Village errand",
         "text": "Lend a hand in Thornwick.",
-        "art": "ingredient:honey"
+        "art": "ingredient:honey",
+        "effects": [
+          {
+            "friend": "random"
+          },
+          {
+            "coins": 8
+          }
+        ],
+        "note": "note.errand",
+        "texts": [
+          "{who} needed a hand with the washing line.",
+          "You carried {who}'s parcels up the hill.",
+          "{who} asked you to mind the stall for an hour."
+        ]
+      },
+      "market": {
+        "weight": 1.5,
+        "title": "Market day",
+        "text": "Buy one herb at the stalls.",
+        "art": "ui:coin",
+        "when": "canBuyHerb",
+        "action": "buyHerb",
+        "markup": 2,
+        "offers": 3,
+        "note": "note.market"
       },
       "study": {
         "weight": 1,
         "title": "Wren's study",
         "text": "An hour with the old Notebook.",
-        "art": "ingredient:sage"
+        "art": "ingredient:sage",
+        "when": "unknownHerb",
+        "effects": [
+          {
+            "learnHerb": "unknown"
+          }
+        ],
+        "note": "note.study",
+        "texts": [
+          "Wren's margin note: “{herb}, see the second page.”",
+          "A pressed {herb} falls out of the Notebook, with a note.",
+          "Wren's handwriting, faded: “{herb}: remember this one.”"
+        ]
       }
     },
     "trails": [
@@ -954,34 +995,24 @@
       "Bramble Lane",
       "the Holloway",
       "Wisp Fen"
-    ],
-    "garden": {
-      "plots": [
-        "chamomile",
-        "mint"
-      ]
-    },
-    "market": {
-      "markup": 2,
-      "offers": 3
-    },
-    "errand": {
-      "coins": 8,
-      "texts": [
-        "{who} needed a hand with the washing line.",
-        "You carried {who}'s parcels up the hill.",
-        "{who} asked you to mind the stall for an hour."
-      ]
-    },
-    "study": {
-      "texts": [
-        "Wren's margin note: “{herb}, see the second page.”",
-        "A pressed {herb} falls out of the Notebook, with a note.",
-        "Wren's handwriting, faded: “{herb}: remember this one.”"
-      ]
-    }
+    ]
   },
   "events": {
+    "draw": [
+      {
+        "kind": "encounter",
+        "weight": 1
+      },
+      {
+        "kind": "discovery",
+        "weight": 1
+      },
+      {
+        "kind": "spot",
+        "weight": 2
+      }
+    ],
+    "spotEvery": 2,
     "spot": [
       {
         "id": "chamomile-mayweed",
@@ -1001,14 +1032,21 @@
         "options": [
           {
             "label": "Share your lunch",
-            "effect": "friend",
-            "text": "They'll tell the village about you."
+            "text": "They'll tell the village about you.",
+            "effects": [
+              {
+                "friend": "random"
+              }
+            ]
           },
           {
             "label": "Point the way",
-            "effect": "coins",
-            "coins": 3,
-            "text": "They press a coin tip into your hand."
+            "text": "They press a coin tip into your hand.",
+            "effects": [
+              {
+                "coins": 3
+              }
+            ]
           }
         ]
       }
@@ -1018,10 +1056,13 @@
         "id": "wren-page",
         "title": "A page of Wren's notes",
         "text": "Tucked under a stone by the path, in Wren's hand: “Delicate flowers don't like a rolling boil.”",
-        "rule": "R1"
+        "effects": [
+          {
+            "learnRule": "R1"
+          }
+        ]
       }
-    ],
-    "spotEvery": 2
+    ]
   },
   "aliases": {
     "herb": {},

@@ -61,4 +61,30 @@
 
 /** @typedef {{ herb: string, nights: number, units?: number, value?: number, prime?: boolean, poor?: boolean }} StockItem */
 
+/** @typedef {Record<string, any>} Effect  one effect: { name: argument }, e.g. { "coins": 8 } (src/core/effects.js) */
+
+/**
+ * @typedef {object} CardDef        a morning card (content.morning.cards[type])
+ * @property {number} weight         how often it is dealt
+ * @property {string} title          may use {trail}
+ * @property {string} text
+ * @property {string} art            art id, or "weather" for today's weather
+ * @property {string} [when]         a condition (CONDITIONS in src/core/effects.js)
+ * @property {string} [action]       a behaviour beyond effects (CARD_ACTIONS in src/core/day.js)
+ * @property {Effect[]} [effects]    applied when chosen (cards without an action)
+ * @property {string} [note]         strings key for the story line, filled with the effects' vars and {text}
+ * @property {string[]} [texts]      one is drawn as {text}, filled with the same vars
+ * @property {number} [markup]       buyHerb: coins over a herb's value
+ * @property {number} [offers]       buyHerb: how many herbs the stalls show
+ */
+
+/**
+ * @typedef {object} Events
+ * @property {{ kind: string, weight: number }[]} draw   which kind follows a haul (EVENT_KINDS in src/core/day.js)
+ * @property {number} spotEvery
+ * @property {{ id: string, good: string, bad: string, feature: string, reward: string, right: string, wrong: string }[]} spot
+ * @property {{ id: string, title: string, text: string, options: { label: string, text: string, effects: Effect[] }[] }[]} encounter
+ * @property {{ id: string, title: string, text: string, effects: Effect[] }[]} discovery
+ */
+
 export {};

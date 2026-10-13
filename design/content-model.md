@@ -1,4 +1,4 @@
-# Content model (content v4, 2026-10-13)
+# Content model (content v4–v5, 2026-10-13)
 
 All game content lives in `src/content/data/content.json`. Code reads it through `src/content/index.js` and never hard-codes content ids, numbers or player text. This is audit Direction 1 (`design/audit-2026-10-12.md`).
 
@@ -24,6 +24,7 @@ An **ingredient** is the single entity for a plant or material:
   - `garden` (plot count);
   - `owned`.
 - **`morning.cards[type].art`:** the art id for the card; `"weather"` means today's weather.
+- **What cards, encounters and discoveries *do*** is declared as effects (content v5). The garden's plots, the errand's coins and the market's markup now live on their cards; see `design/effects.md`.
 - **`bases.<id>.default: true`:** the base used when none is chosen (spring water).
 - **Brewing rule R4** keys on the `sweetener` tag, not on an id.
 - `relationships` in a new game cover exactly the `customers`.

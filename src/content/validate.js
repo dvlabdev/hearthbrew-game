@@ -2,7 +2,13 @@
 // Pure: takes the parsed content.json and returns readable errors ([] = valid). Run by the tests and shown in ?debug.
 
 const RARITIES = ['common', 'uncommon', 'rare'];
-const EFFECTS = ['coins', 'friend'];
+// The behaviour vocabulary content may use. Kept in sync with the core registries by tests/effects.test.js.
+export const VOCAB = {
+  effects: ['coins', 'friend', 'addHerbs', 'learnHerb', 'learnRule'],   // src/core/effects.js EFFECTS
+  conditions: ['canBuyHerb', 'unknownHerb'],                             // src/core/effects.js CONDITIONS
+  cardActions: ['haul', 'buyHerb'],                                      // src/core/day.js CARD_ACTIONS
+  eventKinds: ['spot', 'encounter', 'discovery'],                        // src/core/day.js EVENT_KINDS
+};
 const RULE_TAGS = ['real', 'exaggerated', 'magic'];
 
 /** @param {any} c parsed content.json @returns {string[]} */
@@ -16,6 +22,22 @@ export function validateContent(c) {
   const isHerb = (/** @type {string} */ id) => isIng(id) && !!ING[id].forage;
   const vec = (/** @type {string} */ where, /** @type {any} */ v) => {
     if (!Array.isArray(v) || v.length !== 4 || !v.every(Number.isInteger)) err(where, 'vec must be 4 integers');
+  };
+  const strings = c.strings || {};
+  /** Check a list of effects (see VOCAB.effects and src/core/effects.js). @param {string} where @param {any} list */
+  const effects = (where, list) => {
+    if (!Array.isArray(list)) { err(where, 'effects must be a list'); return; }
+    list.forEach((/** @type {any} */ e, i) => {
+      const w = `${where}[${i}]`, keys = Object.keys(e || {});
+      if (keys.length !== 1) { err(w, 'an effect has exactly one name, e.g. { "coins": 3 }'); return; }
+      const [name] = keys, arg = e[name];
+      if (!VOCAB.effects.includes(name)) err(w, `unknown effect "${name}"`);
+      else if (name === 'coins' && !Number.isInteger(arg)) err(w, 'coins must be an integer');
+      else if (name === 'friend' && arg !== 'random' && !Object.hasOwn(CUST, arg)) err(w, `unknown customer "${arg}"`);
+      else if (name === 'addHerbs' && !(Array.isArray(arg) && arg.length && arg.every(isHerb))) err(w, `addHerbs needs foraged herbs, got ${JSON.stringify(arg)}`);
+      else if (name === 'learnHerb' && arg !== 'unknown' && !isHerb(arg)) err(w, `"${arg}" is not a foraged herb`);
+      else if (name === 'learnRule' && !ruleIds.includes(arg)) err(w, `unknown rule "${arg}"`);
+    });
   };
   const dupes = (/** @type {string} */ where, /** @type {string[]} */ ids) => {
     for (const id of new Set(ids.filter((x, i) => ids.indexOf(x) !== i))) err(where, `duplicate id "${id}"`);
@@ -77,11 +99,23 @@ export function validateContent(c) {
     if (!(card.weight > 0)) err(`morning.cards.${id}`, 'weight must be > 0');
     if (!card.title || !card.text) err(`morning.cards.${id}`, 'missing title or text');
     if (!card.art) err(`morning.cards.${id}`, 'missing art');
+    const w = `morning.cards.${id}`;
+    if (card.when && !VOCAB.conditions.includes(card.when)) err(w, `unknown condition "${card.when}"`);
+    if (card.action && !VOCAB.cardActions.includes(card.action)) err(w, `unknown action "${card.action}"`);
+    if (!card.action) effects(`${w}.effects`, card.effects);
+    else if (card.effects) err(w, 'a card has an action or effects, not both');
+    if (card.action === 'buyHerb' && !(Number.isInteger(card.markup) && card.offers > 0)) err(w, 'buyHerb needs markup and offers');
+    if (card.note && !Object.hasOwn(strings, card.note)) err(`${w}.note`, `no string "${card.note}"`);
+    if (card.texts && !(Array.isArray(card.texts) && card.texts.length && card.texts.every((/** @type {any} */ x) => typeof x === 'string'))) err(`${w}.texts`, 'must be a non-empty list of text');
   }
-  for (const h of m.garden?.plots || []) if (!isHerb(h)) err('morning.garden.plots', `"${h}" is not a foraged herb`);
   if (!(m.trails || []).length) err('morning.trails', 'needs at least one trail');
 
   const ev = c.events || {};
+  for (const d of ev.draw || []) {
+    if (!VOCAB.eventKinds.includes(d.kind)) err('events.draw', `unknown kind "${d.kind}"`);
+    if (!(Number.isInteger(d.weight) && d.weight > 0)) err('events.draw', `${d.kind}: weight must be a positive integer`);
+  }
+  if (!(ev.draw || []).length) err('events.draw', 'needs at least one kind');
   dupes('events', ['spot', 'encounter', 'discovery'].flatMap(k => (ev[k] || []).map((/** @type {any} */ e) => e.id)));
   for (const e of ev.spot || []) {
     const w = `events.spot.${e.id}`;
@@ -91,9 +125,12 @@ export function validateContent(c) {
   }
   for (const e of ev.encounter || []) {
     if (!(e.options || []).length) err(`events.encounter.${e.id}`, 'needs options');
-    for (const o of e.options || []) if (!EFFECTS.includes(o.effect)) err(`events.encounter.${e.id}`, `unknown effect "${o.effect}"`);
+    (e.options || []).forEach((/** @type {any} */ o, i) => effects(`events.encounter.${e.id}.options[${i}].effects`, o.effects));
   }
-  for (const e of ev.discovery || []) if (!ruleIds.includes(e.rule)) err(`events.discovery.${e.id}`, `unknown rule "${e.rule}"`);
+  for (const e of ev.discovery || []) {
+    effects(`events.discovery.${e.id}.effects`, e.effects);
+    if (!(e.effects || []).some((/** @type {any} */ x) => x.learnRule || x.learnHerb)) err(`events.discovery.${e.id}`, 'a discovery must teach something (learnRule or learnHerb)');
+  }
 
   // Aliases: old id -> an id that exists; the old id must be gone
   const targets = /** @type {Record<string, Record<string, unknown>>} */ ({ herb: ING, customer: CUST });

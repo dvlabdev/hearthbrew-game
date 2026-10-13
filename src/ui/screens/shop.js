@@ -2,7 +2,7 @@
 import { art } from '../../art/registry.js';
 import { CUSTOMERS, START } from '../../content/index.js';
 import { t as tr } from '../../content/strings.js';
-import { runShop, endDay, nextDay } from '../../core/day.js';
+import { dispatch } from '../../core/day.js';
 import { hud, shelfStrip, herbName, custName } from './common.js';
 
 /** @typedef {import('../../core/state.js').GameState} GameState */
@@ -20,7 +20,7 @@ export function shop(s, go) {
     <p class="muted">${tr('shop.interim')}</p>
     <div class="dock"><button class="btn block" type="button" data-open>${tr('shop.open')}</button></div></section>`;
   /** @param {HTMLElement} root */
-  const wire = root => root.querySelector('[data-open]')?.addEventListener('click', () => go(endDay(runShop(s))));
+  const wire = root => root.querySelector('[data-open]')?.addEventListener('click', () => go(dispatch(s, { type: 'openShop' })));
   return { html, wire };
 }
 
@@ -40,6 +40,6 @@ export function nightRecap(s, go) {
     <p class="hand">${s.day >= START.days ? tr('night.finale') : tr('night.left', { n: START.days - s.day })}</p>
     <div class="dock"><button class="btn block" type="button" data-sleep>${tr('night.sleep')}</button></div></section>`;
   /** @param {HTMLElement} root */
-  const wire = root => root.querySelector('[data-sleep]')?.addEventListener('click', () => go(nextDay(s)));
+  const wire = root => root.querySelector('[data-sleep]')?.addEventListener('click', () => go(dispatch(s, { type: 'sleep' })));
   return { html, wire };
 }

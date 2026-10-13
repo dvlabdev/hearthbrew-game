@@ -21,9 +21,9 @@ export const SAVE_VERSION = 3;
  */
 
 /**
- * @typedef {'expedition' | 'garden' | 'market' | 'errand' | 'study'} CardType
+ * @typedef {string} CardType   a key of content.morning.cards
  * @typedef {{ type: CardType, title: string, text: string, offers?: string[] }} Card
- * @typedef {{ kind: 'spot' | 'encounter' | 'discovery', id: string, choice?: number, right?: boolean }} EventState
+ * @typedef {{ kind: string, id: string, choice?: number, right?: boolean }} EventState   kind: a key of EVENT_KINDS
  * @typedef {object} Today
  * @property {'morning' | 'haul' | 'event' | 'shop' | 'night'} phase
  * @property {string} weather

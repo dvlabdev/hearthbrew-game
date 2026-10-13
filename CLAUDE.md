@@ -29,7 +29,7 @@ npm cannot install packages on Google Drive's streaming disk (EBADF), so the pro
   - `npm run typecheck` runs TypeScript over `src/` (this needs a download; CI runs it).
 - **Layout:**
   - `src/core` holds pure rules, with no DOM.
-  - `src/content/data/content.json` is the single content source (schema: `design/content-model.md`). No content ids, numbers or player text in code: player text goes through `t()` (`src/content/strings.js`), and `validateContent()` must pass (`?debug` shows it).
+  - `src/content/data/content.json` is the single content source (schema: `design/content-model.md`). No content ids, numbers or player text in code: player text goes through `t()` (`src/content/strings.js`), and `validateContent()` must pass (`?debug` shows it). Card, encounter and discovery behaviour is data in the effects vocabulary; the UI changes state only through `dispatch()` (`design/effects.md`).
   - `src/art` is the art registry plus style packs (`styles/<id>/index.js` + `style.css`). **Screens use only `art(id)`.**
   - `src/sim` holds the simulations; `src/ui` the screens and CSS.
 - **Reference:**

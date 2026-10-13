@@ -14,14 +14,17 @@ test('content.json passes validation', () => {
 test('validation names the broken reference', () => {
   /** @type {any} */ const c = structuredClone(CONTENT);
   c.events.spot[0].reward = 'lavendr';
-  c.morning.garden.plots.push('honey');                     // an ingredient, but not a foraged herb
-  c.events.discovery[0].rule = 'R99';
+  c.morning.cards.garden.effects[0].addHerbs.push('honey');   // an ingredient, but not a foraged herb
+  c.events.discovery[0].effects[0].learnRule = 'R99';
+  c.morning.cards.errand.effects.push({ teleport: 1 });
+  c.morning.cards.market.action = 'haggle';
+  c.events.encounter[0].options[0].effects = [{ friend: 'bramble' }];
   c.weather.sun.prime.push('moss');
   c.ingredients.mint.forage.slots = 3;
   c.aliases.herb.oldmint = 'mintt';
   c.strings['hud.day'] = 'Day {day';
   const errors = validateContent(c);
-  for (const needle of ['"lavendr"', '"honey" is not a foraged herb', '"R99"', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
+  for (const needle of ['"lavendr"', 'addHerbs needs foraged herbs', '"R99"', 'unknown effect "teleport"', 'unknown action "haggle"', 'unknown customer "bramble"', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
     assert.ok(errors.some(e => e.includes(needle)), `expected an error mentioning ${needle}; got:\n${errors.join('\n')}`);
 });
 
