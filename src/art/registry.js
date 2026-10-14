@@ -68,7 +68,7 @@ export function requiredIds() {
   return [...new Set([
     ...TRAIT_IDS.map(t => `trait:${t}`),
     ...Object.keys(INGREDIENTS).map(i => `ingredient:${i}`),
-    ...[...Object.keys(CUSTOMERS), 'bramble', 'traveller'].map(c => `portrait:${c}`),
+    ...[...Object.keys(CUSTOMERS), 'traveller'].map(c => `portrait:${c}`),
     ...Object.keys(WEATHER).map(w => `weather:${w}`),
     ...Object.values(MORNING.cards).map(c => c.art).filter(a => a !== 'weather'),
     ...EVENTS.spot.flatMap(e => [`plant:${e.good}`, `plant:${e.bad}`]),

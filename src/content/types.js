@@ -57,6 +57,8 @@
  * @property {string} name
  * @property {TraitId} trait
  * @property {string} clue
+ * @property {boolean} regular      regulars have relationship points and story beats; walk-ins don't
+ * @property {number} [firstDay]    the first day they can visit (default 1)
  */
 
 /** @typedef {{ herb: string, nights: number, units?: number, value?: number, prime?: boolean, poor?: boolean }} StockItem */

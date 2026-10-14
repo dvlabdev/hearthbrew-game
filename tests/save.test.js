@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { newGame, SAVE_VERSION } from '../src/core/state.js';
 import { save, load, migrate } from '../src/core/save.js';
 import { startDay, chooseCard } from '../src/core/day.js';
-import { ALIASES, CUSTOMERS } from '../src/content/index.js';
+import { ALIASES, CUSTOMERS, REGULARS } from '../src/content/index.js';
 
 /** In-memory stand-in for localStorage. */
 function memoryStorage() {
@@ -36,19 +36,29 @@ test('load survives missing or broken storage', () => {
   assert.equal(save(newGame(), broken), false);
 });
 
-test('v2 -> v3: relationships cover exactly the customers in content', () => {
+test('v2 -> v3: relationships cover exactly the regulars, and Bramble keeps their points', () => {
   const g = newGame(5);
   const v2 = { ...g, saveVersion: 2, relationships: { marla: 2, pell: 1, fennick: 0, bramble: 4 } };
   const m = migrate(v2);
   assert.equal(m.saveVersion, 3);
-  assert.deepEqual(Object.keys(m.relationships).sort(), Object.keys(CUSTOMERS).sort());
+  assert.deepEqual(Object.keys(m.relationships).sort(), [...REGULARS].sort());
   assert.equal(m.relationships.marla, 2);
-  assert.equal(m.relationships.tamsin, 0);
-  assert.ok(!('bramble' in m.relationships));
+  assert.equal(m.relationships.bramble, 4, 'Bramble is a regular (GDD section 6)');
+  assert.ok(!('tamsin' in m.relationships), 'Old Tamsin is a walk-in');
 });
 
-test('a new game starts with every customer and nothing else', () => {
-  assert.deepEqual(Object.keys(newGame().relationships).sort(), Object.keys(CUSTOMERS).sort());
+test('a new game starts with every regular and no walk-in', () => {
+  assert.deepEqual(Object.keys(newGame().relationships).sort(), [...REGULARS].sort());
+  assert.deepEqual([...REGULARS].sort(), ['bramble', 'fennick', 'marla', 'pell']);
+  assert.equal(CUSTOMERS.tamsin.regular, false);
+});
+
+test('a v3 save from before the regulars fix gets Bramble back and loses Tamsin on load', () => {
+  const st = memoryStorage();
+  const g = newGame(6);
+  st.setItem('hearthbrew-save', JSON.stringify({ ...g, relationships: { marla: 3, pell: 0, fennick: 1, tamsin: 2 } }));
+  const r = load(st);
+  assert.deepEqual(r?.relationships, { marla: 3, pell: 0, fennick: 1, bramble: 0 });
 });
 
 test('load repairs content ids: aliases rename, unknown ids are dropped', () => {

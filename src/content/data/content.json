@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "start": {
     "days": 20,
     "coins": 0,
@@ -893,22 +893,33 @@
     "marla": {
       "name": "Marla",
       "trait": "calm",
-      "clue": "something to quiet the mind"
+      "clue": "something to quiet the mind",
+      "regular": true
     },
     "pell": {
       "name": "Pell",
       "trait": "heat",
-      "clue": "something to chase off the chill"
+      "clue": "something to chase off the chill",
+      "regular": true
     },
     "fennick": {
       "name": "Fennick",
       "trait": "clarity",
-      "clue": "something to clear a foggy head"
+      "clue": "something to clear a foggy head",
+      "regular": true
     },
     "tamsin": {
       "name": "Old Tamsin",
       "trait": "vigor",
-      "clue": "something for tired old arms"
+      "clue": "something for tired old arms",
+      "regular": false
+    },
+    "bramble": {
+      "name": "Bramble",
+      "trait": "heat",
+      "clue": "coals gone grey: chase the chill away",
+      "regular": true,
+      "firstDay": 8
     }
   },
   "morning": {

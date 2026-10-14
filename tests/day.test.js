@@ -95,3 +95,27 @@ test('v1 saves migrate to v2 with no day in progress', () => {
   assert.equal(m.today, null);
   assert.ok(m.shelf.length > 0, 'an empty shelf gets the starting stock');
 });
+
+test('Bramble visits from day 8, never before; the walk-in Tamsin from day 1', async () => {
+  const { customersOn } = await import('../src/content/index.js');
+  assert.ok(!customersOn(7).includes('bramble'));
+  assert.ok(customersOn(8).includes('bramble'));
+  assert.ok(customersOn(1).includes('tamsin'));
+  /** @param {number} day */
+  const seen = day => { const who = new Set(); for (let seed = 1; seed <= 150; seed++) { const t = startDay({ ...newGame(seed), day }).today; if (t) for (const v of [t.featured, ...t.others]) who.add(v.who); } return who; };
+  assert.ok(!seen(5).has('bramble'), 'not before day 8');
+  assert.ok(seen(9).has('bramble'), 'Bramble turns up from day 8');
+});
+
+test('serving a walk-in as the featured customer adds no relationship', () => {
+  let s = startDay(newGame(2));
+  if (!s.today) throw new Error('no day');
+  s.today.featured = { who: 'tamsin', units: 1 };
+  s.today.phase = 'shop';
+  s.shelf = [...s.shelf, { herb: 'nettle', nights: 3 }, { herb: 'rosehip', nights: 3 }];
+  const before = { ...s.relationships };
+  const after = runShop(s);
+  assert.equal(after.today?.shop?.served[0], true, 'Tamsin was served');
+  assert.deepEqual(Object.keys(after.relationships).sort(), Object.keys(before).sort(), 'no entry for a walk-in');
+  assert.ok(!('tamsin' in after.relationships));
+});

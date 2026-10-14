@@ -1,5 +1,5 @@
 // Game state: a plain, serializable object. Systems are pure functions over it.
-import { VERSION, CUSTOMERS, START } from '../content/index.js';
+import { VERSION, REGULARS, START } from '../content/index.js';
 
 export const SAVE_VERSION = 3;
 
@@ -52,7 +52,7 @@ export function newGame(seed = 1) {
     shelf: START.shelf.map(s => ({ ...s })),
     garden: Array.from({ length: START.garden }, () => ({ plant: null, age: 0, tended: false })),
     notebook: { known: {}, decoded: [], rules: [], recipes: [] },
-    relationships: Object.fromEntries(Object.keys(CUSTOMERS).map(id => [id, 0])),
+    relationships: Object.fromEntries(REGULARS.map(id => [id, 0])),
     owned: START.owned.slice(),
     today: null,
     lastSpotDay: -9,

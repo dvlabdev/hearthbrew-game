@@ -13,7 +13,7 @@ M1 setup is done (core, tests, sims, art library, shell). **The code audit is cl
   - the design system (`src/ui/tokens.css`, `components.css`, `?components`);
   - the playable mornings with an interim shop (`design/morning.md`).
 - **Gated:** the sell phase, brewing, riddle and Notebook screens wait for the user's prototype B verdict.
-- **Next without a gate:** the regulars fix (Bramble is the 4th regular, Tamsin a walk-in).
+- **Done 2026-10-14:** the regulars fix (Bramble is the 4th regular from day 8, Tamsin a walk-in; `design/game-flow.md` §9b).
 - **Paths:** throwaway prototypes go in `prototypes/`; content lives in `src/content/data/content.json`.
 
 ## Design rules

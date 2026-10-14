@@ -27,7 +27,7 @@ An **ingredient** is the single entity for a plant or material:
 - **What cards, encounters and discoveries *do*** is declared as effects (content v5). The garden's plots, the errand's coins and the market's markup now live on their cards; see `design/effects.md`.
 - **`bases.<id>.default: true`:** the base used when none is chosen (spring water).
 - **Brewing rule R4** keys on the `sweetener` tag, not on an id.
-- `relationships` in a new game cover exactly the `customers`.
+- **Customers:** each has `regular` (`true`: relationship points, story beats; `false`: a walk-in like Old Tamsin) and an optional `firstDay` (Bramble: day 8). `REGULARS` and `customersOn(day)` in `src/content/index.js` derive the lists. `relationships` in a new game cover exactly the regulars (`design/game-flow.md` §9b).
 
 ## Strings
 - **`strings`** is a flat map of dotted keys to text with `{placeholders}`. Light inline markup (`<b>`, `<small>`) is allowed; it's trusted content.

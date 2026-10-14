@@ -18,13 +18,13 @@ test('validation names the broken reference', () => {
   c.events.discovery[0].effects[0].learnRule = 'R99';
   c.morning.cards.errand.effects.push({ teleport: 1 });
   c.morning.cards.market.action = 'haggle';
-  c.events.encounter[0].options[0].effects = [{ friend: 'bramble' }];
+  c.events.encounter[0].options[0].effects = [{ friend: 'wren' }, { friend: 'tamsin' }];
   c.weather.sun.prime.push('moss');
   c.ingredients.mint.forage.slots = 3;
   c.aliases.herb.oldmint = 'mintt';
   c.strings['hud.day'] = 'Day {day';
   const errors = validateContent(c);
-  for (const needle of ['"lavendr"', 'addHerbs needs foraged herbs', '"R99"', 'unknown effect "teleport"', 'unknown action "haggle"', 'unknown customer "bramble"', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
+  for (const needle of ['"lavendr"', 'addHerbs needs foraged herbs', '"R99"', 'unknown effect "teleport"', 'unknown action "haggle"', 'unknown customer "wren"', '"tamsin" is a walk-in', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
     assert.ok(errors.some(e => e.includes(needle)), `expected an error mentioning ${needle}; got:\n${errors.join('\n')}`);
 });
 

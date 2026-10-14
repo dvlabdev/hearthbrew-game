@@ -18,14 +18,14 @@ test('each effect does what it says and exposes its vars', () => {
   const s = startDay(newGame(3));
   const ctx = { rng: makeRng(1) };
   const coins = s.coins, shelf = s.shelf.length;
-  const v = applyEffects(s, [{ coins: 5 }, { friend: 'tamsin' }, { addHerbs: ['mint'] }, { learnHerb: 'glowcap' }, { learnRule: 'R2' }], ctx);
+  const v = applyEffects(s, [{ coins: 5 }, { friend: 'bramble' }, { addHerbs: ['mint'] }, { learnHerb: 'glowcap' }, { learnRule: 'R2' }], ctx);
   assert.equal(s.coins, coins + 5);
-  assert.equal(s.relationships.tamsin, 1);
+  assert.equal(s.relationships.bramble, 1);
   assert.equal(s.shelf.length, shelf + 1);
   assert.deepEqual(s.today?.gained, ['mint']);
   assert.ok(s.notebook.known.glowcap);
   assert.deepEqual(s.notebook.rules, ['R2']);
-  assert.deepEqual(v, { coins: 5, who: CUSTOMERS.tamsin.name, herb: 'Glowcap', trait: 'Clarity' });
+  assert.deepEqual(v, { coins: 5, who: CUSTOMERS.bramble.name, herb: 'Glowcap', trait: 'Clarity' });
   const r = applyEffects(s, [{ friend: 'random' }, { learnHerb: 'unknown' }], ctx);
   assert.ok(typeof r.who === 'string' && typeof r.herb === 'string');
 });

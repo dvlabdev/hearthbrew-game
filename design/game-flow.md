@@ -111,8 +111,15 @@ All eight went to the recommended option. The alternative is kept for the record
 | D7 | Unlock pacing | **As content-bible §10** (garden day 2, cards day 3, one verb a day from day 4) | Everything available from day 1 |
 | D8 | When the bot-play runs | **After the sell phase is built** (it needs brewing to measure anything) | Earlier, on the interim loop |
 
+## 9b. Regulars and walk-ins (D1, built 2026-10-14)
+- **Regulars:** Marla, Pell, Fennick and **Bramble**. They have relationship points (never decreasing), story beats and festival donations. A customer in content has `regular: true`.
+- **Walk-ins:** villagers without relationships, e.g. **Old Tamsin** the farmer (`regular: false`). Generated walk-ins from templates come with riddles (GDD §6).
+- **When a customer starts visiting:** `firstDay` (default 1). **Bramble's requests start on day 8** (content-bible §10); Bramble is the tutorial voice before that (D5, not built yet). The customer pool for day N is everyone with `firstDay ≤ N`, in content order. The sims use day 1's pool, so their validated numbers don't change.
+- **Relationships:** only for regulars. Serving the featured customer adds +1 only when they are a regular. A "friend" effect picks among the regulars.
+- **Saves:** content changes, not schema. `repairIds()` rebuilds relationships over the regulars on load: Bramble returns (at 0, or with the points of a v2 save), and Tamsin's entry is dropped.
+
 ## 10. Next build steps (each has a gate)
-1. **Regulars fix (D1):** content, a save migration, tests. No gate.
+1. ✅ **Regulars fix (D1):** done 2026-10-14 (§9b).
 2. **The sell phase and brewing bench** (§3–4): needs the **prototype B verdict** (the riddle and Notebook design).
 3. **The night ledger and tomorrow's teaser** (D4, D6).
 4. **Day 1 script and unlock pacing** (D5, D7).

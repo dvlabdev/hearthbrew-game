@@ -42,6 +42,11 @@ export const FORAGE = Object.fromEntries(Object.entries(INGREDIENTS)
   .filter(([, ing]) => ing.forage)
   .map(([id, ing]) => [id, { name: ing.name, trait: TRAIT_IDS[mainTrait(ing.vec)], .../** @type {import('./types.js').Forage} */ (ing.forage) }]));
 
+/** Regulars (relationship points, story beats, donations), in content order. Walk-ins are customers with regular: false. */
+export const REGULARS = Object.keys(CUSTOMERS).filter(id => CUSTOMERS[id].regular);
+/** Customers who can visit on a given day (firstDay, default 1), in content order. @param {number} [day] */
+export const customersOn = (day = 1) => Object.keys(CUSTOMERS).filter(id => (CUSTOMERS[id].firstDay ?? 1) <= day);
+
 /** Display name of a herb or plant. @param {string} id */
 export const herbName = id => INGREDIENTS[id]?.name ?? PLANTS[id]?.name ?? id;
 /** Display name of a trait. @param {string} id */

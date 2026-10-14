@@ -34,6 +34,7 @@ export function validateContent(c) {
       if (!VOCAB.effects.includes(name)) err(w, `unknown effect "${name}"`);
       else if (name === 'coins' && !Number.isInteger(arg)) err(w, 'coins must be an integer');
       else if (name === 'friend' && arg !== 'random' && !Object.hasOwn(CUST, arg)) err(w, `unknown customer "${arg}"`);
+      else if (name === 'friend' && arg !== 'random' && !CUST[arg].regular) err(w, `"${arg}" is a walk-in: only regulars have relationships`);
       else if (name === 'addHerbs' && !(Array.isArray(arg) && arg.length && arg.every(isHerb))) err(w, `addHerbs needs foraged herbs, got ${JSON.stringify(arg)}`);
       else if (name === 'learnHerb' && arg !== 'unknown' && !isHerb(arg)) err(w, `"${arg}" is not a foraged herb`);
       else if (name === 'learnRule' && !ruleIds.includes(arg)) err(w, `unknown rule "${arg}"`);
@@ -82,9 +83,14 @@ export function validateContent(c) {
   }
 
   for (const [id, cu] of Object.entries(CUST)) {
+    if (typeof cu.regular !== 'boolean') err(`customers.${id}`, 'regular must be true or false');
+    if (cu.firstDay != null && !(Number.isInteger(cu.firstDay) && cu.firstDay >= 1)) err(`customers.${id}`, 'firstDay must be an integer >= 1');
     if (!cu.name) err(`customers.${id}`, 'missing name');
     if (!traitIds.includes(cu.trait)) err(`customers.${id}`, `unknown trait "${cu.trait}"`);
   }
+
+  if (!Object.values(CUST).some((/** @type {any} */ cu) => cu.regular)) err('customers', 'there must be at least one regular');
+  if (!Object.values(CUST).some((/** @type {any} */ cu) => (cu.firstDay ?? 1) === 1)) err('customers', 'someone must be able to visit on day 1');
 
   const st = c.start || {};
   if (!(Number.isInteger(st.days) && st.days > 0)) err('start.days', 'must be a positive integer');

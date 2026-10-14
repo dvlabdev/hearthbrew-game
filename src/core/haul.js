@@ -1,10 +1,10 @@
 // Choose-your-haul rules (design/expedition.md). Port of tools/haul_sim.py, checked against it by tests.
-import { HAUL, FORAGE, WEATHER, CUSTOMERS, START } from '../content/index.js';
+import { HAUL, FORAGE, WEATHER, CUSTOMERS, START, customersOn } from '../content/index.js';
 import { pick, pickWeighted } from './rng.js';
 
 /** @typedef {import('../content/types.js').StockItem} StockItem */
 
-const H = FORAGE, NAMES = Object.keys(H), CUST = Object.keys(CUSTOMERS), WKEYS = Object.keys(WEATHER);
+const H = FORAGE, NAMES = Object.keys(H), WKEYS = Object.keys(WEATHER);
 
 /** @typedef {{ weather: string, featured: {who: string, units: number}, finds: string[], others: {who: string, units: number}[] }} Day */
 
@@ -94,9 +94,11 @@ export function playDay(stock, day, picks) {
  * `rng` is one generator (the sims: draws happen in the validated order weather, featured, finds, others) or, in the game,
  * one named stream per part, so a change in how finds are drawn never shifts the weather or the customers.
  * @param {(() => number) | { weather: () => number, customers: () => number, finds: () => number }} rng
- * @param {StockItem[]} stock @returns {Day}
+ * @param {StockItem[]} stock @param {number} [day]  who can visit depends on the day (customersOn); the sims use day 1
+ * @returns {Day}
  */
-export function genDay(rng, stock) {
+export function genDay(rng, stock, day = 1) {
+  const CUST = customersOn(day);
   const r = typeof rng === 'function' ? { weather: rng, customers: rng, finds: rng } : rng;
   const wk = pick(r.weather, WKEYS), w = WEATHER[wk];
   const pickCust = () => (w.skew && r.customers() < 0.5 ? pick(r.customers, CUST.filter(c => CUSTOMERS[c].trait === w.skew)) : pick(r.customers, CUST));

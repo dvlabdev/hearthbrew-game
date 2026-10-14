@@ -1,7 +1,7 @@
 // The effects vocabulary (design/effects.md): what cards, encounter options, discoveries and rewards *do*,
 // declared as data in content.json and applied by one interpreter. New content needs no code as long as it
 // uses these words; a genuinely new behaviour adds one entry here (and its name in src/content/validate.js).
-import { FORAGE, CUSTOMERS, herbName, traitName } from '../content/index.js';
+import { FORAGE, CUSTOMERS, REGULARS, herbName, traitName } from '../content/index.js';
 import { pickedItem } from './haul.js';
 import { pick } from './rng.js';
 
@@ -10,7 +10,6 @@ import { pick } from './rng.js';
 /** @typedef {{ rng: () => number }} Ctx */
 /** @typedef {Record<string, any>} Effect  one key: the effect name, its value: the argument, e.g. { "coins": 8 } */
 
-const REGULARS = Object.keys(CUSTOMERS);
 
 /** The Notebook learns a herb's trait (all four slots of its trait vector are known for v1). @param {GameState} s @param {string} herb */
 export function learn(s, herb) { s.notebook.known[herb] = [true, true, true, true]; }
@@ -25,7 +24,7 @@ export const knows = (s, herb) => !!s.notebook.known[herb];
 export const EFFECTS = {
   /** coins: n. Coins change hands (positive: earned). */
   coins: (s, n) => { s.coins += n; return { coins: n }; },
-  /** friend: "random" | customer id. That customer won't forget it (+1 relationship, never decreases). */
+  /** friend: "random" | regular id. That regular won't forget it (+1 relationship, never decreases). */
   friend: (s, who, ctx) => {
     const id = who === 'random' ? pick(ctx.rng, REGULARS) : who;
     s.relationships[id] = (s.relationships[id] || 0) + 1;

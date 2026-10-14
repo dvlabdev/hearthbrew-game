@@ -5,7 +5,7 @@
 // What cards and events *do* is data (content.json, in the effects vocabulary of ./effects.js); the few behaviours
 // that aren't plain effects live in the CARD_ACTIONS and EVENT_KINDS registries; PHASES + dispatch() are the one
 // place that says which action is allowed when (design/effects.md).
-import { MORNING, EVENTS, HAUL, WEATHER, herbName } from '../content/index.js';
+import { MORNING, EVENTS, HAUL, WEATHER, CUSTOMERS, herbName } from '../content/index.js';
 import { t as tr, fill } from '../content/strings.js';
 import { genDay, pickedItem, resolveShop, night, slotsUsed } from './haul.js';
 import { stream, pick, pickWeighted, shuffle } from './rng.js';
@@ -48,7 +48,7 @@ const eligible = s => Object.keys(MORNING.cards).filter(k => { const w = MORNING
 /** Start a day: weather, the customers, the finds (if you go out) and 3 morning cards. @param {GameState} state */
 export function startDay(state) {
   const s = clone(state);
-  const d = genDay({ weather: stream(s, 'day.weather'), customers: stream(s, 'day.customers'), finds: stream(s, 'day.finds') }, s.shelf);
+  const d = genDay({ weather: stream(s, 'day.weather'), customers: stream(s, 'day.customers'), finds: stream(s, 'day.finds') }, s.shelf, s.day);
   const rng = stream(s, 'morning.offer');   // which cards, their trail names, the market stalls
   const types = eligible(s);
   /** @type {string[]} */ const chosen = [];
@@ -160,7 +160,7 @@ export function runShop(state) {
   const r = resolveShop(s.shelf, t.featured, t.others);
   s.shelf = r.stock; s.coins += r.coins;
   t.shop = { coins: r.coins, served: r.served };
-  if (r.served[0]) s.relationships[t.featured.who] = (s.relationships[t.featured.who] || 0) + 1;
+  if (r.served[0] && CUSTOMERS[t.featured.who].regular) s.relationships[t.featured.who] = (s.relationships[t.featured.who] || 0) + 1;   // walk-ins have no relationship
   t.phase = 'night';
   return s;
 }

@@ -1,5 +1,5 @@
 // Versioned save/load. Every schema change adds a migration and a test (CLAUDE.md).
-import { ALIASES, CUSTOMERS, EVENTS, FORAGE, INGREDIENTS, WEATHER, VERSION } from '../content/index.js';
+import { ALIASES, CUSTOMERS, EVENTS, FORAGE, INGREDIENTS, REGULARS, WEATHER, VERSION } from '../content/index.js';
 import { SAVE_VERSION, newGame } from './state.js';
 import { START_STOCK } from './haul.js';
 import { startDay } from './day.js';
@@ -19,8 +19,9 @@ export const MIGRATIONS = {
   },
   // v1 -> v2 (2026-10-12): the playable day loop (design/morning.md). No day in progress; an empty shelf gets the starting stock.
   1: old => ({ ...old, shelf: old.shelf && old.shelf.length ? old.shelf : START_STOCK.map(s => ({ ...s })), today: null, lastSpotDay: -9, log: {}, saveVersion: 2 }),
-  // v2 -> v3 (2026-10-13): relationships cover exactly the customers in content (v2 had a stray "bramble" and no "tamsin").
-  2: old => ({ ...old, relationships: Object.fromEntries(Object.keys(CUSTOMERS).map(id => [id, old.relationships?.[id] ?? 0])), saveVersion: 3 }),
+  // v2 -> v3 (2026-10-13): relationships cover exactly the regulars in content (corrected 2026-10-14: Bramble is a regular,
+  // so a v2 save keeps Bramble's points; Old Tamsin is a walk-in and has none).
+  2: old => ({ ...old, relationships: Object.fromEntries(REGULARS.map(id => [id, old.relationships?.[id] ?? 0])), saveVersion: 3 }),
 };
 
 /**
@@ -36,7 +37,7 @@ export function repairIds(state) {
   s.shelf = (state.shelf || []).map(it => ({ ...it, herb: herb(it.herb) })).filter(it => FORAGE[it.herb]);
   s.notebook = { ...state.notebook, known: Object.fromEntries(Object.entries(state.notebook?.known || {}).map(([k, v]) => /** @type {[string, boolean[]]} */ ([herb(k), v])).filter(([k]) => INGREDIENTS[k])) };
   const rel = Object.fromEntries(Object.entries(state.relationships || {}).map(([k, v]) => [cust(k), v]));
-  s.relationships = Object.fromEntries(Object.keys(CUSTOMERS).map(id => [id, rel[id] ?? 0]));
+  s.relationships = Object.fromEntries(REGULARS.map(id => [id, rel[id] ?? 0]));   // regulars only (walk-ins have none)
   const t = state.today;
   if (t) {
     const herbs = [...t.finds, ...t.picks, ...t.gained].map(herb);
