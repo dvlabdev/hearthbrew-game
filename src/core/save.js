@@ -1,5 +1,5 @@
 // Versioned save/load. Every schema change adds a migration and a test (CLAUDE.md).
-import { ALIASES, CUSTOMERS, EVENTS, FORAGE, INGREDIENTS, REGULARS, WEATHER, VERSION } from '../content/index.js';
+import { ALIASES, CUSTOMERS, EVENTS, FORAGE, INGREDIENTS, REGULARS, START, WEATHER, VERSION } from '../content/index.js';
 import { SAVE_VERSION, newGame } from './state.js';
 import { START_STOCK } from './haul.js';
 import { startDay } from './day.js';
@@ -22,6 +22,14 @@ export const MIGRATIONS = {
   // v2 -> v3 (2026-10-13): relationships cover exactly the regulars in content (corrected 2026-10-14: Bramble is a regular,
   // so a v2 save keeps Bramble's points; Old Tamsin is a walk-in and has none).
   2: old => ({ ...old, relationships: Object.fromEntries(REGULARS.map(id => [id, old.relationships?.[id] ?? 0])), saveVersion: 3 }),
+  // v3 -> v4 (2026-10-14): the night ledger (design/night.md). Plots get their plants (empty ones take the starting plants, in order),
+  // and festival donations are recorded.
+  3: old => ({
+    ...old,
+    garden: (old.garden || []).map((/** @type {any} */ p, /** @type {number} */ i) => ({ ...p, plant: p.plant ?? START.garden[i] ?? null })),
+    donations: old.donations || [],
+    saveVersion: 4,
+  }),
 };
 
 /**
@@ -38,6 +46,8 @@ export function repairIds(state) {
   s.notebook = { ...state.notebook, known: Object.fromEntries(Object.entries(state.notebook?.known || {}).map(([k, v]) => /** @type {[string, boolean[]]} */ ([herb(k), v])).filter(([k]) => INGREDIENTS[k])) };
   const rel = Object.fromEntries(Object.entries(state.relationships || {}).map(([k, v]) => [cust(k), v]));
   s.relationships = Object.fromEntries(REGULARS.map(id => [id, rel[id] ?? 0]));   // regulars only (walk-ins have none)
+  s.garden = (state.garden || []).map(p => { const plant = p.plant == null ? null : herb(p.plant); return { ...p, plant: plant && FORAGE[plant] ? plant : null }; });
+  s.donations = (state.donations || []).map(cust).filter(id => REGULARS.includes(id));
   const t = state.today;
   if (t) {
     const herbs = [...t.finds, ...t.picks, ...t.gained].map(herb);

@@ -61,7 +61,7 @@ ${innerWidth}×${innerHeight}${errorsLine}`
 
   /** Mount a screen fresh: new local state, top of the page, focus on its title. @param {Screen} screen @param {GameState} s */
   const open = (screen, s) => {
-    mount(root, screen, s, go, { status });
+    mount(root, screen, s, go, { status, save });
     showDebug(s.today ? s : null);
     window.scrollTo(0, 0);
     /** @type {HTMLElement | null} */ (root.querySelector('h1'))?.focus({ preventScroll: true });

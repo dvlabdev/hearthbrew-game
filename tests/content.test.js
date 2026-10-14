@@ -14,7 +14,11 @@ test('content.json passes validation', () => {
 test('validation names the broken reference', () => {
   /** @type {any} */ const c = structuredClone(CONTENT);
   c.events.spot[0].reward = 'lavendr';
-  c.morning.cards.garden.effects[0].addHerbs.push('honey');   // an ingredient, but not a foraged herb
+  c.morning.cards.garden.effects = [{ addHerbs: ['chamomile', 'honey'] }];   // honey: an ingredient, but not a foraged herb
+  c.ledger.items[0].price = 0;
+  c.ledger.items[1].requires = 'plot99';
+  c.ledger.items[4].effects = [{ donate: 'tamsin' }];
+  c.start.garden = ['chamomile', 'glowcap'];
   c.events.discovery[0].effects[0].learnRule = 'R99';
   c.morning.cards.errand.effects.push({ teleport: 1 });
   c.morning.cards.market.action = 'haggle';
@@ -24,7 +28,7 @@ test('validation names the broken reference', () => {
   c.aliases.herb.oldmint = 'mintt';
   c.strings['hud.day'] = 'Day {day';
   const errors = validateContent(c);
-  for (const needle of ['"lavendr"', 'addHerbs needs foraged herbs', '"R99"', 'unknown effect "teleport"', 'unknown action "haggle"', 'unknown customer "wren"', '"tamsin" is a walk-in', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day'])
+  for (const needle of ['"lavendr"', 'addHerbs needs foraged herbs', '"R99"', 'unknown effect "teleport"', 'unknown action "haggle"', 'unknown customer "wren"', '"tamsin" is a walk-in', '"moss"', 'ingredients.mint.forage: slots', '"mintt"', 'strings.hud.day', 'ledger.items.plot3: price', 'requires unknown item "plot99"', 'donate needs a regular', `start.garden: "glowcap" can't grow`])
     assert.ok(errors.some(e => e.includes(needle)), `expected an error mentioning ${needle}; got:\n${errors.join('\n')}`);
 });
 

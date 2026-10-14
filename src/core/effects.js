@@ -7,12 +7,15 @@ import { pick } from './rng.js';
 
 /** @typedef {import('./state.js').GameState} GameState @typedef {import('./state.js').Today} Today */
 /** @typedef {Record<string, string | number>} Vars  values an effect exposes to the note text ({who}, {herb}, {trait}, {coins}) */
-/** @typedef {{ rng: () => number }} Ctx */
+/** @typedef {{ rng: () => number, choice?: string }} Ctx  choice: what the player picked when buying (a seed) */
 /** @typedef {Record<string, any>} Effect  one key: the effect name, its value: the argument, e.g. { "coins": 8 } */
 
 
 /** The Notebook learns a herb's trait (all four slots of its trait vector are known for v1). @param {GameState} s @param {string} herb */
-export function learn(s, herb) { s.notebook.known[herb] = [true, true, true, true]; }
+export function learn(s, herb) {
+  s.notebook.known[herb] = [true, true, true, true];
+  s.today?.learned?.push(`herb:${herb}`);   // the night ledger names what was learned today
+}
 /** @param {GameState} s @param {string} herb */
 export const knows = (s, herb) => !!s.notebook.known[herb];
 
@@ -44,8 +47,21 @@ export const EFFECTS = {
   },
   /** learnRule: rule id. A brewing rule goes into the Notebook. */
   learnRule: (s, rule) => {
-    if (!s.notebook.rules.includes(rule)) s.notebook.rules.push(rule);
+    if (!s.notebook.rules.includes(rule)) { s.notebook.rules.push(rule); s.today?.learned?.push(`rule:${rule}`); }
     return {};
+  },
+  /** harvestGarden: true. Every planted plot gives its herb, in plot order (interim: no growth days yet, design/night.md). */
+  harvestGarden: (s, _, ctx) => EFFECTS.addHerbs(s, s.garden.map(p => p.plant).filter(p => p != null), ctx),
+  /** addPlot: "chosen". A new garden plot, planted with the seed the player chose (ctx.choice). */
+  addPlot: (s, _, ctx) => {
+    const seed = /** @type {string} */ (ctx.choice);
+    s.garden.push({ plant: seed, age: 0, tended: false });
+    return { herb: herbName(seed) };
+  },
+  /** donate: regular id. A festival donation linked to that regular, remembered for the finale. */
+  donate: (s, who) => {
+    s.donations.push(who);
+    return { who: CUSTOMERS[who].name };
   },
 };
 

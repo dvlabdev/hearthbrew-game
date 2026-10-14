@@ -40,7 +40,7 @@ test('v2 -> v3: relationships cover exactly the regulars, and Bramble keeps thei
   const g = newGame(5);
   const v2 = { ...g, saveVersion: 2, relationships: { marla: 2, pell: 1, fennick: 0, bramble: 4 } };
   const m = migrate(v2);
-  assert.equal(m.saveVersion, 3);
+  assert.equal(m.saveVersion, SAVE_VERSION);
   assert.deepEqual(Object.keys(m.relationships).sort(), [...REGULARS].sort());
   assert.equal(m.relationships.marla, 2);
   assert.equal(m.relationships.bramble, 4, 'Bramble is a regular (GDD section 6)');
@@ -90,4 +90,14 @@ test('a day in progress that refers to a missing id restarts from its morning', 
   assert.equal(r?.today?.phase, 'morning');
   assert.equal(r?.day, g.day);
   assert.ok(!r?.today?.finds.includes('moonmoss'));
+});
+
+test('v3 -> v4: plots get their starting plants, donations start empty', () => {
+  const g = newGame(7);
+  const v3 = { ...g, saveVersion: 3, garden: [{ plant: null, age: 0, tended: false }, { plant: null, age: 0, tended: false }] };
+  delete (/** @type {any} */ (v3)).donations;
+  const m = migrate(v3);
+  assert.equal(m.saveVersion, 4);
+  assert.deepEqual(m.garden.map(p => p.plant), ['chamomile', 'mint']);
+  assert.deepEqual(m.donations, []);
 });

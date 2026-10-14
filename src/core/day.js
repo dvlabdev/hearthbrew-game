@@ -10,6 +10,7 @@ import { t as tr, fill } from '../content/strings.js';
 import { genDay, pickedItem, resolveShop, night, slotsUsed } from './haul.js';
 import { stream, pick, pickWeighted, shuffle } from './rng.js';
 import { applyEffects, CONDITIONS, knows, learn, marketHerbs, marketPrice, teachesSomething } from './effects.js';
+import { buy } from './ledger.js';
 
 export { knows };
 
@@ -64,7 +65,7 @@ export function startDay(state) {
   });
   s.today = {
     phase: 'morning', weather: d.weather, offer, card: null, featured: d.featured, others: d.others, finds: d.finds, picks: [],
-    gained: [], note: '', event: null, shop: null, wilted: [], startCoins: s.coins,
+    gained: [], note: '', event: null, shop: null, wilted: [], startCoins: s.coins, learned: [],
   };
   return s;
 }
@@ -199,16 +200,22 @@ export const PHASES = {
  *   | { type: 'takeHaul', picks: string[] }
  *   | { type: 'resolveEvent', choice: number }
  *   | { type: 'openShop' }
- *   | { type: 'sleep' }} Action
+ *   | { type: 'sleep' }
+ *   | { type: 'buy', item: string, seed?: string }} Action
  */
 
-/** Player actions: the phase each is allowed in, and what it does. @type {Record<Action['type'], { from: Today['phase'], run: (s: GameState, a: any) => GameState }>} */
+/**
+ * Player actions: the phase each is allowed in, and what it does. `stay`: the action keeps the phase (a purchase at night);
+ * every other action must move along PHASES.
+ * @type {Record<Action['type'], { from: Today['phase'], stay?: boolean, run: (s: GameState, a: any) => GameState }>}
+ */
 export const ACTIONS = {
   chooseCard: { from: 'morning', run: (s, a) => chooseCard(s, a.index, { buy: a.buy }) },
   takeHaul: { from: 'haul', run: (s, a) => applyHaul(s, a.picks) },
   resolveEvent: { from: 'event', run: (s, a) => resolveEvent(s, a.choice) },
   openShop: { from: 'shop', run: s => endDay(runShop(s)) },   // the interim shop serves itself, then night falls
   sleep: { from: 'night', run: nextDay },
+  buy: { from: 'night', stay: true, run: (s, a) => buy(s, a.item, { seed: a.seed }) },   // the night ledger (design/night.md)
 };
 
 /** The one entry point for the UI, bots and replays: apply a player action. @param {GameState} state @param {Action} action @returns {GameState} */
@@ -219,8 +226,18 @@ export function dispatch(state, action) {
   if (!phase || phase !== a.from) throw new Error(`${action.type} is not allowed in phase ${phase ?? '(no day)'}`);
   const next = a.run(state, action);
   const to = /** @type {Today['phase']} */ (next.today?.phase);
-  if (!PHASES[phase].includes(to)) throw new Error(`${action.type} led from ${phase} to ${to}, which PHASES does not allow`);
+  if (a.stay ? to !== phase : !PHASES[phase].includes(to)) throw new Error(`${action.type} led from ${phase} to ${to}, which ${a.stay ? 'should stay put' : 'PHASES does not allow'}`);
   return next;
+}
+
+/**
+ * Tomorrow's featured customer, for the night's teaser (design/night.md). Exact: it runs tomorrow's weather and
+ * customer streams, which don't depend on the shelf, so it's who startDay will produce tomorrow. Nothing is stored.
+ * @param {GameState} s
+ */
+export function tomorrow(s) {
+  const t = { seed: s.seed, day: s.day + 1 };
+  return genDay({ weather: stream(t, 'day.weather'), customers: stream(t, 'day.customers'), finds: stream(t, 'day.finds') }, s.shelf, t.day).featured;
 }
 
 /** Record a phase duration (debug metrics). @param {GameState} state @param {string} phase @param {number} ms */

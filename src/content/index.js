@@ -27,7 +27,9 @@ export const INTENSITY = /** @type {{words: string[], value: number}[]} */ (/** 
 export const TIERS = /** @type {{tier: number, days: number[], traits: number[], tol: number, avoid?: boolean}[]} */ (/** @type {unknown} */ (data.tiers));
 export const MORNING = /** @type {{cards: Record<string, import('./types.js').CardDef>, trails: string[]}} */ (/** @type {unknown} */ (data.morning));
 export const EVENTS = /** @type {import('./types.js').Events} */ (/** @type {unknown} */ (data.events));
-export const START = /** @type {{days: number, coins: number, shelf: import('./types.js').StockItem[], garden: number, owned: string[]}} */ (/** @type {unknown} */ (data.start));
+export const START = /** @type {{days: number, coins: number, shelf: import('./types.js').StockItem[], garden: string[], owned: string[]}} */ (/** @type {unknown} */ (data.start));
+/** The night ledger's catalogue (design/night.md). */
+export const LEDGER = /** @type {{ items: import('./types.js').LedgerItem[] }} */ (/** @type {unknown} */ (data.ledger));
 export const PLANTS = /** @type {Record<string, {name: string}>} */ (data.plants);
 export const ALIASES = /** @type {Record<'herb' | 'customer', Record<string, string>>} */ (data.aliases);
 /** The base used when none is chosen (spring water). */

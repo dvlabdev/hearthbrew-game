@@ -63,6 +63,18 @@
 
 /** @typedef {{ herb: string, nights: number, units?: number, value?: number, prime?: boolean, poor?: boolean }} StockItem */
 
+/**
+ * @typedef {object} LedgerItem     something the night ledger sells (design/night.md)
+ * @property {string} id
+ * @property {string} name
+ * @property {'garden' | 'donation' | 'station' | 'tool' | 'upgrade'} kind
+ * @property {number} price
+ * @property {number} from           the first day it can be bought
+ * @property {string} [requires]     another item that must be bought first
+ * @property {Effect[]} [effects]    what it does now (exactly one of effects / soon)
+ * @property {string} [soon]         a strings key: why it waits (e.g. for the brewing bench)
+ */
+
 /** @typedef {Record<string, any>} Effect  one effect: { name: argument }, e.g. { "coins": 8 } (src/core/effects.js) */
 
 /**

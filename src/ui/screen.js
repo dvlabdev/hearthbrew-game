@@ -14,7 +14,8 @@ import { dispatch } from '../core/day.js';
  * @property {Record<string, any>} local            its UI state
  * @property {(patch: Record<string, any>) => void} set   update the UI state and re-render in place
  * @property {(next: GameState) => void} go         hand a new game state to the game (saves, routes by phase)
- * @property {(a: Action) => void} act              go(dispatch(s, a))
+ * @property {(a: Action) => void} act              go(dispatch(s, a)): a new screen
+ * @property {(a: Action) => void} apply            dispatch an action that stays on this screen (a purchase): save, re-render in place
  * @property {(text: string) => void} say           a short screen-reader announcement
  * @property {HTMLElement} root
  */
@@ -31,7 +32,7 @@ export const LONG_PRESS = 450;
  * Mount a screen on `root` (replacing whatever screen was there). Listeners are delegated on the root,
  * so re-renders never re-wire anything.
  * @param {HTMLElement} root @param {Screen} screen @param {GameState} s @param {(next: GameState) => void} go
- * @param {{ status?: HTMLElement | null }} [opts]
+ * @param {{ status?: HTMLElement | null, save?: (s: GameState) => void }} [opts]
  * @returns {Ctx}
  */
 export function mount(root, screen, s, go, opts = {}) {
@@ -40,7 +41,8 @@ export function mount(root, screen, s, go, opts = {}) {
     s, root, go,
     local: screen.init ? screen.init(s) : {},
     set: patch => { ctx.local = { ...ctx.local, ...patch }; render(); },
-    act: a => go(dispatch(s, a)),
+    act: a => go(dispatch(ctx.s, a)),
+    apply: a => { ctx.s = dispatch(ctx.s, a); opts.save?.(ctx.s); render(); },
     say: text => { if (opts.status) { opts.status.textContent = ''; opts.status.textContent = text; } },
   };
   const render = () => morph(root, screen.view(ctx.s, ctx.local));

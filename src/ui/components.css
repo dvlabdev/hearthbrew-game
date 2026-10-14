@@ -125,3 +125,14 @@
 .banner{margin:0;border-radius:var(--radius-card);overflow:hidden;background:var(--card-fill);border:var(--card-edge);box-shadow:var(--elev-card)}
 .banner svg{display:block;width:100%;height:96px}
 .banner figcaption{padding:var(--s-3) var(--s-4)}
+
+/* ---------- night ledger (design/night.md) ---------- */
+.ledger{display:grid;gap:var(--s-4)}
+.ledger h2{font:var(--w-display) var(--fs-1)/var(--lh-tight) var(--f-display)}
+.ledger h2:focus{outline:none}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s-3);align-items:center;padding-top:var(--s-2);border-top:1px solid var(--c-line)}
+.lrow > span:first-child{overflow-wrap:anywhere}
+.lrow.soon{color:var(--c-muted)}
+.lrow.soon span:last-child{display:inline-flex;align-items:center;gap:var(--s-1);font-variant-numeric:tabular-nums}
+.lrow svg,.sheet .btn svg{width:var(--fs-1);height:var(--fs-1)}
+.learned{margin:0;padding-left:var(--s-5);display:grid;gap:var(--s-1)}

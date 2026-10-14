@@ -1,7 +1,7 @@
 // Game state: a plain, serializable object. Systems are pure functions over it.
 import { VERSION, REGULARS, START } from '../content/index.js';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 
 /**
  * @typedef {object} GameState
@@ -14,7 +14,8 @@ export const SAVE_VERSION = 3;
  * @property {{ plant: string | null, age: number, tended: boolean }[]} garden
  * @property {{ known: Record<string, boolean[]>, decoded: string[], rules: string[], recipes: string[] }} notebook
  * @property {Record<string, number>} relationships   regular id -> points (never decrease)
- * @property {string[]} owned                          upgrades and stations bought
+ * @property {string[]} owned                          upgrades, stations and ledger items bought
+ * @property {string[]} donations                      festival donations (the regular each is linked to)
  * @property {Today | null} today                      the day in progress (design/morning.md)
  * @property {number} lastSpotDay                      Spot the herb never runs two days in a row
  * @property {Record<string, number[]>} log           phase durations in ms (debug metrics)
@@ -39,6 +40,7 @@ export const SAVE_VERSION = 3;
  * @property {{ coins: number, served: boolean[] } | null} shop
  * @property {string[]} wilted
  * @property {number} startCoins
+ * @property {string[]} [learned]                    herb:<id> / rule:<id> learned today (the night ledger)
  */
 
 /** @param {number} [seed] @returns {GameState} */
@@ -50,10 +52,11 @@ export function newGame(seed = 1) {
     day: 1,
     coins: START.coins,
     shelf: START.shelf.map(s => ({ ...s })),
-    garden: Array.from({ length: START.garden }, () => ({ plant: null, age: 0, tended: false })),
+    garden: START.garden.map(plant => ({ plant, age: 0, tended: false })),
     notebook: { known: {}, decoded: [], rules: [], recipes: [] },
     relationships: Object.fromEntries(REGULARS.map(id => [id, 0])),
     owned: START.owned.slice(),
+    donations: [],
     today: null,
     lastSpotDay: -9,
     log: {},

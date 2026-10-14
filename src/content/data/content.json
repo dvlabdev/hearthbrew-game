@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "start": {
     "days": 20,
     "coins": 0,
@@ -21,7 +21,10 @@
         "nights": 3
       }
     ],
-    "garden": 2,
+    "garden": [
+      "chamomile",
+      "mint"
+    ],
     "owned": [
       "cauldron",
       "shelf",
@@ -938,10 +941,7 @@
         "art": "ingredient:chamomile",
         "effects": [
           {
-            "addHerbs": [
-              "chamomile",
-              "mint"
-            ]
+            "harvestGarden": true
           }
         ],
         "note": "note.garden"
@@ -1165,6 +1165,203 @@
     "night.noWilt": "Nothing wilted tonight.",
     "night.finale": "Midsummer Eve is here. (The festival arrives in a later build.)",
     "night.left": "{n} days to Midsummer Eve.",
-    "night.sleep": "Sleep"
+    "night.sleep": "Sleep",
+    "ledger.heading": "The ledger",
+    "ledger.notebook": "Notebook today",
+    "ledger.learnedHerb": "{herb} brings {trait}.",
+    "ledger.learnedRule": "{text}",
+    "ledger.nothingLearned": "Nothing new in the Notebook today.",
+    "ledger.coins": "Coins on hand",
+    "ledger.buyable": "Garden & festival",
+    "ledger.buy": "Buy · {price}",
+    "ledger.poor": "Needs {price} coins",
+    "ledger.owned": "Done",
+    "ledger.nothingNow": "Nothing to buy tonight.",
+    "ledger.soonHeading": "Coming with the brewing bench",
+    "ledger.soon.brewing": "Arrives with the brewing bench",
+    "ledger.next": "Next: {item} on day {day}.",
+    "ledger.donations": "For the bonfire so far: {list}.",
+    "ledger.seedHeading": "Plant a seed",
+    "ledger.seedHelp": "What should grow in the new plot?",
+    "ledger.cancel": "Not tonight",
+    "ledger.bought": "{item}: done. {coins} coins left.",
+    "ledger.planted": "{herb} planted. {coins} coins left.",
+    "tomorrow.heading": "Tomorrow at the shop"
+  },
+  "ledger": {
+    "items": [
+      {
+        "id": "plot3",
+        "name": "Garden plot 3",
+        "kind": "garden",
+        "price": 40,
+        "from": 2,
+        "effects": [
+          {
+            "addPlot": "chosen"
+          }
+        ]
+      },
+      {
+        "id": "plot4",
+        "name": "Garden plot 4",
+        "kind": "garden",
+        "price": 60,
+        "from": 8,
+        "effects": [
+          {
+            "addPlot": "chosen"
+          }
+        ],
+        "requires": "plot3"
+      },
+      {
+        "id": "plot5",
+        "name": "Garden plot 5",
+        "kind": "garden",
+        "price": 90,
+        "from": 11,
+        "effects": [
+          {
+            "addPlot": "chosen"
+          }
+        ],
+        "requires": "plot4"
+      },
+      {
+        "id": "plot6",
+        "name": "Garden plot 6",
+        "kind": "garden",
+        "price": 120,
+        "from": 13,
+        "effects": [
+          {
+            "addPlot": "chosen"
+          }
+        ],
+        "requires": "plot5"
+      },
+      {
+        "id": "donate-wood",
+        "name": "Bonfire wood",
+        "kind": "donation",
+        "price": 50,
+        "from": 14,
+        "effects": [
+          {
+            "donate": "pell"
+          }
+        ]
+      },
+      {
+        "id": "donate-cakes",
+        "name": "Midsummer cakes",
+        "kind": "donation",
+        "price": 50,
+        "from": 14,
+        "effects": [
+          {
+            "donate": "marla"
+          }
+        ]
+      },
+      {
+        "id": "donate-garlands",
+        "name": "Lantern garlands",
+        "kind": "donation",
+        "price": 50,
+        "from": 15,
+        "effects": [
+          {
+            "donate": "fennick"
+          }
+        ]
+      },
+      {
+        "id": "donate-blessing",
+        "name": "Hearth blessing",
+        "kind": "donation",
+        "price": 50,
+        "from": 15,
+        "effects": [
+          {
+            "donate": "bramble"
+          }
+        ]
+      },
+      {
+        "id": "cauldron4",
+        "name": "Cauldron: 4th slot",
+        "kind": "upgrade",
+        "price": 60,
+        "from": 3,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "kettle",
+        "name": "Kettle",
+        "kind": "station",
+        "price": 80,
+        "from": 4,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "shelf12",
+        "name": "Shelf: 6 more spaces",
+        "kind": "upgrade",
+        "price": 40,
+        "from": 4,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "drying-rack",
+        "name": "Drying rack",
+        "kind": "station",
+        "price": 50,
+        "from": 5,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "compost",
+        "name": "Compost bin",
+        "kind": "station",
+        "price": 30,
+        "from": 5,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "trowel",
+        "name": "Trowel",
+        "kind": "tool",
+        "price": 45,
+        "from": 7,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "salve-pot",
+        "name": "Salve pot",
+        "kind": "station",
+        "price": 120,
+        "from": 9,
+        "soon": "ledger.soon.brewing"
+      },
+      {
+        "id": "cauldron5",
+        "name": "Cauldron: 5th slot",
+        "kind": "upgrade",
+        "price": 180,
+        "from": 10,
+        "soon": "ledger.soon.brewing",
+        "requires": "cauldron4"
+      },
+      {
+        "id": "lantern",
+        "name": "Lantern",
+        "kind": "tool",
+        "price": 100,
+        "from": 12,
+        "soon": "ledger.soon.brewing"
+      }
+    ]
   }
 }

@@ -4,7 +4,7 @@
 const RARITIES = ['common', 'uncommon', 'rare'];
 // The behaviour vocabulary content may use. Kept in sync with the core registries by tests/effects.test.js.
 export const VOCAB = {
-  effects: ['coins', 'friend', 'addHerbs', 'learnHerb', 'learnRule'],   // src/core/effects.js EFFECTS
+  effects: ['coins', 'friend', 'addHerbs', 'learnHerb', 'learnRule', 'harvestGarden', 'addPlot', 'donate'],   // src/core/effects.js EFFECTS
   conditions: ['canBuyHerb', 'unknownHerb'],                             // src/core/effects.js CONDITIONS
   cardActions: ['haul', 'buyHerb'],                                      // src/core/day.js CARD_ACTIONS
   eventKinds: ['spot', 'encounter', 'discovery'],                        // src/core/day.js EVENT_KINDS
@@ -38,6 +38,9 @@ export function validateContent(c) {
       else if (name === 'addHerbs' && !(Array.isArray(arg) && arg.length && arg.every(isHerb))) err(w, `addHerbs needs foraged herbs, got ${JSON.stringify(arg)}`);
       else if (name === 'learnHerb' && arg !== 'unknown' && !isHerb(arg)) err(w, `"${arg}" is not a foraged herb`);
       else if (name === 'learnRule' && !ruleIds.includes(arg)) err(w, `unknown rule "${arg}"`);
+      else if (name === 'harvestGarden' && arg !== true) err(w, 'harvestGarden takes true');
+      else if (name === 'addPlot' && arg !== 'chosen') err(w, 'addPlot takes "chosen" (the seed is chosen when buying)');
+      else if (name === 'donate' && !CUST[arg]?.regular) err(w, `donate needs a regular, got "${arg}"`);
     });
   };
   const dupes = (/** @type {string} */ where, /** @type {string[]} */ ids) => {
@@ -94,7 +97,25 @@ export function validateContent(c) {
 
   const st = c.start || {};
   if (!(Number.isInteger(st.days) && st.days > 0)) err('start.days', 'must be a positive integer');
-  if (!(Number.isInteger(st.garden) && st.garden >= 0)) err('start.garden', 'must be a non-negative integer');
+  if (!Array.isArray(st.garden)) err('start.garden', 'must be the list of the starting plots\' plants');
+  else for (const h of st.garden) if (!isHerb(h) || !ING[h].grow) err('start.garden', `"${h}" can't grow in a garden`);
+
+  // The night ledger (design/night.md)
+  const KINDS = ['garden', 'donation', 'station', 'tool', 'upgrade'];
+  const items = c.ledger?.items || [];
+  const itemIds = items.map((/** @type {any} */ it) => it.id);
+  dupes('ledger.items', itemIds);
+  for (const it of items) {
+    const w = `ledger.items.${it.id}`;
+    if (!it.name) err(w, 'missing name');
+    if (!KINDS.includes(it.kind)) err(w, `kind must be one of ${KINDS.join(', ')}`);
+    if (!(Number.isInteger(it.price) && it.price > 0)) err(w, 'price must be a positive integer');
+    if (!(Number.isInteger(it.from) && it.from >= 1)) err(w, 'from must be a day >= 1');
+    if (it.requires && !itemIds.includes(it.requires)) err(w, `requires unknown item "${it.requires}"`);
+    if (!!it.effects === !!it.soon) err(w, 'needs exactly one of effects (works now) or soon (waits)');
+    if (it.effects) effects(`${w}.effects`, it.effects);
+    if (it.soon && !Object.hasOwn(strings, it.soon)) err(`${w}.soon`, `no string "${it.soon}"`);
+  }
   for (const s of st.shelf || []) {
     if (!isHerb(s.herb)) err('start.shelf', `"${s.herb}" is not a foraged herb`);
     if (!(s.nights > 0)) err('start.shelf', `"${s.herb}" needs nights > 0`);

@@ -31,7 +31,7 @@
 | 1 | **Morning** | Sees the weather and *today's* featured customer (teased last night). Chooses 1 of 3 cards | 5 s | Morning ✅ built |
 | 1a | ↳ Haul + event (expedition only) | Fills the basket (5 slots), then one event card | 30–45 s | Haul ✅, Event ✅ |
 | 2 | **Prepare & Sell** | Customers arrive with riddles. For each: pick ingredients from the shelf, Simmer/Boil, brew, serve. Extra bottles from a batch go to the shelf | 3–6 min | Brewing bench + counter (to build) |
-| 3 | **Rest, with the ledger** (D4) | Recap (takings, relationships, what was learned), wilting; then the **ledger**: upgrades and stations, festival donations, new Notebook entries; **tomorrow's teaser**; sleep | 40–100 s | Night ✅ (needs the ledger and the teaser) |
+| 3 | **Rest, with the ledger** (D4, built: `design/night.md`) | Recap (takings, relationships, what was learned), wilting; then the **ledger**: upgrades and stations, festival donations, new Notebook entries; **tomorrow's teaser**; sleep | 40–100 s | Night ✅ (needs the ledger and the teaser) |
 
 Improve is not its own phase (D4): it lives on the night screen, so a day has three screens after the morning (haul and event aside). The phase table in code (`PHASES`) grows from `morning → haul → event → shop → night` to `morning → haul → event → sell → night`.
 
@@ -121,7 +121,7 @@ All eight went to the recommended option. The alternative is kept for the record
 ## 10. Next build steps (each has a gate)
 1. ✅ **Regulars fix (D1):** done 2026-10-14 (§9b).
 2. **The sell phase and brewing bench** (§3–4): needs the **prototype B verdict** (the riddle and Notebook design).
-3. **The night ledger and tomorrow's teaser** (D4, D6).
+3. ✅ **The night ledger and tomorrow's teaser** (D4, D6): done 2026-10-14 (`design/night.md`).
 4. **Day 1 script and unlock pacing** (D5, D7).
 5. **Balance bot-play** (§8).
 6. **Art production** for the new screens and characters: needs the **Hearthlight spike rating**.

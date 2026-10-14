@@ -11,7 +11,8 @@ M1 setup is done (core, tests, sims, art library, shell). **The code audit is cl
 - **Art direction:** Hearthlight v2 is locked (`design/visual/04d-direction.md`); the validation spike awaits the user's rating, which gates art production.
 - **Built:**
   - the design system (`src/ui/tokens.css`, `components.css`, `?components`);
-  - the playable mornings with an interim shop (`design/morning.md`).
+  - the playable mornings with an interim shop (`design/morning.md`);
+  - the night ledger and tomorrow's teaser (`design/night.md`): garden plots and festival donations can be bought; the rest waits for the brewing bench.
 - **Gated:** the sell phase, brewing, riddle and Notebook screens wait for the user's prototype B verdict.
 - **Done 2026-10-14:** the regulars fix (Bramble is the 4th regular from day 8, Tamsin a walk-in; `design/game-flow.md` §9b).
 - **Paths:** throwaway prototypes go in `prototypes/`; content lives in `src/content/data/content.json`.

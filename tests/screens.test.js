@@ -27,6 +27,10 @@ function cases() {
   out.push({ name: 'shop', screen: SCREENS.shop, s: resolved });
   const night = dispatch(resolved, { type: 'openShop' });
   out.push({ name: 'night', screen: SCREENS.night, s: night });
+  // the night ledger: day 2 with coins and the seed sheet open; day 14 with donations open and one given
+  const rich = { ...night, day: 2, coins: 200 };
+  out.push({ name: 'night ledger + seed sheet', screen: SCREENS.night, s: rich, local: { seedFor: 'plot3' } });
+  out.push({ name: 'night ledger, festival', screen: SCREENS.night, s: { ...night, day: 14, coins: 300, donations: ['pell'], owned: [...night.owned, 'plot3'] } });
   // a morning with the market sheet open
   for (let k = 1; k < 80; k++) {
     const r = startDay({ ...newGame(k), coins: 60 });
@@ -70,4 +74,14 @@ test('content text is escaped on screen', () => {
     assert.ok(out.includes('&lt;b&gt;&quot;Wren&#39;s&quot; &amp; co&lt;/b&gt;'), 'escaped');
     assert.ok(!out.includes(`<b>"Wren's"`), 'not raw');
   } finally { CUSTOMERS[who].clue = before; }
+});
+
+test("the night shows the ledger and tomorrow's customer", () => {
+  const c = cases().find(x => x.name === 'night ledger + seed sheet');
+  if (!c) throw new Error('missing case');
+  const out = render(c);
+  for (const needle of ['The ledger', 'Garden plot 3', 'Buy · 40', 'Next: Cauldron: 4th slot on day 3.', 'Tomorrow at the shop', 'Plant a seed', 'data-seed="chamomile"'])
+    assert.ok(out.includes(needle), needle);
+  const fest = render(/** @type {any} */ (cases().find(x => x.name === 'night ledger, festival')));
+  assert.ok(fest.includes('Bonfire wood') && fest.includes('For the bonfire so far: Pell.') && fest.includes('Coming with the brewing bench'));
 });
